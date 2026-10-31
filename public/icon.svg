@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Metallic Chrome Gradient -->
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#e2e8f0" />
+      <stop offset="65%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+
+    <!-- Electric Cyan Gradient for FORZON -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#00d2ff" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <!-- Cyan Glow -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Deep Black Texture Base -->
+  <rect width="512" height="512" fill="#090d16" />
+
+  <!-- FORZON Squircle Base with Cyan Rim -->
+  <rect x="56" y="56" width="400" height="400" rx="96" fill="url(#bgGrad)" stroke="#00d2ff" stroke-width="6" filter="url(#neonGlow)" />
+  <rect x="62" y="62" width="388" height="388" rx="90" fill="none" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Barbell Plates & Shaft Behind Logo -->
+  <g transform="translate(256, 256)">
+    <!-- Central Barbell Bar -->
+    <rect x="-170" y="-8" width="340" height="16" rx="6" fill="url(#chromeGrad)" opacity="0.9" />
+
+    <!-- Left Plate Stack -->
+    <rect x="-190" y="-55" width="12" height="110" rx="5" fill="url(#chromeGrad)" />
+    <rect x="-174" y="-70" width="16" height="140" rx="6" fill="url(#chromeGrad)" />
+    <rect x="-154" y="-85" width="20" height="170" rx="8" fill="url(#chromeGrad)" />
+    <rect x="-130" y="-30" width="10" height="60" rx="4" fill="#64748b" />
+
+    <!-- Right Plate Stack -->
+    <rect x="120" y="-30" width="10" height="60" rx="4" fill="#64748b" />
+    <rect x="134" y="-85" width="20" height="170" rx="8" fill="url(#chromeGrad)" />
+    <rect x="158" y="-70" width="16" height="140" rx="6" fill="url(#chromeGrad)" />
+    <rect x="178" y="-55" width="12" height="110" rx="5" fill="url(#chromeGrad)" />
+  </g>
+
+  <!-- FORZON Dynamic Aerodynamic F Emblem -->
+  <g transform="translate(256, 256)">
+    <!-- Drop Shadow / Depth -->
+    <path d="M-60 90 L-10 -30 L55 -30 C85 -30 95 -55 75 -85 L45 -85 C65 -65 50 -50 20 -50 L-25 -50 L-40 -15 L10 -15 C25 -15 35 -25 25 -35 L-5 -35 C5 -30 0 -22 -15 -22 L-50 90 Z" fill="#000000" opacity="0.6" transform="translate(4, 6)" />
+
+    <!-- Top White Wing of 'F' -->
+    <path d="M-45 80 L-15 0 C-10 -20 -5 -35 15 -60 C35 -85 70 -85 85 -85 C60 -75 40 -65 30 -50 L75 -50 C85 -50 90 -58 85 -65 L88 -65 C95 -50 85 -35 55 -35 L10 -35 L-25 45 C-35 65 -40 75 -45 80 Z" fill="url(#chromeGrad)" />
+
+    <!-- Bottom Electric Cyan Wing of 'F' -->
+    <path d="M-35 80 C-25 50 -10 10 15 -10 C35 -25 65 -25 75 -25 C55 -15 35 -5 20 10 C5 25 -15 55 -25 75 Z" fill="url(#cyanGrad)" filter="url(#neonGlow)" />
+  </g>
+</svg>

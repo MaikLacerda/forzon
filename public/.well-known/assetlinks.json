@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.forzon.fitness.app",
+      "sha256_cert_fingerprints": [
+        "14:6D:E9:7D:6F:04:8D:7E:24:D7:93:47:EC:E5:41:A5:68:55:1A:1D:64:CA:0E:0E:64:D2:C7:E3:6C:53:71:6C"
+      ]
+    }
+  }
+]

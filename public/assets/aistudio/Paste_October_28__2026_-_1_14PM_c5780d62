@@ -1,0 +1,868 @@
+# PROMPT MASTER — DESENVOLVIMENTO DE UMA PLATAFORMA FITNESS INTELIGENTE
+
+## 1. VISÃO GERAL DO PROJETO
+
+Desenvolva um aplicativo fitness completo, moderno, multiplataforma e escalável, que combine inteligência artificial, musculação, treinamento funcional, corrida, ciclismo, nutrição, monitoramento de desempenho, gamificação e rede social esportiva.
+
+O objetivo é criar uma plataforma que funcione como um ecossistema de saúde e desempenho pessoal, ajudando cada usuário a planejar seus treinos, organizar sua alimentação, registrar atividades, acompanhar resultados e interagir com uma comunidade fitness.
+
+O aplicativo deverá ter uma experiência de uso premium, ser intuitivo para iniciantes e suficientemente completo para praticantes avançados.
+
+Não desenvolva apenas um protótipo visual. Estruture um produto funcional, com arquitetura organizada, autenticação, persistência de dados, APIs, banco de dados, regras de negócio, tratamento de erros e integrações preparadas para produção.
+
+Nome provisório do projeto: ATHLYNX.
+
+O nome deverá ser facilmente substituível por uma configuração de marca.
+
+## 2. PLATAFORMAS E TECNOLOGIAS
+
+Desenvolva o produto considerando:
+
+- Aplicativo mobile para Android e iOS.
+- Interface web responsiva para acesso pelo navegador.
+- Backend com APIs seguras.
+- Banco de dados relacional.
+- Armazenamento de imagens, vídeos e arquivos.
+- Serviço de inteligência artificial integrado por API.
+- Sistema de notificações push.
+- Integração com GPS e sensores do dispositivo.
+- Arquitetura preparada para crescimento de usuários e novas funcionalidades.
+
+Stack tecnológica sugerida:
+
+- Mobile: React Native com Expo e TypeScript.
+- Web: Next.js com React e TypeScript.
+- Backend: NestJS com Node.js e TypeScript.
+- Banco de dados: PostgreSQL.
+- ORM: Prisma.
+- Cache e filas: Redis, quando necessário.
+- Armazenamento de mídia: serviço compatível com S3.
+- Autenticação: sessões seguras ou tokens de curta duração com renovação.
+- Mapas: Mapbox ou Google Maps.
+- IA: integração modular com provedores de modelos de linguagem.
+- Documentação das APIs: Swagger/OpenAPI.
+- Testes: Jest, testes de integração e ferramentas de automação mobile/web.
+
+Essas tecnologias são sugestões. Antes de iniciar, avalie a compatibilidade entre elas e priorize uma arquitetura sustentável, segura e de fácil manutenção.
+
+Organize o código em módulos independentes, com separação clara entre interface, regras de negócio, persistência e integrações externas.
+
+## 3. IDENTIDADE VISUAL E EXPERIÊNCIA DO USUÁRIO
+
+Crie uma identidade visual esportiva, tecnológica e premium.
+
+Direção visual sugerida:
+
+- Tema escuro como padrão.
+- Preto, grafite e cinza como cores de base.
+- Verde-lima ou azul-elétrico como cor de destaque.
+- Tipografia moderna e de excelente legibilidade.
+- Gráficos minimalistas de desempenho.
+- Cards com cantos arredondados.
+- Animações leves e transições fluidas.
+- Fotografias esportivas de alta qualidade.
+- Ícones consistentes.
+- Interface adaptada para uso durante os exercícios.
+
+Permita futuramente um tema claro.
+
+A experiência deve ser mobile-first, com botões grandes, navegação simples e ações essenciais acessíveis durante o treino.
+
+Não copie a interface de aplicativos existentes. Utilize referências de mercado apenas para compreender padrões de usabilidade e desenvolver uma identidade própria.
+
+## 4. CADASTRO E ONBOARDING INTELIGENTE
+
+No primeiro acesso, apresente um assistente de configuração que faça perguntas progressivas, em linguagem natural.
+
+O usuário deverá responder:
+
+### Dados pessoais e físicos
+
+- Nome ou apelido.
+- Data de nascimento ou faixa etária.
+- Altura.
+- Peso atual.
+- Sexo biológico, somente quando relevante para os cálculos solicitados, com explicação e opção adequada de privacidade.
+- Objetivo principal.
+- Objetivos secundários.
+- Nível de experiência.
+- Restrições de mobilidade ou lesões relevantes para o treinamento.
+- Preferências e limitações alimentares.
+
+### Objetivos
+
+Ofereça opções como:
+
+- Hipertrofia e ganho de massa muscular.
+- Emagrecimento.
+- Redução de gordura com preservação de massa muscular.
+- Condicionamento físico.
+- Aumento de força.
+- Resistência cardiovascular.
+- Melhoria de mobilidade.
+- Saúde e qualidade de vida.
+- Preparação para corrida ou ciclismo.
+- Desempenho esportivo.
+
+Permita selecionar mais de um objetivo e definir prioridades.
+
+### Rotina de treinamento
+
+Pergunte:
+
+- Quantos dias por semana a pessoa pode treinar?
+- Quanto tempo possui por sessão?
+- Onde costuma treinar?
+- Treina em academia, em casa, ao ar livre ou em mais de um ambiente?
+- Quais equipamentos possui?
+- Quais atividades pratica?
+- Quantos anos ou meses de experiência possui?
+- Quais exercícios prefere?
+- Quais exercícios deseja evitar?
+- Existe algum desconforto ou restrição que exija adaptação?
+- Qual é a disponibilidade semanal?
+
+### Alimentação e rotina
+
+Pergunte:
+
+- Quantas refeições costuma realizar.
+- Quais alimentos prefere.
+- Quais alimentos não consome.
+- Possui alergias ou intolerâncias?
+- Segue alguma preferência alimentar?
+- Qual é o orçamento aproximado para alimentação?
+- Quanto tempo possui para cozinhar?
+- Como é sua rotina de trabalho, sono e descanso?
+
+### Biotipo e composição corporal
+
+Não utilize o conceito de biotipo corporal como determinante científico para definir o treino. Caso o usuário queira informar se se identifica como ectomorfo, mesomorfo ou endomorfo, aceite isso como informação opcional, sem tratá-la como diagnóstico ou regra de prescrição.
+
+Priorize medidas, histórico, capacidade física, preferências e evolução real.
+
+Ao finalizar, apresente um resumo editável do perfil e solicite confirmação antes de gerar o plano.
+
+## 5. ASSISTENTE DE INTELIGÊNCIA ARTIFICIAL
+
+Crie um assistente virtual integrado ao aplicativo, com linguagem natural e memória contextual das informações autorizadas pelo usuário.
+
+Ele deverá ser capaz de:
+
+- Interpretar objetivos e preferências.
+- Fazer perguntas complementares quando necessário.
+- Criar uma proposta de treinamento individualizado.
+- Sugerir um planejamento alimentar adequado ao objetivo.
+- Explicar o motivo das recomendações.
+- Responder dúvidas sobre exercícios, técnicas, descanso e nutrição.
+- Adaptar o plano conforme disponibilidade e evolução.
+- Considerar treinos concluídos, cargas, repetições, percepção de esforço e atividades cardiovasculares.
+- Identificar padrões de adesão e dificuldades de consistência.
+- Sugerir alternativas quando um equipamento não estiver disponível.
+- Reorganizar a semana quando um treino for perdido.
+- Enviar lembretes personalizados, respeitando as preferências de notificação.
+- Gerar resumos semanais de desempenho.
+- Ajudar o usuário a manter a consistência sem recorrer a mensagens humilhantes ou pressão excessiva.
+
+A IA deverá utilizar dados reais do sistema, e não inventar treinos realizados, métricas, horários disponíveis ou resultados.
+
+### Regras de funcionamento
+
+1. Coletar as informações necessárias antes de elaborar o plano.
+2. Identificar informações ausentes e fazer perguntas objetivas.
+3. Aplicar regras de negócio e validações antes de salvar recomendações.
+4. Diferenciar informações verificadas de estimativas.
+5. Permitir que o usuário aceite, rejeite ou edite sugestões.
+6. Registrar as versões dos planos para acompanhar mudanças.
+7. Não alterar silenciosamente um treino já iniciado.
+8. Nunca apresentar a IA como substituta de médico, nutricionista ou profissional de educação física.
+9. Não prescrever medicamentos, hormônios ou suplementos de risco.
+10. Encaminhar situações que exigem avaliação profissional para a orientação adequada.
+
+Implemente a IA por meio de serviços específicos, com ferramentas autorizadas para consultar perfil, criar planos, registrar atividades e obter estatísticas.
+
+A IA não deverá executar consultas arbitrárias no banco de dados nem modificar informações sem validação e autorização.
+
+## 6. ABA DE TREINAMENTO PERSONALIZADO
+
+Crie uma seção dedicada ao plano de treinamento.
+
+O sistema deverá gerar uma rotina semanal adaptada a:
+
+- Objetivo principal e secundário.
+- Experiência.
+- Disponibilidade.
+- Tempo por sessão.
+- Equipamentos.
+- Atividades praticadas.
+- Restrições informadas.
+- Histórico de treinamento.
+- Recuperação e adesão.
+- Preferências pessoais.
+
+Cada treino deverá conter:
+
+- Nome da sessão.
+- Grupo muscular ou modalidade.
+- Objetivo da sessão.
+- Aquecimento.
+- Lista de exercícios.
+- Séries.
+- Faixa de repetições ou duração.
+- Tempo de descanso.
+- Orientações técnicas.
+- Nível de esforço sugerido.
+- Alternativas de exercícios.
+- Estimativa de duração.
+- Observações sobre progressão e recuperação.
+
+O usuário poderá editar exercícios, reordenar a sessão, excluir movimentos, adicionar exercícios e solicitar alternativas à IA.
+
+### Biblioteca de exercícios
+
+Mantenha um catálogo estruturado com:
+
+- Nome do exercício.
+- Grupo muscular principal e secundário.
+- Equipamento necessário.
+- Modalidade.
+- Nível de dificuldade.
+- Instruções de execução.
+- Erros comuns.
+- Vídeo ou animação demonstrativa.
+- Variações e alternativas.
+- Restrições e precauções relevantes.
+
+Permita exercícios de musculação, peso corporal, treinamento funcional, mobilidade, corrida, ciclismo e outras modalidades.
+
+A seleção dos exercícios deve respeitar as características da modalidade. Não transforme atividades cardiovasculares em sessões de musculação nem aplique métricas de séries e repetições a todos os esportes.
+
+## 7. PAINEL DE TREINO AO VIVO
+
+Esta é uma das funcionalidades centrais do aplicativo.
+
+O usuário deverá conseguir abrir a sessão planejada e tocar em “Iniciar treino”.
+
+Ao iniciar, o sistema deverá:
+
+- Registrar o horário de início.
+- Exibir um cronômetro de duração total.
+- Mostrar o exercício atual.
+- Apresentar séries, repetições e descanso.
+- Permitir registrar carga e repetições realizadas.
+- Exibir a próxima etapa.
+- Permitir pular, editar ou substituir um exercício.
+- Salvar o progresso durante a sessão.
+- Recuperar o treino após interrupções ou fechamento do aplicativo.
+
+### Registro de séries
+
+Para cada série, permitir registrar:
+
+- Número da série.
+- Carga utilizada.
+- Repetições realizadas.
+- Duração, quando aplicável.
+- Percepção de esforço.
+- Observações pessoais.
+
+Ofereça suporte a aquecimento, séries efetivas, séries até a falha quando apropriado e exercícios unilaterais.
+
+### Cronômetro e intervalos
+
+Implemente:
+
+- Cronômetro total da sessão.
+- Cronômetro por exercício.
+- Temporizador de descanso entre séries.
+- Início e término dos intervalos.
+- Alertas sonoros ou vibração, conforme preferência.
+- Controles para pausar, retomar e ajustar o intervalo.
+- Opção de descanso automático após registrar uma série.
+- Contagem regressiva antes do início de um exercício, opcionalmente.
+
+O temporizador não deverá depender de um contador executado continuamente na interface. Utilize horários de referência e timestamps para calcular o tempo decorrido com precisão, inclusive após interrupções.
+
+### Finalização
+
+Ao concluir o treino, apresente um resumo com:
+
+- Duração.
+- Exercícios concluídos.
+- Séries e repetições.
+- Volume de treinamento estimado.
+- Cargas utilizadas.
+- Recordes pessoais.
+- Percepção de esforço.
+- Observações.
+- Comparação com sessões anteriores.
+- Opção de compartilhar a atividade na comunidade.
+
+O sistema deve distinguir um treino concluído de um treino cancelado ou interrompido.
+
+## 8. PROGRESSÃO INTELIGENTE DE CARGAS
+
+Implemente um sistema de acompanhamento da evolução.
+
+Considere:
+
+- Carga.
+- Repetições.
+- Séries.
+- Histórico por exercício.
+- Percepção de esforço.
+- Qualidade de execução informada.
+- Frequência de treinamento.
+- Recuperação e adesão.
+
+Quando o usuário atingir consistentemente os critérios definidos no plano, o sistema poderá sugerir uma progressão gradual de carga ou repetições.
+
+Não aumente automaticamente a carga sem considerar o contexto e a confirmação do usuário.
+
+Apresente gráficos de evolução por exercício, volume semanal, frequência e recordes pessoais.
+
+## 9. ABA DE ALIMENTAÇÃO E NUTRIÇÃO
+
+Crie uma área independente para planejamento alimentar.
+
+A IA deverá gerar uma proposta de alimentação coerente com o objetivo, rotina, preferências, orçamento, restrições e disponibilidade do usuário.
+
+O módulo poderá apresentar:
+
+- Organização diária das refeições.
+- Sugestões de alimentos e preparações.
+- Receitas com ingredientes e quantidades.
+- Estimativas nutricionais.
+- Lista de compras semanal.
+- Substituições de alimentos.
+- Registro das refeições consumidas.
+- Histórico de adesão.
+- Planejamento de refeições antes e depois do treino.
+- Registro de água consumida.
+- Resumo de calorias e macronutrientes, quando apropriado.
+
+Permita ajustar refeições conforme a rotina e registrar alimentos manualmente.
+
+### Base nutricional
+
+Utilize uma base estruturada de alimentos, porções e composição nutricional. Não permita que a IA invente valores nutricionais como se fossem dados verificados.
+
+Quando os valores forem estimados, identifique-os como estimativas.
+
+### Segurança nutricional
+
+A IA poderá fornecer educação nutricional geral e sugestões alimentares para adultos saudáveis, respeitando limites de segurança.
+
+Planos terapêuticos, condições clínicas, alergias graves, gestação, transtornos alimentares e outras situações que exijam avaliação individualizada deverão receber tratamento específico e encaminhamento profissional.
+
+Não apresente um cardápio gerado automaticamente como prescrição clínica de nutricionista.
+
+Quando o usuário desejar acompanhamento profissional, permita a futura integração com nutricionistas e profissionais habilitados.
+
+## 10. ABA SOCIAL — FEED FITNESS
+
+Crie uma rede social própria para a comunidade do aplicativo.
+
+O feed deverá permitir:
+
+- Publicar fotos.
+- Publicar vídeos.
+- Compartilhar treinos.
+- Compartilhar atividades esportivas.
+- Publicar textos.
+- Registrar conquistas.
+- Compartilhar recordes pessoais.
+- Curtir publicações.
+- Comentar.
+- Responder a comentários.
+- Seguir e deixar de seguir usuários.
+- Compartilhar publicações.
+- Salvar publicações.
+- Denunciar conteúdo.
+- Bloquear usuários.
+
+### Perfil do usuário
+
+Cada perfil deverá apresentar:
+
+- Foto e nome de exibição.
+- Biografia.
+- Objetivos esportivos opcionais.
+- Modalidades praticadas.
+- Publicações.
+- Treinos compartilhados.
+- Conquistas.
+- Estatísticas autorizadas.
+- Seguidores e seguindo.
+
+O usuário deverá poder definir quais informações serão públicas, privadas ou visíveis apenas para seguidores.
+
+O feed deverá considerar pessoas seguidas, grupos, desafios e conteúdo relevante, sem depender exclusivamente de métricas de popularidade.
+
+Implemente paginação, carregamento eficiente de mídia, moderação e proteção contra spam.
+
+## 11. ABA DE GRUPOS E DESAFIOS
+
+Permita que os usuários criem grupos privados ou públicos.
+
+Exemplos:
+
+- Desafio de 30 dias de academia.
+- Corrida de 100 km no mês.
+- Desafio de frequência semanal.
+- Grupo de hipertrofia.
+- Desafio de mobilidade.
+- Competição amigável de ciclismo.
+- Grupo de amigos.
+- Comunidades por modalidade.
+
+### Funcionalidades
+
+- Criar grupo.
+- Escolher nome, descrição e imagem.
+- Definir regras.
+- Convidar amigos por link.
+- Aprovar ou recusar participantes.
+- Criar desafios individuais ou coletivos.
+- Definir metas e duração.
+- Acompanhar ranking.
+- Compartilhar resultados.
+- Enviar mensagens ou atualizações no grupo.
+- Receber notificações.
+- Encerrar e consultar desafios anteriores.
+
+### Sistema de pontuação
+
+Desenvolva uma pontuação transparente, baseada em metas configuradas.
+
+Evite premiar apenas volume de exercício ou quantidade de calorias, pois isso pode incentivar comportamentos prejudiciais.
+
+Utilize critérios adequados à modalidade, frequência, metas pessoais e participação.
+
+Implemente regras contra registros duplicados e manipulação de resultados.
+
+## 12. GPS, CORRIDA, CICLISMO E ATIVIDADES AO AR LIVRE
+
+Desenvolva um módulo esportivo com GPS integrado.
+
+O usuário deverá escolher uma atividade, como:
+
+- Corrida ao ar livre.
+- Caminhada.
+- Ciclismo.
+- Trilha.
+- Caminhada esportiva.
+- Outras atividades compatíveis com os sensores disponíveis.
+
+### Durante a atividade
+
+Exiba:
+
+- Mapa com a rota.
+- Tempo decorrido.
+- Distância.
+- Ritmo por quilômetro para corrida.
+- Velocidade média e atual para ciclismo.
+- Ritmo ou velocidade por trecho.
+- Ganho de elevação, quando disponível.
+- Parciais por quilômetro ou intervalo.
+- Pausa e retomada.
+- Encerramento da atividade.
+
+Calcule métricas com base nos dados disponíveis, identificando quando forem estimadas.
+
+### Depois da atividade
+
+Apresente:
+
+- Mapa da rota.
+- Distância total.
+- Duração.
+- Ritmo médio ou velocidade média.
+- Parciais.
+- Elevação acumulada, quando confiável.
+- Estimativa de calorias, com indicação da incerteza.
+- Recordes e comparações.
+- Opção de compartilhar no feed.
+
+### Requisitos técnicos de GPS
+
+- Solicitar permissão antes de acessar a localização.
+- Permitir iniciar uma atividade sem compartilhamento público.
+- Lidar com perda de sinal.
+- Filtrar leituras GPS imprecisas.
+- Evitar distâncias irreais causadas por saltos de localização.
+- Suportar bloqueio de tela e execução em segundo plano quando permitido pelo sistema operacional.
+- Tratar interrupções, bateria e permissões.
+- Salvar dados localmente durante a atividade e sincronizar posteriormente.
+- Permitir excluir atividades e dados de localização.
+- Ocultar o início e o fim das rotas quando solicitado pelo usuário.
+
+Não simule GPS real com dados fictícios em produção. Utilize dados de demonstração somente em ambientes de teste claramente identificados.
+
+## 13. CALORIAS, RECUPERAÇÃO E MONITORAMENTO
+
+Crie um painel de acompanhamento que consolide dados disponíveis.
+
+Apresente, conforme a modalidade e a confiabilidade dos registros:
+
+- Calorias estimadas.
+- Duração dos exercícios.
+- Frequência semanal.
+- Volume de musculação.
+- Distância percorrida.
+- Evolução do peso corporal.
+- Histórico de medidas.
+- Metas de atividade.
+- Sono, quando houver integração autorizada.
+- Recuperação e percepção de fadiga informadas pelo usuário.
+
+Não some métricas incompatíveis ou duplique dados de fontes diferentes.
+
+Calorias não deverão ser apresentadas como valores exatos quando calculadas por estimativas.
+
+Permita integração futura com Apple Health, Health Connect e dispositivos vestíveis compatíveis, respeitando as permissões de cada plataforma.
+
+## 14. DASHBOARD PRINCIPAL
+
+Ao abrir o aplicativo, o usuário deverá visualizar um resumo personalizado.
+
+O dashboard deve conter:
+
+- Saudação e perfil.
+- Meta principal.
+- Próximo treino.
+- Botão de iniciar treino.
+- Plano alimentar do dia.
+- Progresso semanal.
+- Atividades recentes.
+- Desafios ativos.
+- Resumo de evolução.
+- Atalho para conversar com a IA.
+- Notificações relevantes.
+
+A tela deverá priorizar a próxima ação útil do usuário, sem apresentar informações em excesso.
+
+## 15. NOTIFICAÇÕES E MOTIVAÇÃO
+
+Implemente notificações personalizadas para:
+
+- Horário de treino escolhido.
+- Lembretes de desafios.
+- Comentários e curtidas.
+- Convites para grupos.
+- Conclusão de metas.
+- Resumos semanais.
+- Retomada de uma rotina interrompida, quando apropriado.
+
+Permita configurar frequência, horários e categorias de notificação.
+
+Evite mensagens culpabilizantes, excesso de alertas ou pressão por metas irrealistas.
+
+## 16. GAMIFICAÇÃO E CONQUISTAS
+
+Crie um sistema de conquistas com:
+
+- Sequências de treinos.
+- Metas semanais.
+- Recordes pessoais.
+- Participação em desafios.
+- Marcos de distância.
+- Consistência alimentar.
+- Evolução individual.
+- Medalhas digitais.
+- Níveis e distintivos.
+
+Valorize a evolução pessoal e a consistência, não somente o desempenho absoluto.
+
+Permita ocultar rankings e conquistas públicas.
+
+## 17. FUNCIONALIDADES DIFERENCIADORAS
+
+Prepare a arquitetura para os seguintes recursos:
+
+### A. Treino adaptativo
+
+A IA utiliza o histórico do usuário para sugerir mudanças graduais no plano, respeitando a capacidade de recuperação e a confirmação do usuário.
+
+### B. Treino inteligente para dias corridos
+
+Se o usuário tiver apenas 20 minutos disponíveis, o sistema poderá sugerir uma versão reduzida e coerente da sessão planejada.
+
+### C. Substituição de exercícios
+
+Se um equipamento estiver ocupado ou indisponível, sugerir alternativas compatíveis com o objetivo e o equipamento disponível.
+
+### D. Evolução visual privada
+
+Permitir registrar fotos de progresso e medidas corporais com comparação cronológica, controles de privacidade e exclusão segura.
+
+### E. Assistente conversacional
+
+Permitir perguntas como:
+
+- “Tenho 40 minutos para treinar hoje. O que posso fazer?”
+- “Não consigo ir à academia amanhã. Como reorganizo a semana?”
+- “Qual foi minha evolução no supino?”
+- “Quais exercícios ainda faltam?”
+- “Monte uma lista de compras com as refeições desta semana.”
+- “Quero começar a correr. Como organizo meus primeiros treinos?”
+
+### F. Metas compartilhadas
+
+Permitir que amigos definam objetivos coletivos e acompanhem o progresso sem precisar competir exclusivamente por desempenho físico.
+
+### G. Relatório semanal inteligente
+
+Gerar um resumo com frequência, progresso, dificuldades, recordes e sugestões práticas para a próxima semana.
+
+As funcionalidades deverão utilizar dados registrados e distinguir fatos de recomendações geradas pela IA.
+
+## 18. SEGURANÇA, PRIVACIDADE E PROTEÇÃO DE DADOS
+
+Como o sistema armazenará informações físicas, hábitos e localização, segurança deverá fazer parte da arquitetura desde o início.
+
+Implementar:
+
+- Conformidade com a LGPD.
+- Consentimento adequado para coleta e utilização de dados.
+- Coleta mínima de informações.
+- Criptografia em trânsito e proteção dos dados armazenados.
+- Controle de acesso por usuário e função.
+- Autorização validada no backend.
+- Proteção contra acesso indevido a registros de terceiros.
+- Rate limiting.
+- Validação de entrada.
+- Proteção contra abuso das APIs.
+- Registro de eventos de segurança.
+- Políticas de retenção e exclusão de dados.
+- Exportação de dados pessoais.
+- Gestão de consentimentos.
+- Exclusão de conta.
+- Proteção de informações de localização.
+- Moderação e denúncia de conteúdo.
+- Controles de privacidade para perfis, fotos e atividades.
+
+Não exponha chaves de API, segredos ou credenciais no frontend.
+
+Não compartilhe fotos corporais, informações de saúde ou rotas GPS publicamente sem ação explícita do usuário.
+
+## 19. ARQUITETURA DO BANCO DE DADOS
+
+Projete um banco relacional normalizado, com relacionamentos, índices e migrações.
+
+Considere entidades como:
+
+- Users
+- UserProfiles
+- UserGoals
+- UserPreferences
+- HealthProfiles
+- WorkoutPlans
+- WorkoutSessions
+- WorkoutExercises
+- ExerciseLibrary
+- WorkoutSets
+- WorkoutRecords
+- NutritionPlans
+- Meals
+- Foods
+- Recipes
+- FoodLogs
+- WaterLogs
+- Activities
+- ActivityRoutes
+- ActivitySplits
+- BodyMeasurements
+- ProgressPhotos
+- SocialPosts
+- PostMedia
+- Likes
+- Comments
+- Follows
+- Groups
+- GroupMembers
+- Challenges
+- ChallengeParticipants
+- ChallengeResults
+- Notifications
+- Achievements
+- UserAchievements
+- AIConversations
+- AIRecommendations
+- ConsentRecords
+- Reports
+- Blocks
+
+Defina chaves primárias, chaves estrangeiras, restrições de integridade, índices e regras de exclusão.
+
+Utilize versionamento para planos de treino e alimentação.
+
+Registros históricos não deverão ser sobrescritos de forma que elimine o histórico necessário à análise de evolução.
+
+## 20. BACKEND E APIS
+
+Crie endpoints documentados para:
+
+- Autenticação e perfil.
+- Onboarding.
+- Metas e preferências.
+- Geração e edição de planos.
+- Biblioteca de exercícios.
+- Sessões e registros de treino.
+- Cronômetros e conclusão de sessões.
+- Nutrição e registro alimentar.
+- Atividades GPS.
+- Histórico e estatísticas.
+- Publicações e interações.
+- Seguidores.
+- Grupos e desafios.
+- Notificações.
+- Conquistas.
+- Assistente de IA.
+- Privacidade e gerenciamento de conta.
+
+Use validação de dados, autorização, paginação, tratamento consistente de erros e operações idempotentes quando apropriado.
+
+Operações críticas, como registrar uma série, encerrar uma sessão ou sincronizar uma atividade, não deverão gerar duplicações em caso de repetição da requisição.
+
+## 21. PAINEL ADMINISTRATIVO
+
+Crie uma área administrativa protegida para gerenciar:
+
+- Usuários e denúncias.
+- Biblioteca de exercícios.
+- Conteúdo educativo.
+- Categorias de atividades.
+- Desafios públicos.
+- Moderação de publicações.
+- Configurações gerais.
+- Planos comerciais.
+- Indicadores de utilização.
+- Falhas de integração.
+- Consumo de APIs de IA.
+- Auditoria e segurança.
+
+A equipe administrativa deverá ter acesso apenas aos dados necessários para suas funções.
+
+## 22. MONETIZAÇÃO
+
+Estruture o produto para oferecer um plano gratuito e planos premium.
+
+### Plano gratuito
+
+- Perfil básico.
+- Registro de atividades.
+- Treinos com funcionalidades essenciais.
+- Feed social.
+- Participação em grupos.
+- Estatísticas básicas.
+
+### Plano premium
+
+- Personalização avançada por IA.
+- Histórico e análises aprofundadas.
+- Planejamento alimentar avançado.
+- Relatórios semanais inteligentes.
+- Desafios e ferramentas adicionais.
+- Integrações compatíveis com dispositivos.
+- Recursos avançados de evolução.
+
+Defina limites de uso de IA de forma transparente, evitando cobranças inesperadas.
+
+Prepare a arquitetura para assinaturas, renovação, cancelamento, controle de acesso e integração com os sistemas de pagamento das lojas mobile.
+
+Não implemente cobranças reais sem configuração, credenciais e ambiente de teste apropriados.
+
+## 23. TESTES E QUALIDADE
+
+Implemente testes automatizados para:
+
+- Cadastro e login.
+- Recuperação de sessão.
+- Onboarding.
+- Geração de plano.
+- Registro de séries.
+- Cronômetro e intervalos.
+- Pausa e retomada.
+- Finalização de treino.
+- Registro de refeições.
+- Cálculo de estatísticas.
+- Rastreamento GPS.
+- Sincronização offline.
+- Curtidas e comentários.
+- Grupos e desafios.
+- Permissões e privacidade.
+- Autorização entre usuários.
+- Integrações de IA.
+- Tratamento de falhas externas.
+
+Crie testes unitários, de integração e fluxos end-to-end.
+
+Inclua cenários de baixa conectividade, perda de GPS, interrupção do aplicativo, permissões negadas e requisições duplicadas.
+
+## 24. PLANO DE IMPLEMENTAÇÃO
+
+Desenvolva em etapas:
+
+FASE 1 — Fundação:
+Arquitetura, identidade visual, autenticação, perfil, onboarding e banco de dados.
+
+FASE 2 — Treinamento:
+Biblioteca de exercícios, geração de planos, execução de sessões, cronômetro, séries, cargas e histórico.
+
+FASE 3 — Nutrição:
+Alimentos, refeições, receitas, planejamento e registro alimentar.
+
+FASE 4 — IA:
+Assistente conversacional, recomendações, alternativas de exercícios e relatórios.
+
+FASE 5 — Social:
+Feed, publicações, curtidas, comentários, seguidores, grupos e desafios.
+
+FASE 6 — GPS:
+Corrida, ciclismo, mapas, rotas, parciais e métricas esportivas.
+
+FASE 7 — Evolução:
+Gamificação, integrações de saúde, relatórios avançados e monetização.
+
+FASE 8 — Produção:
+Segurança, testes de carga, observabilidade, acessibilidade, revisão de privacidade e preparação para publicação.
+
+## 25. REGRAS OBRIGATÓRIAS DE DESENVOLVIMENTO
+
+- Não entregue somente telas estáticas.
+- Não simule funcionalidades como se fossem reais.
+- Não deixe botões sem ação.
+- Não utilize dados fictícios sem identificá-los como demonstração.
+- Não armazene dados importantes somente na memória da interface.
+- Não exponha segredos no frontend.
+- Não misture regras de negócio com componentes visuais.
+- Não crie uma única classe ou arquivo gigantesco para todo o sistema.
+- Não implemente funcionalidades médicas ou nutricionais de alto risco sem as devidas salvaguardas.
+- Não presuma que permissões de GPS ou execução em segundo plano estão disponíveis.
+- Não comprometa a privacidade para aumentar o engajamento.
+- Não copie interfaces, marcas ou materiais protegidos de concorrentes.
+
+## 26. ENTREGÁVEIS
+
+Antes de iniciar a implementação, apresente:
+
+1. Arquitetura proposta.
+2. Estrutura de pastas.
+3. Modelo de dados e relacionamentos.
+4. Fluxos principais do usuário.
+5. Mapa de navegação e telas.
+6. Estratégia de integração com IA.
+7. Estratégia de GPS e sincronização.
+8. Plano de segurança e privacidade.
+9. Plano de testes.
+10. Etapas de implementação com critérios de conclusão.
+
+Depois, implemente o projeto por etapas, entregando código funcional, instruções de configuração, migrações, testes e documentação.
+
+Ao concluir cada etapa, informe o que foi implementado, o que está funcionando, como testar, quais dependências externas ainda precisam ser configuradas e quais limitações permanecem.
+
+Comece pela fundação técnica e pelo fluxo completo de um usuário, evitando implementar superficialmente todas as funcionalidades ao mesmo tempo.
+
+O resultado final deverá ser um produto fitness inteligente, confiável, visualmente premium e preparado para evoluir de um MVP para uma plataforma comercial.

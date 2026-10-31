@@ -1,0 +1,94 @@
+{
+  "id": "com.forzon.fitness.app",
+  "name": "FORZON — More Than Fitness. A Way of Life.",
+  "short_name": "FORZON",
+  "description": "FORZON — More Than Fitness. A Way of Life. Treinos de força, periodização inteligente, nutrição guiada e comunidade esportiva.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "theme_color": "#090d16",
+  "background_color": "#090d16",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle",
+    "sports"
+  ],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/forzon-logo.jpg",
+      "sizes": "2752x1536",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Treinos & Cargas",
+      "short_name": "Treinar",
+      "description": "Abrir periodização e registrar cargas",
+      "url": "/?tab=treinos",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Nutrição & Macros",
+      "short_name": "Nutrição",
+      "description": "Diário de calorias, água e macronutrientes",
+      "url": "/?tab=nutricao",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Comunidade FORZON",
+      "short_name": "Comunidade",
+      "description": "Feed da comunidade e desafios em grupo",
+      "url": "/?tab=comunidade",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Treino ao Vivo",
+      "short_name": "Ao Vivo",
+      "description": "Iniciar cronômetro de descanso e execução",
+      "url": "/?action=live_workout",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.forzon.fitness.app"
+    }
+  ],
+  "prefer_related_applications": false
+}

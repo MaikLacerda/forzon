@@ -1,0 +1,12 @@
+{
+  "name": "STRYDE — More Than Fitness. A Way of Life.",
+  "description": "Train together. Fuel your body. Share your progress. Ecossistema fitness com treinos inteligentes, nutrição e comunidade.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
