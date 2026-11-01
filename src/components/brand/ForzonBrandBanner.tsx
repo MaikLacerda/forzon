@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Dumbbell, Apple, Users, Download, Smartphone, ShieldCheck } from "lucide-react";
+import { Dumbbell, Apple, Users, Download, Smartphone, ShieldCheck, Bot, Sparkles } from "lucide-react";
 import { usePWAInstall } from "../../hooks/usePWAInstall";
 
 interface ForzonBrandBannerProps {
   onNavigateTab: (tab: string) => void;
+  onOpenAIIntake?: () => void;
 }
 
-export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigateTab }) => {
+export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigateTab, onOpenAIIntake }) => {
   const { isInstallable, isInstalled, install } = usePWAInstall();
   const [showPlayStoreModal, setShowPlayStoreModal] = useState(false);
   const [, setInstallSuccess] = useState(false);
@@ -160,6 +161,35 @@ export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigate
               <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform shrink-0" />
             </button>
           </div>
+
+          {/* Dedicated Conversational AI Intake Banner */}
+          {onOpenAIIntake && (
+            <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-cyan-950/80 via-neutral-900 to-blue-950/70 border border-cyan-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-cyan-500/10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
+                  <Sparkles className="w-5 h-5 animate-pulse" />
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                    <span>Avaliação com Personal & Nutricionista de IA</span>
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold">
+                      INTERATIVO
+                    </span>
+                  </h4>
+                  <p className="text-[11px] text-neutral-400 leading-snug">
+                    Converse com a IA: informe altura, peso, lesões e objetivo para montar seu treino e dieta sob medida!
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={onOpenAIIntake}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-neutral-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap active:scale-95"
+              >
+                <Bot className="w-4 h-4" />
+                <span>Conversar com a IA</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -238,12 +268,31 @@ export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigate
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-2 border-t border-neutral-800">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-neutral-800">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <a
+                  href="/api/download/alterados"
+                  download="forzon-arquivos-alterados.zip"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Baixar Alterados (.zip)</span>
+                </a>
+                <a
+                  href="/api/download/projeto-completo"
+                  download="forzon-projeto-completo.zip"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 border border-neutral-700 font-bold text-xs transition cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Projeto Todo (.zip)</span>
+                </a>
+              </div>
+
               <button
                 onClick={() => setShowPlayStoreModal(false)}
-                className="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs transition cursor-pointer"
+                className="w-full sm:w-auto px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs transition cursor-pointer"
               >
-                Entendido
+                Fechar
               </button>
             </div>
           </div>

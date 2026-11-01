@@ -327,22 +327,23 @@ export const LiveVisionCoachOverlay: React.FC<LiveVisionCoachOverlayProps> = ({
     let tick = 0;
 
     const renderLoop = () => {
-      tick++;
-      const canvas = canvasRef.current;
-      if (!canvas) {
-        animFrameRef.current = requestAnimationFrame(renderLoop);
-        return;
-      }
+      try {
+        tick++;
+        const canvas = canvasRef.current;
+        if (!canvas) {
+          animFrameRef.current = requestAnimationFrame(renderLoop);
+          return;
+        }
 
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        animFrameRef.current = requestAnimationFrame(renderLoop);
-        return;
-      }
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          animFrameRef.current = requestAnimationFrame(renderLoop);
+          return;
+        }
 
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
 
       // Submit video frame to MediaPipe Pose if available
       if (
@@ -568,10 +569,16 @@ export const LiveVisionCoachOverlay: React.FC<LiveVisionCoachOverlayProps> = ({
       let rightAnkle = { x: centerX + 40, y: centerY + 155 };
 
       if (hasRealPose && activeTestDeviation === "none") {
-        const getLm = (idx: number) => ({
-          x: (activeFacingMode === "user" ? 1 - realLandmarks![idx].x : realLandmarks![idx].x) * w,
-          y: realLandmarks![idx].y * h,
-        });
+        const getLm = (idx: number) => {
+          const lm = realLandmarks && realLandmarks[idx];
+          if (!lm || typeof lm.x !== "number" || typeof lm.y !== "number") {
+            return { x: centerX, y: centerY };
+          }
+          return {
+            x: (activeFacingMode === "user" ? 1 - lm.x : lm.x) * w,
+            y: lm.y * h,
+          };
+        };
         if (realLandmarks![0]) head = getLm(0);
         if (realLandmarks![11] && realLandmarks![12]) {
           leftShoulder = getLm(11);
@@ -742,8 +749,11 @@ export const LiveVisionCoachOverlay: React.FC<LiveVisionCoachOverlayProps> = ({
       ctx.fillText(`${curJointAngle}°`, activeJoint.x + 25, activeJoint.y + 4);
 
       ctx.restore();
-
-      animFrameRef.current = requestAnimationFrame(renderLoop);
+      } catch (err) {
+        console.warn("LiveVision renderLoop safely caught error:", err);
+      } finally {
+        animFrameRef.current = requestAnimationFrame(renderLoop);
+      }
     };
 
     animFrameRef.current = requestAnimationFrame(renderLoop);

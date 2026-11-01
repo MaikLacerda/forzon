@@ -44,6 +44,10 @@ export class ErrorBoundary extends Component<Props, State> {
     window.location.reload();
   };
 
+  public handleReset = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
   public render() {
     if (this.state.hasError) {
       return (
@@ -56,13 +60,21 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="text-xs text-neutral-400 leading-relaxed">
               Ocorreu uma instabilidade transitória na interface. Seus treinos e dados continuam salvos no dispositivo.
             </p>
-            <button
-              onClick={this.handleReload}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs rounded-xl transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Recarregar FORZON</span>
-            </button>
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <button
+                onClick={this.handleReset}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs rounded-xl transition-all cursor-pointer"
+              >
+                <span>Restaurar Tela</span>
+              </button>
+              <button
+                onClick={this.handleReload}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs rounded-xl transition-all cursor-pointer shadow-lg shadow-cyan-500/20"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>Recarregar FORZON</span>
+              </button>
+            </div>
           </div>
         </div>
       );

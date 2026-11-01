@@ -24,6 +24,8 @@ import { aiService } from "./services/aiService";
 import { notificationService } from "./services/notificationService";
 import { themeService } from "./services/themeService";
 import { SPORT_MODALITIES } from "./data/sportModalities";
+import { ProjectDownloadModal } from "./components/export/ProjectDownloadModal";
+import { AIWorkoutNutritionIntakeModal } from "./components/ai/AIWorkoutNutritionIntakeModal";
 import {
   UserProfile,
   WorkoutPlan,
@@ -40,6 +42,8 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("hoje");
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [isAIIntakeOpen, setIsAIIntakeOpen] = useState(false);
 
   // Main Persistent State
   const [profile, setProfile] = useState<UserProfile>(() => storage.getProfile());
@@ -357,6 +361,8 @@ export default function App() {
         onOpenReminderModal={() => setIsReminderModalOpen(true)}
         onOpenSyncModal={() => setIsSyncModalOpen(true)}
         onOpenUpgradeModal={handleOpenUpgrade}
+        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
+        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
         profile={profile}
       />
 
@@ -378,6 +384,7 @@ export default function App() {
             onOpenProfile={() => setIsProfileOpen(true)}
             onOpenUpgradeModal={handleOpenUpgrade}
             onPlanUpdated={(newPlan) => setPlan(newPlan)}
+            onOpenAIIntake={() => setIsAIIntakeOpen(true)}
           />
         )}
 
@@ -468,6 +475,7 @@ export default function App() {
         currentProfile={profile}
         onSaveProfile={(updated) => storage.saveProfile(updated)}
         onTriggerPlanGeneration={(updated) => handleRegeneratePlanAI(updated)}
+        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
       />
 
       {/* Settings & LGPD Modal */}
@@ -559,6 +567,25 @@ export default function App() {
         onUpdateProfile={(updated) => {
           setProfile(updated);
           storage.saveProfile(updated);
+        }}
+      />
+
+      {/* Project & Files Download Center Modal */}
+      <ProjectDownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
+      />
+
+      {/* Conversational AI Intake Modal (Height, Weight, Health, Goal -> Tailored Workout & Diet) */}
+      <AIWorkoutNutritionIntakeModal
+        isOpen={isAIIntakeOpen}
+        onClose={() => setIsAIIntakeOpen(false)}
+        profile={profile}
+        onPlanApplied={(newPlan, newNutrition, updatedProfile) => {
+          setPlan(newPlan);
+          setNutrition(newNutrition);
+          setProfile(updatedProfile);
+          setActiveTab("hoje");
         }}
       />
 

@@ -296,6 +296,99 @@ Retorne estritamente um JSON no seguinte formato (sem blocos markdown adicionais
   }
 });
 
+// 2b. AI Comprehensive Intake Assessment (Workout + Diet Generation)
+app.post("/api/ai/intake-assessment", async (req, res) => {
+  try {
+    const {
+      heightCm,
+      weightKg,
+      goal,
+      specificGoal,
+      healthIssues,
+      trainingDays,
+      environment,
+      dietaryPreference,
+      userName,
+    } = req.body;
+
+    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica e nutrição esportiva.
+Gere um plano de treino e um plano nutricional completos e personalizados para o seguinte atleta:
+- Nome: ${userName || "Atleta"}
+- Altura: ${heightCm || 175} cm | Peso: ${weightKg || 75} kg
+- Objetivo: ${goal} (${specificGoal})
+- Lesões / Problemas de Saúde: "${healthIssues || "Nenhuma limitação"}" (CRUCIAL: se houver lesão no joelho, lombar, ombro ou outra articulação, NUNCA prescreva exercícios que causem impacto ou compressão direta nessa articulação! Substitua por variações seguras com apoio).
+- Frequência: ${trainingDays || 4} dias por semana
+- Local: ${environment || "Academia"}
+- Dieta: ${dietaryPreference || "Padrão"}
+
+Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor.
+Defina as calorias diárias, proteínas (em gramas), carboidratos (em gramas), gorduras (em gramas) e água diária (em ml).
+
+Retorne estritamente um JSON no seguinte formato:
+{
+  "plan": {
+    "id": "plan-intake-ai",
+    "title": "FORZON AI — ${goal}",
+    "description": "Periodização personalizada desenhada pelo FORZON AI Coach",
+    "frequencyDaysPerWeek": ${trainingDays || 4},
+    "active": true,
+    "sessions": [
+      {
+        "id": "sess-1",
+        "dayName": "Treino A",
+        "focus": "Foco do dia",
+        "dayLabel": "Dia 1",
+        "estimatedDurationMin": 50,
+        "warmup": "Aquecimento articular",
+        "exercises": [
+          { "name": "Nome", "targetMuscle": "Músculo", "sets": 4, "reps": "8-12 reps", "restSeconds": 90, "notes": "Instrução" }
+        ]
+      }
+    ]
+  },
+  "nutrition": {
+    "calorieGoal": 2300,
+    "proteinGoal": 160,
+    "carbsGoal": 260,
+    "fatGoal": 65,
+    "waterGoal": 3000,
+    "meals": [
+      {
+        "id": "m-1",
+        "name": "Café da Manhã",
+        "time": "08:00",
+        "calories": 500,
+        "proteinG": 35,
+        "carbsG": 50,
+        "fatG": 15,
+        "items": ["Item 1", "Item 2"]
+      }
+    ]
+  },
+  "rationale": {
+    "tdee": 2400,
+    "deficitOrSurplus": "Superávit de +300 kcal ou Déficit de -400 kcal",
+    "jointProtection": "Explicação de como os exercícios protegem a saúde e lesão informada",
+    "coachMessage": "Mensagem motivacional e prescrição do Coach da IA"
+  }
+}`;
+
+    const text = await callGeminiSafely({ contents: prompt, isJson: true });
+    if (text) {
+      try {
+        const parsed = JSON.parse(text);
+        if (parsed.plan && parsed.nutrition) {
+          return res.json(parsed);
+        }
+      } catch {}
+    }
+
+    return res.status(500).json({ error: "Fallback local ativo" });
+  } catch {
+    return res.status(500).json({ error: "Erro interno no intake" });
+  }
+});
+
 // 3. AI Exercise Swap
 app.post("/api/ai/swap-exercise", async (req, res) => {
   try {
@@ -752,6 +845,19 @@ app.get("/api/sync/status", (_req, res) => {
     serverTimestamp: new Date().toISOString(),
     totalSyncedWorkouts: serverWorkoutRegistry.size,
   });
+});
+
+// Static downloads for user zip bundles
+app.use(express.static(path.resolve(__dirname, "public")));
+
+app.get("/api/download/alterados", (_req, res) => {
+  const filePath = path.resolve(__dirname, "public", "forzon-arquivos-alterados.zip");
+  res.download(filePath, "forzon-arquivos-alterados.zip");
+});
+
+app.get("/api/download/projeto-completo", (_req, res) => {
+  const filePath = path.resolve(__dirname, "public", "forzon-projeto-completo.zip");
+  res.download(filePath, "forzon-projeto-completo.zip");
 });
 
 // Vite or Static handling
