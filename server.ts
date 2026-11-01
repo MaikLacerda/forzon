@@ -754,19 +754,6 @@ app.get("/api/sync/status", (_req, res) => {
   });
 });
 
-// Static downloads for user zip bundles
-app.use(express.static(path.resolve(__dirname, "public")));
-
-app.get("/api/download/alterados", (_req, res) => {
-  const filePath = path.resolve(__dirname, "public", "forzon-arquivos-alterados.zip");
-  res.download(filePath, "forzon-arquivos-alterados.zip");
-});
-
-app.get("/api/download/projeto-completo", (_req, res) => {
-  const filePath = path.resolve(__dirname, "public", "forzon-projeto-completo.zip");
-  res.download(filePath, "forzon-projeto-completo.zip");
-});
-
 // Vite or Static handling
 async function startServer() {
   const isProduction = process.env.NODE_ENV === "production";

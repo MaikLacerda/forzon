@@ -24,7 +24,6 @@ import { aiService } from "./services/aiService";
 import { notificationService } from "./services/notificationService";
 import { themeService } from "./services/themeService";
 import { SPORT_MODALITIES } from "./data/sportModalities";
-import { ProjectDownloadModal } from "./components/export/ProjectDownloadModal";
 import {
   UserProfile,
   WorkoutPlan,
@@ -41,7 +40,6 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("hoje");
-  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   // Main Persistent State
   const [profile, setProfile] = useState<UserProfile>(() => storage.getProfile());
@@ -359,7 +357,6 @@ export default function App() {
         onOpenReminderModal={() => setIsReminderModalOpen(true)}
         onOpenSyncModal={() => setIsSyncModalOpen(true)}
         onOpenUpgradeModal={handleOpenUpgrade}
-        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
         profile={profile}
       />
 
@@ -563,12 +560,6 @@ export default function App() {
           setProfile(updated);
           storage.saveProfile(updated);
         }}
-      />
-
-      {/* Project & Files Download Center Modal */}
-      <ProjectDownloadModal
-        isOpen={isDownloadModalOpen}
-        onClose={() => setIsDownloadModalOpen(false)}
       />
 
       {/* Generating plan toast/indicator */}

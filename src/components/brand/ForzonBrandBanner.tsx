@@ -238,31 +238,12 @@ export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigate
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-neutral-800">
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <a
-                  href="/api/download/alterados"
-                  download="forzon-arquivos-alterados.zip"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Baixar Alterados (.zip)</span>
-                </a>
-                <a
-                  href="/api/download/projeto-completo"
-                  download="forzon-projeto-completo.zip"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 border border-neutral-700 font-bold text-xs transition cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Projeto Todo (.zip)</span>
-                </a>
-              </div>
-
+            <div className="flex justify-end gap-3 pt-2 border-t border-neutral-800">
               <button
                 onClick={() => setShowPlayStoreModal(false)}
-                className="w-full sm:w-auto px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs transition cursor-pointer"
+                className="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs transition cursor-pointer"
               >
-                Fechar
+                Entendido
               </button>
             </div>
           </div>

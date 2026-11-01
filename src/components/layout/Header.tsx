@@ -13,7 +13,6 @@ import {
   RefreshCw,
   Palette,
   Crown,
-  Download,
 } from "lucide-react";
 import { UserProfile, ThemeMode, SyncState, AccentColor } from "../../types";
 import { themeService, AVAILABLE_ACCENTS } from "../../services/themeService";
@@ -31,7 +30,6 @@ interface HeaderProps {
   onOpenReminderModal?: () => void;
   onOpenSyncModal?: () => void;
   onOpenUpgradeModal?: () => void;
-  onOpenDownloadModal?: () => void;
   profile: UserProfile;
 }
 
@@ -47,7 +45,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenReminderModal,
   onOpenSyncModal,
   onOpenUpgradeModal,
-  onOpenDownloadModal,
   profile,
 }) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>(() => themeService.getTheme());
@@ -305,17 +302,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Palette className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
           </button>
-
-          {onOpenDownloadModal && (
-            <button
-              onClick={onOpenDownloadModal}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold transition-all cursor-pointer whitespace-nowrap shadow-sm shadow-cyan-500/10"
-              title="Baixar Arquivos para Substituir nas Pastas / Google Play Store"
-            >
-              <Download className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden lg:inline text-[11px] font-mono">BAIXAR ARQUIVOS</span>
-            </button>
-          )}
 
           <button
             onClick={onOpenSettings}
