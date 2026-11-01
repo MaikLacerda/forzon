@@ -151,6 +151,16 @@ export interface WorkoutExercise {
   sets: WorkoutSet[];
 }
 
+export interface PostWorkoutCardioProtocol {
+  machine: "Escada" | "Esteira" | "Bicicleta" | "Elíptico";
+  name: string;
+  durationMin: number;
+  intensity: string;
+  parameters: string;
+  estimatedKcal: number;
+  benefits: string;
+}
+
 export interface WorkoutSession {
   id: string;
   title: string;
@@ -158,6 +168,7 @@ export interface WorkoutSession {
   muscleFocus: string;
   estimatedMinutes: number;
   warmupProtocol: string;
+  cardioProtocol?: PostWorkoutCardioProtocol;
   exercises: WorkoutExercise[];
   completedCount: number;
   lastPerformed?: string;

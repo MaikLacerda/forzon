@@ -308,6 +308,8 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
       healthIssues,
       trainingDays,
       environment,
+      cardioMachine = "Misto (Escada, Esteira, Bicicleta)",
+      cardioMinutes = 20,
       dietaryPreference,
       sports = ["Musculação"],
       userName,
@@ -315,7 +317,7 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
 
     const sportsListStr = Array.isArray(sports) && sports.length > 0 ? sports.join(", ") : "Musculação";
 
-    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica, outros esportes (corrida, ciclismo, lutas, natação, futebol, cross training) e nutrição esportiva de alta performance.
+    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica, cardio pós-treino (simulador de escada, esteira inclinada, bicicleta ergométrica), outros esportes (corrida, ciclismo, lutas, natação, futebol, cross training) e nutrição esportiva de alta performance.
 Gere uma periodização semanal de treinamento de verdade e um plano nutricional completos e minuciosos para o seguinte atleta:
 - Nome: ${userName || "Atleta"}
 - Nível de Experiência: ${experienceLevel} (Iniciante, Intermediário, Avançado ou Atleta)
@@ -325,24 +327,31 @@ Gere uma periodização semanal de treinamento de verdade e um plano nutricional
 - Lesões / Problemas de Saúde: "${healthIssues || "Nenhuma limitação"}" (CRUCIAL: se houver lesão no joelho, lombar, ombro ou outra articulação, NUNCA prescreva exercícios que causem impacto ou compressão direta nessa articulação! Substitua por variações seguras com apoio).
 - Frequência Semanal: ${trainingDays || 4} dias por semana
 - Ambiente & Equipamentos: ${environment || "Academia Comercial Completa"}
+- Preferência de Cardio Pós-Treino: ${cardioMachine} (${cardioMinutes} minutos por sessão)
 - Dieta & Preferência: ${dietaryPreference || "Padrão (Como de tudo)"}
 
 REGRAS OBRIGATÓRIAS E INEGOCIÁVEIS DE PRESCRIÇÃO:
-1. VOLUME POR SESSÃO (TREINO DE VERDADE): CADA sessão de musculação DEVE CONTER OBRIGATORIAMENTE DE 6 A 8 EXERCÍCIOS COMPLETOS. NUNCA prescreva treinos fracos ou medíocres com apenas 4 exercícios! Um treino de musculação respeitável para nível ${experienceLevel} exige volume e sobrecarga adequados.
-2. PROIBIÇÃO TOTAL DE PRANCHA ISOMÉTRICA: NUNCA prescreva "Prancha Abdominal" ou exercícios de prancha estática em dias de hipertrofia. O atleta expressamente rejeita pranchas. Para abdômen/core, se for prescrever, utilize exercícios dinâmicos com sobrecarga como "Crunch na Polia Alta com Carga" ou "Elevação de Pernas na Barra Fixa", ou dedique os exercícios para movimentos reais de musculação (supinos, remadas, roscas, agachamentos, leg press).
-3. VOLUME DE BRAÇOS COMPLETO (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Em treinos de empurrar/push, prescreva NO MÍNIMO 2 a 3 exercícios para Tríceps (cabeça lateral/medial, cabeça longa e extensão). Em treinos de puxar/pull, prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico).
-4. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outras modalidades (Corrida de Rua, Ciclismo, Lutas/Jiu-Jitsu, Natação, Cross Training, Futebol, etc.), crie blocos ou sessões específicas e ajuste os carboidratos e a meta calórica total para suportar o gasto energético do esporte.
-5. CALIBRAÇÃO CONFORME NÍVEL:
+1. VOLUME POR SESSÃO (TREINO DE VERDADE): CADA sessão de musculação DEVE CONTER OBRIGATORIAMENTE DE 6 A 8 EXERCÍCIOS COMPLETOS DE MUSCULAÇÃO + 1 BLOCO DE CARDIO PÓS-TREINO. NUNCA prescreva treinos fracos ou medíocres com apenas 4 exercícios! Um treino de musculação respeitável para nível ${experienceLevel} exige volume e sobrecarga adequados.
+2. CARDIO PÓS-TREINO INTEGRADO EM TODAS AS SESSÕES:
+   Em CADA sessão de musculação, inclua OBRIGATORIAMENTE um protocolo de cardio pós-treino de ${cardioMinutes} minutos variando entre as máquinas principais da academia:
+   - Simulador de Escada (Stairmaster - intensidade em degraus/minuto, queima lipídica intensa e glúteos)
+   - Esteira Inclinada (Incline Treadmill Walk - inclinação 10 a 12%, velocidade 5.2 a 5.8 km/h, sem impacto articular)
+   - Bicicleta Ergométrica / Spinning (recuperação ativa e flush de lactato especialmente no dia de pernas)
+   Esse cardio DEVE estar descrito tanto no objeto "cardioProtocol" quanto como o último exercício da lista de exercícios de cada sessão!
+3. PROIBIÇÃO TOTAL DE PRANCHA ISOMÉTRICA: NUNCA prescreva "Prancha Abdominal" ou exercícios de prancha estática em dias de hipertrofia. O atleta expressamente rejeita pranchas. Para abdômen/core, se for prescrever, utilize exercícios dinâmicos com sobrecarga como "Crunch na Polia Alta com Carga" ou "Elevação de Pernas na Barra Fixa", ou dedique os exercícios para movimentos reais de musculação (supinos, remadas, roscas, agachamentos, leg press).
+4. VOLUME DE BRAÇOS COMPLETO (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Em treinos de empurrar/push, prescreva NO MÍNIMO 2 a 3 exercícios para Tríceps (cabeça lateral/medial, cabeça longa e extensão). Em treinos de puxar/pull, prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico).
+5. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outras modalidades (Corrida de Rua, Ciclismo, Lutas/Jiu-Jitsu, Natação, Cross Training, Futebol, etc.), crie blocos ou sessões específicas e ajuste os carboidratos e a meta calórica total para suportar o gasto energético do esporte.
+6. CALIBRAÇÃO CONFORME NÍVEL:
    - Para Avançado e Atleta: 4 séries nos exercícios compostos principais, rep ranges pesados (6-8 ou 8-10), RPE 8.5-9.5, descansos de 90-120s, e notas com técnicas de intensificação (pico de contração de 2s, cadência excêntrica de 3s, drop-set na última série).
    - Para Intermediário: 3-4 séries, 8-12 repetições, foco em progressão linear.
 
-Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor considerando os esportes e o nível.
+Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor considerando a musculação e o cardio pós-treino.
 Retorne estritamente um JSON no seguinte formato:
 {
   "plan": {
     "id": "plan-intake-ai",
     "title": "FORZON Pro — ${goal} (${experienceLevel})",
-    "description": "Periodização completa de 6 a 8 exercícios por sessão desenvolvida pelo FORZON AI Coach para nível ${experienceLevel}",
+    "description": "Periodização completa de 8 exercícios de musculação + Cardio Pós-Treino (Escada/Esteira/Bike) desenvolvida para nível ${experienceLevel}",
     "frequencyDaysPerWeek": ${trainingDays || 4},
     "active": true,
     "sessions": [
@@ -351,8 +360,17 @@ Retorne estritamente um JSON no seguinte formato:
         "dayName": "Treino A",
         "focus": "Foco do dia",
         "dayLabel": "Dia 1",
-        "estimatedDurationMin": 60,
-        "warmup": "Aquecimento articular dinâmico",
+        "estimatedDurationMin": 70,
+        "warmup": "Aquecimento articular dinâmico (5 min)",
+        "cardioProtocol": {
+          "machine": "Escada",
+          "name": "Cardio Pós-Treino: Simulador de Escada",
+          "durationMin": 20,
+          "intensity": "Zona 2 (65-75% FC Máxima)",
+          "parameters": "Nível 7 a 9 contínuo, cadência constante sem apoiar nos braços",
+          "estimatedKcal": 200,
+          "benefits": "Queima de gordura e condicionamento cardiovascular"
+        },
         "exercises": [
           { "name": "Exercício 1", "targetMuscle": "Músculo", "sets": 4, "reps": "8-10 reps", "restSeconds": 90, "notes": "Instrução técnica detalhada" },
           { "name": "Exercício 2", "targetMuscle": "Músculo", "sets": 4, "reps": "8-10 reps", "restSeconds": 90, "notes": "Instrução técnica detalhada" },
@@ -360,7 +378,9 @@ Retorne estritamente um JSON no seguinte formato:
           { "name": "Exercício 4", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
           { "name": "Exercício 5", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
           { "name": "Exercício 6", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
-          { "name": "Exercício 7", "targetMuscle": "Músculo", "sets": 3, "reps": "12-15 reps", "restSeconds": 45, "notes": "Instrução técnica detalhada" }
+          { "name": "Exercício 7", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 8", "targetMuscle": "Músculo", "sets": 3, "reps": "12-15 reps", "restSeconds": 45, "notes": "Instrução técnica detalhada" },
+          { "name": "Cardio Pós-Treino: Simulador de Escada", "targetMuscle": "Cardio & Resistência", "sets": 1, "reps": "20 min", "restSeconds": 0, "notes": "Nível 7-9 contínuo em Zona 2" }
         ]
       }
     ]

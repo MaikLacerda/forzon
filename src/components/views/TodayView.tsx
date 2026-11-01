@@ -21,6 +21,7 @@ import {
   Dumbbell,
   Moon,
   Watch,
+  Activity,
 } from "lucide-react";
 import { UserProfile, WorkoutPlan, DailyNutrition, CompletedWorkoutRecord, GroupChallenge, GPSActivity, NotificationSettings } from "../../types";
 import { WeeklyVolumeChart } from "../dashboard/WeeklyVolumeChart";
@@ -491,6 +492,31 @@ export const TodayView: React.FC<TodayViewProps> = ({
                         </span>
                       )}
                     </div>
+
+                    {/* Integrated Post-Workout Cardio Protocol Badge */}
+                    {todaySession.cardioProtocol && (
+                      <div className="mt-3 p-3 rounded-2xl bg-gradient-to-r from-cyan-950/50 to-neutral-900 border border-cyan-500/30 flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                          <Activity className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 text-xs">
+                          <div className="flex items-center justify-between gap-2 flex-wrap">
+                            <span className="font-bold text-white flex items-center gap-1.5">
+                              <span>{todaySession.cardioProtocol.name}</span>
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30">
+                                {todaySession.cardioProtocol.durationMin} MIN · ~{todaySession.cardioProtocol.estimatedKcal} KCAL
+                              </span>
+                            </span>
+                            <span className="text-[10px] font-mono text-cyan-400">
+                              {todaySession.cardioProtocol.intensity}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-neutral-400 mt-0.5">
+                            {todaySession.cardioProtocol.parameters} · {todaySession.cardioProtocol.benefits}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">

@@ -22,6 +22,8 @@ import {
   Award,
   Trophy,
   Compass,
+  Timer,
+  Footprints,
 } from "lucide-react";
 import {
   UserProfile,
@@ -33,6 +35,7 @@ import {
   FoodItem,
   AthleteSpecificGoal,
   ExperienceLevel,
+  PostWorkoutCardioProtocol,
 } from "../../types";
 import { storage } from "../../services/storage";
 import confetti from "canvas-confetti";
@@ -53,6 +56,8 @@ interface IntakeState {
   healthIssues: string;
   trainingDays: number;
   environment: string;
+  cardioMachine: "Escada" | "Esteira" | "Bicicleta" | "Misto";
+  cardioMinutes: number;
   sports: string[];
   dietaryPreference: string;
 }
@@ -63,7 +68,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
   profile,
   onPlanApplied,
 }) => {
-  // Step 1: Goal | Step 2: Experience Level | Step 3: Measurements | Step 4: Health/Injuries | Step 5: Days & Environment | Step 6: Other Sports | Step 7: Diet | Step 8: Generating | Step 9: Results
+  // Step 1: Goal | Step 2: Experience Level | Step 3: Measurements | Step 4: Health/Injuries | Step 5: Days & Environment | Step 6: Post-Workout Cardio (Escada, Esteira, Bike) | Step 7: Other Sports | Step 8: Diet | Step 9: Generating | Step 10: Results
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const [intake, setIntake] = useState<IntakeState>({
@@ -75,6 +80,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
     healthIssues: profile.injuriesOrNotes || "Nenhuma restrição articular ou dor",
     trainingDays: profile.trainingDaysPerWeek || 4,
     environment: profile.environment || "Academia Comercial Completa",
+    cardioMachine: "Misto",
+    cardioMinutes: 20,
     sports: ["Musculação"],
     dietaryPreference: profile.dietaryPreference || "Padrão (Como de tudo)",
   });
@@ -103,7 +110,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
   // Scientific calculation of TDEE and tailored workouts based on conversation answers
   const computeTailoredPlanAndDiet = async () => {
     setIsGenerating(true);
-    setCurrentStep(8);
+    setCurrentStep(9);
 
     try {
       // 1. Try server-side Gemini generation with rich physiological context
@@ -119,6 +126,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           healthIssues: intake.healthIssues,
           trainingDays: intake.trainingDays,
           environment: intake.environment,
+          cardioMachine: intake.cardioMachine,
+          cardioMinutes: intake.cardioMinutes,
           sports: intake.sports,
           dietaryPreference: intake.dietaryPreference,
           userName: profile.name,
@@ -132,7 +141,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           setGeneratedNutrition(data.nutrition);
           setGeneratedRationale(data.rationale);
           setIsGenerating(false);
-          setCurrentStep(9);
+          setCurrentStep(10);
           return;
         }
       }
@@ -140,7 +149,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       // Fallback to local physiological engine
     }
 
-    // 2. Local High-Precision Physiological Formulation (Mifflin-St Jeor + Macro Partitioning + Real Heavy Routine)
+    // 2. Local High-Precision Physiological Formulation (Mifflin-St Jeor + Macro Partitioning + Real Heavy Routine + Integrated Cardio)
     setTimeout(() => {
       const weight = intake.weightKg;
       const height = intake.heightCm;
@@ -149,10 +158,11 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       // Basal Metabolic Rate (BMR)
       const bmr = Math.round(10 * weight + 6.25 * height - 5 * age + 5);
 
-      // Activity multiplier adjusted for sports and experience
+      // Activity multiplier adjusted for sports, cardio and experience
       const expMultiplier = intake.experienceLevel === "Atleta" ? 1.15 : intake.experienceLevel === "Avançado" ? 1.08 : 1.0;
-      const daysMultiplier = intake.trainingDays <= 3 ? 1.375 : intake.trainingDays <= 5 ? 1.55 : 1.725;
-      const tdee = Math.round(bmr * daysMultiplier * expMultiplier);
+      const cardioKcalPerSession = Math.round(intake.cardioMinutes * 9.5);
+      const daysMultiplier = intake.trainingDays <= 3 ? 1.4 : intake.trainingDays <= 5 ? 1.6 : 1.78;
+      const tdee = Math.round(bmr * daysMultiplier * expMultiplier + (cardioKcalPerSession * intake.trainingDays) / 7);
 
       let targetCalories = tdee;
       let deficitOrSurplus = "Manutenção Calórica e Recomposição Corporal";
@@ -185,9 +195,9 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
 
       let jointProtection = "Articulações 100% livres para sobrecarga progressiva pesada.";
       if (hasKneeIssue) {
-        jointProtection = "Proteção patelofemoral: agachamentos com peso axial livre substituídos por leg press em amplitude segura e foco na cadeia posterior.";
+        jointProtection = "Proteção patelofemoral: agachamentos com peso axial livre substituídos por leg press em amplitude segura e foco na cadeia posterior. Cardio em bicicleta com baixa carga para preservar a patela.";
       } else if (hasBackIssue) {
-        jointProtection = "Descompressão lombar: levantamento terra com barra e agachamentos pesados substituídos por remadas apoiadas no peito e leg press.";
+        jointProtection = "Descompressão lombar: levantamento terra com barra e agachamentos pesados substituídos por remadas apoiadas no peito e leg press. Cardio na esteira inclinada sem impacto.";
       } else if (hasShoulderIssue) {
         jointProtection = "Proteção do manguito rotador: desenvolvimentos por trás eliminados, supinos executados com halteres em pegada neutra e face pulls adicionados.";
       }
@@ -229,15 +239,27 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       });
 
       const sessions: WorkoutSession[] = [];
+      const cardioMins = intake.cardioMinutes || 20;
 
-      // SESSÃO A: PUSH (Peitoral, Ombros & Tríceps Completo) — 8 EXERCÍCIOS DE VERDADE
+      // SESSÃO A: PUSH (Peitoral, Ombros & Tríceps Completo) + CARDIO ESCADA
+      const cardioA: PostWorkoutCardioProtocol = {
+        machine: intake.cardioMachine === "Misto" ? "Escada" : intake.cardioMachine,
+        name: intake.cardioMachine === "Bicicleta" ? "Cardio Pós-Treino: Bicicleta Ergométrica" : intake.cardioMachine === "Esteira" ? "Cardio Pós-Treino: Esteira Inclinada" : "Cardio Pós-Treino: Simulador de Escada",
+        durationMin: cardioMins,
+        intensity: "Zona 2 Constante (65-75% FC Máx)",
+        parameters: intake.cardioMachine === "Bicicleta" ? "Cadência 80-85 RPM com carga moderada" : intake.cardioMachine === "Esteira" ? "Inclinação 10%, Velocidade 5.5 km/h" : "Nível 7 a 9 contínuo sem apoiar peso nas barras laterais",
+        estimatedKcal: Math.round(cardioMins * 10),
+        benefits: "Aceleração lipídica e preservação muscular pós-supino.",
+      };
+
       sessions.push({
         id: `sess-ai-${Date.now()}-1`,
         title: "Treino A — Peito, Ombros & Tríceps Completo",
         dayLabel: "Dia 1",
         muscleFocus: hasShoulderIssue ? "Peito & Tríceps (Pegada Neutra / Proteção Escapular)" : "Peito, Ombros & Tríceps Completo",
-        estimatedMinutes: 65,
+        estimatedMinutes: 65 + cardioMins,
         warmupProtocol: "Mobilidade escapular dinâmica e rotação externa de manguito na polia (5 min)",
+        cardioProtocol: cardioA,
         completedCount: 0,
         exercises: [
           buildExercise(
@@ -304,17 +326,37 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             restSecIsolation,
             "Cotovelos apontados para o teto. Foco na cabeça longa do tríceps."
           ),
+          // 9. Cardio Pós-Treino Integrado
+          buildExercise(
+            cardioA.name,
+            "Cardio & Resistência",
+            1,
+            `${cardioA.durationMin} min`,
+            0,
+            `${cardioA.parameters} · ${cardioA.intensity}`
+          ),
         ],
       });
 
-      // SESSÃO B: PULL (Costas, Dorsais, Trapézio, Deltoide Posterior & Bíceps Completo) — 8 EXERCÍCIOS DE VERDADE
+      // SESSÃO B: PULL (Costas, Dorsais, Trapézio, Deltoide Posterior & Bíceps Completo) + CARDIO ESTEIRA INCLINADA
+      const cardioB: PostWorkoutCardioProtocol = {
+        machine: intake.cardioMachine === "Misto" ? "Esteira" : intake.cardioMachine,
+        name: intake.cardioMachine === "Bicicleta" ? "Cardio Pós-Treino: Bicicleta Ergométrica" : intake.cardioMachine === "Escada" ? "Cardio Pós-Treino: Simulador de Escada" : "Cardio Pós-Treino: Esteira com Inclinação 10-12%",
+        durationMin: cardioMins,
+        intensity: "Zona 2 Metabólica (Incline Walk)",
+        parameters: "Velocidade 5.2 a 5.8 km/h, inclinação de 10 a 12%, postura alinhada",
+        estimatedKcal: Math.round(cardioMins * 9.5),
+        benefits: "Estímulo cardiovascular sem impacto articular e ativação da cadeia posterior.",
+      };
+
       sessions.push({
         id: `sess-ai-${Date.now()}-2`,
         title: "Treino B — Costas, Trapézio & Bíceps Completo",
         dayLabel: "Dia 2",
         muscleFocus: hasBackIssue ? "Costas & Bíceps (Apoio no Peito / Sem Tensão Lombar)" : "Dorsais, Trapézio, Deltoide Posterior & Bíceps",
-        estimatedMinutes: 65,
+        estimatedMinutes: 65 + cardioMins,
         warmupProtocol: "Mobilidade torácica dinâmica e ativação de latíssimo no elástico",
+        cardioProtocol: cardioB,
         completedCount: 0,
         exercises: [
           buildExercise(
@@ -381,17 +423,37 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             restSecIsolation,
             "Foco no braquial e braquiorradial para espessura e densidade do braço."
           ),
+          // 9. Cardio Pós-Treino Integrado
+          buildExercise(
+            cardioB.name,
+            "Cardio & Resistência",
+            1,
+            `${cardioB.durationMin} min`,
+            0,
+            `${cardioB.parameters} · ${cardioB.intensity}`
+          ),
         ],
       });
 
-      // SESSÃO C: LEGS (Quadríceps, Posterior de Coxa, Glúteos & Panturrilhas) — 8 EXERCÍCIOS DE VERDADE
+      // SESSÃO C: LEGS (Quadríceps, Posterior de Coxa, Glúteos & Panturrilhas) + CARDIO BIKE REGENERATIVO
+      const cardioC: PostWorkoutCardioProtocol = {
+        machine: intake.cardioMachine === "Misto" ? "Bicicleta" : intake.cardioMachine,
+        name: intake.cardioMachine === "Escada" ? "Cardio Pós-Treino: Simulador de Escada Leve" : intake.cardioMachine === "Esteira" ? "Cardio Pós-Treino: Caminhada na Esteira" : "Cardio Pós-Treino: Bicicleta Ergométrica (Giro Leve Regenerativo)",
+        durationMin: Math.min(20, cardioMins),
+        intensity: "Recuperação Ativa & Flush de Lactato",
+        parameters: "Cadência fluida 80-90 RPM com carga leve (Nível 4-5) para soltar as pernas pós-leg press",
+        estimatedKcal: Math.round(cardioMins * 8),
+        benefits: "Remoção de lactato e metabólitos, oxigenação dos quadríceps e alívio da dor tardia.",
+      };
+
       sessions.push({
         id: `sess-ai-${Date.now()}-3`,
         title: "Treino C — Pernas, Glúteos & Panturrilhas Completo",
         dayLabel: "Dia 3",
         muscleFocus: hasKneeIssue ? "Pernas & Glúteos (Proteção Patelar & Isquiotibiais)" : "Quadríceps, Glúteos, Posterior & Panturrilhas",
-        estimatedMinutes: 65,
+        estimatedMinutes: 65 + cardioC.durationMin,
         warmupProtocol: "Mobilidade profunda de tornozelo e quadril com agachamento corporal (5 min)",
+        cardioProtocol: cardioC,
         completedCount: 0,
         exercises: [
           buildExercise(
@@ -458,18 +520,38 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             restSecIsolation,
             "Isolamento do músculo sóleo. Cadência lenta e controlada."
           ),
+          // 9. Cardio Pós-Treino Regenerativo
+          buildExercise(
+            cardioC.name,
+            "Cardio & Resistência",
+            1,
+            `${cardioC.durationMin} min`,
+            0,
+            `${cardioC.parameters} · ${cardioC.intensity}`
+          ),
         ],
       });
 
-      // SESSÃO D (Para 4+ dias na semana): DELTOIDES & BRAÇOS / SUPERIOR DENSO (SEM PRANCHA!) — 8 EXERCÍCIOS
+      // SESSÃO D (Para 4+ dias na semana): DELTOIDES & BRAÇOS (SEM PRANCHA!) + CARDIO ESCADA/ESTEIRA
       if (intake.trainingDays >= 4) {
+        const cardioD: PostWorkoutCardioProtocol = {
+          machine: intake.cardioMachine === "Misto" ? "Escada" : intake.cardioMachine,
+          name: intake.cardioMachine === "Bicicleta" ? "Cardio Pós-Treino: Bicicleta Ergométrica" : intake.cardioMachine === "Esteira" ? "Cardio Pós-Treino: Esteira Inclinada" : "Cardio Pós-Treino: Simulador de Escada (Stairmaster)",
+          durationMin: cardioMins,
+          intensity: "Zona 2 / Metabólico Intenso",
+          parameters: "Ritmo constante sustentado para maximizar a queima calórica diária",
+          estimatedKcal: Math.round(cardioMins * 10),
+          benefits: "Elevação do metabolismo de repouso (EPOC) e condicionamento aeróbico.",
+        };
+
         sessions.push({
           id: `sess-ai-${Date.now()}-4`,
           title: "Treino D — Ombros, Tríceps & Bíceps (Especialização)",
           dayLabel: "Dia 4",
           muscleFocus: "Deltóides 3D, Tríceps & Bíceps Especialização de Volume",
-          estimatedMinutes: 60,
+          estimatedMinutes: 60 + cardioD.durationMin,
           warmupProtocol: "Mobilidade escapular dinâmica e ativação de manguito rotador",
+          cardioProtocol: cardioD,
           completedCount: 0,
           exercises: [
             buildExercise(
@@ -536,6 +618,15 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
               restSecIsolation,
               "Alongamento severo das fibras na posição inicial promovendo hipertrofia."
             ),
+            // 9. Cardio Pós-Treino Integrado
+            buildExercise(
+              cardioD.name,
+              "Cardio & Resistência",
+              1,
+              `${cardioD.durationMin} min`,
+              0,
+              `${cardioD.parameters} · ${cardioD.intensity}`
+            ),
           ],
         });
       }
@@ -544,7 +635,6 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       const hasRunning = intake.sports.some((s) => s.toLowerCase().includes("corrida"));
       const hasMartialArts = intake.sports.some((s) => s.toLowerCase().includes("luta") || s.toLowerCase().includes("jiu") || s.toLowerCase().includes("boxe") || s.toLowerCase().includes("muay"));
       const hasCross = intake.sports.some((s) => s.toLowerCase().includes("cross"));
-      const hasCycling = intake.sports.some((s) => s.toLowerCase().includes("ciclismo") || s.toLowerCase().includes("bike"));
 
       if (hasRunning) {
         sessions.push({
@@ -603,14 +693,14 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       const plan: WorkoutPlan = {
         id: `plan-ai-${Date.now()}`,
         title: `FORZON Pro — ${intake.goal} (${intake.experienceLevel})`,
-        description: `Periodização de elite calibrada para nível ${intake.experienceLevel} com 8 exercícios por sessão de musculação em ${intake.environment}. Zero pranchas e foco em sobrecarga progressiva real.`,
+        description: `Periodização de elite calibrada para nível ${intake.experienceLevel} com 8 exercícios pesados de musculação + Cardio Pós-Treino (${intake.cardioMachine}) em ${intake.environment}. Zero pranchas e foco em sobrecarga progressiva real.`,
         frequencyDaysPerWeek: intake.trainingDays,
         active: true,
         updatedAt: new Date().toISOString(),
         sessions,
       };
 
-      // Nutritional Plan tailored for experience and goal
+      // Nutritional Plan tailored for experience, cardio and goal
       const nutrition: DailyNutrition = {
         targetCalories,
         targetProteinG: proteinG,
@@ -718,11 +808,11 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
         tdee,
         deficitOrSurplus,
         jointProtection,
-        coachMessage: `Periodização de elite calibrada para nível ${intake.experienceLevel.toUpperCase()}! Todas as sessões de musculação possuem de 6 a 8 exercícios completos, com sobrecarga progressiva em barras, halteres e polias, e ZERO pranchas. Suas calorias foram fixadas em ${targetCalories} kcal diárias (${proteinG}g de proteína) para alimentar seus músculos e recuperar o sistema neuromuscular.`,
+        coachMessage: `Periodização de elite calibrada para nível ${intake.experienceLevel.toUpperCase()}! Todas as sessões de musculação possuem 8 exercícios pesados + Bloco de Cardio Pós-Treino (${intake.cardioMachine}: ${cardioMins} min) com Escada, Esteira Inclinada e Bicicleta para otimizar o consumo de oxigênio e a recuperação muscular. Suas calorias foram fixadas em ${targetCalories} kcal diárias (${proteinG}g de proteína) compensando a musculação e o cardio.`,
       });
 
       setIsGenerating(false);
-      setCurrentStep(9);
+      setCurrentStep(10);
     }, 1500);
   };
 
@@ -782,7 +872,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 </span>
               </div>
               <p className="text-xs text-neutral-400">
-                Prescrição de treino de verdade (6 a 8 exercícios) e plano nutricional sob medida
+                Prescrição de treino de verdade (8 exercícios + Cardio: Escada, Esteira, Bike) e plano nutricional sob medida
               </p>
             </div>
           </div>
@@ -794,17 +884,17 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           </button>
         </div>
 
-        {/* Progress Bar (Steps 1 to 7) */}
-        {currentStep <= 7 && (
+        {/* Progress Bar (Steps 1 to 8) */}
+        {currentStep <= 8 && (
           <div className="py-3">
             <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-1.5">
-              <span>Etapa {currentStep} de 7</span>
-              <span>{Math.round((currentStep / 7) * 100)}% Concluído</span>
+              <span>Etapa {currentStep} de 8</span>
+              <span>{Math.round((currentStep / 8) * 100)}% Concluído</span>
             </div>
             <div className="w-full h-1.5 bg-neutral-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300 rounded-full"
-                style={{ width: `${Math.round((currentStep / 7) * 100)}%` }}
+                style={{ width: `${Math.round((currentStep / 8) * 100)}%` }}
               />
             </div>
           </div>
@@ -825,7 +915,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 Olá, {profile.name.split(" ")[0]}! Sou o seu Treinador e Nutricionista de IA da FORZON.
               </p>
               <p>
-                Vou montar uma periodização de treino pesada de verdade (6 a 8 exercícios por sessão, sem enrolação) e uma dieta milimetricamente calculada para o seu corpo.
+                Vou montar uma periodização de treino pesada de verdade (8 exercícios por sessão + cardio pós-treino prescrito) e uma dieta milimetricamente calculada para o seu corpo.
               </p>
               <p className="text-cyan-400 font-medium">
                 1. Qual é o seu <strong>Objetivo Principal</strong> hoje?
@@ -846,7 +936,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   {
                     id: "perder_gordura",
                     title: "Perder Gordura & Secar (Cutting)",
-                    desc: "Déficit calórico estratégico preservando a massa magra.",
+                    desc: "Déficit calórico estratégico com cardio focado preservando a massa magra.",
                     icon: <Flame className="w-4 h-4 text-amber-400" />,
                   },
                   {
@@ -924,7 +1014,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                       id: "Intermediário" as ExperienceLevel,
                       title: "Intermediário",
                       period: "6 meses a 2 anos",
-                      desc: "Execução sólida, domínio dos exercícios compostos e prontidão para 6 a 8 exercícios intensos.",
+                      desc: "Execução sólida, domínio dos exercícios compostos e prontidão para 8 exercícios intensos.",
                       badge: "Hipertrofia Sólida",
                       icon: <Dumbbell className="w-4 h-4 text-emerald-400" />,
                     },
@@ -1084,12 +1174,12 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                     {
                       id: "Dor no Joelho (Menisco / Tendão Patelar)",
                       label: "Joelho (Dor ao agachar / estalo)",
-                      badge: "Elimina impacto e usa Leg Press seguro",
+                      badge: "Elimina impacto, usa Leg Press e Bike leve",
                     },
                     {
                       id: "Dor na Coluna / Lombar (Hérnia de Disco)",
                       label: "Coluna / Lombar (Evitar peso axial)",
-                      badge: "Remadas com peito apoiado e sem terra",
+                      badge: "Remadas com peito apoiado e esteira inclinada",
                     },
                     {
                       id: "Dor no Ombro (Manguito Rotador / Pinçamento)",
@@ -1142,7 +1232,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             </>
           )}
 
-          {/* STEP 5: FREQUÊNCIA SEMANAL E AMBIENTES DE TREINO (EXPANDIDO) */}
+          {/* STEP 5: FREQUÊNCIA SEMANAL E AMBIENTES DE TREINO */}
           {currentStep >= 5 && (
             <>
               <div className="flex items-start gap-3 pt-2">
@@ -1264,7 +1354,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                     onClick={() => setCurrentStep(6)}
                     className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs rounded-xl flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-cyan-500/20"
                   >
-                    <span>Próxima Pergunta (Demais Esportes)</span>
+                    <span>Próxima Pergunta (Cardio Pós-Treino)</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 )}
@@ -1272,7 +1362,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             </>
           )}
 
-          {/* STEP 6: DEMAIS ESPORTES & MODALIDADES PRATICADAS */}
+          {/* STEP 6: CARDIO PÓS-TREINO (ESCADA, ESTEIRA, BICICLETA) */}
           {currentStep >= 6 && (
             <>
               <div className="flex items-start gap-3 pt-2">
@@ -1281,13 +1371,126 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 </div>
                 <div className="bg-neutral-800/80 border border-neutral-700/60 rounded-2xl p-4 text-xs sm:text-sm text-neutral-200 space-y-1.5 max-w-[90%]">
                   <p className="font-semibold text-white">
-                    Excelente escolha de ambiente! E sobre outras modalidades?
+                    Perfeito! Agora um ponto essencial para condicionamento e secar com eficiência:
                   </p>
                   <p className="text-cyan-400 font-medium">
-                    6. Além da musculação pesada, quais <strong>outros esportes</strong> você pratica ou quer integrar?
+                    6. Qual é a sua preferência de <strong>Cardio Pós-Treino</strong> (Escada, Esteira, Bicicleta) e quantos minutos por dia?
                   </p>
                   <p className="text-xs text-neutral-400">
-                    Selecione as modalidades. A IA prescreverá blocos específicos e calibrará seu gasto calórico:
+                    A IA vai anexar o protocolo exato de cardio (velocidade, nível, inclinação e cadência) no final de cada uma das suas fichas de musculação:
+                  </p>
+                </div>
+              </div>
+
+              <div className="pl-11 space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {[
+                    {
+                      id: "Escada" as const,
+                      title: "Simulador de Escada (Stairmaster)",
+                      desc: "Altíssima queima calórica, foco em glúteos e condicionamento sem impacto nos joelhos.",
+                      badge: "Máxima Queima",
+                      icon: <Footprints className="w-4 h-4 text-emerald-400" />,
+                    },
+                    {
+                      id: "Esteira" as const,
+                      title: "Esteira (Inclinada / Caminhada Firme)",
+                      desc: "Zona 2 metabólica (inclinação 10-12% a 5.5 km/h) sem impacto articular.",
+                      badge: "Zona 2 Lipídica",
+                      icon: <Timer className="w-4 h-4 text-cyan-400" />,
+                    },
+                    {
+                      id: "Bicicleta" as const,
+                      title: "Bicicleta Ergométrica / Spinning",
+                      desc: "Zero impacto, excelente para drenar lactato das pernas e saúde cardiovascular.",
+                      badge: "Zero Impacto",
+                      icon: <Activity className="w-4 h-4 text-amber-400" />,
+                    },
+                    {
+                      id: "Misto" as const,
+                      title: "Cardio Misto / Alternado (Recomendado)",
+                      desc: "Escada no Treino A (Push), Esteira no Treino B (Pull) e Bike leve regenerativa no Treino C (Legs).",
+                      badge: "Periodizado",
+                      icon: <Sparkles className="w-4 h-4 text-purple-400" />,
+                    },
+                  ].map((cardio) => (
+                    <button
+                      key={cardio.id}
+                      type="button"
+                      onClick={() => setIntake((prev) => ({ ...prev, cardioMachine: cardio.id }))}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3 ${
+                        intake.cardioMachine === cardio.id
+                          ? "bg-cyan-950/50 border-cyan-500 shadow-md shadow-cyan-500/10"
+                          : "bg-neutral-900/60 border-neutral-800 hover:border-neutral-700"
+                      }`}
+                    >
+                      <div className="mt-0.5">{cardio.icon}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-white">{cardio.title}</span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-neutral-800 text-cyan-300">
+                            {cardio.badge}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-neutral-400 mt-1 leading-snug">{cardio.desc}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Cardio Duration Selector */}
+                <div className="bg-neutral-900/80 p-3.5 rounded-2xl border border-neutral-800 flex items-center justify-between gap-3">
+                  <div>
+                    <span className="text-xs font-bold text-white block">Duração do Cardio Pós-Treino:</span>
+                    <span className="text-[11px] text-neutral-400">Tempo recomendado após a musculação</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {[15, 20, 25, 30].map((mins) => (
+                      <button
+                        key={mins}
+                        type="button"
+                        onClick={() => setIntake((prev) => ({ ...prev, cardioMinutes: mins }))}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer ${
+                          intake.cardioMinutes === mins
+                            ? "bg-cyan-500 text-neutral-950 shadow-md shadow-cyan-500/20"
+                            : "bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700"
+                        }`}
+                      >
+                        {mins}m
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {currentStep === 6 && (
+                  <button
+                    onClick={() => setCurrentStep(7)}
+                    className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs rounded-xl flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-cyan-500/20"
+                  >
+                    <span>Próxima Pergunta (Demais Esportes)</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* STEP 7: DEMAIS ESPORTES & MODALIDADES PRATICADAS */}
+          {currentStep >= 7 && (
+            <>
+              <div className="flex items-start gap-3 pt-2">
+                <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
+                  <Bot className="w-4 h-4" />
+                </div>
+                <div className="bg-neutral-800/80 border border-neutral-700/60 rounded-2xl p-4 text-xs sm:text-sm text-neutral-200 space-y-1.5 max-w-[90%]">
+                  <p className="font-semibold text-white">
+                    Cardio configurado! E sobre outras atividades físicas externas?
+                  </p>
+                  <p className="text-cyan-400 font-medium">
+                    7. Além da musculação e do cardio de academia, quais <strong>outros esportes</strong> você pratica ou quer integrar?
+                  </p>
+                  <p className="text-xs text-neutral-400">
+                    Selecione as modalidades. A IA prescreverá blocos específicos e calibrará seu gasto calórico total:
                   </p>
                 </div>
               </div>
@@ -1296,8 +1499,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
                     { id: "Musculação", name: "Musculação & Hipertrofia", desc: "Base de força, halteres, barras e polias", badge: "Base Força" },
-                    { id: "Corrida de Rua", name: "Corrida de Rua / Esteira", desc: "Tiros, 5k, 10k, endurance e VO2 Max", badge: "Endurance" },
-                    { id: "Ciclismo / Bike", name: "Ciclismo & Bike", desc: "Estrada, spinning, MTB e potência de pernas", badge: "Cardio Bike" },
+                    { id: "Corrida de Rua", name: "Corrida de Rua / Outdoor", desc: "Tiros, 5k, 10k, endurance e VO2 Max", badge: "Endurance" },
+                    { id: "Ciclismo / Bike", name: "Ciclismo & Bike Outdoor", desc: "Estrada, spinning, MTB e pernas", badge: "Cardio Bike" },
                     { id: "Lutas & Artes Marciais", name: "Lutas (Jiu-Jitsu, Boxe, Muay Thai)", desc: "Potência de core, rounds e combate", badge: "Artes Marciais" },
                     { id: "Natação", name: "Natação", desc: "Cardio e pulmão sem impacto articular", badge: "Zero Impacto" },
                     { id: "Cross Training", name: "Cross Training / Funcional", desc: "WODs intensos, agilidade e força", badge: "Metabólico" },
@@ -1353,9 +1556,9 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   <span className="text-[11px] font-mono text-neutral-400">
                     {intake.sports.length} modalidade(s) selecionada(s)
                   </span>
-                  {currentStep === 6 && (
+                  {currentStep === 7 && (
                     <button
-                      onClick={() => setCurrentStep(7)}
+                      onClick={() => setCurrentStep(8)}
                       className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs rounded-xl flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-cyan-500/20"
                     >
                       <span>Próxima Pergunta (Dieta)</span>
@@ -1367,8 +1570,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             </>
           )}
 
-          {/* STEP 7: PREFERÊNCIAS DE DIETA */}
-          {currentStep >= 7 && (
+          {/* STEP 8: PREFERÊNCIAS DE DIETA */}
+          {currentStep >= 8 && (
             <>
               <div className="flex items-start gap-3 pt-2">
                 <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
@@ -1379,7 +1582,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                     Última pergunta para fechar o diagnóstico de alta precisão!
                   </p>
                   <p className="text-cyan-400 font-medium">
-                    7. Como é a sua alimentação? Você tem alguma <strong>preferência ou restrição alimentar</strong> para o cálculo dos macronutrientes?
+                    8. Como é a sua alimentação? Você tem alguma <strong>preferência ou restrição alimentar</strong> para o cálculo dos macronutrientes?
                   </p>
                 </div>
               </div>
@@ -1408,7 +1611,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   ))}
                 </div>
 
-                {currentStep === 7 && (
+                {currentStep === 8 && (
                   <button
                     onClick={computeTailoredPlanAndDiet}
                     className="w-full py-3.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 text-neutral-950 font-black text-sm rounded-2xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xl shadow-cyan-500/25"
@@ -1421,8 +1624,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             </>
           )}
 
-          {/* STEP 8: IA PROCESSANDO */}
-          {currentStep === 8 && isGenerating && (
+          {/* STEP 9: IA PROCESSANDO */}
+          {currentStep === 9 && isGenerating && (
             <div className="p-8 text-center space-y-4 animate-fade-in">
               <div className="w-16 h-16 rounded-3xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 mx-auto animate-spin">
                 <Sparkles className="w-8 h-8" />
@@ -1432,18 +1635,18 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   FORZON AI Coach Analisando Seus Dados...
                 </h3>
                 <p className="text-xs text-neutral-400 max-w-md mx-auto">
-                  Calculando Taxa Metabólica Basal ({intake.weightKg}kg / {intake.heightCm}cm), prescrevendo rotina de nível <strong>{intake.experienceLevel}</strong> com 6 a 8 exercícios completos por sessão em {intake.environment}, integrando ({intake.sports.join(", ")}) e eliminando pranchas.
+                  Calculando Taxa Metabólica Basal ({intake.weightKg}kg / {intake.heightCm}cm), prescrevendo rotina de nível <strong>{intake.experienceLevel}</strong> com 8 exercícios pesados + Cardio Pós-Treino ({intake.cardioMachine}: Escada, Esteira, Bike), integrando ({intake.sports.join(", ")}) e eliminando pranchas.
                 </p>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950 border border-neutral-800 rounded-full text-[11px] font-mono text-cyan-400">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-                Sintetizando Ficha de Exercícios e Metas de Calorias
+                Sintetizando Ficha de Exercícios, Protocolo de Cardio e Dieta
               </div>
             </div>
           )}
 
-          {/* STEP 9: RESULTADO COMPLETO */}
-          {currentStep === 9 && generatedPlan && generatedNutrition && generatedRationale && (
+          {/* STEP 10: RESULTADO COMPLETO */}
+          {currentStep === 10 && generatedPlan && generatedNutrition && generatedRationale && (
             <div className="space-y-4 animate-fade-in">
               {/* Coach Diagnostic Message */}
               <div className="flex items-start gap-3">
@@ -1452,7 +1655,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 </div>
                 <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-4 text-xs sm:text-sm text-neutral-200 space-y-1.5">
                   <p className="font-bold text-emerald-400 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4" /> Treino de Verdade & Dieta Concluídos!
+                    <Sparkles className="w-4 h-4" /> Treino de Verdade com Cardio & Dieta Concluídos!
                   </p>
                   <p>{generatedRationale.coachMessage}</p>
                 </div>
@@ -1544,14 +1747,22 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                         </div>
                       </div>
 
+                      {/* Exercises Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                         {sess.exercises.map((ex, idx) => (
                           <div
                             key={ex.id || idx}
-                            className="flex items-center justify-between bg-neutral-950/70 border border-neutral-800/80 rounded-lg px-2.5 py-1.5 text-[11px]"
+                            className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11px] ${
+                              ex.targetMuscle === "Cardio & Resistência"
+                                ? "bg-cyan-950/60 border border-cyan-500/40 text-cyan-300"
+                                : "bg-neutral-950/70 border border-neutral-800/80 text-neutral-200"
+                            }`}
                           >
-                            <span className="text-neutral-200 font-medium truncate pr-2">
-                              {idx + 1}. {ex.name}
+                            <span className="font-medium truncate pr-2 flex items-center gap-1.5">
+                              {ex.targetMuscle === "Cardio & Resistência" && (
+                                <Activity className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                              )}
+                              <span>{idx + 1}. {ex.name}</span>
                             </span>
                             <span className="text-cyan-400 font-mono shrink-0">
                               {ex.sets?.length || 4}x {ex.sets?.[0]?.targetReps || "8-10"}
@@ -1559,6 +1770,26 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                           </div>
                         ))}
                       </div>
+
+                      {/* Cardio Protocol Card */}
+                      {sess.cardioProtocol && (
+                        <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 flex items-start gap-2.5 text-xs">
+                          <Activity className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-bold text-white text-[11px]">
+                                {sess.cardioProtocol.name}
+                              </span>
+                              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">
+                                {sess.cardioProtocol.durationMin} MIN · ~{sess.cardioProtocol.estimatedKcal} KCAL
+                              </span>
+                            </div>
+                            <div className="text-[10px] text-neutral-300 mt-0.5">
+                              {sess.cardioProtocol.parameters} ({sess.cardioProtocol.intensity})
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
