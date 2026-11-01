@@ -35,7 +35,7 @@ export const INITIAL_USER_PROFILE: UserProfile = {
     termsAcceptedAt: "2026-01-15T10:00:00Z",
   },
   followingIds: ["user-lari-1", "user-coach-zanetti"],
-  isPremium: true,
+  isPremium: false,
   createdAt: "2026-01-15T10:00:00Z",
   sleepQuality: "Boa",
   stressLevel: 3,
