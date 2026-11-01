@@ -308,20 +308,29 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
       trainingDays,
       environment,
       dietaryPreference,
+      sports = ["Musculação"],
       userName,
     } = req.body;
 
-    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica e nutrição esportiva.
+    const sportsListStr = Array.isArray(sports) && sports.length > 0 ? sports.join(", ") : "Musculação";
+
+    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica, outros esportes (corrida, ciclismo, lutas, natação, futebol, cross training) e nutrição esportiva.
 Gere um plano de treino e um plano nutricional completos e personalizados para o seguinte atleta:
 - Nome: ${userName || "Atleta"}
 - Altura: ${heightCm || 175} cm | Peso: ${weightKg || 75} kg
-- Objetivo: ${goal} (${specificGoal})
+- Objetivo Principal: ${goal} (${specificGoal})
+- Esportes e Modalidades Praticadas: ${sportsListStr}
 - Lesões / Problemas de Saúde: "${healthIssues || "Nenhuma limitação"}" (CRUCIAL: se houver lesão no joelho, lombar, ombro ou outra articulação, NUNCA prescreva exercícios que causem impacto ou compressão direta nessa articulação! Substitua por variações seguras com apoio).
 - Frequência: ${trainingDays || 4} dias por semana
 - Local: ${environment || "Academia"}
 - Dieta: ${dietaryPreference || "Padrão"}
 
-Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor.
+REGRAS OBRIGATÓRIAS DE PRESCRIÇÃO:
+1. VOLUME DE BRAÇOS (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Sempre prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (ex: Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico) e NO MÍNIMO 2 a 3 exercícios para Tríceps (ex: Tríceps Corda/Polia para cabeça lateral/medial + Tríceps Francês/Testa para cabeça longa + Mergulho/Paralelas).
+2. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outros esportes além da musculação (como Corrida de Rua, Ciclismo, Natação, Lutas/Jiu-Jitsu, Cross Training, Futebol, etc.), crie sessões específicas na periodização ou blocos de condicionamento dedicados para essa modalidade, e aumente os carboidratos e a meta calórica para compensar o gasto energético do esporte!
+3. GRUPOS GRANDES: 3 a 4 exercícios completos para peito, costas e pernas.
+
+Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor, considerando o gasto dos esportes adicionais.
 Defina as calorias diárias, proteínas (em gramas), carboidratos (em gramas), gorduras (em gramas) e água diária (em ml).
 
 Retorne estritamente um JSON no seguinte formato:
@@ -329,7 +338,7 @@ Retorne estritamente um JSON no seguinte formato:
   "plan": {
     "id": "plan-intake-ai",
     "title": "FORZON AI — ${goal}",
-    "description": "Periodização personalizada desenhada pelo FORZON AI Coach",
+    "description": "Periodização personalizada desenhada pelo FORZON AI Coach integrando ${sportsListStr}",
     "frequencyDaysPerWeek": ${trainingDays || 4},
     "active": true,
     "sessions": [
