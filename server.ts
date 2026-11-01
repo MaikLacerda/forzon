@@ -304,6 +304,7 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
       weightKg,
       goal,
       specificGoal,
+      experienceLevel = "Intermediário",
       healthIssues,
       trainingDays,
       environment,
@@ -314,31 +315,34 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
 
     const sportsListStr = Array.isArray(sports) && sports.length > 0 ? sports.join(", ") : "Musculação";
 
-    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica, outros esportes (corrida, ciclismo, lutas, natação, futebol, cross training) e nutrição esportiva.
-Gere um plano de treino e um plano nutricional completos e personalizados para o seguinte atleta:
+    const prompt = `Você é o FORZON AI Coach, especialista de elite em musculação, biomecânica, outros esportes (corrida, ciclismo, lutas, natação, futebol, cross training) e nutrição esportiva de alta performance.
+Gere uma periodização semanal de treinamento de verdade e um plano nutricional completos e minuciosos para o seguinte atleta:
 - Nome: ${userName || "Atleta"}
+- Nível de Experiência: ${experienceLevel} (Iniciante, Intermediário, Avançado ou Atleta)
 - Altura: ${heightCm || 175} cm | Peso: ${weightKg || 75} kg
 - Objetivo Principal: ${goal} (${specificGoal})
 - Esportes e Modalidades Praticadas: ${sportsListStr}
 - Lesões / Problemas de Saúde: "${healthIssues || "Nenhuma limitação"}" (CRUCIAL: se houver lesão no joelho, lombar, ombro ou outra articulação, NUNCA prescreva exercícios que causem impacto ou compressão direta nessa articulação! Substitua por variações seguras com apoio).
-- Frequência: ${trainingDays || 4} dias por semana
-- Local: ${environment || "Academia"}
-- Dieta: ${dietaryPreference || "Padrão"}
+- Frequência Semanal: ${trainingDays || 4} dias por semana
+- Ambiente & Equipamentos: ${environment || "Academia Comercial Completa"}
+- Dieta & Preferência: ${dietaryPreference || "Padrão (Como de tudo)"}
 
-REGRAS OBRIGATÓRIAS DE PRESCRIÇÃO:
-1. VOLUME DE BRAÇOS (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Sempre prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (ex: Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico) e NO MÍNIMO 2 a 3 exercícios para Tríceps (ex: Tríceps Corda/Polia para cabeça lateral/medial + Tríceps Francês/Testa para cabeça longa + Mergulho/Paralelas).
-2. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outros esportes além da musculação (como Corrida de Rua, Ciclismo, Natação, Lutas/Jiu-Jitsu, Cross Training, Futebol, etc.), crie sessões específicas na periodização ou blocos de condicionamento dedicados para essa modalidade, e aumente os carboidratos e a meta calórica para compensar o gasto energético do esporte!
-3. GRUPOS GRANDES: 3 a 4 exercícios completos para peito, costas e pernas.
+REGRAS OBRIGATÓRIAS E INEGOCIÁVEIS DE PRESCRIÇÃO:
+1. VOLUME POR SESSÃO (TREINO DE VERDADE): CADA sessão de musculação DEVE CONTER OBRIGATORIAMENTE DE 6 A 8 EXERCÍCIOS COMPLETOS. NUNCA prescreva treinos fracos ou medíocres com apenas 4 exercícios! Um treino de musculação respeitável para nível ${experienceLevel} exige volume e sobrecarga adequados.
+2. PROIBIÇÃO TOTAL DE PRANCHA ISOMÉTRICA: NUNCA prescreva "Prancha Abdominal" ou exercícios de prancha estática em dias de hipertrofia. O atleta expressamente rejeita pranchas. Para abdômen/core, se for prescrever, utilize exercícios dinâmicos com sobrecarga como "Crunch na Polia Alta com Carga" ou "Elevação de Pernas na Barra Fixa", ou dedique os exercícios para movimentos reais de musculação (supinos, remadas, roscas, agachamentos, leg press).
+3. VOLUME DE BRAÇOS COMPLETO (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Em treinos de empurrar/push, prescreva NO MÍNIMO 2 a 3 exercícios para Tríceps (cabeça lateral/medial, cabeça longa e extensão). Em treinos de puxar/pull, prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico).
+4. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outras modalidades (Corrida de Rua, Ciclismo, Lutas/Jiu-Jitsu, Natação, Cross Training, Futebol, etc.), crie blocos ou sessões específicas e ajuste os carboidratos e a meta calórica total para suportar o gasto energético do esporte.
+5. CALIBRAÇÃO CONFORME NÍVEL:
+   - Para Avançado e Atleta: 4 séries nos exercícios compostos principais, rep ranges pesados (6-8 ou 8-10), RPE 8.5-9.5, descansos de 90-120s, e notas com técnicas de intensificação (pico de contração de 2s, cadência excêntrica de 3s, drop-set na última série).
+   - Para Intermediário: 3-4 séries, 8-12 repetições, foco em progressão linear.
 
-Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor, considerando o gasto dos esportes adicionais.
-Defina as calorias diárias, proteínas (em gramas), carboidratos (em gramas), gorduras (em gramas) e água diária (em ml).
-
+Calcule a Taxa Metabólica Basal (TMB) e Gasto Energético Total (GET) por Mifflin-St Jeor considerando os esportes e o nível.
 Retorne estritamente um JSON no seguinte formato:
 {
   "plan": {
     "id": "plan-intake-ai",
-    "title": "FORZON AI — ${goal}",
-    "description": "Periodização personalizada desenhada pelo FORZON AI Coach integrando ${sportsListStr}",
+    "title": "FORZON Pro — ${goal} (${experienceLevel})",
+    "description": "Periodização completa de 6 a 8 exercícios por sessão desenvolvida pelo FORZON AI Coach para nível ${experienceLevel}",
     "frequencyDaysPerWeek": ${trainingDays || 4},
     "active": true,
     "sessions": [
@@ -347,38 +351,44 @@ Retorne estritamente um JSON no seguinte formato:
         "dayName": "Treino A",
         "focus": "Foco do dia",
         "dayLabel": "Dia 1",
-        "estimatedDurationMin": 50,
-        "warmup": "Aquecimento articular",
+        "estimatedDurationMin": 60,
+        "warmup": "Aquecimento articular dinâmico",
         "exercises": [
-          { "name": "Nome", "targetMuscle": "Músculo", "sets": 4, "reps": "8-12 reps", "restSeconds": 90, "notes": "Instrução" }
+          { "name": "Exercício 1", "targetMuscle": "Músculo", "sets": 4, "reps": "8-10 reps", "restSeconds": 90, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 2", "targetMuscle": "Músculo", "sets": 4, "reps": "8-10 reps", "restSeconds": 90, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 3", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 4", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 5", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 6", "targetMuscle": "Músculo", "sets": 3, "reps": "10-12 reps", "restSeconds": 60, "notes": "Instrução técnica detalhada" },
+          { "name": "Exercício 7", "targetMuscle": "Músculo", "sets": 3, "reps": "12-15 reps", "restSeconds": 45, "notes": "Instrução técnica detalhada" }
         ]
       }
     ]
   },
   "nutrition": {
-    "calorieGoal": 2300,
-    "proteinGoal": 160,
-    "carbsGoal": 260,
-    "fatGoal": 65,
-    "waterGoal": 3000,
+    "calorieGoal": 2500,
+    "proteinGoal": 170,
+    "carbsGoal": 290,
+    "fatGoal": 70,
+    "waterGoal": 3200,
     "meals": [
       {
         "id": "m-1",
-        "name": "Café da Manhã",
+        "name": "Café da Manhã Anabólico",
         "time": "08:00",
-        "calories": 500,
-        "proteinG": 35,
-        "carbsG": 50,
-        "fatG": 15,
-        "items": ["Item 1", "Item 2"]
+        "calories": 550,
+        "proteinG": 38,
+        "carbsG": 60,
+        "fatG": 16,
+        "items": ["4 Ovos mexidos ou Omelete", "100g de Cuscuz ou Aveia em flocos com banana", "Café preto sem açúcar"]
       }
     ]
   },
   "rationale": {
-    "tdee": 2400,
-    "deficitOrSurplus": "Superávit de +300 kcal ou Déficit de -400 kcal",
-    "jointProtection": "Explicação de como os exercícios protegem a saúde e lesão informada",
-    "coachMessage": "Mensagem motivacional e prescrição do Coach da IA"
+    "tdee": 2550,
+    "deficitOrSurplus": "Superávit de +350 kcal limpo para hipertrofia sem acúmulo de gordura",
+    "jointProtection": "Detalhamento biomecânico de como o treino protege as articulações e maximiza a hipertrofia",
+    "coachMessage": "Mensagem direta e motivadora do Treinador FORZON para o atleta"
   }
 }`;
 
