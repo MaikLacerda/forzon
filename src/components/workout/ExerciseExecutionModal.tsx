@@ -25,7 +25,7 @@ import {
 } from "recharts";
 import { Exercise } from "../../types";
 import { storage } from "../../services/storage";
-import { AnatomicalExerciseIllustration } from "./AnatomicalExerciseIllustration";
+import { Exercise3DMannequin, hasExerciseAnimation } from "./Exercise3DMannequin";
 
 interface ExerciseExecutionModalProps {
   exercise: Exercise;
@@ -156,6 +156,7 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
 
   const latestRecord = historyData[historyData.length - 1];
   const currentMetric = graphMode === "maior_peso" ? latestRecord.bestWeight : latestRecord.estimated1RM;
+  const hasAnimatedDemo = hasExerciseAnimation(exercise);
 
   if (!isOpen) return null;
 
@@ -279,8 +280,15 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           {/* ========================================================= */}
           {activeTab === "resumo" && (
             <div className="space-y-4">
-              {/* 1. White Card with Anatomical Looping Animation & Red Muscles */}
-              <AnatomicalExerciseIllustration exercise={exercise} size="full" />
+              {/* Show a moving demonstration only when this exact exercise has a matching animation. */}
+              {hasAnimatedDemo ? (
+                <Exercise3DMannequin exercise={exercise} height={300} />
+              ) : (
+                <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 text-center">
+                  <div className="text-sm font-bold text-white">Demonstração em preparação</div>
+                  <p className="mt-2 text-xs text-neutral-400">Ainda não há uma animação validada para este exercício. Consulte as instruções abaixo para executar o movimento com segurança.</p>
+                </div>
+              )}
 
               {/* 2. Exercise Title & Primary / Secondary Target Muscles */}
               <div className="space-y-1 pt-1">
@@ -570,15 +578,22 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           )}
 
           {/* ========================================================= */}
-          {/* TAB 4: EXERCISE-SPECIFIC VISUAL DEMONSTRATION              */}
+          {/* TAB 4: EXERCISE-SPECIFIC ANIMATED DEMONSTRATION            */}
           {/* ========================================================= */}
           {activeTab === "video" && (
             <div className="space-y-4">
-              <AnatomicalExerciseIllustration exercise={exercise} size="full" />
+              {hasAnimatedDemo ? (
+                <Exercise3DMannequin exercise={exercise} height={300} />
+              ) : (
+                <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 text-center">
+                  <div className="text-sm font-bold text-white">Animação ainda não disponível</div>
+                  <p className="mt-2 text-xs text-neutral-400">Este exercício ainda não tem uma sequência de movimento validada. Preferimos não exibir um movimento diferente como exemplo.</p>
+                </div>
+              )}
               <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-3">
                 <div>
                   <h3 className="text-sm font-bold text-white">{exercise.name}</h3>
-                  <p className="text-xs text-neutral-400 mt-1">Referência visual vinculada ao exercício cadastrado</p>
+                  <p className="text-xs text-neutral-400 mt-1">Demonstração animada de referência. Use as instruções abaixo para conferir a técnica deste exercício.</p>
                 </div>
                 <ol className="space-y-2 text-xs text-neutral-300 list-decimal list-inside">
                   {exercise.instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}

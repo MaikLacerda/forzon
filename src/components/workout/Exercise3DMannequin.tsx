@@ -19,100 +19,63 @@ interface Exercise3DMannequinProps {
 type MovementType =
   | "bench_press"
   | "incline_bench"
+  | "chest_fly"
+  | "pushup"
+  | "dip"
   | "squat"
+  | "lunge"
+  | "wall_ball"
   | "leg_press"
+  | "leg_extension"
+  | "leg_curl"
+  | "calf_raise"
   | "lat_pulldown"
+  | "pull_up"
   | "barbell_row"
   | "shoulder_press"
   | "lateral_raise"
   | "biceps_curl"
   | "triceps_pushdown"
+  | "triceps_extension"
   | "deadlift_stiff"
+  | "hip_thrust"
+  | "core_plank"
+  | "core_crunch"
+  | "leg_raise"
+  | "ab_rollout"
   | "cardio_treadmill"
   | "general_default";
 
-function detectMovementType(ex: Exercise): MovementType {
-  const name = (ex.name || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-  const muscle = (ex.primaryMuscle || "").toLowerCase();
+// Only map movements for which the mannequin currently has a matching animation.
+// Unsupported variations intentionally show no demo instead of a misleading one.
+const EXERCISE_MOVEMENT_MAP: Record<string, MovementType> = {
+  "ex-supino-reto-barra": "bench_press",
+  "ex-supino-reto-halteres": "bench_press",
+  "ex-supino-inclinado-halteres": "incline_bench",
+  "ex-supino-inclinado-barra": "incline_bench",
+  "ex-agachamento-livre-barra": "squat",
+  "ex-agachamento-frontal-barra": "squat",
+  "ex-agachamento-smith": "squat",
+  "ex-puxada-frontal-polia": "lat_pulldown",
+  "ex-puxada-triangulo": "lat_pulldown",
+  "ex-rosca-direta-barra-w": "biceps_curl",
+  "ex-rosca-direta-barra-reta": "biceps_curl",
+  "ex-desenvolvimento-militar-barra": "shoulder_press",
+  "ex-triceps-corda-polia": "triceps_pushdown",
+  "ex-triceps-pulley-barra-reta": "triceps_pushdown",
+  "ex-levantamento-terra-convencional": "deadlift_stiff",
+  "ex-stiff-halteres": "deadlift_stiff",
+  "ex-stiff-barra": "deadlift_stiff",
+};
 
-  if (
-    name.includes("esteira") ||
-    name.includes("escada") ||
-    name.includes("bicicleta") ||
-    muscle.includes("cardio")
-  ) {
-    return "cardio_treadmill";
-  }
-  if (
-    name.includes("inclinad") &&
-    (name.includes("supino") || muscle.includes("peit"))
-  ) {
-    return "incline_bench";
-  }
-  if (
-    name.includes("supino") ||
-    name.includes("flexao") ||
-    (muscle.includes("peit") && name.includes("articulad"))
-  ) {
-    return "bench_press";
-  }
-  if (
-    name.includes("agachamento") ||
-    name.includes("hack") ||
-    name.includes("bulgaro") ||
-    name.includes("afundo")
-  ) {
-    return "squat";
-  }
-  if (name.includes("leg press")) {
-    return "leg_press";
-  }
-  if (
-    name.includes("puxada") ||
-    name.includes("barra fixa") ||
-    name.includes("pulley")
-  ) {
-    return "lat_pulldown";
-  }
-  if (
-    name.includes("remada") ||
-    name.includes("serrote") ||
-    name.includes("cavalinho") ||
-    name.includes("crucifixo invert")
-  ) {
-    return "barbell_row";
-  }
-  if (
-    name.includes("desenvolvimento") ||
-    (muscle.includes("ombro") && name.includes("militar"))
-  ) {
-    return "shoulder_press";
-  }
-  if (name.includes("elevacao lateral") || name.includes("lateral")) {
-    return "lateral_raise";
-  }
-  if (name.includes("rosca") || muscle.includes("bicep")) {
-    return "biceps_curl";
-  }
-  if (
-    name.includes("triceps") ||
-    name.includes("paralela") ||
-    name.includes("testa")
-  ) {
-    return "triceps_pushdown";
-  }
-  if (
-    name.includes("stiff") ||
-    name.includes("terra") ||
-    name.includes("rdl") ||
-    name.includes("pelvica")
-  ) {
-    return "deadlift_stiff";
-  }
+function detectMovementType(ex: Exercise): MovementType {
+  const exactMatch = EXERCISE_MOVEMENT_MAP[ex.id];
+  if (exactMatch) return exactMatch;
   return "general_default";
+}
+
+export function hasExerciseAnimation(exercise: Exercise): boolean {
+  return detectMovementType(exercise) !== "general_default";
 }
 
 // Error Boundary for 3D component to never crash the parent modal
