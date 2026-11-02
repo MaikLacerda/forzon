@@ -265,21 +265,82 @@ export const SocialView: React.FC<SocialViewProps> = ({
                     </div>
                   )}
 
-                  {/* Post Content */}
-                  <p className="text-sm text-neutral-200 leading-relaxed">{post.content}</p>
+                  {/* Post Content with line break preservation */}
+                  <p className="text-sm text-neutral-200 leading-relaxed whitespace-pre-line">
+                    {post.content}
+                  </p>
+
+                  {/* Post Media: Photo or Video */}
+                  {post.mediaUrl && (
+                    <div className="relative rounded-2xl overflow-hidden bg-neutral-950 border border-neutral-800/80 shadow-md">
+                      {post.mediaType === "video" ? (
+                        <video
+                          src={post.mediaUrl}
+                          controls
+                          playsInline
+                          preload="metadata"
+                          className="w-full max-h-[420px] bg-black rounded-2xl object-contain mx-auto"
+                        />
+                      ) : (
+                        <div className="relative">
+                          <img
+                            src={post.mediaUrl}
+                            alt="Foto do treino"
+                            className="w-full max-h-[420px] rounded-2xl object-contain bg-black mx-auto"
+                          />
+                          {post.workoutData?.totalKgLifted && (
+                            <div className="absolute bottom-3 right-3 bg-neutral-950/85 backdrop-blur-md border border-neutral-800 px-3 py-1.5 rounded-xl font-mono text-xs flex items-center gap-1.5 text-white shadow-xl">
+                              <span className="text-emerald-400 font-bold">
+                                {post.workoutData.totalKgLifted.toLocaleString("pt-BR")} KG
+                              </span>
+                              <span className="text-neutral-400 text-[10px]">LEVANTADOS</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Workout Highlight Box */}
                   {post.workoutData && (
-                    <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-850 space-y-2 font-mono">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-bold text-white">{post.workoutData.title}</span>
-                        <span className="text-emerald-400 font-semibold">{post.workoutData.highlight}</span>
+                    <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-850 space-y-3 font-mono">
+                      <div className="flex items-center justify-between text-xs flex-wrap gap-2">
+                        <span className="font-bold text-white text-sm">{post.workoutData.title}</span>
+                        <span className="text-emerald-400 font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-[11px]">
+                          {post.workoutData.highlight}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-4 text-[11px] text-neutral-400">
-                        <span>Tempo: {post.workoutData.duration}</span>
+
+                      <div className="flex items-center gap-4 text-xs text-neutral-300">
+                        <span className="flex items-center gap-1">
+                          <span className="text-neutral-500">Tempo:</span>
+                          <strong>{post.workoutData.duration}</strong>
+                        </span>
                         <span>·</span>
-                        <span>{post.workoutData.volumeOrDistance}</span>
+                        <span className="flex items-center gap-1 text-emerald-400 font-bold">
+                          <span>{post.workoutData.volumeOrDistance}</span>
+                        </span>
                       </div>
+
+                      {/* Exercises summary breakdown if available */}
+                      {post.workoutData.exercisesSummary && post.workoutData.exercisesSummary.length > 0 && (
+                        <div className="pt-2 border-t border-neutral-900 space-y-1.5 text-[11px]">
+                          <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+                            Exercícios Executados na Sessão:
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                            {post.workoutData.exercisesSummary.map((ex, exIdx) => (
+                              <div
+                                key={exIdx}
+                                className="bg-neutral-900/70 border border-neutral-850 px-2.5 py-1.5 rounded-lg flex items-center justify-between gap-2"
+                              >
+                                <span className="text-neutral-200 font-semibold truncate">{ex.name}</span>
+                                <span className="text-emerald-400 font-mono text-[10px] shrink-0">{ex.setsDetail}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 

@@ -1887,8 +1887,161 @@ export const EXERCISE_LIBRARY: Exercise[] = [
       "Transicione os cotovelos rapidamente por cima da barra.",
       "Empurre até a extensão completa dos braços na parte superior (dip)."
     ],
-    commonMistakes: ["Subir um braço de cada vez ('asa de frango')", "Puxar a barra muito perto do queixo sem espaço de rotação"],
+    commonMistakes: [
+      "Subir um braço de cada vez ('asa de frango')",
+      "Puxar a barra muito perto do queixo sem espaço de rotação"
+    ],
     cues: ["Puxe a barra para o umbigo", "Gire os punhos velozmente"],
     alternatives: ["Barra Fixa Pega Peito", "Mergulho em Paralelas com Carga"]
   }
 ];
+
+export function getExerciseById(id: string): Exercise | undefined {
+  return EXERCISE_LIBRARY.find((e) => e.id === id);
+}
+
+function normalizeSearch(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .trim();
+}
+
+export function resolveExerciseDetails(
+  nameOrId: string,
+  fallbackMuscle?: string
+): Exercise {
+  if (!nameOrId) {
+    return {
+      id: "ex-custom",
+      name: "Exercício Personalizado",
+      primaryMuscle: (fallbackMuscle as any) || "Peitoral",
+      secondaryMuscles: ["Abdômen & Core"],
+      equipment: "Barra",
+      difficulty: "Intermediário",
+      instructions: [
+        "Ajuste a postura mantendo a curvatura anatômica da coluna.",
+        "Execute a fase excêntrica de forma controlada (2-3 segundos).",
+        "Ative a contração muscular no pico da fase concêntrica."
+      ],
+      commonMistakes: [
+        "Uso de impulso ou compensações posturais excessivas.",
+        "Amplitude de movimento incompleta."
+      ],
+      cues: ["Conexão mente-músculo", "Controle excêntrico", "Respiração fluida"],
+      alternatives: ["Variação com Halteres", "Variação na Polia"]
+    };
+  }
+
+  // 1. Direct ID match
+  const byId = EXERCISE_LIBRARY.find(
+    (e) => e.id.toLowerCase() === nameOrId.toLowerCase()
+  );
+  if (byId) return byId;
+
+  const normalizedQuery = normalizeSearch(nameOrId);
+
+  // 2. Exact or high-match by name
+  const byNameExact = EXERCISE_LIBRARY.find(
+    (e) => normalizeSearch(e.name) === normalizedQuery
+  );
+  if (byNameExact) return byNameExact;
+
+  // 3. Partial match (query contains library name or library name contains query)
+  const byNamePartial = EXERCISE_LIBRARY.find((e) => {
+    const normName = normalizeSearch(e.name);
+    return normName.includes(normalizedQuery) || normalizedQuery.includes(normName);
+  });
+  if (byNamePartial) return byNamePartial;
+
+  // 4. Keyword tokens match
+  const queryTokens = normalizedQuery.split(/\s+/).filter((t) => t.length > 2);
+  let bestMatch: Exercise | null = null;
+  let maxScore = 0;
+
+  for (const ex of EXERCISE_LIBRARY) {
+    const norm = normalizeSearch(`${ex.name} ${ex.primaryMuscle} ${ex.equipment}`);
+    let score = 0;
+    for (const token of queryTokens) {
+      if (norm.includes(token)) score++;
+    }
+    if (score > maxScore) {
+      maxScore = score;
+      bestMatch = ex;
+    }
+  }
+
+  if (bestMatch && maxScore >= 2) {
+    return bestMatch;
+  }
+
+  // 5. Intelligent fallback synthesizing full biomechanical guide
+  const cleanTitle = nameOrId
+    .replace(/\s*\(\d+x.*?\)/gi, "")
+    .replace(/^Treino\s+[A-Z]\s*—\s*/gi, "")
+    .trim();
+
+  const isCardio =
+    cleanTitle.toLowerCase().includes("esteira") ||
+    cleanTitle.toLowerCase().includes("escada") ||
+    cleanTitle.toLowerCase().includes("bicicleta") ||
+    cleanTitle.toLowerCase().includes("cardio") ||
+    cleanTitle.toLowerCase().includes("corrida") ||
+    cleanTitle.toLowerCase().includes("hiit");
+
+  if (isCardio) {
+    return {
+      id: `ex-cardio-${normalizedQuery.slice(0, 15)}`,
+      name: cleanTitle,
+      primaryMuscle: "Cardio & Resistência",
+      secondaryMuscles: ["Pernas (Quadríceps)", "Glúteos", "Panturrilhas"],
+      equipment: "Máquina",
+      difficulty: "Iniciante",
+      instructions: [
+        "Inicie com 2 a 3 minutos de aquecimento dinâmico em cadência moderada.",
+        "Mantenha o tronco alinhado, abdômen levemente ativo e ombros relaxados para baixo.",
+        "Mantenha a frequência cardíaca na Zona 2 (65-75% da FC máxima) ou em tiros de HIIT conforme o protocolo.",
+        "Conclua com 2 minutos de resfriamento para desaceleração gradual do débito cardíaco."
+      ],
+      commonMistakes: [
+        "Apoiar todo o peso do corpo sobre o corrimão (reduz em até 30% o gasto calórico).",
+        "Inclinar o pescoço excessivamente para baixo durante o exercício.",
+        "Interromper o movimento bruscamente na velocidade máxima."
+      ],
+      cues: ["Tronco ereto sem segurar com força", "Passadas firmes e cadenciadas", "Respiração nasal/bucal ritmada"],
+      alternatives: ["Simulador de Escada", "Esteira Inclinada", "Bicicleta Ergométrica", "Elíptico"]
+    };
+  }
+
+  const guessedMuscle = (fallbackMuscle as any) || "Peitoral";
+
+  return {
+    id: `ex-gen-${normalizedQuery.slice(0, 15)}`,
+    name: cleanTitle,
+    primaryMuscle: guessedMuscle,
+    secondaryMuscles: ["Abdômen & Core", "Ombros"],
+    equipment: cleanTitle.toLowerCase().includes("halteres")
+      ? "Halteres"
+      : cleanTitle.toLowerCase().includes("polia") || cleanTitle.toLowerCase().includes("cabo")
+      ? "Polia/Cabos"
+      : cleanTitle.toLowerCase().includes("máquina")
+      ? "Máquina"
+      : "Barra",
+    difficulty: "Intermediário",
+    instructions: [
+      `Ajuste o equipamento ou pesos para o alinhamento anatômico de ${guessedMuscle}.`,
+      "Estabilize o core, deprima as escápulas e mantenha a coluna em posição neutra.",
+      "Execute a fase excêntrica de 2 a 3 segundos com alongamento completo sob controle.",
+      "Conduza a fase concêntrica acelerando com intenção máxima de ativação muscular."
+    ],
+    commonMistakes: [
+      "Perder a tensão excêntrica deixando o peso despencar.",
+      "Hiperextender articulações no ponto de bloqueio articular.",
+      "Compensar o movimento com balanço do tronco ou impulso lombar."
+    ],
+    cues: ["Retraia as escápulas", "Controle a descida em 3 segundos", "Foque na contração do músculo alvo"],
+    alternatives: ["Variação com Halteres", "Variação na Polia", "Variação em Máquina Articulada"]
+  };
+}

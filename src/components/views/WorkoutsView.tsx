@@ -29,9 +29,10 @@ import {
   Lock,
 } from "lucide-react";
 import { WorkoutPlan, WorkoutSession, Exercise, SportModality, SportModalityId } from "../../types";
-import { EXERCISE_LIBRARY } from "../../data/exercises";
+import { EXERCISE_LIBRARY, resolveExerciseDetails } from "../../data/exercises";
 import { SPORT_MODALITIES } from "../../data/sportModalities";
 import { AdBanner } from "../common/AdBanner";
+import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
 
 interface WorkoutsViewProps {
   plan: WorkoutPlan;
@@ -63,6 +64,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
   const [modalityFilter, setModalityFilter] = useState<string>("all");
   const [expandedModalityId, setExpandedModalityId] = useState<SportModalityId | null>("hyrox");
   const [appliedToast, setAppliedToast] = useState<string | null>(null);
+  const [selectedExerciseForModal, setSelectedExerciseForModal] = useState<Exercise | null>(null);
 
   const currentSession = plan.sessions.find((s) => s.id === selectedSessionId) || plan.sessions[0];
 
@@ -442,24 +444,39 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         {primarySession.exercises.map((ex, idx) => (
                           <div
                             key={ex.id}
-                            className="p-3 rounded-2xl bg-neutral-900 border border-neutral-800/80 flex items-center justify-between gap-3 text-xs"
+                            onClick={() => {
+                              const details = resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle);
+                              setSelectedExerciseForModal(details);
+                            }}
+                            className="p-3 rounded-2xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-xs transition-colors cursor-pointer group"
+                            title="Clique para ver vídeo explicativo da execução"
                           >
                             <div className="flex items-center gap-2.5">
-                              <span className="w-6 h-6 rounded-lg bg-neutral-800 font-mono text-[11px] text-neutral-400 flex items-center justify-center font-bold">
+                              <span className="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950 font-mono text-[11px] text-neutral-400 flex items-center justify-center font-bold transition-colors">
                                 {idx + 1}
                               </span>
                               <div>
-                                <div className="font-bold text-white">{ex.name}</div>
+                                <div className="font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-2">
+                                  <span>{ex.name}</span>
+                                  <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono font-normal text-emerald-400 flex items-center gap-0.5">
+                                    <Play className="w-2.5 h-2.5 fill-current" /> Vídeo
+                                  </span>
+                                </div>
                                 <div className="text-[11px] text-neutral-400 italic">
                                   {ex.notes || ex.targetMuscle}
                                 </div>
                               </div>
                             </div>
-                            <div className="text-right font-mono text-[11px] text-neutral-300 shrink-0">
-                              <span>{ex.sets.length} séries</span>
-                              {ex.sets[0]?.targetReps ? (
-                                <span className="text-neutral-400 ml-1">× {ex.sets[0].targetReps} reps</span>
-                              ) : null}
+                            <div className="flex items-center gap-2 shrink-0">
+                              <div className="text-right font-mono text-[11px] text-neutral-300">
+                                <span>{ex.sets.length} séries</span>
+                                {ex.sets[0]?.targetReps ? (
+                                  <span className="text-neutral-400 ml-1">× {ex.sets[0].targetReps} reps</span>
+                                ) : null}
+                              </div>
+                              <span className="px-2 py-1 rounded-lg bg-neutral-800 group-hover:bg-emerald-500/20 text-neutral-400 group-hover:text-emerald-300 text-[10px] font-mono flex items-center gap-1 transition-colors">
+                                <Play className="w-2.5 h-2.5 fill-current" /> Ver
+                              </span>
                             </div>
                           </div>
                         ))}
@@ -700,13 +717,35 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                           {idx + 1}
                         </span>
                         <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-sm sm:text-base font-bold text-white">
-                              {ex.name}
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h3
+                              onClick={() => {
+                                const details = resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle);
+                                setSelectedExerciseForModal(details);
+                              }}
+                              className="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors cursor-pointer group flex items-center gap-1.5"
+                              title="Clique para ver vídeo explicativo da execução"
+                            >
+                              <span>{ex.name}</span>
+                              <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono text-emerald-400 transition-opacity">
+                                ▶ Ver Vídeo
+                              </span>
                             </h3>
                             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
                               {ex.targetMuscle}
                             </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const details = resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle);
+                                setSelectedExerciseForModal(details);
+                              }}
+                              className="px-2 py-0.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                              title="Abrir vídeo e biomecânica do exercício"
+                            >
+                              <Play className="w-2.5 h-2.5 fill-current" />
+                              <span>Vídeo</span>
+                            </button>
                           </div>
                           {ex.notes && (
                             <p className="text-xs text-neutral-400 mt-1 italic">
@@ -905,18 +944,30 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                       </h3>
                     </div>
 
-                    <button
-                      onClick={() =>
-                        setExpandedExerciseId(isExpanded ? null : ex.id)
-                      }
-                      className="p-1 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
-                    >
-                      {isExpanded ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </button>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedExerciseForModal(ex)}
+                        className="px-2.5 py-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer shadow-sm"
+                        title="Abrir vídeo explicativo e postura deste exercício"
+                      >
+                        <Play className="w-3 h-3 fill-current" />
+                        <span>Vídeo</span>
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          setExpandedExerciseId(isExpanded ? null : ex.id)
+                        }
+                        className="p-1 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                      >
+                        {isExpanded ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
                   </div>
 
                   {/* Cues badges */}
@@ -1018,6 +1069,16 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Exercise Video Demonstration & Biomechanical Technique Modal */}
+      {selectedExerciseForModal && (
+        <ExerciseExecutionModal
+          exercise={selectedExerciseForModal}
+          isOpen={Boolean(selectedExerciseForModal)}
+          onClose={() => setSelectedExerciseForModal(null)}
+          onOpenCoachWithPrompt={onOpenCoachWithPrompt}
+        />
       )}
     </div>
   );

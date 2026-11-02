@@ -362,7 +362,11 @@ export interface SocialPost {
     duration: string;
     volumeOrDistance: string;
     highlight: string;
+    totalKgLifted?: number;
+    exercisesSummary?: { name: string; setsDetail: string }[];
   };
+  mediaUrl?: string;
+  mediaType?: "image" | "video";
   likesCount: number;
   likedByCurrentUser: boolean;
   reportedByCurrentUser?: boolean;

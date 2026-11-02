@@ -24,6 +24,7 @@ import {
   Compass,
   Timer,
   Footprints,
+  Play,
 } from "lucide-react";
 import {
   UserProfile,
@@ -36,7 +37,10 @@ import {
   AthleteSpecificGoal,
   ExperienceLevel,
   PostWorkoutCardioProtocol,
+  Exercise,
 } from "../../types";
+import { resolveExerciseDetails } from "../../data/exercises";
+import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
 import { storage } from "../../services/storage";
 import confetti from "canvas-confetti";
 
@@ -96,6 +100,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
     jointProtection: string;
     coachMessage: string;
   } | null>(null);
+  const [selectedExerciseForModal, setSelectedExerciseForModal] = useState<Exercise | null>(null);
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -137,7 +142,85 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       if (res.ok) {
         const data = await res.json();
         if (data.plan && data.nutrition) {
-          setGeneratedPlan(data.plan);
+          const defaultCardios: PostWorkoutCardioProtocol[] = [
+            {
+              machine: "Escada",
+              name: "Cardio Pós-Treino: Simulador de Escada (Stairmaster)",
+              durationMin: 20,
+              intensity: "Zona 2 (65-75% FC Máxima)",
+              parameters: "Nível 7 a 9 contínuo, sem apoiar nas barras",
+              estimatedKcal: 200,
+              benefits: "Aceleração lipídica pós-treino, ativação de glúteos e preservação muscular.",
+            },
+            {
+              machine: "Esteira",
+              name: "Cardio Pós-Treino: Esteira Inclinada (Incline Treadmill Walk)",
+              durationMin: 20,
+              intensity: "Zona 2 (65-75% FC Máxima)",
+              parameters: "Inclinação 10% a 12%, velocidade 5.2 a 5.6 km/h",
+              estimatedKcal: 190,
+              benefits: "Gasto calórico elevado, condicionamento aeróbico e zero estresse articular.",
+            },
+            {
+              machine: "Bicicleta",
+              name: "Cardio Pós-Treino: Bicicleta Ergométrica (Giro Leve Regenerativo)",
+              durationMin: 20,
+              intensity: "Recuperação Ativa & Flush de Lactato",
+              parameters: "Cadência 80-90 RPM com carga leve/moderada (nível 4 a 5)",
+              estimatedKcal: 150,
+              benefits: "Recuperação muscular das pernas, remoção de lactato pós-leg press e oxigenação.",
+            },
+            {
+              machine: "Escada",
+              name: "Cardio Pós-Treino: Simulador de Escada ou Esteira HIIT",
+              durationMin: 20,
+              intensity: "Zona 2 / HIIT Aeróbico",
+              parameters: "Nível 8 contínuo ou 10 tiros intervalados",
+              estimatedKcal: 210,
+              benefits: "Efeito metabólico EPOC acelerado por até 14 horas pós-treino.",
+            },
+          ];
+
+          // Guarantee each session has cardioProtocol and final cardio exercise
+          const sanitizedPlan = {
+            ...data.plan,
+            sessions: (data.plan.sessions || []).map((s: WorkoutSession, idx: number) => {
+              const proto = s.cardioProtocol || defaultCardios[idx % defaultCardios.length];
+              const liftingExs = (s.exercises || []).filter(
+                (e) =>
+                  e.targetMuscle !== "Cardio & Resistência" &&
+                  !e.name.toLowerCase().includes("cardio") &&
+                  !e.name.toLowerCase().includes("prancha")
+              );
+
+              const cardioEx: WorkoutExercise = {
+                id: `ex-cardio-${idx + 1}`,
+                exerciseId: `ex-cardio-${proto.machine.toLowerCase()}`,
+                name: proto.name,
+                targetMuscle: "Cardio & Resistência",
+                restSeconds: 0,
+                notes: `${proto.parameters} · ${proto.intensity}`,
+                sets: [
+                  {
+                    id: `sc-ai-${idx + 1}-1`,
+                    setNumber: 1,
+                    type: "working",
+                    weightKg: 0,
+                    targetReps: proto.durationMin,
+                    completed: false,
+                  },
+                ],
+              };
+
+              return {
+                ...s,
+                cardioProtocol: proto,
+                exercises: [...liftingExs, cardioEx],
+              };
+            }),
+          };
+
+          setGeneratedPlan(sanitizedPlan);
           setGeneratedNutrition(data.nutrition);
           setGeneratedRationale(data.rationale);
           setIsGenerating(false);
@@ -1747,28 +1830,56 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                         </div>
                       </div>
 
-                      {/* Exercises Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                        {sess.exercises.map((ex, idx) => (
-                          <div
-                            key={ex.id || idx}
-                            className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11px] ${
-                              ex.targetMuscle === "Cardio & Resistência"
-                                ? "bg-cyan-950/60 border border-cyan-500/40 text-cyan-300"
-                                : "bg-neutral-950/70 border border-neutral-800/80 text-neutral-200"
-                            }`}
-                          >
-                            <span className="font-medium truncate pr-2 flex items-center gap-1.5">
-                              {ex.targetMuscle === "Cardio & Resistência" && (
-                                <Activity className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                              )}
-                              <span>{idx + 1}. {ex.name}</span>
-                            </span>
-                            <span className="text-cyan-400 font-mono shrink-0">
-                              {ex.sets?.length || 4}x {ex.sets?.[0]?.targetReps || "8-10"}
-                            </span>
-                          </div>
-                        ))}
+                      {/* Exercises Grid - Clickable to open execution video */}
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-mono text-neutral-400 flex items-center justify-between">
+                          <span>Exercícios ({sess.exercises.length}) · Clique para ver o vídeo da execução:</span>
+                          <span className="text-cyan-400 font-bold">▶ Vídeo Disponível</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                          {sess.exercises.map((ex, idx) => {
+                            const isCardio =
+                              ex.targetMuscle === "Cardio & Resistência" ||
+                              ex.name.toLowerCase().includes("cardio") ||
+                              ex.name.toLowerCase().includes("escada") ||
+                              ex.name.toLowerCase().includes("esteira") ||
+                              ex.name.toLowerCase().includes("bicicleta");
+
+                            return (
+                              <button
+                                key={ex.id || idx}
+                                type="button"
+                                onClick={() => {
+                                  const details = resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle);
+                                  setSelectedExerciseForModal(details);
+                                }}
+                                className={`w-full flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11px] transition-all cursor-pointer group text-left ${
+                                  isCardio
+                                    ? "bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-400 text-cyan-200 font-bold shadow-sm shadow-cyan-500/10"
+                                    : "bg-neutral-950/70 hover:bg-neutral-900 border border-neutral-800/80 hover:border-emerald-500/50 text-neutral-200"
+                                }`}
+                                title="Clique para ver o vídeo explicativo da execução"
+                              >
+                                <span className="font-medium truncate pr-2 flex items-center gap-1.5">
+                                  {isCardio ? (
+                                    <Activity className="w-3.5 h-3.5 text-cyan-400 shrink-0 animate-pulse" />
+                                  ) : (
+                                    <span className="text-neutral-500 font-mono text-[10px] group-hover:text-emerald-400">{idx + 1}.</span>
+                                  )}
+                                  <span className="truncate group-hover:text-emerald-300 transition-colors">{ex.name}</span>
+                                </span>
+                                <span className="flex items-center gap-1 shrink-0 font-mono text-[10px]">
+                                  <span className="text-cyan-400 font-bold">
+                                    {isCardio
+                                      ? `${ex.sets?.[0]?.targetReps || 20} min`
+                                      : `${ex.sets?.length || 4}x ${ex.sets?.[0]?.targetReps || "8-10"}`}
+                                  </span>
+                                  <Play className="w-2.5 h-2.5 text-neutral-500 group-hover:text-emerald-400 fill-current" />
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
 
                       {/* Cardio Protocol Card */}
@@ -1780,9 +1891,22 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                               <span className="font-bold text-white text-[11px]">
                                 {sess.cardioProtocol.name}
                               </span>
-                              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">
-                                {sess.cardioProtocol.durationMin} MIN · ~{sess.cardioProtocol.estimatedKcal} KCAL
-                              </span>
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">
+                                  {sess.cardioProtocol.durationMin} MIN · ~{sess.cardioProtocol.estimatedKcal} KCAL
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const details = resolveExerciseDetails(sess.cardioProtocol!.name, "Cardio & Resistência");
+                                    setSelectedExerciseForModal(details);
+                                  }}
+                                  className="px-2 py-0.5 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                                >
+                                  <Play className="w-2.5 h-2.5 fill-current" />
+                                  <span>Vídeo</span>
+                                </button>
+                              </div>
                             </div>
                             <div className="text-[10px] text-neutral-300 mt-0.5">
                               {sess.cardioProtocol.parameters} ({sess.cardioProtocol.intensity})
@@ -1816,6 +1940,15 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           )}
         </div>
       </div>
+
+      {/* Exercise Video Demonstration & Technique Modal */}
+      {selectedExerciseForModal && (
+        <ExerciseExecutionModal
+          exercise={selectedExerciseForModal}
+          isOpen={Boolean(selectedExerciseForModal)}
+          onClose={() => setSelectedExerciseForModal(null)}
+        />
+      )}
     </div>
   );
 };
