@@ -2,18 +2,19 @@
 
 O projeto tem uma produção própria em Blender, com malha humana, esqueleto,
 pesos e parâmetros corporais CC0 do MakeHuman. Não utiliza vídeos comerciais
-como entrada. O primeiro lote contém três movimentos específicos:
+como entrada. A versão atualizada contém quatro movimentos específicos:
 
 | Exercício do FORZON | Vídeo próprio | Duração |
 | --- | --- | --- |
 | ex-rosca-direta-barra-reta | barbell-curl.mp4 | 4 s |
 | ex-rosca-martelo-halteres | hammer-curl.mp4 | 4 s |
 | ex-rosca-alternada-halteres | alternating-curl.mp4 | 8 s |
+| ex-supino-reto-barra | bench-press.mp4 | 5 s |
 
 O manifesto `src/data/ownedExerciseVideos.json` registra os arquivos disponíveis
 no app. As mídias próprias ficam em `public/assets/exercise-videos/` e são
 copiadas para a publicação pelo Vite. O catálogo principal tem 104 exercícios:
-este lote cobre 3; os outros 101 continuam pendentes.
+este pacote cobre 4; os outros 100 continuam pendentes.
 
 ## Amostras comerciais para comparação
 
@@ -57,7 +58,7 @@ licenciado ou produção e validação de novas animações.
 malha humana, esqueleto e parâmetros corporais CC0 do MakeHuman. A licença
 acompanha os dados. Não utiliza os vídeos MoveKit como entrada.
 
-As três animações têm cenas `.blend` editáveis. A pegada considera a orientação
+As animações têm cenas `.blend` editáveis. A pegada considera a orientação
 da palma e o fechamento de cada dedo; a martelo mantém pegada neutra e a
 alternada tem supinação e um braço por vez. A roupa tem geometria própria,
 com fundo branco e sombra de contato.
@@ -80,8 +81,9 @@ Não se trata de um atlas com músculos individualmente segmentados.
 ## Disponibilidade no sistema
 
 Na Biblioteca de Exercícios, o filtro "Somente exercícios com vídeo" mostra
-as demonstrações disponíveis. Em produção são três: barra reta, martelo e
-alternada com supinação. A variação com barra W é outro exercício e permanece
+as demonstrações disponíveis. No pacote atualizado são quatro: barra reta,
+martelo, alternada com supinação e supino reto com barra. A variação de rosca
+com barra W é outro exercício e permanece
 sem vídeo. Os demais exercícios continuam com acesso às instruções escritas.
 
 O player distingue falta de produção de falha de carregamento. Se um vídeo
@@ -89,3 +91,17 @@ existente não carregar, mostra "Não foi possível carregar o vídeo" e oferece
 uma nova tentativa. As amostras comerciais locais não são anunciadas no site
 publicado. Rótulos genéricos da rotina abrem a execução e as instruções, sem
 anunciar vídeo para exercícios que ainda não possuem uma demonstração.
+
+## Supino e abertura da biblioteca
+
+O vídeo de supino reto com barra usa banco plano, pegada pronada, apoio dos
+pés e trajetória da carga entre a linha do peito e a extensão dos braços.
+As checagens desse movimento verificam apoio e orientação dos pés, estabilidade
+dos ombros, contato com a barra, amplitude e continuidade; não exigem cotovelos
+fixos como nos exercícios de rosca.
+
+Na biblioteca, o nome do exercício também abre a ficha, além do botão lateral.
+O service worker de `public/sw.js` passa a buscar a página inicial na rede antes
+de recorrer ao cache offline, para evitar referências a scripts de uma versão
+anterior após uma publicação. Requisições de vídeo e Range são tratadas pelo
+navegador, sem intermediação do cache do service worker.

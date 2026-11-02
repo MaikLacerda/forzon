@@ -951,7 +951,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         </span>
                       </div>
                       <h3 className="text-base font-bold text-white mt-1.5">
-                        {ex.name}
+                        <button type="button" onClick={() => setSelectedExerciseForModal(ex)}
+                          title="Abrir execução e instruções deste exercício"
+                          className="text-left cursor-pointer hover:text-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400">
+                          {ex.name}
+                        </button>
                       </h3>
                     </div>
 
