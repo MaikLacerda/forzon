@@ -26,6 +26,7 @@ import {
 import { UserProfile, WorkoutPlan, DailyNutrition, CompletedWorkoutRecord, GroupChallenge, GPSActivity, NotificationSettings, Exercise } from "../../types";
 import { resolveExerciseDetails } from "../../data/exercises";
 import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
+import { AnatomicalExerciseIllustration } from "../workout/AnatomicalExerciseIllustration";
 import { WeeklyVolumeChart } from "../dashboard/WeeklyVolumeChart";
 import { DailyWaterTracker } from "../dashboard/DailyWaterTracker";
 import { DailyRecoveryCard } from "../dashboard/DailyRecoveryCard";
@@ -500,9 +501,11 @@ export const TodayView: React.FC<TodayViewProps> = ({
                             className="bg-neutral-800/80 hover:bg-neutral-800 px-2.5 py-1.5 rounded-xl text-neutral-200 border border-neutral-700/60 hover:border-emerald-500/50 flex items-center gap-2 text-xs transition-all cursor-pointer group shadow-sm text-left"
                             title="Clique para ver o vídeo explicativo da execução e técnica"
                           >
-                            <span className="w-5 h-5 rounded-lg bg-neutral-900 group-hover:bg-emerald-500 group-hover:text-neutral-950 text-neutral-400 font-mono text-[10px] flex items-center justify-center font-bold transition-colors">
-                              {i + 1}
-                            </span>
+                            <AnatomicalExerciseIllustration
+                              exercise={resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle)}
+                              size="thumbnail"
+                              className="w-7 h-7 !p-0"
+                            />
                             <span className="font-medium group-hover:text-emerald-300 transition-colors">
                               {ex.name}
                             </span>

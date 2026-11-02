@@ -42,6 +42,7 @@ import { StoryShareModal, StoryData } from "../social/StoryShareModal";
 import { PowerPlaylistWidget } from "./PowerPlaylistWidget";
 import { LiveVisionCoachOverlay, PostureFeedbackState } from "./LiveVisionCoachOverlay";
 import { ExerciseExecutionModal } from "./ExerciseExecutionModal";
+import { AnatomicalExerciseIllustration } from "./AnatomicalExerciseIllustration";
 import { PostWorkoutShareModal } from "../social/PostWorkoutShareModal";
 
 interface LiveWorkoutModalProps {
@@ -893,7 +894,27 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                   <span aria-hidden="true">·</span>
                   <span className="text-neutral-400 font-normal">{currentExercise.targetMuscle}</span>
                 </div>
-                <div className="flex items-center gap-2.5 mt-1">
+                <div className="flex items-center gap-3.5 mt-1.5">
+                  <div
+                    onClick={() => {
+                      const details = resolveExerciseDetails(
+                        currentExercise.name || currentExercise.exerciseId,
+                        currentExercise.targetMuscle
+                      );
+                      setSelectedExerciseForModal(details);
+                    }}
+                    className="cursor-pointer hover:scale-105 transition-transform shrink-0"
+                    title="Clique para ver animação biomecânica e instruções"
+                  >
+                    <AnatomicalExerciseIllustration
+                      exercise={resolveExerciseDetails(
+                        currentExercise.name || currentExercise.exerciseId,
+                        currentExercise.targetMuscle
+                      )}
+                      size="thumbnail"
+                      className="w-12 h-12 shadow-sm"
+                    />
+                  </div>
                   <h2
                     onClick={() => {
                       const details = resolveExerciseDetails(

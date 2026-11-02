@@ -33,6 +33,7 @@ import { EXERCISE_LIBRARY, resolveExerciseDetails } from "../../data/exercises";
 import { SPORT_MODALITIES } from "../../data/sportModalities";
 import { AdBanner } from "../common/AdBanner";
 import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
+import { AnatomicalExerciseIllustration } from "../workout/AnatomicalExerciseIllustration";
 
 interface WorkoutsViewProps {
   plan: WorkoutPlan;
@@ -451,10 +452,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                             className="p-3 rounded-2xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-xs transition-colors cursor-pointer group"
                             title="Clique para ver vídeo explicativo da execução"
                           >
-                            <div className="flex items-center gap-2.5">
-                              <span className="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950 font-mono text-[11px] text-neutral-400 flex items-center justify-center font-bold transition-colors">
-                                {idx + 1}
-                              </span>
+                            <div className="flex items-center gap-3">
+                              <AnatomicalExerciseIllustration
+                                exercise={resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle)}
+                                size="thumbnail"
+                              />
                               <div>
                                 <div className="font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-2">
                                   <span>{ex.name}</span>
@@ -712,10 +714,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                       key={ex.id}
                       className="bg-neutral-950/70 border border-neutral-800/80 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="w-7 h-7 rounded-lg bg-neutral-800 font-mono text-xs text-neutral-400 flex items-center justify-center font-bold shrink-0 mt-0.5">
-                          {idx + 1}
-                        </span>
+                      <div className="flex items-start gap-3.5">
+                        <AnatomicalExerciseIllustration
+                          exercise={resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle)}
+                          size="thumbnail"
+                        />
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
                             <h3
