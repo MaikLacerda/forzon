@@ -9,13 +9,10 @@ import {
   Dumbbell,
   TrendingUp,
   Sparkles,
-  ExternalLink,
-  Play,
   RotateCcw,
   CheckCircle2,
   AlertTriangle,
   Repeat,
-  Video,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -28,7 +25,6 @@ import {
 } from "recharts";
 import { Exercise } from "../../types";
 import { storage } from "../../services/storage";
-import { getExerciseVideoInfo } from "../../services/exerciseVideoService";
 import { AnatomicalExerciseIllustration } from "./AnatomicalExerciseIllustration";
 
 interface ExerciseExecutionModalProps {
@@ -50,9 +46,6 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
   const [graphMode, setGraphMode] = useState<"maior_peso" | "um_rm">("maior_peso");
   const [showDumbbellTip, setShowDumbbellTip] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
-
-  // Video info as fallback/alternative tab
-  const videoInfo = getExerciseVideoInfo(exercise.name, exercise.primaryMuscle);
 
   // Extract logged history for this exercise
   const historyData = useMemo(() => {
@@ -223,7 +216,7 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           </div>
         </div>
 
-        {/* 3 Main Tabs (Resumo | Histórico | Instruções | Vídeo Real) */}
+        {/* Main tabs */}
         <div className="px-4 pt-2 border-b border-neutral-900 flex items-center justify-around bg-neutral-950">
           <button
             type="button"
@@ -268,13 +261,13 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
             type="button"
             onClick={() => setActiveTab("video")}
             className={`pb-2.5 text-xs sm:text-sm font-semibold transition-colors relative cursor-pointer flex items-center gap-1 ${
-              activeTab === "video" ? "text-rose-400" : "text-neutral-400 hover:text-neutral-200"
+              activeTab === "video" ? "text-cyan-400" : "text-neutral-400 hover:text-neutral-200"
             }`}
           >
-            <Video className="w-3.5 h-3.5" />
-            <span>Vídeo Real</span>
+            <Dumbbell className="w-3.5 h-3.5" />
+            <span>Demonstração</span>
             {activeTab === "video" && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-rose-400 rounded-full" />
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400 rounded-full" />
             )}
           </button>
         </div>
@@ -577,45 +570,19 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           )}
 
           {/* ========================================================= */}
-          {/* TAB 4: VÍDEO REAL (HD YOUTUBE DEMO PLAYER)                 */}
+          {/* TAB 4: EXERCISE-SPECIFIC VISUAL DEMONSTRATION              */}
           {/* ========================================================= */}
           {activeTab === "video" && (
             <div className="space-y-4">
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-neutral-800 shadow-2xl">
-                <iframe
-                  src={videoInfo.embedUrl}
-                  title={`Vídeo Explicativo: ${exercise.name}`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                />
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-between gap-3 text-xs">
+              <AnatomicalExerciseIllustration exercise={exercise} size="full" />
+              <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-3">
                 <div>
-                  <div className="font-bold text-white">{videoInfo.title}</div>
-                  <div className="text-[11px] text-neutral-400 font-mono">Canal: {videoInfo.channel}</div>
+                  <h3 className="text-sm font-bold text-white">{exercise.name}</h3>
+                  <p className="text-xs text-neutral-400 mt-1">Referência visual vinculada ao exercício cadastrado</p>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <a
-                    href={videoInfo.searchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-2.5 py-1.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-mono text-[11px] font-semibold flex items-center gap-1 transition-colors"
-                    title="Pesquisar outras execuções deste exercício no YouTube"
-                  >
-                    <span>Pesquisar</span>
-                  </a>
-                  <a
-                    href={videoInfo.directWatchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-colors"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-current" />
-                    <span>Assistir</span>
-                  </a>
-                </div>
+                <ol className="space-y-2 text-xs text-neutral-300 list-decimal list-inside">
+                  {exercise.instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
+                </ol>
               </div>
             </div>
           )}

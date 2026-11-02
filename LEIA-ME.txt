@@ -1,0 +1,18 @@
+ATUALIZAÇÃO FORZON — DEMONSTRAÇÕES DE EXERCÍCIOS
+
+Copie a pasta src deste pacote para a pasta raiz do projeto antigo, substituindo os três arquivos quando o Windows perguntar.
+
+Arquivos incluídos:
+- src/components/workout/AnatomicalExerciseIllustration.tsx
+- src/components/workout/ExerciseExecutionModal.tsx
+- src/data/hevyAssetMap.ts
+
+Depois, na pasta raiz do projeto antigo, rode:
+  npm run build
+
+Para enviar ao GitHub:
+  git add src/components/workout/AnatomicalExerciseIllustration.tsx src/components/workout/ExerciseExecutionModal.tsx src/data/hevyAssetMap.ts
+  git commit -m "Corrige demonstrações de exercícios"
+  git push origin main
+
+Nota: a aba agora mostra ilustrações locais específicas e instruções. Não são vídeos animados.

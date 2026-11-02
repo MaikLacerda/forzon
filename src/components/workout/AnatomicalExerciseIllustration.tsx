@@ -20,6 +20,21 @@ export const AnatomicalExerciseIllustration: React.FC<AnatomicalExerciseIllustra
   // Retrieve the authentic static Hevy technical demonstration image
   const imageSrc = getHevyIllustration(exercise.id, exercise.primaryMuscle);
 
+  // Unknown/custom exercises must never inherit another movement's image.
+  if (!imageSrc || hasError) {
+    const dimensions = size === "thumbnail"
+      ? "w-12 h-12 sm:w-14 sm:h-14 rounded-xl"
+      : size === "compact"
+        ? "w-full h-44 rounded-2xl"
+        : "w-full aspect-[4/3] max-h-[300px] sm:max-h-[320px] rounded-3xl";
+    return (
+      <div className={`${dimensions} bg-white border border-slate-200 flex flex-col items-center justify-center gap-1.5 text-center p-3 ${className}`}>
+        <span className="text-slate-400 text-lg" aria-hidden="true">＋</span>
+        {size !== "thumbnail" && <span className="text-xs font-medium text-slate-500">Demonstração visual indisponível para este exercício</span>}
+      </div>
+    );
+  }
+
   // =========================================================================
   // 1. THUMBNAIL VARIANT (For workout exercise lists, selection modals)
   // =========================================================================
@@ -34,10 +49,7 @@ export const AnatomicalExerciseIllustration: React.FC<AnatomicalExerciseIllustra
           alt={exercise.name}
           className="w-full h-full object-contain filter drop-shadow-xs transition-transform duration-200 group-hover:scale-105"
           loading="lazy"
-          onError={(e) => {
-            // graceful fallback
-            (e.currentTarget as HTMLImageElement).src = "/assets/hevy/bench_press__barbell_.jpg";
-          }}
+          onError={() => setHasError(true)}
         />
       </div>
     );
@@ -56,6 +68,7 @@ export const AnatomicalExerciseIllustration: React.FC<AnatomicalExerciseIllustra
           alt={exercise.name}
           className="w-full h-full object-contain filter drop-shadow-sm"
           loading="lazy"
+          onError={() => setHasError(true)}
         />
         <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-slate-900/10 text-slate-800 text-[10px] font-bold">
           {exercise.primaryMuscle}
