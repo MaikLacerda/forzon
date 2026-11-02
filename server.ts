@@ -15,6 +15,23 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 app.use(express.json());
 
+// Licensed samples are kept out of the public repository. This preview route
+// is deliberately available only on the local development machine.
+app.get("/api/exercise-preview/:clip", (req, res) => {
+  const localAddresses = ["127.0.0.1", "::1", "::ffff:127.0.0.1"];
+  const allowedClips = ["pull-ups.mp4", "dumbbell-chest-fly.mp4"];
+  if (process.env.NODE_ENV === "production" ||
+      !localAddresses.includes(req.socket.remoteAddress || "") ||
+      !allowedClips.includes(req.params.clip)) {
+    res.sendStatus(404);
+    return;
+  }
+  res.setHeader("Cache-Control", "private, no-store");
+  res.sendFile(path.join(__dirname, ".private", "exercise-videos", req.params.clip), (error) => {
+    if (error && !res.headersSent) res.sendStatus(404);
+  });
+});
+
 // Initialize Google Gemini AI SDK on the server side
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,

@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+.tmp/
+.private/
+.tools/
+tools/exercise-renderer/output/
+forzon-*.zip

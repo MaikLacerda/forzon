@@ -25,7 +25,7 @@ import {
 } from "recharts";
 import { Exercise } from "../../types";
 import { storage } from "../../services/storage";
-import { Exercise3DMannequin, hasExerciseAnimation } from "./Exercise3DMannequin";
+import { ExerciseVideoDemonstration } from "./ExerciseVideoDemonstration";
 
 interface ExerciseExecutionModalProps {
   exercise: Exercise;
@@ -156,7 +156,6 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
 
   const latestRecord = historyData[historyData.length - 1];
   const currentMetric = graphMode === "maior_peso" ? latestRecord.bestWeight : latestRecord.estimated1RM;
-  const hasAnimatedDemo = hasExerciseAnimation(exercise);
 
   if (!isOpen) return null;
 
@@ -280,15 +279,7 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           {/* ========================================================= */}
           {activeTab === "resumo" && (
             <div className="space-y-4">
-              {/* Show a moving demonstration only when this exact exercise has a matching animation. */}
-              {hasAnimatedDemo ? (
-                <Exercise3DMannequin exercise={exercise} height={300} />
-              ) : (
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 text-center">
-                  <div className="text-sm font-bold text-white">Demonstração em preparação</div>
-                  <p className="mt-2 text-xs text-neutral-400">Ainda não há uma animação validada para este exercício. Consulte as instruções abaixo para executar o movimento com segurança.</p>
-                </div>
-              )}
+              <ExerciseVideoDemonstration key={exercise.id} exercise={exercise} />
 
               {/* 2. Exercise Title & Primary / Secondary Target Muscles */}
               <div className="space-y-1 pt-1">
@@ -582,14 +573,7 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
           {/* ========================================================= */}
           {activeTab === "video" && (
             <div className="space-y-4">
-              {hasAnimatedDemo ? (
-                <Exercise3DMannequin exercise={exercise} height={300} />
-              ) : (
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 text-center">
-                  <div className="text-sm font-bold text-white">Animação ainda não disponível</div>
-                  <p className="mt-2 text-xs text-neutral-400">Este exercício ainda não tem uma sequência de movimento validada. Preferimos não exibir um movimento diferente como exemplo.</p>
-                </div>
-              )}
+              <ExerciseVideoDemonstration key={exercise.id} exercise={exercise} />
               <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-3">
                 <div>
                   <h3 className="text-sm font-bold text-white">{exercise.name}</h3>
