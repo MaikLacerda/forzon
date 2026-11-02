@@ -1,34 +1,33 @@
 import React, { useState } from "react";
 import { Exercise } from "../../types";
-import ownedVideos from "../../data/ownedExerciseVideos.json";
-
-interface OwnedVideo {
-  video: string;
-  poster: string;
-  durationSeconds: number;
-  provenance: string;
-}
-const OWNED_VIDEOS = ownedVideos as Record<string, OwnedVideo>;
-
-// Exact matches only: a flat fly is never used for an incline fly or press.
-const PREVIEW_CLIPS: Record<string, string> = {
-  "ex-crucifixo-reto-halteres": "dumbbell-chest-fly.mp4",
-  "ex-barra-fixa-pronada": "pull-ups.mp4",
-};
+import { getExerciseVideoAsset } from "../../data/exerciseVideoAssets";
 
 export function ExerciseVideoDemonstration({ exercise }: { exercise: Exercise }) {
-  const clip = PREVIEW_CLIPS[exercise.id];
-  const owned = OWNED_VIDEOS[exercise.id];
-  const source = owned?.video || (clip ? `/api/exercise-preview/${clip}` : null);
+  const asset = getExerciseVideoAsset(exercise.id);
+  const source = asset?.video;
   const [failedClip, setFailedClip] = useState<string | null>(null);
+  const [attempt, setAttempt] = useState(0);
 
-  if (!source || failedClip === source) {
+  if (!source) {
     return (
       <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 text-center">
-        <p className="text-sm font-bold text-white">Vídeo em preparação</p>
+        <p className="text-sm font-bold text-white">Vídeo ainda não disponível</p>
         <p className="mt-2 text-xs text-neutral-400">
-          A demonstração específica de {exercise.name} ainda não está disponível.
+          A demonstração de {exercise.name} ainda não foi produzida. Consulte a aba Instruções para ver a execução descrita.
         </p>
+      </div>
+    );
+  }
+
+  if (failedClip === source) {
+    return (
+      <div role="alert" className="rounded-2xl border border-amber-500/30 bg-neutral-900 p-6 text-center">
+        <p className="text-sm font-bold text-white">Não foi possível carregar o vídeo</p>
+        <p className="mt-2 text-xs text-neutral-400">Este exercício já tem vídeo. Verifique sua conexão e tente novamente.</p>
+        <button type="button" onClick={() => { setFailedClip(null); setAttempt(value=>value+1); }}
+          className="mt-4 rounded-lg bg-cyan-500 px-4 py-2 text-xs font-bold text-neutral-950">
+          Tentar novamente
+        </button>
       </div>
     );
   }
@@ -36,9 +35,9 @@ export function ExerciseVideoDemonstration({ exercise }: { exercise: Exercise })
   return (
     <figure className="overflow-hidden rounded-2xl border border-neutral-800 bg-white">
       <video
-        key={source}
+        key={`${source}:${attempt}`}
         src={source}
-        poster={owned?.poster}
+        poster={asset?.poster}
         autoPlay
         muted
         loop

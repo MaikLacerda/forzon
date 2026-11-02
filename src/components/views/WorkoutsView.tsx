@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { WorkoutPlan, WorkoutSession, Exercise, SportModality, SportModalityId } from "../../types";
 import { EXERCISE_LIBRARY, resolveExerciseDetails } from "../../data/exercises";
+import { hasExerciseVideo } from "../../data/exerciseVideoAssets";
 import { SPORT_MODALITIES } from "../../data/sportModalities";
 import { AdBanner } from "../common/AdBanner";
 import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
@@ -57,6 +58,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
   const [selectedSessionId, setSelectedSessionId] = useState<string>(plan.sessions[0]?.id || "");
   const [expandedExerciseId, setExpandedExerciseId] = useState<string | null>(null);
   const [exerciseSearch, setExerciseSearch] = useState<string>("");
+  const [onlyWithVideo, setOnlyWithVideo] = useState(false);
   const [exerciseFilterMuscle, setExerciseFilterMuscle] = useState<string>("all");
   const [exerciseFilterEquipment, setExerciseFilterEquipment] = useState<string>("all");
   const [activeSubTab, setActiveSubTab] = useState<"routine" | "modalities" | "library" | "progression">("routine");
@@ -120,7 +122,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       exerciseFilterMuscle === "all" || ex.primaryMuscle === exerciseFilterMuscle;
     const matchesEquipment =
       exerciseFilterEquipment === "all" || ex.equipment === exerciseFilterEquipment;
-    return matchesSearch && matchesMuscle && matchesEquipment;
+    return matchesSearch && matchesMuscle && matchesEquipment && (!onlyWithVideo || hasExerciseVideo(ex.id));
   });
 
   const filteredModalities = SPORT_MODALITIES.filter((mod) => {
@@ -450,7 +452,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                               setSelectedExerciseForModal(details);
                             }}
                             className="p-3 rounded-2xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-xs transition-colors cursor-pointer group"
-                            title="Clique para ver vídeo explicativo da execução"
+                            title="Ver execução e instruções do exercício"
                           >
                             <div className="flex items-center gap-3">
                               <AnatomicalExerciseIllustration
@@ -461,7 +463,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 <div className="font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-2">
                                   <span>{ex.name}</span>
                                   <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono font-normal text-emerald-400 flex items-center gap-0.5">
-                                    <Play className="w-2.5 h-2.5 fill-current" /> Vídeo
+                                    <Play className="w-2.5 h-2.5 fill-current" /> Execução
                                   </span>
                                 </div>
                                 <div className="text-[11px] text-neutral-400 italic">
@@ -727,11 +729,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 setSelectedExerciseForModal(details);
                               }}
                               className="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors cursor-pointer group flex items-center gap-1.5"
-                              title="Clique para ver vídeo explicativo da execução"
+                              title="Ver execução e instruções do exercício"
                             >
                               <span>{ex.name}</span>
                               <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono text-emerald-400 transition-opacity">
-                                ▶ Ver Vídeo
+                                ▶ Ver execução
                               </span>
                             </h3>
                             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
@@ -744,10 +746,10 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 setSelectedExerciseForModal(details);
                               }}
                               className="px-2 py-0.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                              title="Abrir vídeo e biomecânica do exercício"
+                              title="Abrir execução e instruções do exercício"
                             >
                               <Play className="w-2.5 h-2.5 fill-current" />
-                              <span>Vídeo</span>
+                              <span>Execução</span>
                             </button>
                           </div>
                           {ex.notes && (
@@ -816,6 +818,10 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
 
           {/* Search, Muscle and Equipment filters */}
           <div className="space-y-3">
+            <label className="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
+              <input type="checkbox" checked={onlyWithVideo} onChange={event=>setOnlyWithVideo(event.target.checked)} className="accent-emerald-500" />
+              Somente exercícios com vídeo ({EXERCISE_LIBRARY.filter(ex=>hasExerciseVideo(ex.id)).length})
+            </label>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -912,6 +918,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                   setExerciseSearch("");
                   setExerciseFilterMuscle("all");
                   setExerciseFilterEquipment("all");
+                  setOnlyWithVideo(false);
                 }}
                 className="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold hover:bg-emerald-500/20 transition-colors"
               >
@@ -924,6 +931,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredExercises.map((ex) => {
               const isExpanded = expandedExerciseId === ex.id;
+              const hasVideo = hasExerciseVideo(ex.id);
               return (
                 <div
                   key={ex.id}
@@ -952,10 +960,10 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         type="button"
                         onClick={() => setSelectedExerciseForModal(ex)}
                         className="px-2.5 py-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer shadow-sm"
-                        title="Abrir vídeo explicativo e postura deste exercício"
+                        title={hasVideo ? "Abrir vídeo deste exercício" : "Abrir instruções deste exercício"}
                       >
                         <Play className="w-3 h-3 fill-current" />
-                        <span>Vídeo</span>
+                        <span>{hasVideo ? "Vídeo" : "Instruções"}</span>
                       </button>
 
                       <button

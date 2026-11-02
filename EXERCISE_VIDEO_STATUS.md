@@ -76,3 +76,16 @@ estrias de superfície estilizadas que acompanham a malha durante a animação.
 As formas corporais estão em `tools/exercise-renderer/physique.json`.
 Os três vídeos do primeiro lote foram atualizados com essa aparência.
 Não se trata de um atlas com músculos individualmente segmentados.
+
+## Disponibilidade no sistema
+
+Na Biblioteca de Exercícios, o filtro "Somente exercícios com vídeo" mostra
+as demonstrações disponíveis. Em produção são três: barra reta, martelo e
+alternada com supinação. A variação com barra W é outro exercício e permanece
+sem vídeo. Os demais exercícios continuam com acesso às instruções escritas.
+
+O player distingue falta de produção de falha de carregamento. Se um vídeo
+existente não carregar, mostra "Não foi possível carregar o vídeo" e oferece
+uma nova tentativa. As amostras comerciais locais não são anunciadas no site
+publicado. Rótulos genéricos da rotina abrem a execução e as instruções, sem
+anunciar vídeo para exercícios que ainda não possuem uma demonstração.

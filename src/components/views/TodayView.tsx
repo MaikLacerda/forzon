@@ -486,8 +486,8 @@ export const TodayView: React.FC<TodayViewProps> = ({
                     {/* Exercise preview: Clickable cards opening execution video guide */}
                     <div className="pt-2 space-y-2">
                       <div className="text-[11px] font-mono text-neutral-400 flex items-center justify-between">
-                        <span>Exercícios da Sessão (Clique em qualquer um para ver o vídeo e postura):</span>
-                        <span className="text-emerald-400 text-[10px] font-bold">▶ Vídeo Explicativo Disponível</span>
+                        <span>Exercícios da Sessão (clique para consultar a execução):</span>
+                        <span className="text-emerald-400 text-[10px] font-bold">Instruções de execução</span>
                       </div>
                       <div className="flex flex-wrap items-center gap-2 text-xs">
                         {todaySession.exercises.map((ex, i) => (
@@ -499,7 +499,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
                               setSelectedExerciseForModal(details);
                             }}
                             className="bg-neutral-800/80 hover:bg-neutral-800 px-2.5 py-1.5 rounded-xl text-neutral-200 border border-neutral-700/60 hover:border-emerald-500/50 flex items-center gap-2 text-xs transition-all cursor-pointer group shadow-sm text-left"
-                            title="Clique para ver o vídeo explicativo da execução e técnica"
+                            title="Ver execução e instruções do exercício"
                           >
                             <AnatomicalExerciseIllustration
                               exercise={resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle)}
@@ -520,7 +520,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
                               setSelectedExerciseForModal(details);
                             }}
                             className="bg-cyan-950/90 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-400/60 hover:border-cyan-400 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm shadow-cyan-500/20 cursor-pointer transition-all"
-                            title="Clique para ver o vídeo explicativo do cardio pós-treino"
+                            title="Ver instruções do cardio pós-treino"
                           >
                             <Activity className="w-3.5 h-3.5 text-cyan-400" />
                             <span>Final: {todaySession.cardioProtocol.machine} ({todaySession.cardioProtocol.durationMin} min)</span>
@@ -555,10 +555,10 @@ export const TodayView: React.FC<TodayViewProps> = ({
                                   setSelectedExerciseForModal(details);
                                 }}
                                 className="px-2.5 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                                title="Ver guia em vídeo do cardio"
+                                title="Ver instruções do cardio"
                               >
                                 <Play className="w-2.5 h-2.5 fill-current" />
-                                <span>Ver Vídeo</span>
+                                <span>Ver execução</span>
                               </button>
                             </div>
                           </div>
