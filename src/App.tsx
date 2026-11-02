@@ -24,8 +24,6 @@ import { aiService } from "./services/aiService";
 import { notificationService } from "./services/notificationService";
 import { themeService } from "./services/themeService";
 import { SPORT_MODALITIES } from "./data/sportModalities";
-import { ProjectDownloadModal } from "./components/export/ProjectDownloadModal";
-import { AIWorkoutNutritionIntakeModal } from "./components/ai/AIWorkoutNutritionIntakeModal";
 import {
   UserProfile,
   WorkoutPlan,
@@ -42,8 +40,6 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("hoje");
-  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
-  const [isAIIntakeOpen, setIsAIIntakeOpen] = useState(false);
 
   // Main Persistent State
   const [profile, setProfile] = useState<UserProfile>(() => storage.getProfile());
@@ -167,40 +163,29 @@ export default function App() {
     setLiveWorkoutSessionId(sessionId);
   };
 
-  const handleFinishLiveWorkout = (
-    record: CompletedWorkoutRecord,
-    shareToFeed: boolean,
-    customPost?: SocialPost
-  ) => {
+  const handleFinishLiveWorkout = (record: CompletedWorkoutRecord, shareToFeed: boolean) => {
     storage.addWorkoutRecord(record);
 
-    if (customPost) {
-      storage.addPost(customPost);
-      setPosts(storage.getPosts());
-      setActiveTab("comunidade");
-    } else if (shareToFeed) {
+    if (shareToFeed) {
       const newPost: SocialPost = {
         id: `post-${Date.now()}`,
         authorName: profile.name,
         authorHandle: profile.handle,
         authorAvatar: profile.avatarUrl,
         timestamp: "Agora",
-        content: `Acabei de completar o ${record.title}! Volume de ${record.totalVolumeKg.toLocaleString("pt-BR")}kg em ${Math.round(record.durationSeconds / 60)} minutos. ${record.prsAchieved.join(" · ")}`,
+        content: `Acabei de completar o ${record.title}! Volume de ${record.totalVolumeKg.toLocaleString()}kg em ${Math.round(record.durationSeconds / 60)} minutos. ${record.prsAchieved.join(" · ")}`,
         category: "workout",
         workoutData: {
           title: record.title,
           duration: `${Math.round(record.durationSeconds / 60)} min`,
-          volumeOrDistance: `${record.totalVolumeKg.toLocaleString("pt-BR")} kg total`,
+          volumeOrDistance: `${record.totalVolumeKg.toLocaleString()} kg total`,
           highlight: record.prsAchieved[0] || "100% das séries completadas",
-          totalKgLifted: record.totalVolumeKg,
         },
         likesCount: 1,
         likedByCurrentUser: true,
         comments: [],
       };
       storage.addPost(newPost);
-      setPosts(storage.getPosts());
-      setActiveTab("comunidade");
     }
 
     setLiveWorkoutSessionId(null);
@@ -372,8 +357,6 @@ export default function App() {
         onOpenReminderModal={() => setIsReminderModalOpen(true)}
         onOpenSyncModal={() => setIsSyncModalOpen(true)}
         onOpenUpgradeModal={handleOpenUpgrade}
-        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
-        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
         profile={profile}
       />
 
@@ -395,7 +378,6 @@ export default function App() {
             onOpenProfile={() => setIsProfileOpen(true)}
             onOpenUpgradeModal={handleOpenUpgrade}
             onPlanUpdated={(newPlan) => setPlan(newPlan)}
-            onOpenAIIntake={() => setIsAIIntakeOpen(true)}
           />
         )}
 
@@ -486,7 +468,6 @@ export default function App() {
         currentProfile={profile}
         onSaveProfile={(updated) => storage.saveProfile(updated)}
         onTriggerPlanGeneration={(updated) => handleRegeneratePlanAI(updated)}
-        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
       />
 
       {/* Settings & LGPD Modal */}
@@ -578,25 +559,6 @@ export default function App() {
         onUpdateProfile={(updated) => {
           setProfile(updated);
           storage.saveProfile(updated);
-        }}
-      />
-
-      {/* Project & Files Download Center Modal */}
-      <ProjectDownloadModal
-        isOpen={isDownloadModalOpen}
-        onClose={() => setIsDownloadModalOpen(false)}
-      />
-
-      {/* Conversational AI Intake Modal (Height, Weight, Health, Goal -> Tailored Workout & Diet) */}
-      <AIWorkoutNutritionIntakeModal
-        isOpen={isAIIntakeOpen}
-        onClose={() => setIsAIIntakeOpen(false)}
-        profile={profile}
-        onPlanApplied={(newPlan, newNutrition, updatedProfile) => {
-          setPlan(newPlan);
-          setNutrition(newNutrition);
-          setProfile(updatedProfile);
-          setActiveTab("hoje");
         }}
       />
 

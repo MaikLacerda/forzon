@@ -35,20 +35,18 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-import { WorkoutSession, WorkoutExercise, WorkoutSet, CompletedWorkoutRecord, Exercise, SocialPost } from "../../types";
-import { EXERCISE_LIBRARY, resolveExerciseDetails } from "../../data/exercises";
+import { WorkoutSession, WorkoutExercise, WorkoutSet, CompletedWorkoutRecord } from "../../types";
+import { EXERCISE_LIBRARY } from "../../data/exercises";
 import { storage } from "../../services/storage";
 import { StoryShareModal, StoryData } from "../social/StoryShareModal";
 import { PowerPlaylistWidget } from "./PowerPlaylistWidget";
 import { LiveVisionCoachOverlay, PostureFeedbackState } from "./LiveVisionCoachOverlay";
-import { ExerciseExecutionModal } from "./ExerciseExecutionModal";
-import { PostWorkoutShareModal } from "../social/PostWorkoutShareModal";
 
 interface LiveWorkoutModalProps {
   session: WorkoutSession;
   isPremium?: boolean;
   onClose: () => void;
-  onFinishWorkout: (record: CompletedWorkoutRecord, shareToFeed: boolean, customPost?: SocialPost) => void;
+  onFinishWorkout: (record: CompletedWorkoutRecord, shareToFeed: boolean) => void;
   onOpenCoachWithPrompt: (prompt: string) => void;
   onOpenUpgradeModal?: (feature?: string) => void;
 }
@@ -97,7 +95,6 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
   const [isMinimalistMode, setIsMinimalistMode] = useState(false);
   const [isVisionCoachOpen, setIsVisionCoachOpen] = useState(false);
   const [latestPostureFeedback, setLatestPostureFeedback] = useState<PostureFeedbackState | null>(null);
-  const [selectedExerciseForModal, setSelectedExerciseForModal] = useState<Exercise | null>(null);
 
   const workoutTimerRef = useRef<number | null>(null);
   const restTimerRef = useRef<number | null>(null);
@@ -514,38 +511,12 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
               <div className="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold">
                 Exercício {activeExerciseIdx + 1} de {exercises.length} · {currentExercise.targetMuscle}
               </div>
-              <h2
-                onClick={() => {
-                  const details = resolveExerciseDetails(
-                    currentExercise.name || currentExercise.exerciseId,
-                    currentExercise.targetMuscle
-                  );
-                  setSelectedExerciseForModal(details);
-                }}
-                className="text-2xl sm:text-4xl font-black text-white tracking-tight hover:text-emerald-400 transition-colors cursor-pointer"
-                title="Clique para ver vídeo explicativo da execução"
-              >
+              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
                 {currentExercise.name}
               </h2>
-              <div className="flex items-center justify-center gap-3 pt-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const details = resolveExerciseDetails(
-                      currentExercise.name || currentExercise.exerciseId,
-                      currentExercise.targetMuscle
-                    );
-                    setSelectedExerciseForModal(details);
-                  }}
-                  className="px-3 py-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <Play className="w-3 h-3 fill-current" />
-                  <span>Ver Vídeo da Execução</span>
-                </button>
-                <span className="text-xs sm:text-sm text-neutral-400 font-mono">
-                  Série {nextUncompletedSet.setNumber} de {currentExercise.sets.length}
-                  {nextUncompletedSet.completed && " (Concluída ✓)"}
-                </span>
+              <div className="text-xs sm:text-sm text-neutral-400 font-mono">
+                Série {nextUncompletedSet.setNumber} de {currentExercise.sets.length}
+                {nextUncompletedSet.completed && " (Concluída ✓)"}
               </div>
             </div>
 
@@ -893,24 +864,9 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                   <span aria-hidden="true">·</span>
                   <span className="text-neutral-400 font-normal">{currentExercise.targetMuscle}</span>
                 </div>
-                <div className="flex items-center gap-2.5 mt-1">
-                  <h2
-                    onClick={() => {
-                      const details = resolveExerciseDetails(
-                        currentExercise.name || currentExercise.exerciseId,
-                        currentExercise.targetMuscle
-                      );
-                      setSelectedExerciseForModal(details);
-                    }}
-                    className="text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-2 group"
-                    title="Clique para abrir demonstração em vídeo e guia biomecânico"
-                  >
-                    <span>{currentExercise.name}</span>
-                    <span className="opacity-0 group-hover:opacity-100 text-xs font-mono font-normal text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 transition-opacity">
-                      ▶ Ver Vídeo
-                    </span>
-                  </h2>
-                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                  {currentExercise.name}
+                </h2>
                 {currentExercise.notes && (
                   <p className="text-xs text-neutral-400 mt-1 italic">
                     "{currentExercise.notes}"
@@ -918,23 +874,7 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                 )}
               </div>
 
-              <div className="flex items-center gap-2 shrink-0 flex-wrap">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const details = resolveExerciseDetails(
-                      currentExercise.name || currentExercise.exerciseId,
-                      currentExercise.targetMuscle
-                    );
-                    setSelectedExerciseForModal(details);
-                  }}
-                  className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-bold font-mono text-emerald-300 flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shadow-emerald-500/10"
-                  title="Ver vídeo explicativo passo a passo e animação biomecânica"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Vídeo da Execução</span>
-                </button>
-
+              <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() =>
                     onOpenCoachWithPrompt(
@@ -1146,24 +1086,143 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
       </div>
       )}
 
-      {/* Post-Workout Social Publisher & Weight Lifted Celebration Modal */}
+      {/* Completion Modal Overlay */}
       {isCompleted && completedRecord && (
-        <PostWorkoutShareModal
-          isOpen={isCompleted}
-          record={completedRecord}
-          profile={storage.getProfile()}
-          onClose={() => {
-            setIsCompleted(false);
-            onClose();
-          }}
-          onPublishPost={(customPost, updatedRecord) => {
-            onFinishWorkout(updatedRecord, true, customPost);
-          }}
-          onSavePrivateOnly={(updatedRecord) => {
-            onFinishWorkout(updatedRecord, false);
-          }}
-          onOpenStoryGenerator={() => setIsStoryModalOpen(true)}
-        />
+        <div className="fixed inset-0 z-60 bg-neutral-950/95 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="bg-neutral-900 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-6 animate-scale-up">
+            <div className="text-center space-y-2">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
+                <Flame className="w-8 h-8 fill-emerald-400" />
+              </div>
+              <h2 className="text-2xl font-black text-white tracking-tight">
+                Treino Finalizado com Sucesso!
+              </h2>
+              <p className="text-xs text-neutral-400">
+                Parabéns! Todas as cargas foram computadas e sincronizadas no seu histórico FORZON.
+              </p>
+            </div>
+
+            {/* Metrics summary */}
+            <div className="grid grid-cols-3 gap-3 text-center font-mono">
+              <div className="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
+                <div className="text-[10px] text-neutral-500 uppercase">Tempo</div>
+                <div className="text-base font-bold text-white mt-0.5">
+                  {Math.round(completedRecord.durationSeconds / 60)} min
+                </div>
+              </div>
+              <div className="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
+                <div className="text-[10px] text-neutral-500 uppercase">Volume Total</div>
+                <div className="text-base font-bold text-emerald-400 mt-0.5">
+                  {completedRecord.totalVolumeKg.toLocaleString()} kg
+                </div>
+              </div>
+              <div className="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
+                <div className="text-[10px] text-neutral-500 uppercase">Séries / Reps</div>
+                <div className="text-base font-bold text-white mt-0.5">
+                  {completedRecord.totalSets} / {completedRecord.totalReps}
+                </div>
+              </div>
+            </div>
+
+            {/* PRs achieved */}
+            {completedRecord.prsAchieved.length > 0 && (
+              <div className="bg-emerald-950/30 border border-emerald-500/30 p-3.5 rounded-xl text-xs space-y-1">
+                <div className="font-bold text-emerald-400 flex items-center gap-1.5">
+                  <TrendingUp className="w-4 h-4" /> Conquistas da Sessão:
+                </div>
+                {completedRecord.prsAchieved.map((pr, i) => (
+                  <div key={i} className="text-neutral-200">
+                    · {pr}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* RPE & Notes input */}
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block text-neutral-300 font-semibold mb-1">
+                  Percepção Subjetiva de Esforço (RPE: {sessionRpe}/10)
+                </label>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="0.5"
+                  value={sessionRpe}
+                  onChange={(e) => setSessionRpe(parseFloat(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
+                />
+                <div className="flex justify-between text-[10px] text-neutral-500 font-mono mt-0.5">
+                  <span>1 (Leve)</span>
+                  <span>7-8 (Ótimo/RIR 2)</span>
+                  <span>10 (Falha Máxima)</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-neutral-300 font-semibold mb-1">
+                  Observações Pessoais (Opcional):
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ex: pegada firme, ombro 100% sem dor, boa cadência..."
+                  value={sessionNotes}
+                  onChange={(e) => setSessionNotes(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-neutral-950 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            {/* Offline Cache Notice */}
+            {!storage.isNetworkOnline() && (
+              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
+                <WifiOff className="w-4 h-4 shrink-0 text-amber-400" />
+                <span>
+                  Modo Offline ativo: este treino será protegido no cache local com integridade criptográfica e sincronizado automaticamente assim que a conexão retornar.
+                </span>
+              </div>
+            )}
+
+            {/* Action buttons */}
+            <div className="space-y-2 pt-2">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button
+                  onClick={() => {
+                    completedRecord.perceivedEffortRpe = sessionRpe;
+                    completedRecord.notes = sessionNotes;
+                    onFinishWorkout(completedRecord, true);
+                  }}
+                  className="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs tracking-wide flex items-center justify-center gap-2 shadow-md shadow-emerald-500/20 cursor-pointer"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>Salvar & Publicar no Feed</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsStoryModalOpen(true)}
+                  className="py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 text-white font-bold text-xs tracking-wide flex items-center justify-center gap-2 shadow-md shadow-rose-500/20 cursor-pointer"
+                  title="Criar Story 9:16 para WhatsApp e Instagram"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>Story Whats & Insta</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    completedRecord.perceivedEffortRpe = sessionRpe;
+                    completedRecord.notes = sessionNotes;
+                    onFinishWorkout(completedRecord, false);
+                  }}
+                  className="py-3 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-xs font-semibold cursor-pointer"
+                >
+                  Apenas Salvar Privado
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* 9:16 Social Story Modal for WhatsApp & Instagram */}
@@ -1230,29 +1289,6 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
               }
               return copy;
             });
-          }}
-        />
-      )}
-
-      {/* Explanatory Video & Biomechanical Execution Guide Modal */}
-      {selectedExerciseForModal && (
-        <ExerciseExecutionModal
-          exercise={selectedExerciseForModal}
-          isOpen={Boolean(selectedExerciseForModal)}
-          onClose={() => setSelectedExerciseForModal(null)}
-          onOpenCoachWithPrompt={onOpenCoachWithPrompt}
-          onSwapExercise={(newExName) => {
-            setExercises((prev) => {
-              const copy = [...prev];
-              if (copy[activeExerciseIdx]) {
-                copy[activeExerciseIdx] = {
-                  ...copy[activeExerciseIdx],
-                  name: newExName,
-                };
-              }
-              return copy;
-            });
-            setSelectedExerciseForModal(null);
           }}
         />
       )}

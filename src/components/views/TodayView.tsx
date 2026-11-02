@@ -21,11 +21,8 @@ import {
   Dumbbell,
   Moon,
   Watch,
-  Activity,
 } from "lucide-react";
-import { UserProfile, WorkoutPlan, DailyNutrition, CompletedWorkoutRecord, GroupChallenge, GPSActivity, NotificationSettings, Exercise } from "../../types";
-import { resolveExerciseDetails } from "../../data/exercises";
-import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
+import { UserProfile, WorkoutPlan, DailyNutrition, CompletedWorkoutRecord, GroupChallenge, GPSActivity, NotificationSettings } from "../../types";
 import { WeeklyVolumeChart } from "../dashboard/WeeklyVolumeChart";
 import { DailyWaterTracker } from "../dashboard/DailyWaterTracker";
 import { DailyRecoveryCard } from "../dashboard/DailyRecoveryCard";
@@ -56,7 +53,6 @@ interface TodayViewProps {
   onOpenProfile?: () => void;
   onOpenUpgradeModal?: (feature?: string) => void;
   onPlanUpdated?: (updatedPlan: WorkoutPlan) => void;
-  onOpenAIIntake?: () => void;
 }
 
 export const TodayView: React.FC<TodayViewProps> = ({
@@ -74,7 +70,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
   onOpenProfile,
   onOpenUpgradeModal,
   onPlanUpdated,
-  onOpenAIIntake,
 }) => {
 
   const [quickWaterAdded, setQuickWaterAdded] = useState(false);
@@ -84,7 +79,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
   const [showProgressReport, setShowProgressReport] = useState(false);
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
   const [activeStoryData, setActiveStoryData] = useState<StoryData | null>(null);
-  const [selectedExerciseForModal, setSelectedExerciseForModal] = useState<Exercise | null>(null);
   const [notifSettings, setNotifSettings] = useState<NotificationSettings>(() =>
     notificationService.getSettings()
   );
@@ -189,7 +183,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-12">
       {/* FORZON Brand Positioning & Value Proposition Hero */}
-      <ForzonBrandBanner onNavigateTab={onNavigateTab} onOpenAIIntake={onOpenAIIntake} />
+      <ForzonBrandBanner onNavigateTab={onNavigateTab} />
 
       {/* Athlete Welcome & Day Briefing */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-5">
@@ -482,89 +476,19 @@ export const TodayView: React.FC<TodayViewProps> = ({
                       </span>
                     </div>
 
-                    {/* Exercise preview: Clickable cards opening execution video guide */}
-                    <div className="pt-2 space-y-2">
-                      <div className="text-[11px] font-mono text-neutral-400 flex items-center justify-between">
-                        <span>Exercícios da Sessão (Clique em qualquer um para ver o vídeo e postura):</span>
-                        <span className="text-emerald-400 text-[10px] font-bold">▶ Vídeo Explicativo Disponível</span>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2 text-xs">
-                        {todaySession.exercises.map((ex, i) => (
-                          <button
-                            key={ex.id}
-                            type="button"
-                            onClick={() => {
-                              const details = resolveExerciseDetails(ex.name || ex.exerciseId, ex.targetMuscle);
-                              setSelectedExerciseForModal(details);
-                            }}
-                            className="bg-neutral-800/80 hover:bg-neutral-800 px-2.5 py-1.5 rounded-xl text-neutral-200 border border-neutral-700/60 hover:border-emerald-500/50 flex items-center gap-2 text-xs transition-all cursor-pointer group shadow-sm text-left"
-                            title="Clique para ver o vídeo explicativo da execução e técnica"
-                          >
-                            <span className="w-5 h-5 rounded-lg bg-neutral-900 group-hover:bg-emerald-500 group-hover:text-neutral-950 text-neutral-400 font-mono text-[10px] flex items-center justify-center font-bold transition-colors">
-                              {i + 1}
-                            </span>
-                            <span className="font-medium group-hover:text-emerald-300 transition-colors">
-                              {ex.name}
-                            </span>
-                            <Play className="w-3 h-3 text-neutral-500 group-hover:text-emerald-400 fill-current ml-0.5 shrink-0 transition-colors" />
-                          </button>
-                        ))}
-                        {todaySession.cardioProtocol && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const details = resolveExerciseDetails(todaySession.cardioProtocol!.name, "Cardio & Resistência");
-                              setSelectedExerciseForModal(details);
-                            }}
-                            className="bg-cyan-950/90 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-400/60 hover:border-cyan-400 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm shadow-cyan-500/20 cursor-pointer transition-all"
-                            title="Clique para ver o vídeo explicativo do cardio pós-treino"
-                          >
-                            <Activity className="w-3.5 h-3.5 text-cyan-400" />
-                            <span>Final: {todaySession.cardioProtocol.machine} ({todaySession.cardioProtocol.durationMin} min)</span>
-                            <Play className="w-3 h-3 text-cyan-400 fill-current ml-0.5" />
-                          </button>
-                        )}
-                      </div>
+                    {/* Exercise preview pills replacement: clean inline row */}
+                    <div className="pt-2 flex flex-wrap gap-2 text-xs text-neutral-300">
+                      {todaySession.exercises.slice(0, 3).map((ex, i) => (
+                        <span key={ex.id} className="bg-neutral-800/80 px-2.5 py-1 rounded-md text-neutral-300 border border-neutral-700/50">
+                          {i + 1}. {ex.name}
+                        </span>
+                      ))}
+                      {todaySession.exercises.length > 3 && (
+                        <span className="text-neutral-500 py-1 text-xs">
+                          +{todaySession.exercises.length - 3} outros
+                        </span>
+                      )}
                     </div>
-
-                    {/* Integrated Post-Workout Cardio Protocol Badge */}
-                    {todaySession.cardioProtocol && (
-                      <div className="mt-3 p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/50 to-neutral-900 border border-cyan-500/30 flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                          <Activity className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 text-xs">
-                          <div className="flex items-center justify-between gap-2 flex-wrap">
-                            <span className="font-bold text-white flex items-center gap-1.5">
-                              <span>{todaySession.cardioProtocol.name}</span>
-                              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30">
-                                {todaySession.cardioProtocol.durationMin} MIN · ~{todaySession.cardioProtocol.estimatedKcal} KCAL
-                              </span>
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <span className="text-[10px] font-mono text-cyan-400">
-                                {todaySession.cardioProtocol.intensity}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const details = resolveExerciseDetails(todaySession.cardioProtocol!.name, "Cardio & Resistência");
-                                  setSelectedExerciseForModal(details);
-                                }}
-                                className="px-2.5 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                                title="Ver guia em vídeo do cardio"
-                              >
-                                <Play className="w-2.5 h-2.5 fill-current" />
-                                <span>Ver Vídeo</span>
-                              </button>
-                            </div>
-                          </div>
-                          <p className="text-[11px] text-neutral-400 mt-1">
-                            {todaySession.cardioProtocol.parameters} · {todaySession.cardioProtocol.benefits}
-                          </p>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
                   <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
@@ -1017,16 +941,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
             setActiveStoryData(null);
           }}
           storyData={activeStoryData || todayStoryData}
-        />
-      )}
-
-      {/* Exercise Video Demonstration & Biomechanical Technique Modal */}
-      {selectedExerciseForModal && (
-        <ExerciseExecutionModal
-          exercise={selectedExerciseForModal}
-          isOpen={Boolean(selectedExerciseForModal)}
-          onClose={() => setSelectedExerciseForModal(null)}
-          onOpenCoachWithPrompt={onOpenCoachWithPrompt}
         />
       )}
     </div>
