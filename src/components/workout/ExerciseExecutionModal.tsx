@@ -596,15 +596,26 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
                   <div className="font-bold text-white">{videoInfo.title}</div>
                   <div className="text-[11px] text-neutral-400 font-mono">Canal: {videoInfo.channel}</div>
                 </div>
-                <a
-                  href={videoInfo.directWatchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-colors shrink-0"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Abrir no YouTube</span>
-                </a>
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={videoInfo.searchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-mono text-[11px] font-semibold flex items-center gap-1 transition-colors"
+                    title="Pesquisar outras execuções deste exercício no YouTube"
+                  >
+                    <span>Pesquisar</span>
+                  </a>
+                  <a
+                    href={videoInfo.directWatchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-colors"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>Assistir</span>
+                  </a>
+                </div>
               </div>
             </div>
           )}
