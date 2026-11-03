@@ -182,7 +182,7 @@ export const ExerciseExecutionModal: React.FC<ExerciseExecutionModalProps> = ({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 16 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="relative w-full max-w-lg bg-neutral-950 text-white rounded-[28px] border border-neutral-800 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[94vh]"
+        className="relative w-full max-w-lg bg-neutral-950 text-white rounded-[28px] border border-neutral-800 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[calc(100dvh-1.5rem)]"
       >
         {/* Top Header (Matching Reference Video) */}
         <div className="px-4 py-3.5 border-b border-neutral-900 flex items-center justify-between gap-3 bg-neutral-950">

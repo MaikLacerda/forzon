@@ -193,9 +193,9 @@ export const TodayView: React.FC<TodayViewProps> = ({
       <ForzonBrandBanner onNavigateTab={onNavigateTab} />
 
       {/* Athlete Welcome & Day Briefing */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-5">
-        <div>
-          <div className="flex items-center gap-2 text-xs text-neutral-400 mb-1">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-900 pb-5">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-400 mb-1">
             <span>Temporada de Treino 2026</span>
             <span aria-hidden="true">·</span>
             <span>Semana 4 de 12</span>
@@ -211,7 +211,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
         </div>
 
         {/* Action badges & 30-Day Evolution report shortcut */}
-        <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+        <div className="flex max-w-full lg:max-w-[60%] items-center gap-3 flex-wrap">
           <button
             type="button"
             onClick={() => setShowProgressReport(true)}

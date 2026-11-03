@@ -24,10 +24,10 @@ if ((Split-Path $archivePath -Parent) -ne $workspaceRoot -or [System.IO.Path]::G
 if (Test-Path -LiteralPath $archivePath) { throw 'O ZIP ja existe; escolha outro nome para preservar a versao anterior.' }
 $stage = Join-Path $workspaceRoot ('.tmp/bundle-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
-$files = @('.gitignore','package.json','package-lock.json','server.ts','EXERCISE_VIDEO_STATUS.md','src/App.tsx',
-  'src/components/workout/ExerciseExecutionModal.tsx','src/components/workout/ExerciseVideoDemonstration.tsx',
-  'src/components/workout/LiveWorkoutModal.tsx','src/components/views/TodayView.tsx',
-  'src/components/views/WorkoutsView.tsx','src/data/exercises.ts','src/data/exerciseVideoAssets.ts','src/data/ownedExerciseVideos.json','public/sw.js')
+$files = @('.gitignore','package.json','package-lock.json','server.ts','index.html','tsconfig.json','vite.config.ts','EXERCISE_VIDEO_STATUS.md','public/sw.js')
+$files += @(Get-ChildItem -LiteralPath (Join-Path $workspaceRoot 'src') -Recurse -File | ForEach-Object {
+  [System.IO.Path]::GetRelativePath($workspaceRoot,$_.FullName).Replace('\','/')
+})
 foreach ($relative in $files) {
   $destination = Join-Path $stage $relative
   New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
@@ -50,7 +50,7 @@ $videoNames = foreach ($entry in $videoManifest.PSObject.Properties) {
   '- ' + $name
 }
 $readme = @'
-FORZON - ATUALIZACAO DOS VIDEOS E DISPONIBILIDADE
+FORZON - VIDEOS, LAYOUT RESPONSIVO E PLANOS PRO
 
 Inclui {COUNT} videos proprios:
 {EXERCISES}
@@ -60,6 +60,7 @@ Aceite substituir os arquivos correspondentes.
 
 No Git Bash, dentro da pasta do projeto:
 npm install
+npm run lint
 npm run build
 npm run dev
 
@@ -70,6 +71,9 @@ Os enderecos dos videos foram atualizados para renovar o cache do navegador.
 Na Biblioteca, marque "Somente exercicios com video" para localizar os videos disponiveis.
 Na lista, clique no nome do exercicio para abrir a ficha de execucao.
 O lote completo inclui os 100 novos videos e os quatro videos anteriores.
+Cabecalho, biblioteca e janelas foram ajustados para telas pequenas.
+O botao Seja Pro abre os planos sem interromper a interface.
+O fechamento dos planos permanece acessivel ao rolar; Escape tambem fecha.
 
 Este pacote cobre {COUNT} dos 104 exercicios do catalogo principal.
 As estrias e a definicao do personagem sao uma ilustracao muscular estilizada.
@@ -80,7 +84,7 @@ site com Ctrl+F5 para atualizar a pagina que estava aberta.
 
 Para enviar ao GitHub:
 git add src public/assets/exercise-videos public/sw.js tools .gitignore EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
-git commit -m "Adiciona os 100 videos restantes dos exercicios"
+git commit -m "Corrige layout responsivo e abertura dos planos Pro"
 git push origin main
 '@
 $readme = $readme.Replace('{COUNT}',[string]@($videoManifest.PSObject.Properties).Count).Replace('{EXERCISES}',($videoNames -join [Environment]::NewLine))

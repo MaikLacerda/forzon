@@ -214,7 +214,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       </div>
 
       {/* Sub-navigation tabs */}
-      <div className="flex items-center gap-2 border-b border-neutral-900 pb-2 overflow-x-auto scrollbar-none">
+      <div className="flex flex-wrap items-center gap-2 border-b border-neutral-900 pb-2">
         <button
           onClick={() => setActiveSubTab("routine")}
           className={`px-4 py-2 text-xs font-bold rounded-xl transition-colors cursor-pointer whitespace-nowrap ${
@@ -822,8 +822,8 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
               <input type="checkbox" checked={onlyWithVideo} onChange={event=>setOnlyWithVideo(event.target.checked)} className="accent-emerald-500" />
               Somente exercícios com vídeo ({EXERCISE_LIBRARY.filter(ex=>hasExerciseVideo(ex.id)).length})
             </label>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
+            <div className="flex flex-col lg:flex-row gap-3">
+              <div className="relative min-w-0 flex-1">
                 <Search className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -834,7 +834,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex items-center gap-1.5 bg-neutral-900 border border-neutral-800 rounded-xl px-2.5 py-1">
                   <Filter className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
                   <select
@@ -868,7 +868,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
             </div>
 
             {/* Quick muscle pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-thin">
+            <div className="flex flex-wrap items-center gap-1.5 pb-1.5">
               <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mr-1 shrink-0">
                 Atalhos:
               </span>
@@ -937,9 +937,9 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                   key={ex.id}
                   className="bg-neutral-900/60 border border-neutral-800/80 rounded-2xl p-5 space-y-3 hover:border-neutral-700 transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                           {ex.primaryMuscle}
                         </span>
@@ -974,6 +974,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         onClick={() =>
                           setExpandedExerciseId(isExpanded ? null : ex.id)
                         }
+                        aria-label={`${isExpanded ? "Recolher" : "Expandir"} instruções de ${ex.name}`}
                         className="p-1 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
                       >
                         {isExpanded ? (

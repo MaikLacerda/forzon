@@ -58,5 +58,13 @@ test('activation removes obsolete FORZON caches and preserves unrelated caches',
   const context=setup();let pending;
   context.handlers.activate({waitUntil:promise=>{pending=promise;}});
   await pending;
-  assert.deepEqual(context.deleted,['stryde-cache-v1','forzon-cache-v1']);
+  assert.deepEqual(context.deleted,['stryde-cache-v1','forzon-cache-v1','forzon-cache-v2']);
+});
+
+test('development modules and refresh clients bypass the cache',async()=>{
+  const context=setup();
+  for(const path of ['/src/App.tsx','/src/components/layout/Header.tsx','/node_modules/.vite/deps/react.js','/@react-refresh','/@vite/client']){
+    assert.equal(await context.dispatch(path),undefined);
+  }
+  assert.equal(context.requests.length,0);
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sparkles,
   CheckCircle2,
@@ -86,6 +86,15 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [justSubscribed, setJustSubscribed] = useState(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKey = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKey);
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", handleKey); };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleSubscribe = () => {
@@ -117,15 +126,16 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-neutral-950 border border-neutral-800 rounded-3xl p-6 sm:p-8 shadow-2xl text-white my-8 max-h-[90vh] overflow-y-auto">
+    <div role="dialog" aria-modal="true" aria-label="Planos FORZON Pro" className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="relative w-full min-w-0 max-w-2xl bg-neutral-950 border border-neutral-800 rounded-3xl p-4 sm:p-8 shadow-2xl text-white max-h-[calc(100dvh-1.5rem)] overflow-y-auto overscroll-contain">
         {/* Close button */}
-        <button
+        <div className="sticky top-0 z-10 flex justify-end"><button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer z-10"
+          aria-label="Fechar planos Pro"
+          className="p-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
-        </button>
+        </button></div>
 
         {/* Success celebratory screen */}
         {justSubscribed ? (
@@ -206,7 +216,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({
                 { feature: "Bioimpedância & Predições IA", free: "Última aferição", pro: "Histórico Completo" },
               ].map((row, idx) => (
                 <div key={idx} className="grid grid-cols-3 items-center py-1 font-mono text-[11px]">
-                  <span className="text-neutral-300 truncate">{row.feature}</span>
+                  <span className="min-w-0 break-words pr-2 text-neutral-300">{row.feature}</span>
                   <span className="text-center text-neutral-500">
                     {row.free === "Sim" || row.free === "Limitado" ? row.free : "✕ Bloqueado"}
                   </span>
@@ -266,7 +276,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({
                       {opt.features.slice(0, 2).map((feat, i) => (
                         <div key={i} className="flex items-center gap-1.5">
                           <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
-                          <span className="truncate">{feat}</span>
+                          <span className="min-w-0 break-words">{feat}</span>
                         </div>
                       ))}
                     </div>
@@ -298,7 +308,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({
                 )}
               </button>
 
-              <div className="flex items-center justify-center gap-4 text-[11px] text-neutral-500 font-mono">
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-center text-[11px] text-neutral-500 font-mono">
                 <span className="flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                   Garantia de 7 dias

@@ -87,7 +87,7 @@ export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigate
           <div className="h-px w-full bg-gradient-to-r from-cyan-500/30 via-neutral-800 to-transparent mb-6" />
 
           {/* Four Interactive Brand Pillars & Google Play Install Button */}
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 pt-1">
             {/* Pillar 1: TRAIN */}
             <button
               onClick={() => onNavigateTab("treinos")}
@@ -142,12 +142,12 @@ export const ForzonBrandBanner: React.FC<ForzonBrandBannerProps> = ({ onNavigate
               className="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/80 to-blue-950/70 hover:from-cyan-900/90 hover:to-blue-900/80 border border-cyan-500/50 hover:border-cyan-400 transition-all cursor-pointer group text-left shadow-lg shadow-cyan-950/30"
               title="Formato Google Play Store & Instalação Standalone PWA"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500 text-neutral-950 font-black flex items-center justify-center group-hover:scale-105 transition-transform shadow-md shadow-cyan-500/30">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-cyan-500 text-neutral-950 font-black flex items-center justify-center group-hover:scale-105 transition-transform shadow-md shadow-cyan-500/30">
                   <Smartphone className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-cyan-300 font-bold uppercase">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-cyan-300 font-bold uppercase">
                     <span>Google Play</span>
                     <span className="text-white">·</span>
                     <span className="text-emerald-400">TWA Ready</span>

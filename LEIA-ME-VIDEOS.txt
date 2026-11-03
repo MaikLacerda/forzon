@@ -1,4 +1,4 @@
-FORZON - ATUALIZACAO DOS VIDEOS E DISPONIBILIDADE
+FORZON - VIDEOS, LAYOUT RESPONSIVO E PLANOS PRO
 
 Inclui 104 videos proprios:
 - Rosca Direta com Barra Reta
@@ -111,6 +111,7 @@ Aceite substituir os arquivos correspondentes.
 
 No Git Bash, dentro da pasta do projeto:
 npm install
+npm run lint
 npm run build
 npm run dev
 
@@ -121,6 +122,9 @@ Os enderecos dos videos foram atualizados para renovar o cache do navegador.
 Na Biblioteca, marque "Somente exercicios com video" para localizar os videos disponiveis.
 Na lista, clique no nome do exercicio para abrir a ficha de execucao.
 O lote completo inclui os 100 novos videos e os quatro videos anteriores.
+Cabecalho, biblioteca e janelas foram ajustados para telas pequenas.
+O botao Seja Pro abre os planos sem interromper a interface.
+O fechamento dos planos permanece acessivel ao rolar; Escape tambem fecha.
 
 Este pacote cobre 104 dos 104 exercicios do catalogo principal.
 As estrias e a definicao do personagem sao uma ilustracao muscular estilizada.
@@ -131,5 +135,5 @@ site com Ctrl+F5 para atualizar a pagina que estava aberta.
 
 Para enviar ao GitHub:
 git add src public/assets/exercise-videos public/sw.js tools .gitignore EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
-git commit -m "Adiciona os 100 videos restantes dos exercicios"
+git commit -m "Corrige layout responsivo e abertura dos planos Pro"
 git push origin main

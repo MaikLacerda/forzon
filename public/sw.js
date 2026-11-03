@@ -1,6 +1,6 @@
 // FORZON PWA: fresh navigation documents and browser-managed video streaming.
 
-const CACHE_NAME = 'forzon-cache-v2';
+const CACHE_NAME = 'forzon-cache-v3';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -45,7 +45,8 @@ self.addEventListener('fetch', (event) => {
   // Let the browser/server handle partial responses and seeking. A normal
   // CacheStorage response must never replace a Range response for a video.
   if (event.request.headers.has('range') || /\.(mp4|webm)$/i.test(url.pathname)) return;
-  if (url.protocol.startsWith('ws') || url.pathname.includes('/@vite/') || url.pathname.includes('/@fs/')) {
+  if (url.protocol.startsWith('ws') || url.pathname.startsWith('/@') ||
+      url.pathname.startsWith('/src/') || url.pathname.startsWith('/node_modules/')) {
     return;
   }
 

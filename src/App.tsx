@@ -42,6 +42,7 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("hoje");
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); }, [activeTab]);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAIIntakeOpen, setIsAIIntakeOpen] = useState(false);
 
@@ -73,7 +74,7 @@ export default function App() {
   const [upgradeHighlightedFeature, setUpgradeHighlightedFeature] = useState<string | undefined>(undefined);
 
   const handleOpenUpgrade = (feature?: string) => {
-    setUpgradeHighlightedFeature(feature);
+    setUpgradeHighlightedFeature(typeof feature === "string" ? feature : undefined);
     setIsUpgradeModalOpen(true);
   };
 
@@ -378,7 +379,7 @@ export default function App() {
       />
 
       {/* Main View Router */}
-      <main className="flex-1 w-full">
+      <main className="min-w-0 flex-1 w-full pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
         {activeTab === "hoje" && (
           <TodayView
             profile={profile}
