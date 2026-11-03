@@ -10,4 +10,6 @@ coverage/
 .private/
 .tools/
 tools/exercise-renderer/output/
+__pycache__/
+*.py[cod]
 forzon-*.zip

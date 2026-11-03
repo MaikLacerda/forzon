@@ -2,7 +2,8 @@
 
 O projeto tem uma produção própria em Blender, com malha humana, esqueleto,
 pesos e parâmetros corporais CC0 do MakeHuman. Não utiliza vídeos comerciais
-como entrada. A versão atualizada contém quatro movimentos específicos:
+como entrada. A versão atualizada contém 104 demonstrações: os quatro movimentos
+anteriores abaixo e o lote completo dos 100 restantes.
 
 | Exercício do FORZON | Vídeo próprio | Duração |
 | --- | --- | --- |
@@ -13,8 +14,21 @@ como entrada. A versão atualizada contém quatro movimentos específicos:
 
 O manifesto `src/data/ownedExerciseVideos.json` registra os arquivos disponíveis
 no app. As mídias próprias ficam em `public/assets/exercise-videos/` e são
-copiadas para a publicação pelo Vite. O catálogo principal tem 104 exercícios:
-este pacote cobre 4; os outros 100 continuam pendentes.
+copiadas para a publicação pelo Vite. Os 104 exercícios do catálogo principal
+possuem vídeo próprio, com correspondência exata de ID e endereço versionado.
+
+## Lote completo dos 100 restantes
+
+A produção está organizada em `tools/exercise-renderer/production-plan.json` e
+`remaining-motion-specs.json`. Os 100 vídeos foram renderizados, auditados em
+todos os quadros e revisados em quadros decodificados dos MP4 finais. O estado fica em
+`batch-status.json`, atualizado por `node tools/exercise-renderer/batch_status.mjs`.
+
+O publicador e o gerador de ZIP bloqueiam entregas parciais. A revisão visual
+fica vinculada ao SHA-256 de cada vídeo, e a auditoria ao SHA-256 da cena.
+`integrity-report.json` confirma os 100 arquivos, metadados, hashes, cartazes e
+quadros decodificados. Há comparação dos pixels de quadros distintos do MP4.
+Na revisão final foram corrigidos os assentos da abdutora e da panturrilha sentada.
 
 ## Amostras comerciais para comparação
 
@@ -32,7 +46,7 @@ O modelo geométrico anterior foi removido da tela de demonstração.
 
 ## Prévia
 
-Execute `npm run dev`, abra o app e consulte os exercícios das tabelas acima.
+Execute `npm run dev`, abra o app e consulte a Biblioteca de Exercícios.
 O player inicia sem áudio, repete em loop e oferece controles nativos.
 As amostras comerciais ficam em `.private/exercise-videos`, fora do Git e de
 `public`. O servidor oferece essas amostras apenas em desenvolvimento e para
@@ -48,9 +62,8 @@ A licença permite exibição no produto, mas restringe distribuição dos arqui
 brutos. A publicação desses vídeos exige configurar entrega privada para os
 usuários do aplicativo. A rota desta prévia não é habilitada em produção.
 
-Nenhuma compra foi feita e nenhuma autorização de reutilização dos vídeos
-do Hevy foi identificada. A biblioteca completa ainda depende de conteúdo
-licenciado ou produção e validação de novas animações.
+Nenhuma compra foi feita. Os vídeos deste pacote são da produção própria;
+as amostras comerciais locais não fazem parte da entrega pública.
 
 ## Produção e revisão
 
@@ -67,7 +80,8 @@ Cada quadro é verificado para estabilidade dos cotovelos, âncoras de contato
 com o equipamento, amplitude, continuidade, sincronização ou alternância e
 fechamento do ciclo. Quadros do MP4 final são decodificados para revisão visual.
 O destaque vermelho é regional, não uma segmentação anatômica exata de músculos.
-Fontes da técnica estão em `tools/exercise-renderer/motions.json`.
+Fontes da técnica estão em `tools/exercise-renderer/motions.json`,
+`remaining-motion-specs.json` e `research-notes.json`.
 
 ## Revisão de musculatura
 
@@ -75,16 +89,15 @@ O personagem recebe formas musculares CC0 de peitoral, dorsais, ombros, braços,
 pernas e tônus abdominal. O processo acrescenta relevo de peitoral e abdômen e
 estrias de superfície estilizadas que acompanham a malha durante a animação.
 As formas corporais estão em `tools/exercise-renderer/physique.json`.
-Os três vídeos do primeiro lote foram atualizados com essa aparência.
+Os vídeos utilizam essa aparência na produção própria.
 Não se trata de um atlas com músculos individualmente segmentados.
 
 ## Disponibilidade no sistema
 
 Na Biblioteca de Exercícios, o filtro "Somente exercícios com vídeo" mostra
-as demonstrações disponíveis. No pacote atualizado são quatro: barra reta,
-martelo, alternada com supinação e supino reto com barra. A variação de rosca
-com barra W é outro exercício e permanece
-sem vídeo. Os demais exercícios continuam com acesso às instruções escritas.
+as demonstrações disponíveis. O pacote atualizado cobre os 104 exercícios do
+catálogo, incluindo as variações com barra reta e barra W. As fichas mantêm
+acesso às instruções escritas e aos controles de reprodução do vídeo.
 
 O player distingue falta de produção de falha de carregamento. Se um vídeo
 existente não carregar, mostra "Não foi possível carregar o vídeo" e oferece

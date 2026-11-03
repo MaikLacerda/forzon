@@ -1,0 +1,946 @@
+[
+  {
+    "id": "ex-supino-reto-barra",
+    "name": "Supino Reto com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-reto-barra.mp4?v=9eac20e7fa",
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/barbell-bench-press"
+    ]
+  },
+  {
+    "id": "ex-supino-reto-halteres",
+    "name": "Supino Reto com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-reto-halteres.mp4?v=0341ef16dd",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-inclinado-halteres",
+    "name": "Supino Inclinado com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-inclinado-halteres.mp4?v=942cca0b04",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-inclinado-barra",
+    "name": "Supino Inclinado com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-inclinado-barra.mp4?v=45ac691525",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-declinado-barra",
+    "name": "Supino Declinado com Barra (Canadense)",
+    "equipment": "Barra",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-declinado-barra.mp4?v=51d714049e",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-declinado-halteres",
+    "name": "Supino Declinado com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-declinado-halteres.mp4?v=068e015142",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-maquina-articulada",
+    "name": "Supino Reto na Máquina Articulada",
+    "equipment": "Máquina",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-maquina-articulada.mp4?v=1804d9121b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crucifixo-reto-halteres",
+    "name": "Crucifixo Reto com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crucifixo-reto-halteres.mp4?v=a9a1c98c77",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crucifixo-inclinado-halteres",
+    "name": "Crucifixo Inclinado com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crucifixo-inclinado-halteres.mp4?v=83ab33e3f8",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-peck-deck-voador",
+    "name": "Voador Peitoral / Peck Deck",
+    "equipment": "Máquina",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-peck-deck-voador.mp4?v=3dae9c0386",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crossover-polia-media",
+    "name": "Crucifixo no Crossover (Polia Média)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crossover-polia-media.mp4?v=d683a03239",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crossover-polia-alta",
+    "name": "Crossover na Polia Alta (Foco Inferior)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crossover-polia-alta.mp4?v=fab8074e4d",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crossover-polia-baixa",
+    "name": "Crossover na Polia Baixa (Foco Superior)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crossover-polia-baixa.mp4?v=4ffc44a4c9",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-mergulho-paralelas-peito",
+    "name": "Paralelas com Foco em Peitoral (Chest Dips)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-mergulho-paralelas-peito.mp4?v=7523d636ca",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-flexao-solo-deficit",
+    "name": "Flexão de Braço com Déficit / Carga",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-flexao-solo-deficit.mp4?v=a835e74d13",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-pullover-halter",
+    "name": "Pullover com Halter no Banco Plano",
+    "equipment": "Halteres",
+    "primaryMuscle": "Peitoral",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-pullover-halter.mp4?v=f098558022",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-puxada-frontal-polia",
+    "name": "Puxada Frontal na Polia Alta",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-puxada-frontal-polia.mp4?v=50ef78fa74",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-barra-fixa-pronada",
+    "name": "Barra Fixa com Pegada Pronada (Pull-Up)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-barra-fixa-pronada.mp4?v=ac53e168e1",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-barra-fixa-supinada",
+    "name": "Barra Fixa com Pegada Supinada (Chin-Up)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-barra-fixa-supinada.mp4?v=12b5a72771",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-puxada-triangulo",
+    "name": "Puxada Alta com Triângulo (Pegada Neutra)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-puxada-triangulo.mp4?v=b96a5489a7",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-curvada-barra",
+    "name": "Remada Curvada com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-curvada-barra.mp4?v=b820477e68",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-unilateral-serrote",
+    "name": "Remada Unilateral com Halter (Serrote)",
+    "equipment": "Halteres",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-unilateral-serrote.mp4?v=3197136f89",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-cavalinho-tbar",
+    "name": "Remada Cavalinho / T-Bar com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-cavalinho-tbar.mp4?v=118d5e38bd",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-baixa-triangulo",
+    "name": "Remada Baixa com Triângulo",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-baixa-triangulo.mp4?v=027583a471",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-articulada-maquina",
+    "name": "Remada Articulada na Máquina (Pegada Neutra)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-articulada-maquina.mp4?v=2285c14e63",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-pulldown-polia-alta",
+    "name": "Pulldown na Polia Alta com Barra Reta / Corda",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-pulldown-polia-alta.mp4?v=b83bdec5f4",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-levantamento-terra-convencional",
+    "name": "Levantamento Terra Convencional com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-levantamento-terra-convencional.mp4?v=9bf6bc84ef",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crucifixo-invertido-halteres",
+    "name": "Crucifixo Invertido com Halteres (Deltóide Posterior)",
+    "equipment": "Halteres",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crucifixo-invertido-halteres.mp4?v=b42056c579",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crucifixo-invertido-peck-deck",
+    "name": "Voador Invertido no Peck Deck (Máquina)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crucifixo-invertido-peck-deck.mp4?v=f4c1cd4ac3",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-extensao-lombar-banco",
+    "name": "Hiperextensão Lombar no Banco 45°",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-extensao-lombar-banco.mp4?v=ddf6a7f3a4",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-desenvolvimento-halteres",
+    "name": "Desenvolvimento com Halteres Sentado",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-desenvolvimento-halteres.mp4?v=8b2593db4a",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-desenvolvimento-militar-barra",
+    "name": "Desenvolvimento Militar em Pé com Barra (OHP)",
+    "equipment": "Barra",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-desenvolvimento-militar-barra.mp4?v=f696fad05a",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-desenvolvimento-arnold",
+    "name": "Desenvolvimento Arnold com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-desenvolvimento-arnold.mp4?v=7f011ee479",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-desenvolvimento-maquina",
+    "name": "Desenvolvimento de Ombros na Máquina Articulada",
+    "equipment": "Máquina",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-desenvolvimento-maquina.mp4?v=ce24e948e8",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-lateral-halteres",
+    "name": "Elevação Lateral com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-lateral-halteres.mp4?v=a1f631ea6b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-lateral-polia",
+    "name": "Elevação Lateral Unilateral na Polia Baixa",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-lateral-polia.mp4?v=3aa58e6dfa",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-lateral-inclinada",
+    "name": "Elevação Lateral no Banco Inclinado",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-lateral-inclinada.mp4?v=6506d28662",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-frontal-halteres",
+    "name": "Elevação Frontal Alternada com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-frontal-halteres.mp4?v=8785fd9ab1",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-frontal-corda",
+    "name": "Elevação Frontal na Polia Baixa com Corda",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-frontal-corda.mp4?v=8025accad1",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-face-pull-corda",
+    "name": "Face Pull na Polia Alta com Corda",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-face-pull-corda.mp4?v=3c8226c6cb",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-remada-alta-barra-w",
+    "name": "Remada Alta com Barra W",
+    "equipment": "Barra",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-remada-alta-barra-w.mp4?v=c817a1ae2f",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-encolhimento-barra",
+    "name": "Encolhimento de Ombros com Barra (Trapézio)",
+    "equipment": "Barra",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-encolhimento-barra.mp4?v=111e3fb08b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-encolhimento-halteres",
+    "name": "Encolhimento com Halteres com Isometria",
+    "equipment": "Halteres",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-encolhimento-halteres.mp4?v=ddafc63cef",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-agachamento-livre-barra",
+    "name": "Agachamento Livre com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-agachamento-livre-barra.mp4?v=9edf9b1860",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-agachamento-frontal-barra",
+    "name": "Agachamento Frontal com Barra (Front Squat)",
+    "equipment": "Barra",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-agachamento-frontal-barra.mp4?v=bb95ef8a59",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-leg-press-45",
+    "name": "Leg Press 45°",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-leg-press-45.mp4?v=7faa64b7a5",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-hack-squat-maquina",
+    "name": "Agachamento Hack na Máquina",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-hack-squat-maquina.mp4?v=cec19fda61",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-agachamento-smith",
+    "name": "Agachamento no Smith Machine com Pés Avançados",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-agachamento-smith.mp4?v=72df9c5d41",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-cadeira-extensora",
+    "name": "Cadeira Extensora (Isolador de Quadríceps)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-cadeira-extensora.mp4?v=c7991d78f2",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-agachamento-bulgaro-halteres",
+    "name": "Agachamento Búlgaro com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-agachamento-bulgaro-halteres.mp4?v=edcb2a5f31",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-afundo-passada-halteres",
+    "name": "Avanço / Passada Caminhando com Halteres",
+    "equipment": "Halteres",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-afundo-passada-halteres.mp4?v=93e34ed640",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-sissy-squat",
+    "name": "Sissy Squat Livre ou na Máquina",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-sissy-squat.mp4?v=5e988873de",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-stiff-halteres",
+    "name": "Stiff com Halteres / RDL",
+    "equipment": "Halteres",
+    "primaryMuscle": "Pernas (Posterior)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-stiff-halteres.mp4?v=6c1f4affb0",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-stiff-barra",
+    "name": "Stiff com Barra Reta",
+    "equipment": "Barra",
+    "primaryMuscle": "Pernas (Posterior)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-stiff-barra.mp4?v=d37c65dd60",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-mesa-flexora",
+    "name": "Mesa Flexora Deitada (Leg Curl)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Posterior)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-mesa-flexora.mp4?v=05db04b4b7",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-cadeira-flexora",
+    "name": "Cadeira Flexora Sentada",
+    "equipment": "Máquina",
+    "primaryMuscle": "Pernas (Posterior)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-cadeira-flexora.mp4?v=3129faf704",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-good-morning-barra",
+    "name": "Good Morning (Bom Dia) com Barra",
+    "equipment": "Barra",
+    "primaryMuscle": "Pernas (Posterior)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-good-morning-barra.mp4?v=4f311c07cd",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-pelvica-barra",
+    "name": "Elevação Pélvica com Barra (Hip Thrust)",
+    "equipment": "Barra",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-pelvica-barra.mp4?v=7166841895",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-elevacao-pelvica-maquina",
+    "name": "Elevação Pélvica na Máquina (Hip Thrust Machine)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-elevacao-pelvica-maquina.mp4?v=d00ba29acc",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-cadeira-abdutora",
+    "name": "Cadeira Abdutora (Tronco Inclinado à Frente)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-cadeira-abdutora.mp4?v=7c23bcbd89",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-gluteo-coice-polia",
+    "name": "Glúteo Coice / Extensão de Quadril na Polia Baixa",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-gluteo-coice-polia.mp4?v=7feb4307af",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-agachamento-sumo-halter",
+    "name": "Agachamento Sumô sobre Steps com Halter",
+    "equipment": "Halteres",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-agachamento-sumo-halter.mp4?v=d20f13ae68",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-panturrilha-em-pe-maquina",
+    "name": "Elevação de Panturrilhas em Pé na Máquina (Gastrocnêmio)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Panturrilhas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-panturrilha-em-pe-maquina.mp4?v=c2fe5f1c63",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-panturrilha-sentado-soleo",
+    "name": "Elevação de Panturrilha Sentado (Máquina Sóleo)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Panturrilhas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-panturrilha-sentado-soleo.mp4?v=26fb913e37",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-panturrilha-leg-press-45",
+    "name": "Panturrilha no Leg Press 45°",
+    "equipment": "Máquina",
+    "primaryMuscle": "Panturrilhas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-panturrilha-leg-press-45.mp4?v=382c5f9bc9",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-panturrilha-unilateral-degrau",
+    "name": "Elevação de Panturrilha Unilateral no Degrau com Halter",
+    "equipment": "Halteres",
+    "primaryMuscle": "Panturrilhas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-panturrilha-unilateral-degrau.mp4?v=3fdc0cdd26",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-direta-barra-w",
+    "name": "Rosca Direta com Barra W",
+    "equipment": "Barra",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-direta-barra-w.mp4?v=a6691a1d7b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-direta-barra-reta",
+    "name": "Rosca Direta com Barra Reta",
+    "equipment": "Barra",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-direta-barra-reta.mp4?v=80a8758712",
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/barbell-bicep-curl"
+    ]
+  },
+  {
+    "id": "ex-rosca-alternada-halteres",
+    "name": "Rosca Alternada com Halteres e Supinação",
+    "equipment": "Halteres",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-alternada-halteres.mp4?v=66abe981d9",
+    "techniqueSources": [
+      "https://ahc.aurorahealthcare.org/fywb/x11240.pdf"
+    ]
+  },
+  {
+    "id": "ex-rosca-martelo-halteres",
+    "name": "Rosca Martelo com Halteres (Braquial e Braquiorradial)",
+    "equipment": "Halteres",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-martelo-halteres.mp4?v=f9e325d9e9",
+    "techniqueSources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/10/hammer-curl/"
+    ]
+  },
+  {
+    "id": "ex-rosca-martelo-corda",
+    "name": "Rosca Martelo na Polia Baixa com Corda",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-martelo-corda.mp4?v=30911db725",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-scott-barra-w",
+    "name": "Rosca Scott no Banco com Barra W",
+    "equipment": "Barra",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-scott-barra-w.mp4?v=496c46970d",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-inclinada-45-halteres",
+    "name": "Rosca Bíceps no Banco Inclinado a 45°",
+    "equipment": "Halteres",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-inclinada-45-halteres.mp4?v=8d5ae870b9",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-concentrada-halter",
+    "name": "Rosca Concentrada com Halter",
+    "equipment": "Halteres",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-concentrada-halter.mp4?v=0ec67fcf68",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-rosca-aranha-spider-curl",
+    "name": "Rosca Aranha (Spider Curl) no Banco Inclinado",
+    "equipment": "Halteres",
+    "primaryMuscle": "Bíceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-rosca-aranha-spider-curl.mp4?v=82fa04c139",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-corda-polia",
+    "name": "Tríceps Corda na Polia Alta",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-corda-polia.mp4?v=78bb7d50ee",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-pulley-barra-reta",
+    "name": "Tríceps Pulley na Polia com Barra Reta",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-pulley-barra-reta.mp4?v=f65b1f9f9c",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-pulley-barra-v",
+    "name": "Tríceps Pulley com Barra V",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-pulley-barra-v.mp4?v=a903cc408b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-testa-barra-w",
+    "name": "Tríceps Testa com Barra W no Banco Reto (Skull Crusher)",
+    "equipment": "Barra",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-testa-barra-w.mp4?v=ec465a2b40",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-testa-halteres",
+    "name": "Tríceps Testa com Halteres (Pegada Neutra)",
+    "equipment": "Halteres",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-testa-halteres.mp4?v=27c0f58706",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-frances-unilateral",
+    "name": "Tríceps Francês Unilateral com Halter",
+    "equipment": "Halteres",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-frances-unilateral.mp4?v=eff501900e",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-frances-polia-corda",
+    "name": "Tríceps Francês na Polia com Corda Acima da Cabeça",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-frances-polia-corda.mp4?v=85e0525d5d",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-paralelas-peso",
+    "name": "Mergulho em Barras Paralelas Foco em Tríceps",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-paralelas-peso.mp4?v=44587d9c5a",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-supino-fechado-barra",
+    "name": "Supino com Pegada Fechada (Close-Grip Bench Press)",
+    "equipment": "Barra",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-supino-fechado-barra.mp4?v=b8106fa506",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-triceps-coice-polia",
+    "name": "Tríceps Coice Unilateral na Polia (Kickback)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Tríceps",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-triceps-coice-polia.mp4?v=859389fd1d",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-prancha-isometrica",
+    "name": "Prancha Frontal Isométrica",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-prancha-isometrica.mp4?v=7666a7ef36",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-abdominal-polia-cable-crunch",
+    "name": "Abdominal na Polia Alta Ajoelhado (Cable Crunch com Corda)",
+    "equipment": "Polia/Cabos",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-abdominal-polia-cable-crunch.mp4?v=7adc3fc189",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-abdominal-infra-paralela",
+    "name": "Elevação de Pernas na Paralela / Torre Abdominal",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-abdominal-infra-paralela.mp4?v=10db99cacf",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-roda-abdominal-abwheel",
+    "name": "Rolamento com Roda Abdominal (Ab Wheel Rollout)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-roda-abdominal-abwheel.mp4?v=3afa7bd681",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-abdominal-supra-solo",
+    "name": "Abdominal Crunch Tradicional no Solo",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-abdominal-supra-solo.mp4?v=5409a0f2b2",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-prancha-lateral-estatica",
+    "name": "Prancha Lateral Isométrica (Oblíquos)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-prancha-lateral-estatica.mp4?v=8267589d74",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-russian-twist-anilha",
+    "name": "Giro Russo (Russian Twist) com Anilha / Halter",
+    "equipment": "Halteres",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-russian-twist-anilha.mp4?v=69762a2549",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-abdominal-vacuum",
+    "name": "Stomach Vacuum (Vácuo Abdominal e Transverso)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Abdômen & Core",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-abdominal-vacuum.mp4?v=389e1dace9",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-corrida-ao-ar-livre",
+    "name": "Corrida Contínua / Fartlek",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Cardio & Resistência",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-corrida-ao-ar-livre.mp4?v=b24494220f",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-hyrox-skierg",
+    "name": "SkiErg Intervalado (Hyrox Station)",
+    "equipment": "Máquina",
+    "primaryMuscle": "Cardio & Resistência",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-hyrox-skierg.mp4?v=05ab2f8602",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-hyrox-sled-push",
+    "name": "Sled Push (Empurrar Trenó na Pista)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-hyrox-sled-push.mp4?v=a6b755bd04",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-hyrox-wall-balls",
+    "name": "Wall Balls (Arremesso no Alvo)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-hyrox-wall-balls.mp4?v=a8cbeac294",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-fight-shadow",
+    "name": "Shadow Boxing com Halteres Leves",
+    "equipment": "Halteres",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-fight-shadow.mp4?v=7a1e703dfe",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-fight-sprawl",
+    "name": "Sprawl Explosivo de Defesa de Queda",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Pernas (Quadríceps)",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-fight-sprawl.mp4?v=0e5b9f535b",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-swim-crawl-sprints",
+    "name": "Tiros de 50m Nado Crawl (Estilo Livre)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Cardio & Resistência",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-swim-crawl-sprints.mp4?v=5843090248",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-crossfit-thruster",
+    "name": "Thruster com Barra Olímpica",
+    "equipment": "Barra",
+    "primaryMuscle": "Ombros",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-crossfit-thruster.mp4?v=d659331388",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-fut-sand-header-jump",
+    "name": "Salto de Cabeceio na Areia Fofa",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Glúteos",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-fut-sand-header-jump.mp4?v=8744b4a23d",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-dance-samba-funk-burst",
+    "name": "Cardio Dance Rítmico (FitDance / Zumba)",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Cardio & Resistência",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-dance-samba-funk-burst.mp4?v=134e884335",
+    "techniqueSources": []
+  },
+  {
+    "id": "ex-cal-muscle-up",
+    "name": "Muscle-Up na Barra Fixa",
+    "equipment": "Peso Corporal",
+    "primaryMuscle": "Costas",
+    "status": "available",
+    "publishedVideo": "/assets/exercise-videos/ex-cal-muscle-up.mp4?v=b8a38db7f4",
+    "techniqueSources": []
+  }
+]

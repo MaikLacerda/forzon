@@ -486,7 +486,6 @@ export default function App() {
         currentProfile={profile}
         onSaveProfile={(updated) => storage.saveProfile(updated)}
         onTriggerPlanGeneration={(updated) => handleRegeneratePlanAI(updated)}
-        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
       />
 
       {/* Settings & LGPD Modal */}
