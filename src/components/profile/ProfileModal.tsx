@@ -52,7 +52,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   profile,
   history,
   gpsActivities = [],
-  streakDays = 7,
+  streakDays = 0,
   onOpenSettings,
   onOpenOnboarding,
   onOpenUpgradeModal,
@@ -60,7 +60,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<
     "badges" | "recovery" | "sleep_smartwatch" | "stats" | "info"
-  >("sleep_smartwatch");
+  >("stats");
   const [currentProfile, setCurrentProfile] = useState<UserProfile>(profile);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [pdfExportSuccess, setPdfExportSuccess] = useState(false);
@@ -181,11 +181,11 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <span>{currentProfile.handle}</span>
                   <span>·</span>
                   <span className="text-indigo-400 font-medium">
-                    Sono: <strong>{currentProfile.sleepQuality || "Boa"}</strong> | Estresse: <strong>{currentProfile.stressLevel ?? 3}/10</strong>
+                    Sono: <strong>{currentProfile.sleepQuality || "Não informado"}</strong> | Estresse: <strong>{currentProfile.stressLevel ?? "—"}/10</strong>
                   </span>
                   <span>·</span>
                   <span className="text-cyan-400 font-medium">
-                    Gordura: <strong>{currentProfile.bodyComposition?.bodyFatPercentage ?? 14.8}%</strong> | Músculo: <strong>{currentProfile.bodyComposition?.muscleMassKg ?? 38.6}kg</strong>
+                    Gordura: <strong>{currentProfile.bodyComposition?.bodyFatPercentage ?? "—"}%</strong> | Músculo: <strong>{currentProfile.bodyComposition?.muscleMassKg ?? "—"}kg</strong>
                   </span>
                 </div>
                 <p className="text-xs text-neutral-300 pt-1">
@@ -424,10 +424,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   </button>
                 </div>
                 <div className="text-xl font-bold text-white font-mono">
-                  Sono: <span className="text-indigo-400">{currentProfile.sleepQuality || "Boa"}</span> · Estresse: <span className="text-amber-400">{currentProfile.stressLevel ?? 3}/10</span>
+                  Sono: <span className="text-indigo-400">{currentProfile.sleepQuality || "Não informado"}</span> · Estresse: <span className="text-amber-400">{currentProfile.stressLevel ?? "—"}/10</span>
                 </div>
                 <div className="text-neutral-400 text-[11px]">
-                  Calibração dinâmica de carga e RPE ativada com IA para as próximas sessões.
+                  Registre seu sono e estresse para acompanhar a recuperação.
                 </div>
               </div>
 
@@ -444,7 +444,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       <div className="text-sm font-bold text-white flex items-center gap-2">
                         <span>Composição Corporal (Bioimpedância Bluetooth)</span>
                         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
-                          {currentProfile.bodyComposition?.deviceName || "BLE Sincronizado"}
+                          {currentProfile.bodyComposition?.deviceName || "Sem medidas"}
                         </span>
                       </div>
                       <div className="text-[11px] text-neutral-400">
@@ -473,9 +473,9 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       <span>Gordura Corporal</span>
                     </div>
                     <div className="text-xl font-black text-rose-400 font-mono mt-0.5">
-                      {currentProfile.bodyComposition?.bodyFatPercentage ?? 14.8}%
+                      {currentProfile.bodyComposition?.bodyFatPercentage ?? "—"}%
                     </div>
-                    <div className="text-[10px] text-neutral-400">Faixa Atlética</div>
+                    <div className="text-[10px] text-neutral-400">Medida registrada</div>
                   </div>
 
                   <div className="bg-neutral-900/90 p-3 rounded-xl border border-emerald-500/30">
@@ -484,10 +484,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       <span>Massa Muscular</span>
                     </div>
                     <div className="text-xl font-black text-emerald-400 font-mono mt-0.5">
-                      {currentProfile.bodyComposition?.muscleMassKg ?? 38.6} kg
+                      {currentProfile.bodyComposition?.muscleMassKg ?? "—"} kg
                     </div>
                     <div className="text-[10px] text-neutral-400 font-mono">
-                      {currentProfile.bodyComposition?.muscleMassPercentage ?? 49.2}% do corpo
+                      {currentProfile.bodyComposition?.muscleMassPercentage ?? "—"}% do corpo
                     </div>
                   </div>
 
@@ -497,18 +497,18 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       <span>Água Corporal</span>
                     </div>
                     <div className="text-xl font-bold text-white font-mono mt-0.5">
-                      {currentProfile.bodyComposition?.bodyWaterPercentage ?? 58.5}%
+                      {currentProfile.bodyComposition?.bodyWaterPercentage ?? "—"}%
                     </div>
-                    <div className="text-[10px] text-neutral-400">Hidratação Ótima</div>
+                    <div className="text-[10px] text-neutral-400">Medida registrada</div>
                   </div>
 
                   <div className="bg-neutral-900/90 p-3 rounded-xl border border-neutral-800">
                     <div className="text-[11px] text-neutral-400">Taxa Metabólica Basal</div>
                     <div className="text-xl font-bold text-white font-mono mt-0.5">
-                      {currentProfile.bodyComposition?.basalMetabolicRateKcal ?? 1795} kcal
+                      {currentProfile.bodyComposition?.basalMetabolicRateKcal ?? "—"} kcal
                     </div>
                     <div className="text-[10px] text-neutral-400 font-mono">
-                      Idade Met: {currentProfile.bodyComposition?.metabolicAge ?? 23} anos
+                      Idade Met: {currentProfile.bodyComposition?.metabolicAge ?? "—"} anos
                     </div>
                   </div>
                 </div>
@@ -518,14 +518,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 <div className="bg-neutral-950 p-4 rounded-2xl border border-neutral-800 space-y-2">
                   <div className="text-neutral-400 font-medium">Peso Corporal & Altura</div>
                   <div className="text-xl font-bold text-white font-mono">
-                    {currentProfile.weightKg} kg · {currentProfile.heightCm} cm
+                    {currentProfile.weightKg || "—"} kg · {currentProfile.heightCm || "—"} cm
                   </div>
                   <div className="text-neutral-400">
                     IMC Estimado:{" "}
                     <span className="text-emerald-400 font-bold font-mono">
-                      {(profile.weightKg / Math.pow(profile.heightCm / 100, 2)).toFixed(1)} kg/m²
+                      {profile.weightKg && profile.heightCm ? (profile.weightKg / Math.pow(profile.heightCm / 100, 2)).toFixed(1) : "—"} kg/m²
                     </span>{" "}
-                    (Faixa Atlética Saudável)
+
                   </div>
                 </div>
 

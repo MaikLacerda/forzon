@@ -568,6 +568,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       {/* ========================================================= */}
       {/* 2. MINHA ROTINA ATIVA (ROUTINE TAB)                      */}
       {/* ========================================================= */}
+      {!plan.sessions.length && activeSubTab === "routine" && <div className="rounded-2xl border border-cyan-500/30 p-6 text-neutral-300">Você ainda não tem um plano. Complete sua avaliação para criar sua rotina, ou explore a biblioteca de exercícios.</div>}
       {activeSubTab === "routine" && (
         <div className="space-y-6">
           {/* Active Modality Banner & Switcher Shortcut */}

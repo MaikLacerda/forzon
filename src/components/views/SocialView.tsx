@@ -175,6 +175,7 @@ export const SocialView: React.FC<SocialViewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Feed Column */}
           <div className="lg:col-span-2 space-y-5">
+            {!posts.length && <p className="rounded-2xl border border-neutral-800 p-6 text-neutral-400">Você ainda não tem publicações. Compartilhe uma conquista quando concluir seu primeiro treino.</p>}
             {posts.map((post) => {
               const isCommentsOpen = Boolean(expandedComments[post.id]);
               return (

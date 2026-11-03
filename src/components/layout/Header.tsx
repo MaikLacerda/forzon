@@ -335,6 +335,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
+          <button onClick={onOpenAuth} aria-label="Minha conta" title="Minha conta e sair" className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 cursor-pointer"><User className="w-4 h-4" /></button>
           <button
             onClick={onOpenSettings}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors cursor-pointer"

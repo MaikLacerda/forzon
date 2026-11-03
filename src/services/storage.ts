@@ -1,3 +1,4 @@
+import { syncAccount } from "./accountSync";
 import {
   UserProfile,
   WorkoutPlan,
@@ -12,16 +13,8 @@ import {
   SyncState,
 } from "../types";
 import { themeService } from "./themeService";
-import {
-  INITIAL_USER_PROFILE,
-  INITIAL_WORKOUT_PLAN,
-  INITIAL_NUTRITION,
-  INITIAL_RECENT_WORKOUTS,
-  INITIAL_POSTS,
-  INITIAL_CHALLENGES,
-  INITIAL_ACHIEVEMENTS,
-  INITIAL_GPS_ACTIVITIES,
-} from "../data/mockData";
+import { accountStorage } from "./accountStorage";
+import { emptyProfile, emptyPlan, emptyNutrition } from "./emptyAccount";
 
 const KEYS = {
   PROFILE: "athlynx_profile",
@@ -55,18 +48,15 @@ let isSyncingInProgress = false;
 export const storage = {
   getProfile(): UserProfile {
     try {
-      const data = localStorage.getItem(KEYS.PROFILE);
-      const parsed = data ? JSON.parse(data) : INITIAL_USER_PROFILE;
-      if (parsed.handle?.includes("maik") || parsed.name?.toLowerCase().includes("maik") || parsed.email?.includes("maik")) {
-        parsed.isPremium = true;
-      }
+      const data = accountStorage.getItem(KEYS.PROFILE);
+      const parsed = data ? JSON.parse(data) : emptyProfile(accountStorage.id || "");
       return parsed;
     } catch {
-      return INITIAL_USER_PROFILE;
+      return emptyProfile(accountStorage.id || "");
     }
   },
   saveProfile(profile: UserProfile): void {
-    localStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
+    accountStorage.setItem(KEYS.PROFILE, JSON.stringify(profile));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "profile" } }));
   },
   setPremium(isPremium: boolean): void {
@@ -83,36 +73,36 @@ export const storage = {
 
   getWorkoutPlan(): WorkoutPlan {
     try {
-      const data = localStorage.getItem(KEYS.PLAN);
-      return data ? JSON.parse(data) : INITIAL_WORKOUT_PLAN;
+      const data = accountStorage.getItem(KEYS.PLAN);
+      return data ? JSON.parse(data) : emptyPlan();
     } catch {
-      return INITIAL_WORKOUT_PLAN;
+      return emptyPlan();
     }
   },
   saveWorkoutPlan(plan: WorkoutPlan): void {
-    localStorage.setItem(KEYS.PLAN, JSON.stringify(plan));
+    accountStorage.setItem(KEYS.PLAN, JSON.stringify(plan));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "plan" } }));
   },
 
   getNutrition(): DailyNutrition {
     try {
-      const data = localStorage.getItem(KEYS.NUTRITION);
-      return data ? JSON.parse(data) : INITIAL_NUTRITION;
+      const data = accountStorage.getItem(KEYS.NUTRITION);
+      return data ? JSON.parse(data) : emptyNutrition();
     } catch {
-      return INITIAL_NUTRITION;
+      return emptyNutrition();
     }
   },
   saveNutrition(nutrition: DailyNutrition): void {
-    localStorage.setItem(KEYS.NUTRITION, JSON.stringify(nutrition));
+    accountStorage.setItem(KEYS.NUTRITION, JSON.stringify(nutrition));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "nutrition" } }));
   },
 
   getWorkoutHistory(): CompletedWorkoutRecord[] {
     try {
-      const data = localStorage.getItem(KEYS.HISTORY);
-      return data ? JSON.parse(data) : INITIAL_RECENT_WORKOUTS;
+      const data = accountStorage.getItem(KEYS.HISTORY);
+      return data ? JSON.parse(data) : [];
     } catch {
-      return INITIAL_RECENT_WORKOUTS;
+      return [];
     }
   },
 
@@ -133,7 +123,7 @@ export const storage = {
     // 2. Persist to local workout history immediately so UI reacts with 0 latency
     const list = this.getWorkoutHistory();
     const updated = [preparedRecord, ...list.filter((w) => w.id !== record.id)];
-    localStorage.setItem(KEYS.HISTORY, JSON.stringify(updated));
+    accountStorage.setItem(KEYS.HISTORY, JSON.stringify(updated));
 
     // 3. Enqueue into offline sync buffer (guarantees persistence across crashes or restarts)
     const queue = this.getOfflineQueue();
@@ -168,7 +158,7 @@ export const storage = {
   // Offline sync queue & Network resilience layer
   getOfflineQueue(): OfflineSyncQueueItem[] {
     try {
-      const data = localStorage.getItem(KEYS.OFFLINE_QUEUE);
+      const data = accountStorage.getItem(KEYS.OFFLINE_QUEUE);
       return data ? JSON.parse(data) : [];
     } catch {
       return [];
@@ -177,7 +167,7 @@ export const storage = {
 
   saveOfflineQueue(queue: OfflineSyncQueueItem[]): void {
     try {
-      localStorage.setItem(KEYS.OFFLINE_QUEUE, JSON.stringify(queue));
+      accountStorage.setItem(KEYS.OFFLINE_QUEUE, JSON.stringify(queue));
     } catch (e) {
       console.error("[Storage] Erro ao salvar fila offline:", e);
     }
@@ -190,14 +180,14 @@ export const storage = {
 
   isSimulatedOffline(): boolean {
     try {
-      return localStorage.getItem(KEYS.SIMULATED_OFFLINE) === "true";
+      return accountStorage.getItem(KEYS.SIMULATED_OFFLINE) === "true";
     } catch {
       return false;
     }
   },
 
   setSimulatedOffline(simulated: boolean): void {
-    localStorage.setItem(KEYS.SIMULATED_OFFLINE, String(simulated));
+    accountStorage.setItem(KEYS.SIMULATED_OFFLINE, String(simulated));
     this.dispatchSyncStatus();
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "sync" } }));
 
@@ -214,7 +204,7 @@ export const storage = {
 
   getLastSyncedAt(): string | null {
     try {
-      return localStorage.getItem(KEYS.LAST_SYNC_AT);
+      return accountStorage.getItem(KEYS.LAST_SYNC_AT);
     } catch {
       return null;
     }
@@ -247,162 +237,64 @@ export const storage = {
   },
 
   /**
-   * Synchronizes all cached offline workouts with the server or simulates synchronization.
+   * Synchronizes cached workouts through the authenticated Supabase account.
    * Ensures data integrity by matching checksums and acknowledging IDs.
    */
   async syncPendingWorkouts(): Promise<{ success: boolean; syncedCount: number; error?: string }> {
-    if (isSyncingInProgress) {
-      return { success: false, syncedCount: 0, error: "Sincronização já em andamento" };
-    }
-
-    const isOnline = this.isNetworkOnline();
-    const queue = this.getOfflineQueue();
-    const pendingItems = queue.filter((item) => item.syncStatus !== "synced");
-
-    if (!isOnline) {
-      // Mark as cached_offline and inform UI
-      const updatedQueue = queue.map((item) =>
-        item.syncStatus === "pending" ? { ...item, syncStatus: "pending" as const } : item
-      );
-      this.saveOfflineQueue(updatedQueue);
-      return { success: false, syncedCount: 0, error: "Sem conexão com o servidor (Modo Offline Ativo)" };
-    }
-
-    if (pendingItems.length === 0) {
-      const now = new Date().toISOString();
-      localStorage.setItem(KEYS.LAST_SYNC_AT, now);
-      this.dispatchSyncStatus();
-      return { success: true, syncedCount: 0 };
-    }
-
-    isSyncingInProgress = true;
-    this.dispatchSyncStatus();
-
-    // Mark pending items as syncing
-    const updatingQueue = queue.map((q) =>
-      pendingItems.some((p) => p.id === q.id) ? { ...q, syncStatus: "syncing" as const } : q
-    );
-    this.saveOfflineQueue(updatingQueue);
-
+    const owner = accountStorage.id;
+    if (!owner || !this.isNetworkOnline()) return { success: false, syncedCount: 0, error: 'Sincronização pendente' };
+    const pending = this.getOfflineQueue().filter(item => item.syncStatus !== 'synced');
+    isSyncingInProgress = true; this.dispatchSyncStatus();
     try {
-      // Send real batch to /api/sync/workouts
-      const response = await fetch("/api/sync/workouts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: pendingItems,
-          clientTimestamp: new Date().toISOString(),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Servidor respondeu com status ${response.status}: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      const acknowledgedIds: string[] = data.acknowledgedIds || pendingItems.map((p) => p.id);
-      const syncedTimestamp = data.serverTimestamp || new Date().toISOString();
-
-      // Update offline queue items to "synced"
-      const refreshedQueue = this.getOfflineQueue().map((item) => {
-        if (acknowledgedIds.includes(item.id)) {
-          return {
-            ...item,
-            syncStatus: "synced" as const,
-            lastAttemptAt: syncedTimestamp,
-            lastError: undefined,
-          };
-        }
-        return item;
-      });
-      this.saveOfflineQueue(refreshedQueue);
-
-      // Update records in local history with sync status
-      const history = this.getWorkoutHistory().map((record) => {
-        if (acknowledgedIds.includes(record.id)) {
-          return {
-            ...record,
-            syncStatus: "synced" as const,
-            syncedAt: syncedTimestamp,
-          };
-        }
-        return record;
-      });
-      localStorage.setItem(KEYS.HISTORY, JSON.stringify(history));
-      localStorage.setItem(KEYS.LAST_SYNC_AT, syncedTimestamp);
-
-      window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "history" } }));
-
-      return {
-        success: true,
-        syncedCount: acknowledgedIds.length,
-      };
-    } catch (err: any) {
-      console.warn("[Sync Engine] Falha na requisição ao servidor. Os treinos continuam seguros no cache offline:", err);
-
-      // Revert status to failed/pending and record retry
-      const failureTimestamp = new Date().toISOString();
-      const failedQueue = this.getOfflineQueue().map((item) => {
-        if (pendingItems.some((p) => p.id === item.id)) {
-          return {
-            ...item,
-            syncStatus: "failed" as const,
-            retryCount: (item.retryCount || 0) + 1,
-            lastAttemptAt: failureTimestamp,
-            lastError: err?.message || "Falha na comunicação de rede",
-          };
-        }
-        return item;
-      });
-      this.saveOfflineQueue(failedQueue);
-
-      return {
-        success: false,
-        syncedCount: 0,
-        error: err?.message || "Falha de rede ao sincronizar",
-      };
-    } finally {
-      isSyncingInProgress = false;
-      this.dispatchSyncStatus();
-    }
+      await syncAccount();
+      if (accountStorage.id !== owner) return { success: false, syncedCount: 0 };
+      const syncedAt = new Date().toISOString();
+      const ids = new Set(pending.map(item => item.id));
+      this.saveOfflineQueue(this.getOfflineQueue().filter(item => !ids.has(item.id)));
+      accountStorage.setItem(KEYS.HISTORY, JSON.stringify(this.getWorkoutHistory().map(record => ids.has(record.id) ? { ...record, syncStatus: 'synced', syncedAt } : record)));
+      accountStorage.setItem(KEYS.LAST_SYNC_AT, syncedAt);
+      return { success: true, syncedCount: ids.size };
+    } catch {
+      return { success: false, syncedCount: 0, error: 'Os registros continuam neste aparelho. Tente sincronizar novamente.' };
+    } finally { isSyncingInProgress = false; this.dispatchSyncStatus(); }
   },
 
   clearOfflineQueue(): void {
-    localStorage.removeItem(KEYS.OFFLINE_QUEUE);
+    accountStorage.removeItem(KEYS.OFFLINE_QUEUE);
     this.dispatchSyncStatus();
   },
 
   getGPSActivities(): GPSActivity[] {
     try {
-      const data = localStorage.getItem(KEYS.GPS_ACTIVITIES);
-      return data ? JSON.parse(data) : INITIAL_GPS_ACTIVITIES;
+      const data = accountStorage.getItem(KEYS.GPS_ACTIVITIES);
+      return data ? JSON.parse(data) : [];
     } catch {
-      return INITIAL_GPS_ACTIVITIES;
+      return [];
     }
   },
   addGPSActivity(act: GPSActivity): void {
     const list = this.getGPSActivities();
     const updated = [act, ...list];
-    localStorage.setItem(KEYS.GPS_ACTIVITIES, JSON.stringify(updated));
+    accountStorage.setItem(KEYS.GPS_ACTIVITIES, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "gps" } }));
   },
 
   deleteGPSActivity(id: string): void {
     const list = this.getGPSActivities().filter((a) => a.id !== id);
-    localStorage.setItem(KEYS.GPS_ACTIVITIES, JSON.stringify(list));
+    accountStorage.setItem(KEYS.GPS_ACTIVITIES, JSON.stringify(list));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "gps" } }));
   },
 
   getPosts(): SocialPost[] {
     try {
-      const data = localStorage.getItem(KEYS.POSTS);
-      return data ? JSON.parse(data) : INITIAL_POSTS;
+      const data = accountStorage.getItem(KEYS.POSTS);
+      return data ? JSON.parse(data) : [];
     } catch {
-      return INITIAL_POSTS;
+      return [];
     }
   },
   savePosts(posts: SocialPost[]): void {
-    localStorage.setItem(KEYS.POSTS, JSON.stringify(posts));
+    accountStorage.setItem(KEYS.POSTS, JSON.stringify(posts));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "posts" } }));
   },
   addPost(post: SocialPost): void {
@@ -425,14 +317,14 @@ export const storage = {
 
   getChallenges(): GroupChallenge[] {
     try {
-      const data = localStorage.getItem(KEYS.CHALLENGES);
-      return data ? JSON.parse(data) : INITIAL_CHALLENGES;
+      const data = accountStorage.getItem(KEYS.CHALLENGES);
+      return data ? JSON.parse(data) : [];
     } catch {
-      return INITIAL_CHALLENGES;
+      return [];
     }
   },
   saveChallenges(challenges: GroupChallenge[]): void {
-    localStorage.setItem(KEYS.CHALLENGES, JSON.stringify(challenges));
+    accountStorage.setItem(KEYS.CHALLENGES, JSON.stringify(challenges));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "challenges" } }));
   },
 
@@ -448,7 +340,7 @@ export const storage = {
 
   getPlanVersions(): any[] {
     try {
-      const data = localStorage.getItem("athlynx_plan_versions");
+      const data = accountStorage.getItem("athlynx_plan_versions");
       return data ? JSON.parse(data) : [];
     } catch {
       return [];
@@ -456,13 +348,13 @@ export const storage = {
   },
   savePlanVersion(version: any): void {
     const versions = this.getPlanVersions();
-    localStorage.setItem("athlynx_plan_versions", JSON.stringify([version, ...versions]));
+    accountStorage.setItem("athlynx_plan_versions", JSON.stringify([version, ...versions]));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "plan_versions" } }));
   },
 
   getCheckedGroceryItems(): string[] {
     try {
-      const data = localStorage.getItem("athlynx_checked_groceries");
+      const data = accountStorage.getItem("athlynx_checked_groceries");
       return data ? JSON.parse(data) : [];
     } catch {
       return [];
@@ -472,16 +364,16 @@ export const storage = {
     const items = this.getCheckedGroceryItems();
     const exists = items.includes(item);
     const updated = exists ? items.filter((i) => i !== item) : [...items, item];
-    localStorage.setItem("athlynx_checked_groceries", JSON.stringify(updated));
+    accountStorage.setItem("athlynx_checked_groceries", JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "groceries" } }));
   },
 
   getAchievements(): Achievement[] {
     try {
-      const data = localStorage.getItem(KEYS.ACHIEVEMENTS);
-      return data ? JSON.parse(data) : INITIAL_ACHIEVEMENTS;
+      const data = accountStorage.getItem(KEYS.ACHIEVEMENTS);
+      return data ? JSON.parse(data) : [];
     } catch {
-      return INITIAL_ACHIEVEMENTS;
+      return [];
     }
   },
 
@@ -510,11 +402,11 @@ export const storage = {
     themeService.setTheme(theme);
   },
 
-  // Reset to default seeds
+  // Reset only this account; keep other accounts and authentication intact.
   resetAll(): void {
     const currentTheme = themeService.getTheme();
-    localStorage.clear();
-    // Preserve user theme preference across demo resets
+    accountStorage.clear();
+    // Theme is a device preference, independent of account records.
     themeService.setTheme(currentTheme);
     window.dispatchEvent(new CustomEvent("athlynx_data_change", { detail: { type: "reset" } }));
   },

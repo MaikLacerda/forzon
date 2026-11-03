@@ -1,3 +1,4 @@
+import { prepareGeneratedPlan } from "../../services/workoutPlanPolicy";
 import React, { useState, useRef, useEffect } from "react";
 import {
   X,
@@ -79,9 +80,9 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
     goal: profile.mainGoal || "Ganhar Massa Muscular (Hipertrofia)",
     specificGoal: profile.specificGoal || "ganhar_massa",
     experienceLevel: profile.experienceLevel || "Intermediário",
-    heightCm: profile.heightCm || 175,
-    weightKg: profile.weightKg || 76,
-    healthIssues: profile.injuriesOrNotes || "Nenhuma restrição articular ou dor",
+    heightCm: profile.heightCm || 0,
+    weightKg: profile.weightKg || 0,
+    healthIssues: profile.injuriesOrNotes || "",
     trainingDays: profile.trainingDaysPerWeek || 4,
     environment: profile.environment || "Academia Comercial Completa",
     cardioMachine: "Misto",
@@ -114,6 +115,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
 
   // Scientific calculation of TDEE and tailored workouts based on conversation answers
   const computeTailoredPlanAndDiet = async () => {
+    if (intake.heightCm < 100 || intake.heightCm > 250 || intake.weightKg < 25 || intake.weightKg > 350) { alert("Informe sua altura e peso antes de gerar o plano."); return; }
     setIsGenerating(true);
     setCurrentStep(9);
 
@@ -130,6 +132,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           experienceLevel: intake.experienceLevel,
           healthIssues: intake.healthIssues,
           trainingDays: intake.trainingDays,
+          timePerSessionMin: profile.timePerSessionMin,
           environment: intake.environment,
           cardioMachine: intake.cardioMachine,
           cardioMinutes: intake.cardioMinutes,
@@ -220,7 +223,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             }),
           };
 
-          setGeneratedPlan(sanitizedPlan);
+          setGeneratedPlan(prepareGeneratedPlan(sanitizedPlan, { ...profile, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
           setGeneratedNutrition(data.nutrition);
           setGeneratedRationale(data.rationale);
           setIsGenerating(false);
@@ -315,7 +318,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           id: `s-${idx + 1}-${Math.random().toString(36).slice(2, 6)}`,
           setNumber: idx + 1,
           type: idx === 0 ? "warmup" : "working",
-          weightKg: 20,
+          weightKg: 0,
           targetReps: parseInt(reps) || 10,
           completed: false,
         })),
@@ -776,7 +779,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       const plan: WorkoutPlan = {
         id: `plan-ai-${Date.now()}`,
         title: `FORZON Pro — ${intake.goal} (${intake.experienceLevel})`,
-        description: `Periodização de elite calibrada para nível ${intake.experienceLevel} com 8 exercícios pesados de musculação + Cardio Pós-Treino (${intake.cardioMachine}) em ${intake.environment}. Zero pranchas e foco em sobrecarga progressiva real.`,
+        description: `Periodização de elite calibrada para nível ${intake.experienceLevel} com exercícios de musculação com abdominais dinâmicos e volume ajustado ao tempo disponível + Cardio Pós-Treino (${intake.cardioMachine}) em ${intake.environment}. Zero pranchas e foco em sobrecarga progressiva real.`,
         frequencyDaysPerWeek: intake.trainingDays,
         active: true,
         updatedAt: new Date().toISOString(),
@@ -885,13 +888,13 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
         ],
       };
 
-      setGeneratedPlan(plan);
+      setGeneratedPlan(prepareGeneratedPlan(plan, { ...profile, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
       setGeneratedNutrition(nutrition);
       setGeneratedRationale({
         tdee,
         deficitOrSurplus,
         jointProtection,
-        coachMessage: `Periodização de elite calibrada para nível ${intake.experienceLevel.toUpperCase()}! Todas as sessões de musculação possuem 8 exercícios pesados + Bloco de Cardio Pós-Treino (${intake.cardioMachine}: ${cardioMins} min) com Escada, Esteira Inclinada e Bicicleta para otimizar o consumo de oxigênio e a recuperação muscular. Suas calorias foram fixadas em ${targetCalories} kcal diárias (${proteinG}g de proteína) compensando a musculação e o cardio.`,
+        coachMessage: `Periodização de elite calibrada para nível ${intake.experienceLevel.toUpperCase()}! Todas as sessões de musculação possuem exercícios ajustados ao tempo disponível, incluindo abdominais dinâmicos + Bloco de Cardio Pós-Treino (${intake.cardioMachine}: ${cardioMins} min) com Escada, Esteira Inclinada e Bicicleta para otimizar o consumo de oxigênio e a recuperação muscular. Suas calorias foram fixadas em ${targetCalories} kcal diárias (${proteinG}g de proteína) compensando a musculação e o cardio.`,
       });
 
       setIsGenerating(false);
@@ -955,7 +958,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 </span>
               </div>
               <p className="text-xs text-neutral-400">
-                Prescrição de treino de verdade (8 exercícios + Cardio: Escada, Esteira, Bike) e plano nutricional sob medida
+                Prescrição de treino de verdade (musculação, abdominais dinâmicos + cardio: Escada, Esteira, Bike) e plano nutricional sob medida
               </p>
             </div>
           </div>
@@ -998,7 +1001,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                 Olá, {profile.name.split(" ")[0]}! Sou o seu Treinador e Nutricionista de IA da FORZON.
               </p>
               <p>
-                Vou montar uma periodização de treino pesada de verdade (8 exercícios por sessão + cardio pós-treino prescrito) e uma dieta milimetricamente calculada para o seu corpo.
+                Vou montar uma periodização de treino pesada de verdade (até 6 exercícios por sessão, com abdominais dinâmicos + cardio pós-treino prescrito) e uma dieta milimetricamente calculada para o seu corpo.
               </p>
               <p className="text-cyan-400 font-medium">
                 1. Qual é o seu <strong>Objetivo Principal</strong> hoje?
@@ -1097,7 +1100,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                       id: "Intermediário" as ExperienceLevel,
                       title: "Intermediário",
                       period: "6 meses a 2 anos",
-                      desc: "Execução sólida, domínio dos exercícios compostos e prontidão para 8 exercícios intensos.",
+                      desc: "Execução sólida, domínio dos exercícios compostos e prontidão para exercícios adequados à sua disponibilidade.",
                       badge: "Hipertrofia Sólida",
                       icon: <Dumbbell className="w-4 h-4 text-emerald-400" />,
                     },
@@ -1718,7 +1721,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   FORZON AI Coach Analisando Seus Dados...
                 </h3>
                 <p className="text-xs text-neutral-400 max-w-md mx-auto">
-                  Calculando Taxa Metabólica Basal ({intake.weightKg}kg / {intake.heightCm}cm), prescrevendo rotina de nível <strong>{intake.experienceLevel}</strong> com 8 exercícios pesados + Cardio Pós-Treino ({intake.cardioMachine}: Escada, Esteira, Bike), integrando ({intake.sports.join(", ")}) e eliminando pranchas.
+                  Calculando Taxa Metabólica Basal ({intake.weightKg}kg / {intake.heightCm}cm), prescrevendo rotina de nível <strong>{intake.experienceLevel}</strong> com exercícios ajustados ao tempo disponível, incluindo abdominais dinâmicos + Cardio Pós-Treino ({intake.cardioMachine}: Escada, Esteira, Bike), integrando ({intake.sports.join(", ")}) e eliminando pranchas.
                 </p>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950 border border-neutral-800 rounded-full text-[11px] font-mono text-cyan-400">

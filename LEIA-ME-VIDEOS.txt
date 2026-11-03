@@ -1,4 +1,4 @@
-FORZON - VIDEOS, LAYOUT RESPONSIVO E PLANOS PRO
+FORZON - CADASTRO, LOGIN SUPABASE, ABDOMINAIS E TODOS OS VIDEOS
 
 Inclui 104 videos proprios:
 - Rosca Direta com Barra Reta
@@ -109,6 +109,9 @@ Inclui 104 videos proprios:
 Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
 Aceite substituir os arquivos correspondentes.
 
+Antes de usar cadastro e login, siga LEIA-ME-CONTAS.md.
+Configure seu projeto Supabase, execute o SQL e crie .env.local.
+
 No Git Bash, dentro da pasta do projeto:
 npm install
 npm run lint
@@ -134,6 +137,6 @@ A correcao do cache fica em public/sw.js. Depois da publicacao, recarregue o
 site com Ctrl+F5 para atualizar a pagina que estava aberta.
 
 Para enviar ao GitHub:
-git add src public/assets/exercise-videos public/sw.js tools .gitignore EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
-git commit -m "Corrige layout responsivo e abertura dos planos Pro"
+git add src public/assets/exercise-videos public/sw.js tools .gitignore .env.example supabase server.ts package.json package-lock.json LEIA-ME-CONTAS.md EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
+git commit -m "Adiciona login Supabase, contas vazias e abdominais nos planos"
 git push origin main

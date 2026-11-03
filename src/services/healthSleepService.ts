@@ -1,3 +1,4 @@
+import { accountStorage } from "./accountStorage";
 import {
   SleepStageMetrics,
   DeepSleepLoadAdjustment,
@@ -89,12 +90,12 @@ export const healthSleepService = {
    */
   getSleepMetrics(): SleepStageMetrics {
     try {
-      const stored = localStorage.getItem(SLEEP_STORAGE_KEY);
+      const stored = accountStorage.getItem(SLEEP_STORAGE_KEY);
       if (stored) {
         return JSON.parse(stored);
       }
     } catch {}
-    return DEFAULT_SLEEP_METRICS;
+    return { ...DEFAULT_SLEEP_METRICS, deepSleepMinutes: 0, remSleepMinutes: 0, lightSleepMinutes: 0, awakeMinutes: 0, totalSleepMinutes: 0, sleepEfficiencyPercent: 0, averageHeartRateBpm: 0, restingHrvMs: 0, recordedDate: "" };
   },
 
   /**
@@ -102,7 +103,7 @@ export const healthSleepService = {
    */
   saveSleepMetrics(metrics: SleepStageMetrics): void {
     try {
-      localStorage.setItem(SLEEP_STORAGE_KEY, JSON.stringify(metrics));
+      accountStorage.setItem(SLEEP_STORAGE_KEY, JSON.stringify(metrics));
       window.dispatchEvent(
         new CustomEvent("athlynx_sleep_metrics_updated", { detail: metrics })
       );
@@ -116,12 +117,12 @@ export const healthSleepService = {
    */
   getConnectedPlatforms(): ConnectedFitnessPlatform[] {
     try {
-      const stored = localStorage.getItem(PLATFORMS_STORAGE_KEY);
+      const stored = accountStorage.getItem(PLATFORMS_STORAGE_KEY);
       if (stored) {
         return JSON.parse(stored);
       }
     } catch {}
-    return DEFAULT_CONNECTED_PLATFORMS;
+    return DEFAULT_CONNECTED_PLATFORMS.map(p => ({ ...p, connected: false, lastSyncedAt: undefined, batteryPercent: undefined }));
   },
 
   /**
@@ -129,7 +130,7 @@ export const healthSleepService = {
    */
   saveConnectedPlatforms(platforms: ConnectedFitnessPlatform[]): void {
     try {
-      localStorage.setItem(PLATFORMS_STORAGE_KEY, JSON.stringify(platforms));
+      accountStorage.setItem(PLATFORMS_STORAGE_KEY, JSON.stringify(platforms));
       window.dispatchEvent(
         new CustomEvent("athlynx_platforms_updated", { detail: platforms })
       );
@@ -163,57 +164,7 @@ export const healthSleepService = {
   async importSleepDataFromDevice(
     source: "apple_health" | "strava" | "zepp_os" | "wearos" | "garmin" = "apple_health"
   ): Promise<SleepStageMetrics> {
-    // Simulate real BLE / Cloud Health API fetch
-    await new Promise((resolve) => setTimeout(resolve, 600));
-
-    // Slight variance depending on source
-    let deep = 105;
-    let rem = 115;
-    let light = 215;
-    let awake = 20;
-    let hrv = 68;
-
-    if (source === "zepp_os") {
-      deep = 112; // Helio ring high-precision PPG
-      rem = 120;
-      light = 205;
-      awake = 18;
-      hrv = 71;
-    } else if (source === "wearos") {
-      deep = 95;
-      rem = 110;
-      light = 225;
-      awake = 25;
-      hrv = 64;
-    }
-
-    const total = deep + rem + light + awake;
-    const efficiency = Math.round(((deep + rem + light) / total) * 100);
-
-    const metrics: SleepStageMetrics = {
-      deepSleepMinutes: deep,
-      remSleepMinutes: rem,
-      lightSleepMinutes: light,
-      awakeMinutes: awake,
-      totalSleepMinutes: total,
-      sleepEfficiencyPercent: efficiency,
-      averageHeartRateBpm: 51,
-      restingHrvMs: hrv,
-      recordedDate: new Date().toISOString().slice(0, 10),
-      sourcePlatform: source,
-    };
-
-    this.saveSleepMetrics(metrics);
-
-    // Update profile
-    const profile = storage.getProfile();
-    const updatedProfile: UserProfile = {
-      ...profile,
-      sleepStages: metrics,
-    };
-    storage.saveProfile(updatedProfile);
-
-    return metrics;
+    throw new Error('A integração real com este dispositivo ainda não está configurada. Nenhum registro de saúde foi criado.');
   },
 
   /**
@@ -223,13 +174,13 @@ export const healthSleepService = {
     sleep: SleepStageMetrics
   ): DeepSleepLoadAdjustment {
     const deepMin = sleep.deepSleepMinutes;
-    const deepPct = Math.round((deepMin / sleep.totalSleepMinutes) * 100);
+    const deepPct = Math.round((deepMin / (sleep.totalSleepMinutes || 1)) * 100);
 
     // Check if user has already applied this adjustment
     let applied = false;
     let appliedAt: string | undefined = undefined;
     try {
-      const stored = localStorage.getItem(LOAD_ADJUSTMENT_KEY);
+      const stored = accountStorage.getItem(LOAD_ADJUSTMENT_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed.date === sleep.recordedDate && parsed.applied) {
@@ -303,7 +254,7 @@ export const healthSleepService = {
       multiplier: adj.loadMultiplier,
     };
     try {
-      localStorage.setItem(LOAD_ADJUSTMENT_KEY, JSON.stringify(saved));
+      accountStorage.setItem(LOAD_ADJUSTMENT_KEY, JSON.stringify(saved));
     } catch {}
 
     window.dispatchEvent(
@@ -316,7 +267,7 @@ export const healthSleepService = {
    */
   revertDeepSleepLoad(): void {
     try {
-      localStorage.removeItem(LOAD_ADJUSTMENT_KEY);
+      accountStorage.removeItem(LOAD_ADJUSTMENT_KEY);
     } catch {}
 
     window.dispatchEvent(

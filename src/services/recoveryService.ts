@@ -1,3 +1,4 @@
+import { accountStorage } from "./accountStorage";
 import {
   RecoveryCheckInRecord,
   WorkoutPlan,
@@ -15,7 +16,7 @@ export const recoveryService = {
    */
   getCheckIns(): RecoveryCheckInRecord[] {
     try {
-      const raw = localStorage.getItem(RECOVERY_STORAGE_KEY);
+      const raw = accountStorage.getItem(RECOVERY_STORAGE_KEY);
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];
@@ -42,7 +43,7 @@ export const recoveryService = {
     } else {
       list.unshift(record);
     }
-    localStorage.setItem(RECOVERY_STORAGE_KEY, JSON.stringify(list));
+    accountStorage.setItem(RECOVERY_STORAGE_KEY, JSON.stringify(list));
     window.dispatchEvent(
       new CustomEvent("athlynx_recovery_checkin_saved", { detail: record })
     );
@@ -173,8 +174,8 @@ export const recoveryService = {
     recoverySession: WorkoutSession;
   } {
     // 1. Back up original plan if not backed up yet
-    if (!localStorage.getItem(ORIGINAL_PLAN_BACKUP_KEY)) {
-      localStorage.setItem(ORIGINAL_PLAN_BACKUP_KEY, JSON.stringify(plan));
+    if (!accountStorage.getItem(ORIGINAL_PLAN_BACKUP_KEY)) {
+      accountStorage.setItem(ORIGINAL_PLAN_BACKUP_KEY, JSON.stringify(plan));
     }
 
     // 2. Check if current first session is already an active recovery session
@@ -223,13 +224,13 @@ export const recoveryService = {
    * Reverts active recovery session and restores previous schedule
    */
   revertActiveRecovery(currentPlan: WorkoutPlan): WorkoutPlan {
-    const backupRaw = localStorage.getItem(ORIGINAL_PLAN_BACKUP_KEY);
+    const backupRaw = accountStorage.getItem(ORIGINAL_PLAN_BACKUP_KEY);
     let restoredPlan: WorkoutPlan;
 
     if (backupRaw) {
       try {
         restoredPlan = JSON.parse(backupRaw);
-        localStorage.removeItem(ORIGINAL_PLAN_BACKUP_KEY);
+        accountStorage.removeItem(ORIGINAL_PLAN_BACKUP_KEY);
       } catch {
         // Fallback: filter out the recovery session
         restoredPlan = {
