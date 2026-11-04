@@ -171,14 +171,14 @@ test('restored accounts can read their existing cache offline without showing an
   navigator.onLine = true;
 });
 
-test('generated gym and home plans include dynamic abs within time and exercise budget', () => {
+test('generated gym and home plans preserve volume and report time conflicts', () => {
   for (const environment of ['Academia', 'Casa']) for (const timePerSessionMin of [15, 30, 45, 60]) {
     const profile = { ...emptyProfile('A'), environment, timePerSessionMin };
     const input = { sessions: Array.from({ length: 3 }, (_, i) => ({ dayLabel: `Dia ${i}`, completedCount: 9, exercises: Array.from({ length: 10 }, (_, j) => ({ name: j === 0 ? 'Prancha Abdominal' : `Exercício ${j}`, targetMuscle: 'Peitoral', restSeconds: 180, sets: Array.from({ length: 5 }, () => ({ weightKg: 100, completed: true, previousWeightKg: 90 })) })) })) };
     const output = applyWorkoutPolicy(input, profile);
     for (const session of output.sessions) {
       assert.ok(session.exercises.length <= 6);
-      assert.ok(session.estimatedMinutes <= timePerSessionMin);
+      if (session.estimatedMinutes > timePerSessionMin) assert.ok(session.planningWarnings.some(w => w.includes('disponibilidade')));
       assert.equal(session.completedCount, 0);
       assert.ok(session.exercises.every(e => !/prancha/i.test(e.name)));
       assert.ok(session.exercises.every(e => e.sets.every(s => !s.completed && s.weightKg === 0 && s.previousWeightKg === undefined)));
@@ -230,8 +230,9 @@ test('AI splits retain accessory muscle groups and an executable cardio block af
       assert.ok(session.cardioProtocol.durationMin <= 20);
       assert.equal(canonical ? cardios[0].sets[0].targetReps : parseInt(cardios[0].reps), session.cardioProtocol.durationMin);
       const liftingMinutes = session.exercises.filter(e => e !== cardios[0]).reduce((sum, e) => sum + (canonical ? e.sets.length : e.sets) * (45 + e.restSeconds) / 60 + 1, 0);
-      assert.ok(5 + liftingMinutes + session.cardioProtocol.durationMin <= 45);
-      assert.ok(session.estimatedMinutes <= 45);
+      assert.equal(session.estimatedMinutes, Math.ceil(5 + liftingMinutes + session.cardioProtocol.durationMin));
+      assert.equal(session.cardioProtocol.durationMin, 20);
+      if (session.estimatedMinutes > 45) assert.ok(session.planningWarnings.length);
     });
     assert.equal(JSON.stringify(input), snapshot);
     const twice = applyWorkoutPolicy(output, profile);
@@ -252,6 +253,44 @@ test('cardio supplied only as an exercise survives normalization and short-sessi
     assert.equal(session.cardioProtocol.machine, 'Bicicleta');
     assert.ok(session.cardioProtocol.durationMin >= 5);
     assert.equal(session.exercises.at(-1).sets[0].targetReps, session.cardioProtocol.durationMin);
-    assert.ok(session.estimatedMinutes <= timePerSessionMin);
+    assert.equal(session.cardioProtocol.durationMin, 20);
+    if (session.estimatedMinutes > timePerSessionMin) assert.ok(session.planningWarnings.length);
   }
+});
+
+test('level changes working volume; intermediate and advanced retain two arm variations and exact cardio', () => {
+  const groups = ['Peitoral', 'Peitoral', 'Peitoral', 'Ombros', 'Tríceps', 'Tríceps', 'Tríceps'];
+  const makeInput = () => ({ sessions: [{ dayLabel: 'A', title: 'Treino A — Peito e Tríceps', muscleFocus: 'Peitoral e Tríceps',
+    cardioProtocol: { machine: 'Esteira', name: 'Cardio: Esteira', durationMin: 20 },
+    exercises: groups.map((targetMuscle, i) => ({ name: `Exercício ${i}`, targetMuscle, restSeconds: 75, sets: [{ targetReps: 12 }] })),
+  }] });
+  const signatures = [];
+  for (const experienceLevel of ['Iniciante', 'Intermediário', 'Avançado', 'Atleta']) {
+    const profile = { ...emptyProfile('A'), experienceLevel, cardioMinutes: 30, timePerSessionMin: 45 };
+    const result = applyWorkoutPolicy(makeInput(), profile).sessions[0];
+    const strength = result.exercises.filter(e => e.targetMuscle !== 'Cardio & Resistência' && !/Abd/.test(e.targetMuscle));
+    assert.ok(strength.every(e => e.sets.length === (['Avançado', 'Atleta'].includes(experienceLevel) ? 4 : 3)));
+    if (experienceLevel !== 'Iniciante') assert.ok(strength.filter(e => e.targetMuscle === 'Tríceps').length >= 2);
+    assert.equal(result.cardioProtocol.durationMin, 30);
+    assert.equal(result.exercises.at(-1).sets[0].targetReps, 30);
+    assert.ok(result.planningWarnings.some(w => w.includes('45 min')));
+    signatures.push(strength.map(e => `${e.name}:${e.sets.length}`).join('|'));
+  }
+  assert.notEqual(signatures[0], signatures[1]);
+  assert.notEqual(signatures[1], signatures[2]);
+});
+
+test('missing biceps variation respects available equipment and reported restrictions', () => {
+  const input = { sessions: [{ dayLabel: 'B', muscleFocus: 'Costas e Bíceps', exercises: [
+    { name: 'Remada', targetMuscle: 'Costas', sets: [] },
+    { name: 'Rosca Direta com Barra Reta', exerciseId: 'ex-rosca-direta-barra-reta', targetMuscle: 'Bíceps', sets: [] },
+  ] }] };
+  const profile = { ...emptyProfile('A'), experienceLevel: 'Intermediário', timePerSessionMin: 120 };
+  const gym = applyWorkoutPolicy(input, profile).sessions[0];
+  assert.equal(gym.exercises.filter(e => e.targetMuscle === 'Bíceps').length, 2);
+  const restricted = applyWorkoutPolicy(input, { ...profile, injuriesOrNotes: 'Dor no cotovelo' }).sessions[0];
+  assert.equal(restricted.exercises.filter(e => e.targetMuscle === 'Bíceps').length, 1);
+  assert.ok(restricted.planningWarnings.some(w => w.includes('duas variações')));
+  const home = applyWorkoutPolicy(input, { ...profile, environment: 'Casa', equipment: [] }).sessions[0];
+  assert.ok(home.exercises.filter(e => e.targetMuscle === 'Bíceps').every(e => !/polia|cabo/i.test(e.name)));
 });

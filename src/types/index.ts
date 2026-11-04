@@ -169,6 +169,7 @@ export interface WorkoutSession {
   estimatedMinutes: number;
   warmupProtocol: string;
   cardioProtocol?: PostWorkoutCardioProtocol;
+  planningWarnings?: string[];
   exercises: WorkoutExercise[];
   completedCount: number;
   lastPerformed?: string;

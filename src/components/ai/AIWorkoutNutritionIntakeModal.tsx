@@ -94,6 +94,8 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
   const [customHealthText, setCustomHealthText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedPlan, setGeneratedPlan] = useState<WorkoutPlan | null>(null);
+  const [planningWarningsAccepted, setPlanningWarningsAccepted] = useState(false);
+  useEffect(() => setPlanningWarningsAccepted(false), [generatedPlan]);
   const [generatedNutrition, setGeneratedNutrition] = useState<DailyNutrition | null>(null);
   const [generatedRationale, setGeneratedRationale] = useState<{
     tdee: number;
@@ -223,7 +225,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             }),
           };
 
-          setGeneratedPlan(prepareGeneratedPlan(sanitizedPlan, { ...profile, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
+          setGeneratedPlan(prepareGeneratedPlan(sanitizedPlan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
           setGeneratedNutrition(data.nutrition);
           setGeneratedRationale(data.rationale);
           setIsGenerating(false);
@@ -888,7 +890,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
         ],
       };
 
-      setGeneratedPlan(prepareGeneratedPlan(plan, { ...profile, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
+      setGeneratedPlan(prepareGeneratedPlan(plan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
       setGeneratedNutrition(nutrition);
       setGeneratedRationale({
         tdee,
@@ -904,6 +906,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
 
   const handleApplyToApp = () => {
     if (!generatedPlan || !generatedNutrition) return;
+    if (generatedPlan.sessions.some(s => s.planningWarnings?.length) && !planningWarningsAccepted) return;
 
     // 1. Update user profile
     const updatedProfile: UserProfile = {
@@ -1928,9 +1931,22 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
               </div>
 
               {/* Action Buttons */}
+              {generatedPlan.sessions.some(s => s.planningWarnings?.length) && (
+                <div className="rounded-xl border border-amber-400/40 bg-amber-950/30 p-4 text-sm text-amber-100 space-y-3">
+                  <p className="font-bold">Revise o tempo e a distribuição antes de aplicar</p>
+                  {generatedPlan.sessions.filter(s => s.planningWarnings?.length).map(s => (
+                    <div key={s.id}><strong>{s.dayLabel}</strong>{s.planningWarnings!.map((warning, i) => <p key={i}>{warning}</p>)}</div>
+                  ))}
+                  <label className="flex gap-2 items-start cursor-pointer">
+                    <input type="checkbox" checked={planningWarningsAccepted} onChange={e => setPlanningWarningsAccepted(e.target.checked)} className="mt-1" />
+                    <span>Revisei os avisos e aceito aplicar este plano com as durações e limitações informadas. Posso refazer a avaliação para mudar a divisão.</span>
+                  </label>
+                </div>
+              )}
               <div className="flex flex-col sm:flex-row gap-2 pt-2">
                 <button
                   onClick={handleApplyToApp}
+                  disabled={generatedPlan.sessions.some(s => s.planningWarnings?.length) && !planningWarningsAccepted}
                   className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-neutral-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-cyan-500/20"
                 >
                   <CheckCircle2 className="w-4 h-4" />
