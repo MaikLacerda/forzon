@@ -37,6 +37,7 @@ import {
   FoodItem,
   AthleteSpecificGoal,
   ExperienceLevel,
+  TrainingSplit,
   PostWorkoutCardioProtocol,
   Exercise,
 } from "../../types";
@@ -60,6 +61,7 @@ interface IntakeState {
   weightKg: number;
   healthIssues: string;
   trainingDays: number;
+  trainingSplit: TrainingSplit;
   environment: string;
   cardioMachine: "Escada" | "Esteira" | "Bicicleta" | "Misto";
   cardioMinutes: number;
@@ -84,6 +86,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
     weightKg: profile.weightKg || 0,
     healthIssues: profile.injuriesOrNotes || "",
     trainingDays: profile.trainingDaysPerWeek || 4,
+    trainingSplit: profile.trainingSplit || 'ABC',
     environment: profile.environment || "Academia Comercial Completa",
     cardioMachine: "Misto",
     cardioMinutes: 20,
@@ -134,6 +137,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
           experienceLevel: intake.experienceLevel,
           healthIssues: intake.healthIssues,
           trainingDays: intake.trainingDays,
+          trainingSplit: intake.trainingSplit,
           timePerSessionMin: profile.timePerSessionMin,
           environment: intake.environment,
           cardioMachine: intake.cardioMachine,
@@ -225,7 +229,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
             }),
           };
 
-          setGeneratedPlan(prepareGeneratedPlan(sanitizedPlan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
+          setGeneratedPlan(prepareGeneratedPlan(sanitizedPlan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, trainingSplit: intake.trainingSplit, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
           setGeneratedNutrition(data.nutrition);
           setGeneratedRationale(data.rationale);
           setIsGenerating(false);
@@ -890,7 +894,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
         ],
       };
 
-      setGeneratedPlan(prepareGeneratedPlan(plan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
+      setGeneratedPlan(prepareGeneratedPlan(plan, { ...profile, experienceLevel: intake.experienceLevel, cardioMinutes: intake.cardioMinutes, trainingSplit: intake.trainingSplit, environment: intake.environment as UserProfile["environment"], injuriesOrNotes: intake.healthIssues, trainingDaysPerWeek: intake.trainingDays }));
       setGeneratedNutrition(nutrition);
       setGeneratedRationale({
         tdee,
@@ -917,6 +921,7 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
       mainGoal: intake.goal,
       specificGoal: intake.specificGoal,
       trainingDaysPerWeek: intake.trainingDays,
+      trainingSplit: intake.trainingSplit,
       environment: intake.environment as any,
       dietaryPreference: intake.dietaryPreference,
       injuriesOrNotes: intake.healthIssues,
@@ -1363,6 +1368,22 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
 
                   <div>
                     <label className="text-[11px] font-mono text-neutral-400 block mb-1.5">
+                      DIVISÃO DO TREINO
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
+                      {([
+                        { id: 'ABC', name: 'Por grupos (ABC)', desc: 'Peito/ombros/tríceps, costas/bíceps e pernas.' },
+                        { id: 'UpperLower', name: 'Upper / Lower', desc: 'Alterna membros superiores e inferiores.' },
+                        { id: 'FullBody', name: 'Full Body', desc: 'Treina superiores e inferiores em cada sessão.' },
+                      ] as const).map(option => (
+                        <button key={option.id} type="button" aria-pressed={intake.trainingSplit === option.id}
+                          onClick={() => setIntake(prev => ({ ...prev, trainingSplit: option.id }))}
+                          className={`p-3 rounded-xl border text-left ${intake.trainingSplit === option.id ? 'border-cyan-400 bg-cyan-950/40 text-cyan-100' : 'border-neutral-700 bg-neutral-900 text-neutral-300'}`}>
+                          <strong className="block text-sm">{option.name}</strong><span className="text-xs">{option.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <label className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-3 block">
                       AMBIENTE & ESTRUTURA DE TREINO
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

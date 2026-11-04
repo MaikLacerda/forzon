@@ -269,7 +269,7 @@ test('level changes working volume; intermediate and advanced retain two arm var
     const profile = { ...emptyProfile('A'), experienceLevel, cardioMinutes: 30, timePerSessionMin: 45 };
     const result = applyWorkoutPolicy(makeInput(), profile).sessions[0];
     const strength = result.exercises.filter(e => e.targetMuscle !== 'Cardio & Resistência' && !/Abd/.test(e.targetMuscle));
-    assert.ok(strength.every(e => e.sets.length === (['Avançado', 'Atleta'].includes(experienceLevel) ? 4 : 3)));
+    assert.ok(strength.every(e => e.sets.length === (['Avançado', 'Atleta'].includes(experienceLevel) && e.targetMuscle === 'Peitoral' ? 4 : 3)));
     if (experienceLevel !== 'Iniciante') assert.ok(strength.filter(e => e.targetMuscle === 'Tríceps').length >= 2);
     assert.equal(result.cardioProtocol.durationMin, 30);
     assert.equal(result.exercises.at(-1).sets[0].targetReps, 30);
@@ -293,4 +293,52 @@ test('missing biceps variation respects available equipment and reported restric
   assert.ok(restricted.planningWarnings.some(w => w.includes('duas variações')));
   const home = applyWorkoutPolicy(input, { ...profile, environment: 'Casa', equipment: [] }).sessions[0];
   assert.ok(home.exercises.filter(e => e.targetMuscle === 'Bíceps').every(e => !/polia|cabo/i.test(e.name)));
+});
+
+test('push day prioritizes chest with exact level quotas and preserves cardio and abs', () => {
+  const groups = ['Peitoral', 'Peitoral', 'Peitoral', 'Peitoral', 'Ombros', 'Ombros', 'Tríceps', 'Tríceps', 'Tríceps'];
+  const input = { sessions: [{ dayLabel: 'A', title: 'Treino A — Peito', exercises: groups.map((targetMuscle, i) => ({ name: `Movimento ${i}`, targetMuscle, sets: [] })),
+    cardioProtocol: { machine: 'Esteira', name: 'Cardio', durationMin: 30 } }] };
+  for (const [experienceLevel, counts] of [['Iniciante', [2, 1, 1]], ['Intermediário', [3, 1, 2]], ['Avançado', [4, 2, 3]]]) {
+    const profile = { ...emptyProfile('A'), experienceLevel, cardioMinutes: 30 };
+    const result = applyWorkoutPolicy(input, profile);
+    const session = result.sessions[0];
+    ['Peitoral', 'Ombros', 'Tríceps'].forEach((group, i) => assert.equal(session.exercises.filter(e => e.targetMuscle === group).length, counts[i]));
+    assert.equal(session.exercises.filter(e => e.targetMuscle === 'Abdômen & Core').length, 1);
+    assert.equal(session.exercises.at(-1).sets[0].targetReps, 30);
+    assert.deepEqual(applyWorkoutPolicy(result, profile).sessions[0].exercises.map(e => [e.name, e.sets.length]), session.exercises.map(e => [e.name, e.sets.length]));
+  }
+});
+
+test('Upper Lower and Full Body are distinct compositions across frequencies and remain stable', async () => {
+  const { EXERCISE_LIBRARY } = await import('../src/data/exercises.ts');
+  const { muscleKey } = await import('../src/services/workoutSplits.ts');
+  const input = { sessions: [{ id: 'a', dayLabel: 'A', title: 'Treino A', exercises: EXERCISE_LIBRARY.filter(e => ['Peitoral', 'Costas', 'Pernas (Quadríceps)', 'Pernas (Posterior)', 'Glúteos', 'Panturrilhas', 'Ombros', 'Bíceps', 'Tríceps'].includes(e.primaryMuscle)).map(e => ({ id: e.id, exerciseId: e.id, name: e.name, targetMuscle: e.primaryMuscle, sets: [] })), cardioProtocol: { machine: 'Esteira', name: 'Cardio', durationMin: 20 } }] };
+  const snapshot = JSON.stringify(input);
+  for (const trainingSplit of ['UpperLower', 'FullBody']) for (const trainingDaysPerWeek of [2, 3, 4, 6]) {
+    const profile = { ...emptyProfile('A'), experienceLevel: 'Intermediário', trainingSplit, trainingDaysPerWeek, cardioMinutes: 20 };
+    const result = applyWorkoutPolicy(input, profile);
+    assert.equal(result.sessions.length, trainingDaysPerWeek);
+    assert.equal(new Set(result.sessions.map(s => s.id)).size, trainingDaysPerWeek);
+    result.sessions.forEach((session, i) => {
+      const groups = new Set(session.exercises.map(e => muscleKey(e.targetMuscle)));
+      if (trainingSplit === 'FullBody') { assert.ok(groups.has('chest') && groups.has('back') && groups.has('quads')); assert.match(session.title, /Full Body/); }
+      else if (i % 2 === 0) { assert.ok(groups.has('chest') && groups.has('back')); assert.ok(!groups.has('quads') && !groups.has('hamstrings')); }
+      else { assert.ok(groups.has('quads') && groups.has('hamstrings')); assert.ok(!groups.has('chest') && !groups.has('back')); }
+      assert.equal(session.cardioProtocol.durationMin, 20);
+      assert.equal(new Set(session.exercises.map(e => e.exerciseId)).size, session.exercises.length);
+    });
+    const twice = applyWorkoutPolicy(result, profile);
+    assert.deepEqual(twice.sessions.map(s => s.exercises.map(e => e.name)), result.sessions.map(s => s.exercises.map(e => e.name)));
+  }
+  assert.equal(JSON.stringify(input), snapshot);
+});
+
+test('alternate splits retain dedicated sport sessions and report equipment limitations', () => {
+  const sport = { id: 'run', dayLabel: 'Corrida', title: 'Corrida', exercises: [{ name: 'Corrida', targetMuscle: 'Cardio & Resistência', sets: 1, reps: '20 min' }] };
+  const input = { sessions: [{ id: 'strength', dayLabel: 'A', title: 'Treino A', exercises: [{ name: 'Flexão', targetMuscle: 'Peitoral', sets: 3 }] }, sport] };
+  const output = applyWorkoutPolicy(input, { ...emptyProfile('A'), environment: 'Casa', trainingSplit: 'FullBody', trainingDaysPerWeek: 2, equipment: [], injuriesOrNotes: 'Dor no ombro' });
+  assert.deepEqual(output.sessions[1].exercises, sport.exercises);
+  assert.ok(output.sessions[0].planningWarnings.some(w => w.includes('Faltam movimentos')));
+  assert.ok(!output.sessions[0].exercises.some(e => /polia|barra|maquina/i.test(e.name)));
 });

@@ -326,6 +326,7 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
       experienceLevel = "Intermediário",
       healthIssues,
       trainingDays,
+      trainingSplit = 'ABC',
       environment,
       cardioMachine = "Misto (Escada, Esteira, Bicicleta)",
       cardioMinutes = 20,
@@ -350,6 +351,8 @@ Gere uma periodização semanal de treinamento de verdade e um plano nutricional
 - Dieta & Preferência: ${dietaryPreference || "Padrão (Como de tudo)"}
 
 REGRAS OBRIGATÓRIAS E INEGOCIÁVEIS DE PRESCRIÇÃO:
+DIVISÃO ESCOLHIDA: ${trainingSplit}. UpperLower alterna superiores e inferiores; FullBody inclui superiores e inferiores em cada sessão. ABC mantém os grupos por dia. As cotas de peito abaixo são somente para o dia específico de peito, não para Upper ou Full Body.
+PEITO NO ABC: Iniciante: 2 exercícios de peito, 1 de ombro, 1 de tríceps. Intermediário: 3 de peito, 1 de ombro, 2 de tríceps. Avançado/Atleta: 4 de peito, 2 de ombro, 3 de tríceps; 4 séries de peito e 3 nos acessórios. Acrescente o abdominal nos dias previstos e preserve o cardio escolhido. Estes dias podem ultrapassar os limites gerais abaixo; informe a duração real.
 1. VOLUME POR NÍVEL: Iniciante: até 5 exercícios de musculação, 3 séries de trabalho; Intermediário: até 7, 3 séries; Avançado: até 8, 4 séries; Atleta: até 9, 4 séries. Inclua abdominais nos dias previstos. Não reduza as séries para 1 nem iguale todos os níveis. Não aumente cargas automaticamente. Se o plano exceder o tempo disponível, informe a duração real para revisão do usuário.
 2. CARDIO PÓS-TREINO INTEGRADO EM TODAS AS SESSÕES:
    Preserve exatamente a duração selecionada de ${cardioMinutes} minutos variando entre as máquinas principais da academia:
@@ -632,7 +635,7 @@ Retorne estritamente um JSON no seguinte formato:
           };
 
           return res.json({
-            plan: applyWorkoutPolicy(normalizedPlan, { experienceLevel, cardioMinutes, environment, equipment: [], injuriesOrNotes: healthIssues || "", trainingDaysPerWeek: trainingDays, timePerSessionMin: req.body.timePerSessionMin || 45 }),
+            plan: applyWorkoutPolicy(normalizedPlan, { experienceLevel, cardioMinutes, trainingSplit, environment, equipment: [], injuriesOrNotes: healthIssues || "", trainingDaysPerWeek: trainingDays, timePerSessionMin: req.body.timePerSessionMin || 45 }),
             nutrition: normalizedNutrition,
             rationale: parsed.rationale || {
               tdee: targetCalories,

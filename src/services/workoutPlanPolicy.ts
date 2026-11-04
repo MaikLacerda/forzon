@@ -1,7 +1,8 @@
 import { EXERCISE_LIBRARY } from '../data/exercises';
 import type { UserProfile, WorkoutPlan } from '../types';
+import { composeSplitSessions, muscleKey, canAddExercise, sameMovement } from './workoutSplits';
 
-type PlanningProfile = Pick<UserProfile, 'environment' | 'equipment' | 'injuriesOrNotes' | 'timePerSessionMin' | 'trainingDaysPerWeek'> & Partial<Pick<UserProfile, 'experienceLevel'>> & { cardioMinutes?: number };
+type PlanningProfile = Pick<UserProfile, 'environment' | 'equipment' | 'injuriesOrNotes' | 'timePerSessionMin' | 'trainingDaysPerWeek'> & Partial<Pick<UserProfile, 'experienceLevel' | 'trainingSplit'>> & { cardioMinutes?: number };
 const plain = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const bounded = (n: unknown, fallback: number, min: number, max: number) => Math.max(min, Math.min(max, Number(n) || fallback));
 const isCardio = (e: any) => /cardio|aerobico/.test(plain(e.targetMuscle || '')) || /cardio|esteira|bicicleta|simulador de escada/.test(plain(e.name || ''));
@@ -31,7 +32,7 @@ export function applyWorkoutPolicy<T extends { sessions: any[] }>(plan: T, profi
   const workingSets = advanced ? 4 : 3;
   const maxStrength = beginner ? 5 : level === 'atleta' ? 9 : advanced ? 8 : 7;
   const frequency = bounded(profile.trainingDaysPerWeek, 3, 1, 6);
-  const sessions = (plan.sessions || []).slice(0, frequency);
+  const sessions = composeSplitSessions((plan.sessions || []).slice(0, frequency), profile);
   const isCardioOnly = (session: any) => session.exercises?.length > 0 && session.exercises.every((e: any) => /cardio|mobilidade/.test(plain(e.targetMuscle || '')));
   const strengthIndexes = sessions.map((s, i) => isCardioOnly(s) ? -1 : i).filter(i => i >= 0);
   const absDays = new Set([strengthIndexes[0], strengthIndexes[Math.floor(strengthIndexes.length / 2)]]);
@@ -60,8 +61,26 @@ export function applyWorkoutPolicy<T extends { sessions: any[] }>(plan: T, profi
       const sets = /abd|core/.test(plain(exercise.targetMuscle || '')) ? (beginner ? 2 : 3) : workingSets;
       return { ...exercise, restSeconds, sets: canonical ? Array.from({ length: sets }, (_, i) => ({ id: `set-${index}-${eIdx}-${i}`, setNumber: i + 1, type: 'working', weightKg: 0, targetReps: bounded(exercise.sets?.[i]?.targetReps || parseInt(exercise.reps), 10, 1, 30), completed: false })) : sets };
     });
-    const planningWarnings: string[] = [];
-    const armGroups = ['biceps', 'triceps'].filter(group => new RegExp(group).test(plain(`${session.muscleFocus || session.focus || ''} ${session.title || ''} ${exercises.map(e => e.targetMuscle).join(' ')}`)));
+    const planningWarnings: string[] = [...(session.compositionWarnings || [])];
+    const mixedSplit = session.splitKind === 'Upper' || session.splitKind === 'FullBody';
+    const chestDay = !mixedSplit && exercises.some(e => muscleKey(e.targetMuscle) === 'chest') && !exercises.some(e => ['back', 'quads', 'hamstrings'].includes(muscleKey(e.targetMuscle)));
+    const chestQuotas: Record<string, number> | null = chestDay ? { chest: beginner ? 2 : advanced ? 4 : 3, shoulders: advanced ? 2 : 1, triceps: beginner ? 1 : advanced ? 3 : 2 } : null;
+    if (chestQuotas) for (const [group, minimum] of Object.entries(chestQuotas)) {
+      const matching = () => exercises.filter(e => muscleKey(e.targetMuscle) === group);
+      for (const candidate of EXERCISE_LIBRARY.filter(e => muscleKey(e.primaryMuscle) === group)) {
+        if (matching().length >= minimum) break;
+        if (!canAddExercise(candidate, profile) || exercises.some(e => sameMovement(e, candidate))) continue;
+        const sets = advanced && group !== 'chest' ? 3 : workingSets;
+        exercises.push({ id: `chest-day-${index}-${candidate.id}`, exerciseId: candidate.id, name: candidate.name, targetMuscle: candidate.primaryMuscle, restSeconds: 75,
+          reps: '10-12', sets: canonical ? Array.from({ length: sets }, (_, i) => ({ id: `chest-day-set-${index}-${candidate.id}-${i}`, setNumber: i + 1, type: 'working', weightKg: 0, targetReps: 10, completed: false })) : sets });
+      }
+      if (matching().length < minimum) planningWarnings.push(`A distribuição de peito pede ${minimum} exercício(s) de ${group === 'chest' ? 'peitoral' : group === 'shoulders' ? 'ombro' : 'tríceps'}, mas faltam opções compatíveis com seus equipamentos e restrições.`);
+    }
+    // More working volume for the larger group on the advanced push day.
+    if (chestDay && advanced) for (const e of exercises.filter(e => ['shoulders', 'triceps'].includes(muscleKey(e.targetMuscle)))) {
+      if (canonical) e.sets = e.sets.slice(0, 3); else e.sets = 3;
+    }
+    const armGroups = mixedSplit || chestDay ? [] : ['biceps', 'triceps'].filter(group => new RegExp(group).test(plain(`${session.muscleFocus || session.focus || ''} ${session.title || ''} ${exercises.map(e => e.targetMuscle).join(' ')}`)));
     // Add a missing variation only when equipment is available and no reported
     // restriction requires a professional to choose the replacement.
     if (!beginner) for (const group of armGroups) {
@@ -77,14 +96,15 @@ export function applyWorkoutPolicy<T extends { sessions: any[] }>(plan: T, profi
       if (matching().length < 2) planningWarnings.push(`Não foi possível incluir duas variações de ${group === 'biceps' ? 'bíceps' : 'tríceps'} com os equipamentos e restrições informados. Revise essa sessão.`);
     }
     // Reserve a slot for a dynamic abdominal exercise, rather than appending it to a long session.
-    const maxExercises = maxStrength;
-    const ordered = balancedOrder(exercises);
+    const maxExercises = chestQuotas ? Object.values(chestQuotas).reduce((n, count) => n + count, 0) + 1 : maxStrength;
+    const ordered = chestQuotas ? ['chest', 'shoulders', 'triceps', 'abs'].flatMap(group => exercises.filter(e => muscleKey(e.targetMuscle) === group).slice(0, chestQuotas[group] ?? 1)) : balancedOrder(exercises);
     const required = new Set<any>();
     const groups = new Set<string>();
     for (const exercise of ordered) {
       const group = plain(exercise.targetMuscle || '');
       if (!groups.has(group)) { required.add(exercise); groups.add(group); }
     }
+    if (chestQuotas) for (const exercise of ordered) required.add(exercise);
     if (!beginner) for (const group of armGroups) for (const e of ordered.filter(e => plain(e.targetMuscle || '') === group).slice(0, 2)) required.add(e);
     const reserveAbs = absDays.has(index) && !needsAssessment && !ordered.some(e => /abd|core/.test(plain(e.targetMuscle || '')));
     const selected = [...required];
@@ -107,7 +127,7 @@ export function applyWorkoutPolicy<T extends { sessions: any[] }>(plan: T, profi
       reps: `${cardioDuration} min`, sets: canonical ? [{ id: `cardio-set-${index}`, setNumber: 1, type: 'working', weightKg: 0, targetReps: cardioDuration, completed: false }] : 1 } : undefined;
     const focus = [...new Set(selected.map(e => e.targetMuscle).filter(Boolean))].join(', ');
     return { ...session, completedCount: 0, lastPerformed: undefined, exercises: [...selected, ...(cardioExercise ? [cardioExercise] : [])],
-      ...(session.title ? { title: `${session.title.split('—')[0].trim()} — ${focus}` } : {}),
+      ...(session.title ? { title: `${session.title.split('—')[0].trim()} — ${session.splitKind === 'FullBody' ? 'Full Body' : session.splitKind || focus}` } : {}),
       ...(session.muscleFocus !== undefined ? { muscleFocus: focus } : {}),
       ...(session.focus !== undefined ? { focus } : {}),
       estimatedMinutes,
