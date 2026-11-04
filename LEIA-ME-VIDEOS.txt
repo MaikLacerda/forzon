@@ -1,4 +1,4 @@
-FORZON - CADASTRO, LOGIN SUPABASE, ABDOMINAIS E TODOS OS VIDEOS
+FORZON - CADASTRO, LOGIN FIREBASE, ABDOMINAIS E TODOS OS VIDEOS
 
 Inclui 104 videos proprios:
 - Rosca Direta com Barra Reta
@@ -110,7 +110,7 @@ Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
 Aceite substituir os arquivos correspondentes.
 
 Antes de usar cadastro e login, siga LEIA-ME-CONTAS.md.
-Configure seu projeto Supabase, execute o SQL e crie .env.local.
+Configure Authentication, dominios autorizados e as regras do Firestore no Firebase.
 
 No Git Bash, dentro da pasta do projeto:
 npm install
@@ -137,6 +137,6 @@ A correcao do cache fica em public/sw.js. Depois da publicacao, recarregue o
 site com Ctrl+F5 para atualizar a pagina que estava aberta.
 
 Para enviar ao GitHub:
-git add src public/assets/exercise-videos public/sw.js tools .gitignore .env.example supabase server.ts package.json package-lock.json LEIA-ME-CONTAS.md EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
-git commit -m "Adiciona login Supabase, contas vazias e abdominais nos planos"
+git add src public/assets/exercise-videos public/sw.js tools .gitignore .env.example firebase.json firestore.rules server.ts package.json package-lock.json LEIA-ME-CONTAS.md EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
+git commit -m "Migra cadastro e dados dos treinos para Firebase"
 git push origin main

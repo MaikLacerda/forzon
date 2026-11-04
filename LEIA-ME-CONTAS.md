@@ -1,68 +1,67 @@
-# Cadastro, login e dados pessoais — FORZON
+# Contas FORZON — Firebase (plano Spark)
 
-O código está preparado para Supabase. Ainda é necessário criar e configurar o projeto abaixo para liberar o acesso real. Sem configuração, a página mostra o formulário com envio desabilitado; nenhum cadastro é simulado.
+O aplicativo usa Firebase Authentication para cadastro/login e Cloud Firestore para o histórico. O Supabase foi retirado da conexão ativa. O projeto é forzon-c9339.
 
-## 1. Preparar o Supabase
+## O que já está no código
 
-1. Crie um projeto na sua conta em [Supabase](https://supabase.com/dashboard).
-2. Abra **SQL Editor**, cole o conteúdo de `supabase/migrations/20261103_accounts.sql` e execute. Ele cria a tabela, as políticas RLS e a função de gravação com controle de versão. Cada usuário acessa somente sua própria linha.
-3. Em **Authentication → Providers**, habilite **Email**, mantenha a confirmação de e-mail e configure senha com pelo menos 8 caracteres.
-4. Em **Authentication → URL Configuration**, use `https://forzon.vercel.app` como Site URL. Autorize os redirecionamentos `https://forzon.vercel.app/` e `http://localhost:3000/`. Se usar outro domínio, adicione-o também. Para uma prévia em outra porta, adicione o endereço correspondente.
-5. Obtenha **Project URL** e **Publishable key** no painel de conexão/API Keys do projeto. A chave pública antiga `anon` também é suportada por `VITE_SUPABASE_ANON_KEY`.
-6. Configure o envio de e-mails de autenticação (SMTP) antes de abrir os cadastros ao público. Confirme recebimento de confirmação e recuperação de senha com um e-mail seu.
+- Login por e-mail/senha, confirmação de e-mail, reenvio da confirmação e recuperação de senha.
+- Contas novas sem treinos, refeições consumidas, medidas corporais ou resultados de demonstração.
+- Cache e gravação separados pelo UID do usuário; troca de conta desmonta o painel anterior.
+- Gravação com controle de versão: conflitos entre aparelhos preservam o cache e oferecem backup.
+- Históricos divididos em documentos para respeitar o limite de tamanho de cada documento Firestore. O limite de sincronização desta versão é 20 blocos de até 60.000 caracteres; acima disso o cache é preservado e o usuário pode exportá-lo.
+- A configuração WEB pública do projeto está em src/data/firebaseWebConfig.json. Esses identificadores públicos não são uma conta de serviço nem uma senha de banco. A proteção dos registros está nas regras de acesso, não no sigilo dessa configuração.
 
-Documentação oficial: [senhas e confirmação](https://supabase.com/docs/guides/auth/passwords), [chaves públicas e secretas](https://supabase.com/docs/guides/getting-started/api-keys), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security).
+## Configuração aplicada no Firebase Console
 
-## 2. Configurar neste computador
+1. Authentication → Método de login: habilitar E-mail/senha. Login por link sem senha não é utilizado.
+2. Authentication → Configurações → Domínios autorizados: adicionar forzon.vercel.app. Para testes locais, autorizar localhost se necessário.
+3. Cloud Firestore: criar o banco (default), edição Standard, região southamerica-east1 (São Paulo), em modo de produção. Não habilitar faturamento Blaze.
+4. Firestore → Regras: substituir o conteúdo pelo arquivo firestore.rules e publicar. Essas regras exigem usuário autenticado, e-mail confirmado e UID igual ao dono da conta. Não usar modo de teste com acesso público.
+5. Authentication → Modelos: conferir os e-mails de confirmação e recuperação. Os links podem usar o manipulador padrão do Firebase e voltar ao site depois.
 
-Crie `.env.local` na raiz, usando suas informações:
+Em 04/11/2026 foram confirmados no painel: E-mail/senha ativado; forzon.vercel.app autorizado; banco (default) Standard criado em southamerica-east1; regras publicadas. O simulador negou leitura anônima e de outro UID, e permitiu leitura do próprio UID com e-mail verificado. Ainda é preciso publicar o código na Vercel e testar o cadastro e o e-mail reais com sua própria conta.
 
-```dotenv
-VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=SUA_CHAVE_PUBLICA
-```
+## Publicação na Vercel
 
-Não use `service_role`, chave secreta, senha do banco ou chave Gemini nessas variáveis públicas. Não envie `.env.local` ao GitHub. `.env.example` pode ser enviado porque contém apenas campos vazios.
+A configuração pública já acompanha o código; não é necessário criar variáveis Supabase. Envie o commit e aguarde um novo deploy da Vercel. Se quiser usar outro projeto Firebase, substitua os quatro campos de src/data/firebaseWebConfig.json ou defina juntos VITE_FIREBASE_API_KEY, VITE_FIREBASE_AUTH_DOMAIN, VITE_FIREBASE_PROJECT_ID e VITE_FIREBASE_APP_ID.
 
-No Git Bash:
+Nunca coloque senha, chave privada de conta de serviço, credencial administrativa ou GEMINI_API_KEY em VITE_*.
 
 ```bash
 npm install
 npm run lint
 npm run test:accounts
+npm run build
 npm run dev
 ```
 
-Reinicie o servidor depois de alterar as variáveis. `Ctrl+C` encerra a prévia. O servidor Express e a IA usam `.env` para `GEMINI_API_KEY`, caso sejam executados; essa chave fica somente no servidor.
+Cadastre sua conta no site, confirme o e-mail recebido (confira o spam) e entre. As senhas devem ter pelo menos oito caracteres. A senha não é armazenada pelo app nem enviada ao Firestore.
 
-## 3. Publicar na Vercel
+## Verificação real antes de liberar aos testadores
 
-No projeto FORZON, abra **Settings → Environment Variables** e adicione as duas variáveis `VITE_SUPABASE_*`, nos ambientes desejados. Faça novo deploy: o Vite lê essas variáveis durante o build. Não basta alterar a configuração de um deploy que já terminou.
+- Criar conta e confirmar e-mail; tentar entrar antes da confirmação deve ser bloqueado.
+- Recuperar senha por e-mail e entrar com a nova senha.
+- Concluir um treino, esperar a gravação e conferir a mesma conta em outro navegador.
+- Entrar com outra conta: nenhum registro da primeira deve aparecer.
+- Verificar no Firebase que contas não conseguem ler/gravar caminhos de outro UID e que acesso anônimo é bloqueado.
+- Conferir isolamento e preservação das alterações offline em caso de conflito.
 
-Cadastro/login e gravação no Supabase funcionam no site estático. Os endpoints Gemini do `server.ts` exigem um backend executando Express; o build estático da Vercel não publica esses endpoints sozinho. Sem backend, permanece a geração local de planos, agora também com a regra de abdominais. Não coloque chave Gemini no navegador para contornar isso.
+Os testes automatizados locais cobrem o cache, as transições de conta, conflitos, estados vazios e serialização dos históricos. Eles não substituem o teste de e-mail e das regras no projeto real. Nenhuma conta pessoal foi criada automaticamente para testar senhas.
 
-## 4. Conferir antes de liberar
+## Custos e outros serviços
 
-- Cadastre uma conta, confirme o e-mail, entre e recupere a senha por e-mail.
-- Uma conta nova mostra zero treinos, zero volume e nenhum histórico, refeição consumida ou bioimpedância de exemplo. Complete a avaliação para gerar o primeiro plano.
-- Conclua um treino, aguarde a gravação e entre na mesma conta em outro navegador: o registro deve aparecer.
-- Saia e entre em outra conta: os registros da primeira não podem aparecer. Teste também acesso pela API com o token de outra conta; a RLS deve bloquear a leitura/gravação alheia.
-- As alterações offline permanecem separadas por conta neste aparelho. Havendo conflito entre aparelhos, o app preserva o cache e oferece backup; a opção de carregar a nuvem também guarda uma cópia local anterior.
+Authentication e Firestore utilizam as cotas do plano gratuito Spark. Quando uma cota é excedida, o serviço pode limitar operações; não há promessa de uso ilimitado. Não é necessário Firebase Hosting, Cloud Functions ou Cloud Storage para esta integração. Os vídeos continuam em public/assets/exercise-videos na hospedagem do site.
 
-Os testes automatizados usam um transporte controlado, sem criar contas externas. Confirmação de e-mail, recuperação real, permissões SQL e acesso entre aparelhos precisam dessa verificação no seu projeto Supabase; não foram certificados em um projeto real ainda.
+O fluxo de assinatura Pro anterior ainda não é uma integração real de pagamentos. A IA Gemini do server.ts exige um backend Express; publicar somente o build estático na Vercel não publica esses endpoints. Sem esse backend, os planos usam a alternativa local.
 
-## Dados antigos e abdominais
-
-Os antigos dados locais de demonstração foram preservados, mas não são importados automaticamente para contas novas. Não há senha local inventada nem liberação Pro baseada no nome do usuário. Esta entrega não implementa cobrança de assinaturas: o fluxo Pro anterior ainda precisa de um provedor de pagamentos antes de vender assinaturas reais.
-
-Novos planos gerados recebem abdominais dinâmicos em até duas sessões da semana, com no máximo seis exercícios por sessão e redução de séries para caber no tempo informado. A prancha estática é removida desses planos. A escolha de abdominal usa solo em casa e polia na academia. Restrições de coluna, gestação ou cirurgia sinalizam avaliação profissional antes de inclusão automática. Os planos antigos já salvos não são reescritos: gere e aprove um novo plano para aplicar a mudança.
-
-## Comandos para enviar
+## Commit
 
 ```bash
-git add src server.ts package.json package-lock.json .env.example supabase tools/check-accounts.mjs tools/exercise-renderer/package_update.ps1 LEIA-ME-CONTAS.md
-git commit -m "Adiciona login Supabase, contas vazias e abdominais nos planos"
+git add src package.json package-lock.json .env.example firebase.json firestore.rules tools/check-accounts.mjs tools/exercise-renderer/package_update.ps1 LEIA-ME-CONTAS.md LEIA-ME-VIDEOS.txt
+git commit -m "Migra cadastro e dados dos treinos para Firebase"
 git push origin main
 ```
 
-O ZIP e `.env.local` ficam fora do commit.
+O SQL antigo na pasta supabase permanece apenas como referência histórica. Não precisa executá-lo para usar Firebase.
+
+Documentação: https://firebase.google.com/docs/auth/web/start e https://firebase.google.com/docs/firestore/security/get-started

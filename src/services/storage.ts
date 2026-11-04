@@ -237,7 +237,7 @@ export const storage = {
   },
 
   /**
-   * Synchronizes cached workouts through the authenticated Supabase account.
+   * Synchronizes cached workouts through the authenticated Firebase account.
    * Ensures data integrity by matching checksums and acknowledging IDs.
    */
   async syncPendingWorkouts(): Promise<{ success: boolean; syncedCount: number; error?: string }> {

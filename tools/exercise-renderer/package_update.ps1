@@ -24,7 +24,7 @@ if ((Split-Path $archivePath -Parent) -ne $workspaceRoot -or [System.IO.Path]::G
 if (Test-Path -LiteralPath $archivePath) { throw 'O ZIP ja existe; escolha outro nome para preservar a versao anterior.' }
 $stage = Join-Path $workspaceRoot ('.tmp/bundle-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
-$files = @('.env.example','LEIA-ME-CONTAS.md','supabase/migrations/20261103_accounts.sql','tools/check-accounts.mjs','.gitignore','package.json','package-lock.json','server.ts','index.html','tsconfig.json','vite.config.ts','EXERCISE_VIDEO_STATUS.md','public/sw.js')
+$files = @('.env.example','LEIA-ME-CONTAS.md','firebase.json','firestore.rules','tools/check-accounts.mjs','.gitignore','package.json','package-lock.json','server.ts','index.html','tsconfig.json','vite.config.ts','EXERCISE_VIDEO_STATUS.md','public/sw.js')
 $files += @(Get-ChildItem -LiteralPath (Join-Path $workspaceRoot 'src') -Recurse -File | ForEach-Object {
   $_.FullName.Substring($workspaceRoot.Length + 1).Replace('\','/')
 })
@@ -50,7 +50,7 @@ $videoNames = foreach ($entry in $videoManifest.PSObject.Properties) {
   '- ' + $name
 }
 $readme = @'
-FORZON - CADASTRO, LOGIN SUPABASE, ABDOMINAIS E TODOS OS VIDEOS
+FORZON - CADASTRO, LOGIN FIREBASE, ABDOMINAIS E TODOS OS VIDEOS
 
 Inclui {COUNT} videos proprios:
 {EXERCISES}
@@ -59,7 +59,7 @@ Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
 Aceite substituir os arquivos correspondentes.
 
 Antes de usar cadastro e login, siga LEIA-ME-CONTAS.md.
-Configure seu projeto Supabase, execute o SQL e crie .env.local.
+Configure Authentication, dominios autorizados e as regras do Firestore no Firebase.
 
 No Git Bash, dentro da pasta do projeto:
 npm install
@@ -86,8 +86,8 @@ A correcao do cache fica em public/sw.js. Depois da publicacao, recarregue o
 site com Ctrl+F5 para atualizar a pagina que estava aberta.
 
 Para enviar ao GitHub:
-git add src public/assets/exercise-videos public/sw.js tools .gitignore .env.example supabase server.ts package.json package-lock.json LEIA-ME-CONTAS.md EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
-git commit -m "Adiciona login Supabase, contas vazias e abdominais nos planos"
+git add src public/assets/exercise-videos public/sw.js tools .gitignore .env.example firebase.json firestore.rules server.ts package.json package-lock.json LEIA-ME-CONTAS.md EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
+git commit -m "Migra cadastro e dados dos treinos para Firebase"
 git push origin main
 '@
 $readme = $readme.Replace('{COUNT}',[string]@($videoManifest.PSObject.Properties).Count).Replace('{EXERCISES}',($videoNames -join [Environment]::NewLine))

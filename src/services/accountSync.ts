@@ -1,13 +1,10 @@
-import type { User } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+import type { AccountUser as User } from './firebase';
+import { firestoreAccountTransport } from './firestoreAccountTransport';
 import { accountStorage } from './accountStorage';
 import { emptyProfile } from './emptyAccount';
 
 // Small transport boundary enables deterministic lifecycle tests without creating real users.
-export const accountTransport = {
- async load(id: string) { return supabase!.from('user_app_data').select('data, revision').eq('user_id', id).maybeSingle(); },
- async save(payload: Record<string, string>, revision: number) { return supabase!.rpc('save_user_app_data', {payload, expected_revision: revision}); },
-};
+export const accountTransport = { ...firestoreAccountTransport };
 export type CloudStatus = 'saved' | 'saving' | 'pending' | 'conflict';
 let active: { id: string; revision: number; generation: number } | null = null;
 let generation = 0;
@@ -35,7 +32,7 @@ export async function loadAccount(user: User) {
   }
   const { data, error } = await accountTransport.load(user.id);
   if (token !== generation) return false;
-  if (error) throw new Error('Não foi possível carregar seus dados. Verifique a conexão e a configuração do Supabase.');
+  if (error) throw new Error('Não foi possível carregar seus dados. Verifique a conexão e a configuração do Firebase.');
   const dirty = localStorage.getItem(prefix + '_dirty') === 'true';
   const cachedRevision = Number(localStorage.getItem(prefix + '_revision') || 0);
   if (dirty && data && cachedRevision !== data.revision) {

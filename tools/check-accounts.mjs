@@ -19,9 +19,30 @@ const { loadAccount, disconnectAccount, syncAccount, accountTransport } = await 
 const { applyWorkoutPolicy } = await import('../src/services/workoutPlanPolicy.ts');
 const { PersonalTodayView } = await import('../src/components/views/PersonalTodayView.tsx');
 const { GlobalVolumeRanking } = await import('../src/components/social/GlobalVolumeRanking.tsx');
+const { encodeSnapshot, decodeSnapshot, CHUNK_CHARACTERS, MAX_CHUNKS } = await import('../src/services/firestoreAccountTransport.ts');
+const { authError } = await import('../src/services/firebase.ts');
 const user = id => ({ id, user_metadata: { name: id } });
 const deferred = () => { let resolve; const promise = new Promise(r => { resolve = r; }); return { promise, resolve }; };
 afterEach(() => { disconnectAccount(); localStorage.clear(); });
+
+test('Firebase snapshots preserve large histories, accents and emoji across document boundaries', () => {
+  const payload = { athlynx_workout_history: JSON.stringify({ notes: 'á🏋️'.repeat(CHUNK_CHARACTERS), sessions: ['Treino A', 'Abdômen'] }) };
+  const chunks = encodeSnapshot(payload);
+  assert.ok(chunks.length > 1);
+  assert.ok(chunks.every(c => c.length <= CHUNK_CHARACTERS && !/[\uD800-\uDBFF]$/.test(c)));
+  assert.deepEqual(decodeSnapshot(chunks), payload);
+});
+test('oversized or corrupt Firebase states fail without altering local data', () => {
+  assert.throws(() => encodeSnapshot({ athlynx_workout_history: 'x'.repeat(CHUNK_CHARACTERS * MAX_CHUNKS + 1) }));
+  assert.throws(() => decodeSnapshot(['{"athlynx_profile":42}']));
+  assert.throws(() => decodeSnapshot(['incompleto']));
+});
+test('Firebase authentication errors explain verification, blocked providers and invalid credentials', () => {
+  assert.match(authError({code:'auth/email-not-verified'}), /Confirme seu e-mail/);
+  assert.match(authError({code:'auth/invalid-credential'}), /incorretos/);
+  assert.match(authError({code:'auth/operation-not-allowed'}), /habilitado/);
+  assert.match(authError({code:'auth/expired-action-code'}), /expirou/);
+});
 
 test('new accounts ignore legacy records, premium overrides and other accounts', () => {
   localStorage.setItem('athlynx_profile', JSON.stringify({ name: 'Maik', isPremium: true }));
