@@ -203,3 +203,55 @@ test('abdominal scheduling preserves dedicated cardio sessions', () => {
   assert.equal(output.sessions[0].exercises.length, 1);
   assert.equal(output.sessions[1].exercises[0].targetMuscle, 'Abdômen & Core');
 });
+
+test('AI splits retain accessory muscle groups and an executable cardio block after time limiting', () => {
+  const splits = [
+    ['Peitoral', 'Peitoral', 'Peitoral', 'Peitoral', 'Ombros', 'Ombros', 'Tríceps', 'Tríceps'],
+    ['Costas', 'Costas', 'Costas', 'Costas', 'Trapézio', 'Bíceps', 'Bíceps'],
+    ['Pernas (Quadríceps)', 'Pernas (Quadríceps)', 'Pernas (Quadríceps)', 'Pernas (Posterior)', 'Pernas (Posterior)', 'Glúteos', 'Panturrilhas', 'Panturrilhas'],
+  ];
+  for (const canonical of [true, false]) {
+    const input = { sessions: splits.map((groups, i) => ({
+      ...(canonical ? { dayLabel: `Dia ${i + 1}`, title: `Treino ${i + 1} — Completo`, muscleFocus: 'Completo' } : { focus: 'Completo' }),
+      cardioProtocol: { machine: 'Esteira', name: 'Cardio Pós-Treino: Esteira', durationMin: 20, estimatedKcal: 190, parameters: 'Ritmo confortável', intensity: 'Leve' },
+      exercises: [...groups.map((targetMuscle, j) => ({ name: `Movimento ${j}`, targetMuscle, restSeconds: 90,
+        sets: canonical ? Array.from({ length: 4 }, () => ({ targetReps: 12, weightKg: 20, completed: true })) : 4 })),
+        { name: 'Cardio Pós-Treino: Esteira', targetMuscle: 'Cardio & Resistência', sets: canonical ? [{ targetReps: 20 }] : 1, reps: '20 min' }],
+    })) };
+    const snapshot = JSON.stringify(input);
+    const profile = { ...emptyProfile('A'), timePerSessionMin: 45, trainingDaysPerWeek: 3 };
+    const output = applyWorkoutPolicy(input, profile);
+    output.sessions.forEach((session, i) => {
+      for (const group of new Set(splits[i])) assert.ok(session.exercises.some(e => e.targetMuscle === group), `Missing ${group}`);
+      const cardios = session.exercises.filter(e => e.targetMuscle === 'Cardio & Resistência');
+      assert.equal(cardios.length, 1);
+      assert.equal(session.exercises.at(-1), cardios[0]);
+      assert.ok(session.cardioProtocol.durationMin >= 5);
+      assert.ok(session.cardioProtocol.durationMin <= 20);
+      assert.equal(canonical ? cardios[0].sets[0].targetReps : parseInt(cardios[0].reps), session.cardioProtocol.durationMin);
+      const liftingMinutes = session.exercises.filter(e => e !== cardios[0]).reduce((sum, e) => sum + (canonical ? e.sets.length : e.sets) * (45 + e.restSeconds) / 60 + 1, 0);
+      assert.ok(5 + liftingMinutes + session.cardioProtocol.durationMin <= 45);
+      assert.ok(session.estimatedMinutes <= 45);
+    });
+    assert.equal(JSON.stringify(input), snapshot);
+    const twice = applyWorkoutPolicy(output, profile);
+    twice.sessions.forEach((session, i) => {
+      assert.deepEqual(session.exercises.map(e => e.name), output.sessions[i].exercises.map(e => e.name));
+      assert.equal(session.cardioProtocol.durationMin, output.sessions[i].cardioProtocol.durationMin);
+    });
+  }
+});
+
+test('cardio supplied only as an exercise survives normalization and short-session fitting', () => {
+  for (const timePerSessionMin of [15, 30, 60]) {
+    const output = applyWorkoutPolicy({ sessions: [{ dayLabel: 'A', exercises: [
+      { name: 'Supino', targetMuscle: 'Peitoral', restSeconds: 180, sets: [{ targetReps: 10 }] },
+      { name: 'Cardio: Bicicleta', targetMuscle: 'Cardio & Resistência', sets: [{ targetReps: 20 }] },
+    ] }] }, { ...emptyProfile('A'), timePerSessionMin });
+    const session = output.sessions[0];
+    assert.equal(session.cardioProtocol.machine, 'Bicicleta');
+    assert.ok(session.cardioProtocol.durationMin >= 5);
+    assert.equal(session.exercises.at(-1).sets[0].targetReps, session.cardioProtocol.durationMin);
+    assert.ok(session.estimatedMinutes <= timePerSessionMin);
+  }
+});

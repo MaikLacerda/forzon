@@ -1743,7 +1743,12 @@ export const AIWorkoutNutritionIntakeModal: React.FC<AIWorkoutNutritionIntakeMod
                   <p className="font-bold text-emerald-400 flex items-center gap-1.5">
                     <Sparkles className="w-4 h-4" /> Treino de Verdade com Cardio & Dieta Concluídos!
                   </p>
-                  <p>{generatedRationale.coachMessage}</p>
+                  <p>
+                    Plano com {generatedPlan.sessions.length} sessões, ajustado ao tempo disponível.
+                    {' '}Os grupos musculares e exercícios estão detalhados abaixo.
+                    {' '}{generatedPlan.sessions.filter(s => s.exercises.some(e => /abd|core/i.test(e.targetMuscle))).length} sessões incluem abdominais dinâmicos.
+                    {' '}Cardio pós-treino: {generatedPlan.sessions.filter(s => s.cardioProtocol).map(s => `${s.dayLabel}: ${s.cardioProtocol!.durationMin} min de ${s.cardioProtocol!.machine}`).join('; ') || 'não incluído neste plano'}.
+                  </p>
                 </div>
               </div>
 
