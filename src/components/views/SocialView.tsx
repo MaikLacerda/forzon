@@ -133,7 +133,7 @@ export const SocialView: React.FC<SocialViewProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-neutral-900 pb-2 overflow-x-auto scrollbar-none">
+      <div className="flex flex-wrap items-center gap-2 border-b border-neutral-900 pb-2">
         <button
           onClick={() => setActiveTab("feed")}
           className={`px-4 py-2 text-xs font-semibold rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
@@ -175,6 +175,7 @@ export const SocialView: React.FC<SocialViewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Feed Column */}
           <div className="lg:col-span-2 space-y-5">
+            {!posts.length && <p className="rounded-2xl border border-neutral-800 p-6 text-neutral-400">Você ainda não tem publicações. Compartilhe uma conquista quando concluir seu primeiro treino.</p>}
             {posts.map((post) => {
               const isCommentsOpen = Boolean(expandedComments[post.id]);
               return (
@@ -183,21 +184,21 @@ export const SocialView: React.FC<SocialViewProps> = ({
                   className="bg-neutral-900/70 border border-neutral-800 rounded-2xl p-5 space-y-4"
                 >
                   {/* Author Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+                    <div className="min-w-0 flex items-center gap-3">
                       <img
                         src={post.authorAvatar}
                         alt={post.authorName}
-                        className="w-10 h-10 rounded-full object-cover border border-neutral-800"
+                        className="w-10 h-10 shrink-0 rounded-full object-cover border border-neutral-800"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
                           (e.currentTarget as HTMLElement).style.display = "none";
                         }}
                       />
-                      <div>
-                        <div className="text-sm font-bold text-white flex items-center gap-1.5">
+                      <div className="min-w-0">
+                        <div className="text-sm font-bold text-white flex flex-wrap items-center gap-1.5">
                           <span>{post.authorName}</span>
-                          <span className="text-xs font-normal text-neutral-500 font-mono">
+                          <span className="break-all text-xs font-normal text-neutral-500 font-mono">
                             {post.authorHandle}
                           </span>
                           {post.authorHandle !== profile.handle && (

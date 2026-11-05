@@ -9,8 +9,7 @@ são entrada deste processo. Licença dos dados em `assets/LICENSE.CC0.txt`.
 - O primeiro lote contém rosca direta com barra reta, martelo e alternada com supinação.
 - O supino reto com barra foi acrescentado com banco plano e cinemática própria.
 - Os movimentos têm animações e equipamentos próprios em `motions.json`.
-- A biblioteca principal tem 104 vídeos no estilo anterior. A revisão de
-  musculatura é produzida separadamente, conforme `ANATOMY_V3.md`.
+- A biblioteca principal tem 104 exercícios; os demais continuam pendentes.
 - O catálogo e o manifesto do app registram exatamente os vídeos disponíveis.
 - O destaque vermelho é uma região pintada, não segmentação anatômica exata.
 - `physique.json` controla as formas CC0 de peitoral, dorsais, abdômen,

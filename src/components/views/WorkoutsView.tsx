@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { WorkoutPlan, WorkoutSession, Exercise, SportModality, SportModalityId } from "../../types";
 import { EXERCISE_LIBRARY, resolveExerciseDetails } from "../../data/exercises";
+import { hasExerciseVideo } from "../../data/exerciseVideoAssets";
 import { SPORT_MODALITIES } from "../../data/sportModalities";
 import { AdBanner } from "../common/AdBanner";
 import { ExerciseExecutionModal } from "../workout/ExerciseExecutionModal";
@@ -57,6 +58,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
   const [selectedSessionId, setSelectedSessionId] = useState<string>(plan.sessions[0]?.id || "");
   const [expandedExerciseId, setExpandedExerciseId] = useState<string | null>(null);
   const [exerciseSearch, setExerciseSearch] = useState<string>("");
+  const [onlyWithVideo, setOnlyWithVideo] = useState(false);
   const [exerciseFilterMuscle, setExerciseFilterMuscle] = useState<string>("all");
   const [exerciseFilterEquipment, setExerciseFilterEquipment] = useState<string>("all");
   const [activeSubTab, setActiveSubTab] = useState<"routine" | "modalities" | "library" | "progression">("routine");
@@ -120,7 +122,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       exerciseFilterMuscle === "all" || ex.primaryMuscle === exerciseFilterMuscle;
     const matchesEquipment =
       exerciseFilterEquipment === "all" || ex.equipment === exerciseFilterEquipment;
-    return matchesSearch && matchesMuscle && matchesEquipment;
+    return matchesSearch && matchesMuscle && matchesEquipment && (!onlyWithVideo || hasExerciseVideo(ex.id));
   });
 
   const filteredModalities = SPORT_MODALITIES.filter((mod) => {
@@ -212,7 +214,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       </div>
 
       {/* Sub-navigation tabs */}
-      <div className="flex items-center gap-2 border-b border-neutral-900 pb-2 overflow-x-auto scrollbar-none">
+      <div className="flex flex-wrap items-center gap-2 border-b border-neutral-900 pb-2">
         <button
           onClick={() => setActiveSubTab("routine")}
           className={`px-4 py-2 text-xs font-bold rounded-xl transition-colors cursor-pointer whitespace-nowrap ${
@@ -450,7 +452,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                               setSelectedExerciseForModal(details);
                             }}
                             className="p-3 rounded-2xl bg-neutral-900 hover:bg-neutral-850 border border-neutral-800/80 hover:border-emerald-500/40 flex items-center justify-between gap-3 text-xs transition-colors cursor-pointer group"
-                            title="Clique para ver vídeo explicativo da execução"
+                            title="Ver execução e instruções do exercício"
                           >
                             <div className="flex items-center gap-3">
                               <AnatomicalExerciseIllustration
@@ -461,7 +463,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 <div className="font-bold text-white group-hover:text-emerald-300 transition-colors flex items-center gap-2">
                                   <span>{ex.name}</span>
                                   <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono font-normal text-emerald-400 flex items-center gap-0.5">
-                                    <Play className="w-2.5 h-2.5 fill-current" /> Vídeo
+                                    <Play className="w-2.5 h-2.5 fill-current" /> Execução
                                   </span>
                                 </div>
                                 <div className="text-[11px] text-neutral-400 italic">
@@ -566,6 +568,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
       {/* ========================================================= */}
       {/* 2. MINHA ROTINA ATIVA (ROUTINE TAB)                      */}
       {/* ========================================================= */}
+      {!plan.sessions.length && activeSubTab === "routine" && <div className="rounded-2xl border border-cyan-500/30 p-6 text-neutral-300">Você ainda não tem um plano. Complete sua avaliação para criar sua rotina, ou explore a biblioteca de exercícios.</div>}
       {activeSubTab === "routine" && (
         <div className="space-y-6">
           {/* Active Modality Banner & Switcher Shortcut */}
@@ -727,11 +730,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 setSelectedExerciseForModal(details);
                               }}
                               className="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors cursor-pointer group flex items-center gap-1.5"
-                              title="Clique para ver vídeo explicativo da execução"
+                              title="Ver execução e instruções do exercício"
                             >
                               <span>{ex.name}</span>
                               <span className="opacity-0 group-hover:opacity-100 text-[10px] font-mono text-emerald-400 transition-opacity">
-                                ▶ Ver Vídeo
+                                ▶ Ver execução
                               </span>
                             </h3>
                             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
@@ -744,10 +747,10 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                                 setSelectedExerciseForModal(details);
                               }}
                               className="px-2 py-0.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                              title="Abrir vídeo e biomecânica do exercício"
+                              title="Abrir execução e instruções do exercício"
                             >
                               <Play className="w-2.5 h-2.5 fill-current" />
-                              <span>Vídeo</span>
+                              <span>Execução</span>
                             </button>
                           </div>
                           {ex.notes && (
@@ -816,8 +819,12 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
 
           {/* Search, Muscle and Equipment filters */}
           <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
+            <label className="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
+              <input type="checkbox" checked={onlyWithVideo} onChange={event=>setOnlyWithVideo(event.target.checked)} className="accent-emerald-500" />
+              Somente exercícios com vídeo ({EXERCISE_LIBRARY.filter(ex=>hasExerciseVideo(ex.id)).length})
+            </label>
+            <div className="flex flex-col lg:flex-row gap-3">
+              <div className="relative min-w-0 flex-1">
                 <Search className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -828,7 +835,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                 />
               </div>
 
-              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex items-center gap-1.5 bg-neutral-900 border border-neutral-800 rounded-xl px-2.5 py-1">
                   <Filter className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
                   <select
@@ -862,7 +869,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
             </div>
 
             {/* Quick muscle pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-thin">
+            <div className="flex flex-wrap items-center gap-1.5 pb-1.5">
               <span className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mr-1 shrink-0">
                 Atalhos:
               </span>
@@ -912,6 +919,7 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                   setExerciseSearch("");
                   setExerciseFilterMuscle("all");
                   setExerciseFilterEquipment("all");
+                  setOnlyWithVideo(false);
                 }}
                 className="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold hover:bg-emerald-500/20 transition-colors"
               >
@@ -924,14 +932,15 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredExercises.map((ex) => {
               const isExpanded = expandedExerciseId === ex.id;
+              const hasVideo = hasExerciseVideo(ex.id);
               return (
                 <div
                   key={ex.id}
                   className="bg-neutral-900/60 border border-neutral-800/80 rounded-2xl p-5 space-y-3 hover:border-neutral-700 transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                           {ex.primaryMuscle}
                         </span>
@@ -943,7 +952,11 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         </span>
                       </div>
                       <h3 className="text-base font-bold text-white mt-1.5">
-                        {ex.name}
+                        <button type="button" onClick={() => setSelectedExerciseForModal(ex)}
+                          title="Abrir execução e instruções deste exercício"
+                          className="text-left cursor-pointer hover:text-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400">
+                          {ex.name}
+                        </button>
                       </h3>
                     </div>
 
@@ -952,16 +965,17 @@ export const WorkoutsView: React.FC<WorkoutsViewProps> = ({
                         type="button"
                         onClick={() => setSelectedExerciseForModal(ex)}
                         className="px-2.5 py-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer shadow-sm"
-                        title="Abrir vídeo explicativo e postura deste exercício"
+                        title={hasVideo ? "Abrir vídeo deste exercício" : "Abrir instruções deste exercício"}
                       >
                         <Play className="w-3 h-3 fill-current" />
-                        <span>Vídeo</span>
+                        <span>{hasVideo ? "Vídeo" : "Instruções"}</span>
                       </button>
 
                       <button
                         onClick={() =>
                           setExpandedExerciseId(isExpanded ? null : ex.id)
                         }
+                        aria-label={`${isExpanded ? "Recolher" : "Expandir"} instruções de ${ex.name}`}
                         className="p-1 rounded-lg hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
                       >
                         {isExpanded ? (

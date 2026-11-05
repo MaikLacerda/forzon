@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "./components/layout/Header";
 import { BottomNav } from "./components/layout/BottomNav";
-import { TodayView } from "./components/views/TodayView";
+import { PersonalTodayView as TodayView } from "./components/views/PersonalTodayView";
+import { trainingStreak } from "./services/emptyAccount";
+import { resolveExerciseDetails } from "./data/exercises";
 import { WorkoutsView } from "./components/views/WorkoutsView";
 import { NutritionView } from "./components/views/NutritionView";
 import { OutdoorGPSView } from "./components/views/OutdoorGPSView";
@@ -20,6 +22,7 @@ import { AchievementUnlockToast } from "./components/common/AchievementUnlockToa
 import { SyncStatusModal } from "./components/sync/SyncStatusModal";
 import { UpgradePlanModal } from "./components/subscription/UpgradePlanModal";
 import { storage } from "./services/storage";
+import { accountStorage } from "./services/accountStorage";
 import { aiService } from "./services/aiService";
 import { notificationService } from "./services/notificationService";
 import { themeService } from "./services/themeService";
@@ -42,6 +45,7 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("hoje");
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); }, [activeTab]);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isAIIntakeOpen, setIsAIIntakeOpen] = useState(false);
 
@@ -54,6 +58,8 @@ export default function App() {
   const [posts, setPosts] = useState<SocialPost[]>(() => storage.getPosts());
   const [challenges, setChallenges] = useState<GroupChallenge[]>(() => storage.getChallenges());
   const [achievements, setAchievements] = useState<Achievement[]>(() => storage.getAchievements());
+
+  const streakDays = trainingStreak(history);
 
   // Modals & Drawers
   const [liveWorkoutSessionId, setLiveWorkoutSessionId] = useState<string | null>(null);
@@ -73,7 +79,7 @@ export default function App() {
   const [upgradeHighlightedFeature, setUpgradeHighlightedFeature] = useState<string | undefined>(undefined);
 
   const handleOpenUpgrade = (feature?: string) => {
-    setUpgradeHighlightedFeature(feature);
+    setUpgradeHighlightedFeature(typeof feature === "string" ? feature : undefined);
     setIsUpgradeModalOpen(true);
   };
 
@@ -125,7 +131,7 @@ export default function App() {
         title: todaySession?.title || "Treino do Dia",
         id: todaySession?.id || "session-0",
         muscleFocus: todaySession?.muscleFocus || "Treino Geral",
-        streakDays: 7,
+        streakDays,
       };
     });
 
@@ -139,12 +145,13 @@ export default function App() {
   const handleSnoozeReminder = (minutes: number) => {
     setActiveReminder(null);
     window.setTimeout(() => {
+      if (accountStorage.id !== profile.id) return;
       const todaySession = plan.sessions[0];
       notificationService.dispatchWorkoutReminder({
         workoutTitle: todaySession?.title || "Treino do Dia",
         workoutId: todaySession?.id || "session-0",
         muscleFocus: todaySession?.muscleFocus || "Treino Geral",
-        streakDays: 7,
+        streakDays,
         message: `Lembrete adiado (${minutes} min atrás): hora de completar sua sessão de hoje!`,
       });
     }, minutes * 60 * 1000);
@@ -295,6 +302,7 @@ export default function App() {
     setIsGeneratingPlan(true);
     try {
       const targetProf = customProfile || profile;
+      if (!targetProf.mainGoal) { setIsOnboardingOpen(true); return; }
       const result = await aiService.generateWorkoutPlan(targetProf);
       if (result && result.sessions && result.sessions.length > 0) {
         const updatedPlan: WorkoutPlan = {
@@ -314,7 +322,7 @@ export default function App() {
             completedCount: 0,
             exercises: (s.exercises || []).map((e: any, eIdx: number) => ({
               id: `we-gen-${idx}-${eIdx}`,
-              exerciseId: `ex-${e.name.toLowerCase().replace(/\s+/g, "-")}`,
+              exerciseId: resolveExerciseDetails(e.name, e.targetMuscle)?.id || e.exerciseId || e.name,
               name: e.name,
               targetMuscle: e.targetMuscle || "Musculatura Principal",
               restSeconds: e.restSeconds || 75,
@@ -323,7 +331,7 @@ export default function App() {
                 id: `s-gen-${idx}-${eIdx}-${sIdx}`,
                 setNumber: sIdx + 1,
                 type: sIdx === 0 ? "warmup" : "working",
-                weightKg: 50,
+                weightKg: 0,
                 targetReps: typeof e.reps === "string" ? parseInt(e.reps) || 10 : e.reps || 10,
                 completed: false,
               })),
@@ -360,7 +368,7 @@ export default function App() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenLiveWorkout={() => handleStartWorkout(plan.sessions[0].id)}
+        onOpenLiveWorkout={() => plan.sessions[0] ? handleStartWorkout(plan.sessions[0].id) : setIsAIIntakeOpen(true)}
         onOpenCoach={() => {
           setCoachInitialPrompt("");
           setIsCoachOpen(true);
@@ -378,7 +386,7 @@ export default function App() {
       />
 
       {/* Main View Router */}
-      <main className="flex-1 w-full">
+      <main className="min-w-0 flex-1 w-full pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
         {activeTab === "hoje" && (
           <TodayView
             profile={profile}
@@ -443,7 +451,7 @@ export default function App() {
             profile={profile}
             workoutHistory={history}
             gpsActivities={gpsActivities}
-            streakDays={7}
+            streakDays={streakDays}
             onLikePost={handleLikePost}
             onAddComment={handleAddComment}
             onToggleJoinChallenge={handleToggleJoinChallenge}
@@ -451,7 +459,7 @@ export default function App() {
             onToggleFollow={(h) => storage.toggleFollowUser(h)}
             onReportPost={(id) => storage.reportPost(id)}
             onDeletePost={(id) => storage.deletePost(id)}
-            onStartWorkoutClick={() => handleStartWorkout(plan.sessions[0].id)}
+            onStartWorkoutClick={() => plan.sessions[0] ? handleStartWorkout(plan.sessions[0].id) : setIsAIIntakeOpen(true)}
           />
         )}
       </main>
@@ -486,7 +494,6 @@ export default function App() {
         currentProfile={profile}
         onSaveProfile={(updated) => storage.saveProfile(updated)}
         onTriggerPlanGeneration={(updated) => handleRegeneratePlanAI(updated)}
-        onOpenAIIntake={() => setIsAIIntakeOpen(true)}
       />
 
       {/* Settings & LGPD Modal */}
@@ -503,7 +510,7 @@ export default function App() {
         onClose={() => setIsReminderModalOpen(false)}
         nextWorkoutTitle={plan.sessions[0]?.title || "Treino do Dia"}
         muscleFocus={plan.sessions[0]?.muscleFocus || "Treino Geral"}
-        streakDays={7}
+        streakDays={streakDays}
       />
 
       {/* Account / Auth & Consents Modal */}
@@ -522,7 +529,7 @@ export default function App() {
         profile={profile}
         history={history}
         gpsActivities={gpsActivities}
-        streakDays={7}
+        streakDays={streakDays}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenOnboarding={() => setIsOnboardingOpen(true)}
         onOpenUpgradeModal={handleOpenUpgrade}

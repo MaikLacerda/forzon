@@ -139,6 +139,8 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
     )
   );
 
+  if (!nutrition.targetCalories && !nutrition.meals.length) return <section className="max-w-7xl mx-auto p-6 space-y-4"><h1 className="text-2xl font-bold">Nutrição & Hidratação</h1><p className="text-neutral-400">Você ainda não tem um plano alimentar. Use “Montar Treino & Dieta” no cabeçalho para informar seus objetivos e criar seu plano.</p><p>Refeições registradas: 0</p><p>Água registrada: {nutrition.waterIntakeMl} ml</p><button className="rounded-xl border border-neutral-700 px-4 py-3 text-cyan-400" onClick={() => onUpdateNutrition({ ...nutrition, waterIntakeMl: nutrition.waterIntakeMl + 250 })}>Registrar 250 ml</button></section>;
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-12">
       {/* View Header */}
@@ -149,7 +151,7 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
             <span aria-hidden="true">·</span>
             <span>Alta Proteína & Síntese</span>
             <span aria-hidden="true">·</span>
-            <span className="text-emerald-400 font-medium">Meta: 2.650 kcal</span>
+            <span className="text-emerald-400 font-medium">Meta: {nutrition.targetCalories ? `${nutrition.targetCalories} kcal` : "Ainda não definida"}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             Nutrição & Hidratação
@@ -264,7 +266,7 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
               style={{
                 width: `${Math.min(
                   100,
-                  Math.round((nutrition.consumedCalories / nutrition.targetCalories) * 100)
+                  Math.round((nutrition.consumedCalories / (nutrition.targetCalories || 1)) * 100)
                 )}%`,
               }}
             />
@@ -289,7 +291,7 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
               style={{
                 width: `${Math.min(
                   100,
-                  Math.round((nutrition.consumedProteinG / nutrition.targetProteinG) * 100)
+                  Math.round((nutrition.consumedProteinG / (nutrition.targetProteinG || 1)) * 100)
                 )}%`,
               }}
             />
@@ -314,7 +316,7 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
               style={{
                 width: `${Math.min(
                   100,
-                  Math.round((nutrition.consumedCarbsG / nutrition.targetCarbsG) * 100)
+                  Math.round((nutrition.consumedCarbsG / (nutrition.targetCarbsG || 1)) * 100)
                 )}%`,
               }}
             />
@@ -339,7 +341,7 @@ export const NutritionView: React.FC<NutritionViewProps> = ({
               style={{
                 width: `${Math.min(
                   100,
-                  Math.round((nutrition.consumedFatG / nutrition.targetFatG) * 100)
+                  Math.round((nutrition.consumedFatG / (nutrition.targetFatG || 1)) * 100)
                 )}%`,
               }}
             />

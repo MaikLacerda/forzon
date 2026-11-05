@@ -1,10 +1,11 @@
+import { accountStorage } from "./accountStorage";
 import { NotificationSettings, WorkoutReminderEventDetail, DateWorkoutReminder } from "../types";
 
 const STORAGE_KEY = "athlynx_notification_settings";
 const DATE_REMINDERS_STORAGE_KEY = "athlynx_date_reminders";
 
 const DEFAULT_SETTINGS: NotificationSettings = {
-  enabled: true,
+  enabled: false,
   reminderTime: "08:00",
   daysOfWeek: [1, 2, 3, 4, 5], // Segunda a Sexta
   soundEnabled: true,
@@ -49,7 +50,7 @@ class NotificationService {
    */
   public getSettings(): NotificationSettings {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = accountStorage.getItem(STORAGE_KEY);
       if (!raw) return DEFAULT_SETTINGS;
       return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
     } catch {
@@ -61,7 +62,7 @@ class NotificationService {
    * Save settings and trigger update event
    */
   public saveSettings(settings: NotificationSettings): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    accountStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
     window.dispatchEvent(
       new CustomEvent("athlynx_notification_settings_change", { detail: settings })
     );
@@ -72,7 +73,7 @@ class NotificationService {
    */
   public getDateReminders(): DateWorkoutReminder[] {
     try {
-      const raw = localStorage.getItem(DATE_REMINDERS_STORAGE_KEY);
+      const raw = accountStorage.getItem(DATE_REMINDERS_STORAGE_KEY);
       if (!raw) return [];
       return JSON.parse(raw);
     } catch {
@@ -93,7 +94,7 @@ class NotificationService {
     } else {
       updated = [reminder, ...list];
     }
-    localStorage.setItem(DATE_REMINDERS_STORAGE_KEY, JSON.stringify(updated));
+    accountStorage.setItem(DATE_REMINDERS_STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(
       new CustomEvent("athlynx_date_reminders_change", { detail: updated })
     );
@@ -105,7 +106,7 @@ class NotificationService {
   public deleteDateReminder(id: string): void {
     const list = this.getDateReminders();
     const updated = list.filter((r) => r.id !== id);
-    localStorage.setItem(DATE_REMINDERS_STORAGE_KEY, JSON.stringify(updated));
+    accountStorage.setItem(DATE_REMINDERS_STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(
       new CustomEvent("athlynx_date_reminders_change", { detail: updated })
     );

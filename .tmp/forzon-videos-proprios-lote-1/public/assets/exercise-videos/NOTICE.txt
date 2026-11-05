@@ -1,4 +1,0 @@
-Rendered for FORZON using MakeHuman core geometry, rig, weights and phenotype data (CC0).
-The rendered exercise clips were produced by the FORZON Blender pipeline.
-No MoveKit or Hevy video was used as input to this production.
-Source asset license: LICENSE.MAKEHUMAN.txt

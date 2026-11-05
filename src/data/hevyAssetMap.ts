@@ -94,23 +94,14 @@ export const HEVY_EXERCISE_ASSET_MAP: Record<string, string> = {
   "ex-abdominal-supra-solo": "/assets/hevy/crunch.jpg",
   "ex-prancha-lateral-estatica": "/assets/hevy/side_plank.jpg",
   "ex-russian-twist-anilha": "/assets/hevy/russian_twist__weighted_.jpg",
-  "ex-abdominal-vacuum": "/assets/hevy/plank.jpg",
   "ex-corrida-ao-ar-livre": "/assets/hevy/running.jpg",
-  "ex-hyrox-skierg": "/assets/hevy/lat_pulldown__cable_.jpg",
-  "ex-hyrox-sled-push": "/assets/hevy/running.jpg",
-  "ex-hyrox-wall-balls": "/assets/hevy/squat__barbell_.jpg",
-  "ex-fight-shadow": "/assets/hevy/lateral_raise__dumbbell_.jpg",
-  "ex-fight-sprawl": "/assets/hevy/push_up.jpg",
-  "ex-swim-crawl-sprints": "/assets/hevy/pull_up.jpg",
-  "ex-crossfit-thruster": "/assets/hevy/overhead_press__barbell_.jpg",
-  "ex-fut-sand-header-jump": "/assets/hevy/jumping_lunge.jpg",
-  "ex-dance-samba-funk-burst": "/assets/hevy/jumping_lunge.jpg",
-  "ex-cal-muscle-up": "/assets/hevy/pull_up.jpg"
+  // Modality-specific movements intentionally have no substitute image here.
+  // Showing a different exercise is worse than showing no demo at all.
 };
 
-export const DEFAULT_HEVY_ASSET = "/assets/hevy/bench_press__barbell_.jpg";
+export const DEFAULT_HEVY_ASSET: string | null = null;
 
-export function getHevyIllustration(exerciseId: string, primaryMuscle?: string): string {
+export function getHevyIllustration(exerciseId: string, _primaryMuscle?: string): string | null {
   if (HEVY_EXERCISE_ASSET_MAP[exerciseId]) {
     return HEVY_EXERCISE_ASSET_MAP[exerciseId];
   }
@@ -120,21 +111,5 @@ export function getHevyIllustration(exerciseId: string, primaryMuscle?: string):
     return HEVY_EXERCISE_ASSET_MAP[cleanId];
   }
 
-  // Biomechanical fallback by muscle
-  if (primaryMuscle) {
-    const m = primaryMuscle.toLowerCase();
-    if (m.includes("peit")) return HEVY_EXERCISE_ASSET_MAP["ex-supino-reto-barra"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("cost") || m.includes("dors")) return HEVY_EXERCISE_ASSET_MAP["ex-remada-curvada-barra"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("ombr") || m.includes("delt")) return HEVY_EXERCISE_ASSET_MAP["ex-desenvolvimento-halteres"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("quad") || m.includes("pern")) return HEVY_EXERCISE_ASSET_MAP["ex-agachamento-livre-barra"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("post") || m.includes("isquio")) return HEVY_EXERCISE_ASSET_MAP["ex-stiff-barra"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("bicep") || m.includes("bícep")) return HEVY_EXERCISE_ASSET_MAP["ex-rosca-direta-barra-w"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("tricep") || m.includes("trícep")) return HEVY_EXERCISE_ASSET_MAP["ex-triceps-corda-polia"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("abd") || m.includes("core")) return HEVY_EXERCISE_ASSET_MAP["ex-prancha-isometrica"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("glút")) return HEVY_EXERCISE_ASSET_MAP["ex-elevacao-pelvica-barra"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("panturrilha")) return HEVY_EXERCISE_ASSET_MAP["ex-panturrilha-em-pe-maquina"] || DEFAULT_HEVY_ASSET;
-    if (m.includes("cardio")) return HEVY_EXERCISE_ASSET_MAP["ex-corrida-ao-ar-livre"] || DEFAULT_HEVY_ASSET;
-  }
-
-  return DEFAULT_HEVY_ASSET;
+  return null;
 }

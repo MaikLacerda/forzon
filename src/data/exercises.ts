@@ -1851,7 +1851,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     instructions: [
       "Posicione-se em base de ataque na areia fofa.",
       "Flexione os joelhos e salte verticalmente com impulsão simultânea dos dois pés.",
-      "Projete o peito e teste a bola no ponto mais alto com arqueamento e flexão rápida de tronco.",
+      "Encontre a bola com a testa no ponto mais alto do salto, coordenando a extensão e a flexão do tronco.",
       "Aterrisse amortecendo com a planta dos pés na areia."
     ],
     commonMistakes: ["Saltar apenas com uma perna perdendo equilíbrio na areia", "Cabecear com os olhos fechados"],
@@ -1866,7 +1866,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     equipment: "Peso Corporal",
     difficulty: "Iniciante",
     instructions: [
-      "Siga a cadência musical alternando passadas de sambada e agachamento rítmico.",
+      "Siga a sequência autoral da demonstração: passos laterais com aproximação dos pés e dois agachamentos rítmicos.",
       "Eleve os braços em sincronia com as rotações de quadril.",
       "Mantenha a intensidade aeróbica sustentada com sorriso e respiração contínua."
     ],

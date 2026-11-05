@@ -1,4 +1,5 @@
 export type ExperienceLevel = "Iniciante" | "Intermediário" | "Avançado" | "Atleta";
+export type TrainingSplit = "ABC" | "UpperLower" | "FullBody";
 
 export type MuscleGroup =
   | "Peitoral"
@@ -62,6 +63,7 @@ export interface UserProfile {
   secondaryGoals: string[];
   experienceLevel: ExperienceLevel;
   trainingDaysPerWeek: number;
+  trainingSplit?: TrainingSplit;
   timePerSessionMin: number;
   environment: "Academia" | "Casa" | "Ao Ar Livre" | "Híbrido";
   equipment: string[];
@@ -169,6 +171,7 @@ export interface WorkoutSession {
   estimatedMinutes: number;
   warmupProtocol: string;
   cardioProtocol?: PostWorkoutCardioProtocol;
+  planningWarnings?: string[];
   exercises: WorkoutExercise[];
   completedCount: number;
   lastPerformed?: string;
