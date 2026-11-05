@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-rosca-aranha-spider-curl",
+  "videoSha256": "82fa04c1392602db8d878607092325f3d47234ae84e76688d32d06215471803b",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "c17e2452e4cf0c51e381f07e02d2ab67b0fa1205bd4d696c180328cf242fc850",
+    "30": "ec20a4b356189fba2010299d6bb7947a1078cd2c690a954f4f7bc9d6c7287695",
+    "60": "144ee860f3b7a8913cf5effc7169126b9a3e63af1600a1fdfcfa09e8a35ee5ab",
+    "90": "80e486861f474faa9a2cff6cd46ddd6f4bcfc11c41b4a4a818bad04289187c4b",
+    "120": "dc8fda0928d05bf21ae85a3c5b8ae9c4f2137ed8d6820b24f6c3e1a84c39734d"
+  },
+  "uniqueFrameCount": 5
+}

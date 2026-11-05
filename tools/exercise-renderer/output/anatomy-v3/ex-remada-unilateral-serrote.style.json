@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-remada-unilateral-serrote",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "0d2c192383f861162111cb0b629842c595ce64668192bcc86e7f7f59225a4cb4",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "back",
+  "productionStatus": "preview"
+}

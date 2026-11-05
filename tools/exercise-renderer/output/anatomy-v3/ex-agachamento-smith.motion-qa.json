@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-agachamento-smith",
+  "sourceSceneSha256": "5b83875aa7f6eb1731c27d9e249080bfbebe2296879e360cd9c44ee97039ed76",
+  "sceneSha256": "60f2b2b5606d6f5699a78100f53b2d90ff3540141f7a9f53b20cb8202ada94dc",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

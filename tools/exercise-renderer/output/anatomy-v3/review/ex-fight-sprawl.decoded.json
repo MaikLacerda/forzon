@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-fight-sprawl",
+  "videoSha256": "6e219d2c285c5d3184184c691de51953fd4a238e8526f31360df743bb24c67a9",
+  "framePixelSha256": {
+    "1": "b63eb28ef604f18c54a8e1b4a1e00b9ee3d2676731a72e5dbe0533ea443b7a2b",
+    "48": "20bc984e61703d807c441e9b84c5089275c5f5dd6e640a9d19e37da4e0a47db8",
+    "96": "da6dddad78cbb34427b8061fb9d3b12a47a0ea2a9643076e40415c7f66fb7dd5",
+    "144": "cd5a9c1bc6edb6a95ec77fe52fd1dc6afd8014fb786ab62407cb6e6caf2d5d6a",
+    "192": "a7cccc8931980fef2342a60edfb69576f07a9fc3a09d3accde8cf648c3a43cc8"
+  },
+  "uniqueFrameCount": 5
+}

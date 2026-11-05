@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-supino-maquina-articulada",
+  "videoSha256": "1804d9121b48b2a97b08905667353feb656a5227cec1c6d69a1304f06174046b",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "76e0f5da5e918dda77119980e626b52982e4d9094cfe1c6c1d8cf2bbda028a68",
+    "30": "67d19dc2f05634465c1ae8a6b9e43867660af731ed5cd54499a0ad4b814ad081",
+    "60": "2e5567ada9be0e1cb06c684cf9f820f3bed08a338d7f73720d2ef7b3120a25a7",
+    "90": "b8eb2866f119b9c3adc4785eabf1c04b0a7f0fa79c849a85ce6c8dfa9cb6461b",
+    "120": "14980b942dd2ce109024660c7414477e97d3306f8e1befcc6e7b68f4a05fc379"
+  },
+  "uniqueFrameCount": 5
+}

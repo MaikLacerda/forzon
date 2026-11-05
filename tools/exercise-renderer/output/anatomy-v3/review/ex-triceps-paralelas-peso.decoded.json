@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-triceps-paralelas-peso",
+  "videoSha256": "4c74ba9b667e3aa0edd5061e818fa99c9c726a77b05c336408f02b4abc9502a5",
+  "framePixelSha256": {
+    "1": "ad3f021a59a71e69995a4200cdbab6573a3d7402bc90e4e61c98c785c256ebdf",
+    "30": "6afb7082671a590f30bbf8be9ee65839c3d24df091d0314989f510d8916ad14d",
+    "60": "d5c43c44b20e6136da13b01546ad3691cfd2a4b575400cb77c73c15b9c18f53d",
+    "90": "ac34076fd8044756df4cf043ba972e1bd22f30d6de98cbf697b271ac5adc8649",
+    "120": "cd9db4a55f4daf8566b57c8f11bc4a159f286e4851bedd323e91c93955a83ffb"
+  },
+  "uniqueFrameCount": 5
+}

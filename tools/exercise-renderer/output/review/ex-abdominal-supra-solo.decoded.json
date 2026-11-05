@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-abdominal-supra-solo",
+  "videoSha256": "5409a0f2b25a0f506873d09b6049dabed2b3a17bb34b2b8b7e69eac32dc175cc",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "153c224228fb353ce52f7fdb470d514232d9d2088c1940be59d6840dc130038c",
+    "30": "091533722948945c9e1f24b7aef724d26f52cfee40a3f65a7b81c3f8db14e257",
+    "60": "9eadcc72687785b06608dd639c3a006c161bbad05d8e0cdebaacff5fb2ae9b28",
+    "90": "23549b909b4dedcfb3552ef98c95a8ce1235514a2b9b3238e526291c7487be99",
+    "120": "08e4ac7ef7084c4d9b17eb5f4590f9a270605753e4a082c3af9d2f1114263a60"
+  },
+  "uniqueFrameCount": 5
+}

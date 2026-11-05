@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-sissy-squat",
+  "videoSha256": "5e988873de9ffb7f07f32e28f60ae96701db1b1ef9b3e53e63115ebaec6bbb85",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "ef06d6a028259896768f77e5a8c0b0cf474986ee0d21113eb02054b598066fc9",
+    "30": "c98b590a8c07adb1bde76bcdd2f2acfc3de7614ef7a074994a9936db12050c04",
+    "60": "39420f02192dfa51931136a63f861e8da6fef44320dd4772911efd30beb49f4b",
+    "90": "d7b42f659d2f64bec876210197b492a0b3ea80db16c85aed0344341a4fc48c6f",
+    "120": "3266b7e99d55dd0cf2bfe99088dacb6b8ae9aca1b8bc970f7cd911bc0580a7c2"
+  },
+  "uniqueFrameCount": 5
+}

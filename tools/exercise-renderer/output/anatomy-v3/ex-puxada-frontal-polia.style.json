@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-puxada-frontal-polia",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "433413073a2e723464c4bd8595c457f38d961398fed7310dee7f8a7070239c8d",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "back",
+  "productionStatus": "preview"
+}

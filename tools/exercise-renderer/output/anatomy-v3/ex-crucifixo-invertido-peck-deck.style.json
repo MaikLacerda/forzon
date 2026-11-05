@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-crucifixo-invertido-peck-deck",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "87b70aa3cc5186fd8ac2579a5a93eca046afd269c75e7b4ae11e749387750911",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "back",
+  "productionStatus": "preview"
+}

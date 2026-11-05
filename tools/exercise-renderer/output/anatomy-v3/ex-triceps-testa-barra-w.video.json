@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-triceps-testa-barra-w",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "8013e3aa210ab15476eba24e3c1baffce8dd2971b823c3023d294e343a911a40",
+  "videoSha256": "821ce600ec4b54b9f7d0230f0424812e696faa7edff962b44d3a1de89d9fd219",
+  "visualReviewRequired": true
+}

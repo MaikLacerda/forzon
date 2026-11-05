@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-panturrilha-unilateral-degrau",
+  "videoSha256": "e828ca9a3ac76af74d973ad83204a0a83aa1119c9456ebde83f2b805431e609e",
+  "framePixelSha256": {
+    "1": "9110d7fb980cd04900c04996526b2aeb3f77541caa080b859fa06cb1bb52673a",
+    "30": "465fbe26ea3f20b7ef5f0e37a1cee55c40beec73b1d84d0030c1325f804bbbe6",
+    "60": "7774e0166c5225f0e61eb0d2d88b84357d0b77d7489fe4b47aa27c9e22194d22",
+    "90": "a3f44158a57567bef779b0d9dc8c2c828223939d46b46422800ba6cdf307aa07",
+    "120": "d6680b7232b4bc99796b6634dc3ce2b8fc852caf227b57411b2808d12f4485b4"
+  },
+  "uniqueFrameCount": 5
+}

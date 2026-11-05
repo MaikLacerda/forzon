@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-fight-sprawl",
+  "style": "anatomy-v3",
+  "frames": 192,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "174741f86461f18b867b2a283af0e09d5408ec8d77c8a6218f5f3c23e6869de8",
+  "videoSha256": "6e219d2c285c5d3184184c691de51953fd4a238e8526f31360df743bb24c67a9",
+  "visualReviewRequired": true
+}

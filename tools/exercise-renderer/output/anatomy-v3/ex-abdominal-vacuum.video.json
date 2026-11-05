@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-abdominal-vacuum",
+  "style": "anatomy-v3",
+  "frames": 360,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "9114b9c62d9b6380320e79dd2eb9fd334803c77af9d058a02d5428b7a2b62095",
+  "videoSha256": "039f21a9e169a381782258df23a07fa14d96eb4bbd2b82ad373a745629005b79",
+  "visualReviewRequired": true
+}

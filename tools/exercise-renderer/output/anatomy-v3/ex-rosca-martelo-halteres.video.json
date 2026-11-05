@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-rosca-martelo-halteres",
+  "style": "anatomy-v3",
+  "frames": 96,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "c945e7376eaecaae1e36d9aeacdeaa32c4600b734812907b906916cf254e6391",
+  "videoSha256": "714176759253c246a170a222d4d90102855a80effdd1c647f9af9f2d1217c4da",
+  "visualReviewRequired": true
+}

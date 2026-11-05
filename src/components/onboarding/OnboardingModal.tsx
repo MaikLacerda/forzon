@@ -23,6 +23,7 @@ interface OnboardingModalProps {
   currentProfile: UserProfile;
   onSaveProfile: (profile: UserProfile) => void;
   onTriggerPlanGeneration: (profile: UserProfile) => void;
+  onOpenAIIntake?: () => void;
 }
 
 interface SpecificGoalOption {
@@ -43,6 +44,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   currentProfile,
   onSaveProfile,
   onTriggerPlanGeneration,
+  onOpenAIIntake,
 }) => {
   const [step, setStep] = useState(1);
   const [name, setName] = useState(currentProfile.name);
@@ -153,7 +155,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-60 bg-neutral-950/90 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl overflow-y-auto max-h-[calc(100dvh-2rem)]">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl overflow-y-auto max-h-[92vh]">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
           <div>
@@ -179,6 +181,26 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
         {/* Step 1: Physical & Personal Info */}
         {step === 1 && (
           <div className="space-y-4 animate-fade-in text-xs">
+            {onOpenAIIntake && (
+              <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/70 to-blue-950/50 border border-cyan-500/40 flex items-center justify-between gap-3 shadow-md shadow-cyan-500/10">
+                <div className="flex items-center gap-2.5">
+                  <Sparkles className="w-4 h-4 text-cyan-400 shrink-0 animate-pulse" />
+                  <span className="text-xs text-neutral-200">
+                    Prefere que a <strong>IA te entreviste no chat</strong> para montar seu treino e dieta?
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    onClose();
+                    onOpenAIIntake();
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs whitespace-nowrap cursor-pointer transition-all shadow-md shadow-cyan-500/20"
+                >
+                  Conversar com IA
+                </button>
+              </div>
+            )}
+
             <div>
               <label className="block text-neutral-300 font-semibold mb-1">
                 Nome Completo ou Como Prefere Ser Chamado:

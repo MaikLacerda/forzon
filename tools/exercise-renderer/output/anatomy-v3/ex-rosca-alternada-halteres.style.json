@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-rosca-alternada-halteres",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "e29699b44e17ed76f69a67ee9b9e03a445062c038b4195788aa2875cd489d415",
+  "frames": 192,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "biceps",
+  "productionStatus": "preview"
+}

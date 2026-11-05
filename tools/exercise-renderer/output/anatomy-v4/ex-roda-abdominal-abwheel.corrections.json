@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-roda-abdominal-abwheel",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "2cb3f2ed657a96b47c319ad45e6131b72307c90b8b029d886451ba7a3b9da439",
+  "surfaceAnimationRevision": null,
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.9630868434906006,
+    -0.24077171087265015,
+    0.12038585543632507
+  ],
+  "cameraScale": 2.835059642791748,
+  "reviewSampleFrames": [
+    1,
+    8,
+    16,
+    23,
+    31,
+    38,
+    46,
+    53,
+    61,
+    68,
+    75,
+    83,
+    90,
+    98,
+    105,
+    113,
+    120
+  ],
+  "publication": "not-published"
+}

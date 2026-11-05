@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-abdominal-vacuum",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "9114b9c62d9b6380320e79dd2eb9fd334803c77af9d058a02d5428b7a2b62095",
+  "surfaceAnimationRevision": "vacuum-draw-in-v4: original timeline, displacement x1.65",
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.7922734022140503,
+    -0.5942050218582153,
+    0.13864783942699432
+  ],
+  "cameraScale": 2.1732287406921387,
+  "reviewSampleFrames": [
+    1,
+    23,
+    46,
+    68,
+    91,
+    113,
+    136,
+    158,
+    181,
+    203,
+    225,
+    248,
+    270,
+    293,
+    315,
+    338,
+    360
+  ],
+  "publication": "not-published"
+}

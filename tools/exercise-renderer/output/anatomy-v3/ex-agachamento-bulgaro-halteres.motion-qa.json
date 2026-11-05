@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-agachamento-bulgaro-halteres",
+  "sourceSceneSha256": "728fa1a601e02c506ac009a4c05f2ebd71af6edb7e8611c7732a928ead050c1c",
+  "sceneSha256": "6dcfb501b696f4541149bcbbd01691ff3853b1459452e6ebf19dce1e7cdb7b46",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

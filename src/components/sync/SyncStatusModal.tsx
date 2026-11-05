@@ -107,7 +107,7 @@ export const SyncStatusModal: React.FC<SyncStatusModalProps> = ({ isOpen, onClos
 
   return (
     <div className="fixed inset-0 z-60 bg-neutral-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-5 shadow-2xl animate-scale-up my-auto max-h-[calc(100dvh-1.5rem)] overflow-y-auto overscroll-contain">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-5 shadow-2xl animate-scale-up my-auto max-h-[90vh] flex flex-col">
         {/* Top Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 pb-3.5 shrink-0">
           <div className="flex items-center gap-3">

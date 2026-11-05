@@ -1,0 +1,22 @@
+import React from 'react';
+import { Dumbbell, Flame, Navigation, Play, Sparkles } from 'lucide-react';
+import type { TodayView } from './TodayView';
+import { trainingStreak } from '../../services/emptyAccount';
+
+export function PersonalTodayView({ profile, plan, recentWorkouts, gpsActivities = [], nutrition, onUpdateNutrition, onStartWorkout, onNavigateTab, onOpenAIIntake, onOpenProfile }: React.ComponentProps<typeof TodayView>) {
+  const metrics = [
+    { label: 'Treinos concluídos', value: recentWorkouts.length, icon: Dumbbell },
+    { label: 'Dias seguidos', value: trainingStreak(recentWorkouts), icon: Flame },
+    { label: 'Volume registrado', value: `${recentWorkouts.reduce((n, r) => n + (r.totalVolumeKg || 0), 0).toLocaleString('pt-BR')} kg`, icon: Dumbbell },
+    { label: 'Distância registrada', value: `${gpsActivities.reduce((n, r) => n + r.distanceKm, 0).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} km`, icon: Navigation },
+  ];
+  return <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div className="flex flex-wrap justify-between items-center gap-4"><div><p className="text-cyan-400 text-sm">SEU PAINEL</p><h1 className="text-2xl sm:text-3xl font-bold mt-2">Olá, {profile.name.split(' ')[0]}.</h1><p className="text-neutral-400 mt-2">{recentWorkouts.length ? 'Cada sessão conta. Acompanhe seus registros.' : 'Sua jornada começa aqui. Seus resultados aparecerão conforme você treinar.'}</p></div><button className="text-cyan-400 border border-neutral-700 rounded-xl px-4 py-3" onClick={onOpenProfile}>Meu perfil</button></div>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">{metrics.map(({ label, value, icon: Icon }) => <section key={label} className="min-w-0 p-4 rounded-2xl bg-neutral-900 border border-neutral-800"><Icon className="w-5 h-5 text-cyan-400 mb-3" /><div className="text-xl sm:text-2xl font-bold break-words">{value}</div><p className="text-neutral-400 text-xs mt-2">{label}</p></section>)}</div>
+    {!plan.sessions.length ? <section className="rounded-3xl border border-cyan-500/30 bg-cyan-500/5 p-6 sm:p-8 space-y-4"><Sparkles className="text-cyan-400" /><h2 className="font-bold text-xl">Vamos montar seu primeiro treino?</h2><p className="text-neutral-400 max-w-xl">Conte seu objetivo, experiência e disponibilidade para começar.</p><button className="rounded-xl bg-cyan-400 text-neutral-950 font-bold px-5 py-3" onClick={onOpenAIIntake}>Criar meu plano</button></section> : <section className="space-y-3"><h2 className="text-xl font-bold">Seus treinos</h2><div className="grid md:grid-cols-2 gap-3">{plan.sessions.map(session => <article className="rounded-2xl border border-neutral-800 bg-neutral-900 p-5 space-y-3 min-w-0" key={session.id}><h3 className="font-bold">{session.title}</h3><p className="text-sm text-neutral-400">{session.exercises.length} exercícios · {session.estimatedMinutes} min estimados</p><button className="flex gap-2 items-center text-cyan-400 py-2" onClick={() => onStartWorkout(session.id)}><Play className="w-4 h-4" />Iniciar treino</button></article>)}</div></section>}
+    <div className="grid md:grid-cols-2 gap-4">
+      <section className="rounded-2xl border border-neutral-800 p-5 space-y-3"><h2 className="font-bold">Histórico de treinos</h2>{recentWorkouts.length ? recentWorkouts.slice(0, 5).map(workout => <div key={workout.id} className="border-b border-neutral-800 py-2"><p>{workout.title}</p><p className="text-sm text-neutral-400">{new Date(workout.completedAt).toLocaleDateString('pt-BR')} · {workout.totalVolumeKg.toLocaleString('pt-BR')} kg</p></div>) : <p className="text-neutral-400 text-sm">Você ainda não concluiu nenhum treino. Ao finalizar sua primeira sessão, ela aparecerá aqui.</p>}<button className="text-cyan-400 py-2" onClick={() => onNavigateTab('treinos')}>Ver treinos e exercícios</button></section>
+      <section className="rounded-2xl border border-neutral-800 p-5 space-y-3"><h2 className="font-bold">Hidratação registrada</h2><p className="text-2xl font-bold">{nutrition.waterIntakeMl} ml</p><p className="text-neutral-400 text-sm">{nutrition.waterGoalMl ? `Meta: ${nutrition.waterGoalMl} ml` : 'Defina suas metas na avaliação inicial.'}</p><button className="text-cyan-400 border border-neutral-700 rounded-xl px-4 py-2" onClick={() => onUpdateNutrition({ ...nutrition, waterIntakeMl: nutrition.waterIntakeMl + 250 })}>Registrar 250 ml</button></section>
+    </div>
+  </div>;
+}

@@ -1,0 +1,25 @@
+{
+  "exerciseId": "ex-hyrox-wall-balls",
+  "style": "anatomy-v4",
+  "auditRecipeSha256": "e6ee0ba8a625b4f83f7b3741d3795ef34346db37c7029d054bbaa693b65be4bc",
+  "sourceV3SceneSha256": "c5fc2a6120d784e1063e7b9f21f3c0528b2c12b33b125178311695f9707e105a",
+  "sceneSha256": "e0a323d2b5b540ee0ee7d86dd9923971c5cc36f06715737fc38abea3239ae60d",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.0689656138420105
+  },
+  "checksPassed": true,
+  "framesChecked": 168,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

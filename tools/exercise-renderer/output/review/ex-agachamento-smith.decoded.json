@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-agachamento-smith",
+  "videoSha256": "72df9c5d4111f9405abeb28acd182cc06b4e64402b8041513d975f0d0b69a9a8",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "dd7372c98771998d01222b5a1f46ef99c323ffdd19ce61c1441c4aeaa52b0cd1",
+    "30": "c18d7a0f4ad1f506550b65d73e6dd03a8bf88eec35428b722a1dd1856c197413",
+    "60": "04a712de026ac30f3fd9826add1f50f155ac300fbc64d3c7ead7f05348aa9d2b",
+    "90": "72d42bcbbad8fa37fdbcf5c130acd6d395342186f00cdcb59a1397dbb20c4224",
+    "120": "a6b39b9c06e540791c4d5fe4a5cc7fac9efd0fb42149abe79d483120d39510a6"
+  },
+  "uniqueFrameCount": 5
+}

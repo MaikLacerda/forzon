@@ -54,6 +54,22 @@
       "purpose": "any"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/forzon-hero.jpg",
+      "sizes": "2752x1536",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "FORZON — Painel de Treinos, Periodização e Cargas"
+    },
+    {
+      "src": "/forzon-logo.jpg",
+      "sizes": "2752x1536",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "FORZON — Coach de IA e Nutrição Esportiva"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Treinos & Cargas",
@@ -84,6 +100,19 @@
       "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
     }
   ],
+  "share_target": {
+    "action": "/?tab=comunidade",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  "handle_links": "preferred",
   "related_applications": [
     {
       "platform": "play",

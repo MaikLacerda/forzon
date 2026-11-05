@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-peck-deck-voador",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "ca2f5417dba14fe00305343455548c8fda1d6db4ffa28884dac187272283a11f",
+  "videoSha256": "bcccf8ced1b2ab388a05a70f293bffe561cc7fa2c1fb0d555a5e9cf9cec157fe",
+  "visualReviewRequired": true
+}

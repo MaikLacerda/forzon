@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-supino-declinado-barra",
+  "videoSha256": "d58ec88eb3db4ceb266200e8f67f00e3ed2227b315588c06795275a7d9afc68d",
+  "framePixelSha256": {
+    "1": "1c8517e60711524d72f1ab0d39783ede16a9ba1d9c2e5dfedb78823a6d3e1d91",
+    "30": "89f7ee4e40a5199c727aa6fbd1d70a26ee984c6cfcd532619a443ac08fcca335",
+    "60": "b32934f8904e5f06125f059fb53af9300cad636ae1afadc5b2f38f2b8589c55a",
+    "90": "622a0a84935a2da8dca7e329b9340bf1b555afd4c7afae013f61578dba0047e5",
+    "120": "d59284057b22b828ba56fb8464c8a1a1d49b5b79699b68361830b384c0765313"
+  },
+  "uniqueFrameCount": 5
+}

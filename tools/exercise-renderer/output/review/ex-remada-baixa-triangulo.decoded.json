@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-remada-baixa-triangulo",
+  "videoSha256": "027583a47137f988c669a751ed6325dadf1654fd81e09a1ea6758b6d40d89358",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "55e2f26c10305973a8444394c4a331cd047f3d7de0f87863fc2b8144a2328864",
+    "30": "bfc77a58cc34550cb88a78731ad3e85420e02fbcd1226734c1f132694e8d01ac",
+    "60": "633d327f5a1afbdcd585026997bba001e9aea88e08b0cbb2e93b2e5f5a279392",
+    "90": "c5aafb10350d26a46b9dcfd60ab7e28a86bf806467b5a19e6817df830ca72d86",
+    "120": "7f9d26cf7d53983d699acc3280098b7254c15473fbe19ee7b87b399bccad3f7d"
+  },
+  "uniqueFrameCount": 5
+}

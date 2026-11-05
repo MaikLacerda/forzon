@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "dumbbell-chest-fly",
+    "aliases": [],
+    "name": "Dumbbell Chest Fly",
+    "primaryMuscles": [
+      "Chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "Dumbbell"
+    ],
+    "movementPattern": [
+      "Isolation"
+    ],
+    "difficulty": "beginner",
+    "durationSeconds": 9.87,
+    "tags": [
+      "dumbbell chest fly",
+      "chest exercise",
+      "push day",
+      "dumbbells",
+      "isolation",
+      "upper body"
+    ],
+    "benefits": [
+      "Isolates the chest through a deep stretch and strong squeeze.",
+      "Adds focused chest volume without loading the triceps.",
+      "Trains the chest's stretch position that pressing alone can't fully reach."
+    ],
+    "useCases": [
+      "Chest accessory blocks in hypertrophy app workouts",
+      "Push-day finishers in strength training programs",
+      "Home and small-gym chest tracks in fitness apps",
+      "Chest isolation education content for trainers"
+    ],
+    "instructions": [
+      "Sit on a flat bench with a dumbbell on each thigh, then lie back as you bring the weights up to your chest.",
+      "Press the dumbbells up over your chest with palms facing each other and a soft bend in the elbows.",
+      "Lower the dumbbells out to the sides in a wide arc, keeping that elbow bend locked the whole time.",
+      "Stop when you feel a deep stretch across the chest and the elbows are roughly level with the bench.",
+      "Pause briefly at the bottom of the stretch without dropping deeper or losing the elbow angle.",
+      "Squeeze the chest to bring the dumbbells back together over your chest in the same wide arc."
+    ],
+    "commonMistakes": [
+      "Bending the elbows mid-rep so the lift turns into a sloppy press and pulls the triceps in.",
+      "Going too heavy and dropping into a deep stretch fast, which strains the front shoulders.",
+      "Clanking the dumbbells together at the top instead of stopping just short and squeezing the chest.",
+      "Cutting the range short by stopping high so the chest never gets the stretch the fly is meant for."
+    ],
+    "shortDescription": "A wide-arc dumbbell fly that isolates the chest through a long stretch and tight squeeze at the top.",
+    "longDescription": "The dumbbell chest fly is the classic chest isolation exercise. With a slight bend in the elbows held throughout, the arms sweep wide to stretch the chest, then squeeze back together at the top. Removing the triceps from the lift puts the chest under full tension across a long range of motion.\n\nFor hypertrophy programs in fitness apps, this is a core chest-detail asset that pairs naturally with any pressing movement. It also suits beginner-friendly chest education, where the wide arc makes the chest's job obvious. App builders can ship this clip alongside the bench press as a clean accessory option in their push-day library.",
+    "posterFile": "posters/dumbbell-chest-fly.png",
+    "videoFile": "dumbbell-chest-fly.mp4"
+  },
+  {
+    "slug": "pull-ups",
+    "aliases": [],
+    "name": "Pull Ups",
+    "primaryMuscles": [
+      "Back"
+    ],
+    "secondaryMuscles": [
+      "Biceps",
+      "Trapezius"
+    ],
+    "equipment": [
+      "Bodyweight"
+    ],
+    "movementPattern": [
+      "Pull"
+    ],
+    "difficulty": "intermediate",
+    "durationSeconds": 7.47,
+    "tags": [
+      "pull ups",
+      "lats",
+      "back exercise",
+      "bodyweight",
+      "vertical pull",
+      "calisthenics"
+    ],
+    "benefits": [
+      "Builds the lats, biceps, and upper back with one of the highest-yield bodyweight lifts.",
+      "Develops the relative strength needed for advanced calisthenics and athletic work.",
+      "Reinforces shoulder health by training the back muscles that stabilize the joint."
+    ],
+    "useCases": [
+      "Pull-day programming in any strength training app",
+      "Calisthenics and bodyweight strength tracks",
+      "Pull-up progression modules in coaching platforms",
+      "Hero clips and thumbnails for back and pulling content"
+    ],
+    "instructions": [
+      "Reach up and grip a fixed pull-up bar with palms facing forward, hands slightly wider than shoulders.",
+      "Hang from the bar with arms fully extended, then engage the lats by pulling the shoulder blades down.",
+      "Brace your core, squeeze the glutes, and cross the ankles to keep the body in a tight line.",
+      "Pull yourself up by driving the elbows down toward the ribs until your chin clears the bar.",
+      "Pause briefly at the top with the chin over the bar, squeezing the lats and upper back.",
+      "Lower yourself slowly over 2 to 3 seconds back to a full dead hang before the next rep."
+    ],
+    "commonMistakes": [
+      "Kipping the legs to swing up instead of pulling cleanly with the back and arms.",
+      "Cutting the bottom range short and never reaching a full dead hang, which trains a fraction of the lift.",
+      "Leading with the chin instead of the chest, which puts strain on the neck.",
+      "Dropping fast at the top and skipping the slow descent, where most pull-up strength is built."
+    ],
+    "shortDescription": "The classic bodyweight vertical pull that builds the lats, biceps, and upper back — the benchmark for upper-body pulling strength.",
+    "longDescription": "The pull-up is the benchmark bodyweight upper-body exercise. Hanging from a fixed bar with palms facing forward, the lifter pulls the body up until the chin clears the bar, then lowers under control. It builds the lats, biceps, and the upper back, and it's one of the clearest measures of relative pulling strength.\n\nFor app and content use, this clip is essential inventory for any strength library, calisthenics program, and pull-day track. It also anchors any pull-up progression module and serves as a recognizable hero piece for content aimed at lifters chasing their first strict rep.\n\n",
+    "posterFile": "posters/pull-ups.png",
+    "videoFile": "pull-ups.mp4"
+  }
+]

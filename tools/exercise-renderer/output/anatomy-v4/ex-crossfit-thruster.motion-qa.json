@@ -1,0 +1,24 @@
+{
+  "exerciseId": "ex-crossfit-thruster",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "b4f29f64bc156093c97012a3ee250b5a4e4eff200bf87d58fa78b13666ab8288",
+  "sceneSha256": "5799b5011156081d372d8b81fc759ddb6bffab129180db61f3d252ba6994f86b",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896562874317169
+  },
+  "checksPassed": true,
+  "framesChecked": 192,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

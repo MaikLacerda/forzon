@@ -1,0 +1,2141 @@
+{
+  "ex-supino-reto-halteres": {
+    "exerciseId": "ex-supino-reto-halteres",
+    "name": "Supino Reto com Halteres",
+    "family": "press",
+    "load": "dumbbells",
+    "incline": 0,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite no banco segurando os halteres com apoio nos joelhos para entrada segura.",
+      "Inicie com os halteres alinhados ao peito com pegada pronada ou semi-neutra.",
+      "Desça os halteres alongando as fibras do peitoral até o nível do tronco.",
+      "Empurre os halteres para cima convergindo ligeiramente sem encostá-los no topo."
+    ],
+    "techniqueSources": [
+      "https://www.nsca.com/contentassets/116c55d64e1343d2b264e05aaf158a91/basics_of_strength_and_conditioning_manual.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-inclinado-halteres": {
+    "exerciseId": "ex-supino-inclinado-halteres",
+    "name": "Supino Inclinado com Halteres",
+    "family": "press",
+    "load": "dumbbells",
+    "incline": 30,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Ajuste o banco em uma inclinação anatômica entre 30° e 45°.",
+      "Inicie com os halteres na altura do peito superior (porção clavicular).",
+      "Empurre os halteres verticalmente em trajetória levemente convergente.",
+      "Desça de forma excêntrica em 2 a 3 segundos sentindo o alongamento do feixe superior."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/two-arm-incline-dumbbell-chest-press",
+      "https://www.nsca.com/contentassets/116c55d64e1343d2b264e05aaf158a91/basics_of_strength_and_conditioning_manual.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-inclinado-barra": {
+    "exerciseId": "ex-supino-inclinado-barra",
+    "name": "Supino Inclinado com Barra",
+    "family": "press",
+    "load": "barbell",
+    "incline": 30,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Ajuste o banco inclinado a 30° e segure a barra um pouco mais aberto que os ombros.",
+      "Tire a barra do suporte estabilizando o peso acima do queixo/peito superior.",
+      "Desça a barra controladamente até encostar de leve na porção superior do peito.",
+      "Pressione verticalmente mantendo as escápulas aduzidas."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/incline-barbell-bench-press"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-declinado-barra": {
+    "exerciseId": "ex-supino-declinado-barra",
+    "name": "Supino Declinado com Barra (Canadense)",
+    "family": "press",
+    "load": "barbell",
+    "incline": -15,
+    "ankleSupport": true,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Prenda firmemente os tornozelos nos rolos do banco declinado (-15° a -30°).",
+      "Segure a barra com pegada pronada ligeiramente além dos ombros.",
+      "Desça a barra em direção à linha inferior dos peitorais (esterno distal).",
+      "Empurre a barra para cima até a extensão controlada dos braços."
+    ],
+    "techniqueSources": [
+      "https://health.clevelandclinic.org/bench-press-form"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-declinado-halteres": {
+    "exerciseId": "ex-supino-declinado-halteres",
+    "name": "Supino Declinado com Halteres",
+    "family": "press",
+    "load": "dumbbells",
+    "incline": -15,
+    "ankleSupport": true,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Com os pés travados no banco declinado, posicione os halteres acima do peitoral inferior.",
+      "Desça os halteres mantendo os antebraços perpendiculares ao chão.",
+      "Alongue a porção inferior do peito e empurre convergindo no topo."
+    ],
+    "techniqueSources": [
+      "https://health.clevelandclinic.org/bench-press-form"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-maquina-articulada": {
+    "exerciseId": "ex-supino-maquina-articulada",
+    "name": "Supino Reto na Máquina Articulada",
+    "family": "press",
+    "load": "machine",
+    "incline": 80,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Regule a altura do banco para que as manoplas fiquem na linha do terço médio do peito.",
+      "Apoie completamente as costas e a cabeça no encosto.",
+      "Empurre as manoplas para frente sem projetar os ombros à frente no final.",
+      "Retorne sentindo o alongamento muscular completo do peito."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/chest-press-machine"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crucifixo-reto-halteres": {
+    "exerciseId": "ex-crucifixo-reto-halteres",
+    "name": "Crucifixo Reto com Halteres",
+    "family": "fly",
+    "load": "dumbbells",
+    "incline": 0,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite no banco plano segurando os halteres acima do tórax com pegada neutra.",
+      "Mantenha uma leve e constante flexão nos cotovelos (10° a 15°).",
+      "Abra os braços em arco lateral até sentir grande alongamento no peitoral.",
+      "Traga os halteres de volta como se estivesse abraçando um tonel largo."
+    ],
+    "techniqueSources": [
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crucifixo-inclinado-halteres": {
+    "exerciseId": "ex-crucifixo-inclinado-halteres",
+    "name": "Crucifixo Inclinado com Halteres",
+    "family": "fly",
+    "load": "dumbbells",
+    "incline": 30,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Ajuste o banco em inclinação de 30° a 40°.",
+      "Eleve os halteres acima do peitoral superior com pegada neutra (palmas voltadas uma para a outra).",
+      "Abra os braços em semicírculo amplo até a altura do tórax.",
+      "Retorne contraindo a porção clavicular do peitoral."
+    ],
+    "techniqueSources": [
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-peck-deck-voador": {
+    "exerciseId": "ex-peck-deck-voador",
+    "name": "Voador Peitoral / Peck Deck",
+    "family": "fly",
+    "load": "machine",
+    "incline": 85,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Ajuste o banco para que os cotovelos fiquem na mesma linha do meio do peito.",
+      "Segure as manoplas com antebraços paralelos ou apoiados nas almofadas.",
+      "Feche os braços à frente unindo as manoplas e espremendo o peitoral por 1 segundo.",
+      "Retorne de forma excêntrica e lenta controlando a carga até o ponto de alongamento confortável."
+    ],
+    "techniqueSources": [
+      "https://www.precor.com/en-US/products/RSL0505",
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crossover-polia-media": {
+    "exerciseId": "ex-crossover-polia-media",
+    "name": "Crucifixo no Crossover (Polia Média)",
+    "family": "fly",
+    "load": "cables",
+    "cableHeight": "middle",
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Posicione as polias na altura do peito médio.",
+      "Dê um passo à frente com base âncora dividida, cotovelos com leve flexão anatômica.",
+      "Aproxime as mãos à frente do peito espremendo o músculo no ponto de pico de contração.",
+      "Retorne lentamente controlando a tensão contínua dos cabos."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/cable-crossover"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crossover-polia-alta": {
+    "exerciseId": "ex-crossover-polia-alta",
+    "name": "Crossover na Polia Alta (Foco Inferior)",
+    "family": "fly",
+    "load": "cables",
+    "cableHeight": "high",
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajuste os carrinhos das polias no ponto mais alto das torres.",
+      "Dê um passo à frente com o tronco ligeiramente inclinado.",
+      "Puxe os cabos em trajetória descendente, cruzando ou tocando as mãos na frente do púbis.",
+      "Segure a contração isométrica por 1 segundo na parte inferior."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/cable-crossover"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crossover-polia-baixa": {
+    "exerciseId": "ex-crossover-polia-baixa",
+    "name": "Crossover na Polia Baixa (Foco Superior)",
+    "family": "fly",
+    "load": "cables",
+    "cableHeight": "low",
+    "supinated": true,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajuste as polias na posição mais baixa do suporte.",
+      "Segure as manoplas com palmas voltadas para cima (supinação).",
+      "Puxe os cabos em arco ascendente em direção à linha do queixo/olhos.",
+      "Aperte o topo da porção clavicular do peitoral e desça controlando a carga."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/cable-lower-chest-raise.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-mergulho-paralelas-peito": {
+    "exerciseId": "ex-mergulho-paralelas-peito",
+    "name": "Paralelas com Foco em Peitoral (Chest Dips)",
+    "family": "dip",
+    "lean": 30,
+    "highlight": "chest",
+    "frames": 120,
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Apoie-se nas barras paralelas com os braços estendidos e corpo suspenso.",
+      "Incline o tronco para frente em aproximadamente 30° e cruze as pernas para trás.",
+      "Permita que os cotovelos se abram levemente enquanto desce até 90° de flexão.",
+      "Empurre de volta contraindo com força a parte inferior e média do peitoral."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/chest-dip.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-flexao-solo-deficit": {
+    "exerciseId": "ex-flexao-solo-deficit",
+    "name": "Flexão de Braço com Déficit / Carga",
+    "family": "pushup",
+    "deficit": 0.12,
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Apoie as mãos sobre anilhas ou blocos para permitir amplitude além do nível do solo.",
+      "Mantenha o corpo em prancha alinhada do calcanhar à nuca.",
+      "Abaixe o tronco até o peito ultrapassar a linha das mãos sentindo o estiramento.",
+      "Empurre o solo com força retornando à posição inicial."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/push-up"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-pullover-halter": {
+    "exerciseId": "ex-pullover-halter",
+    "name": "Pullover com Halter no Banco Plano",
+    "family": "pullover",
+    "load": "single-dumbbell",
+    "frames": 120,
+    "highlight": "chest",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite perpendicularmente ou transversalmente sobre um banco plano apoiando a parte superior das costas.",
+      "Segure a anilha interna do halter com as duas mãos formando um triângulo com os polegares e indicadores.",
+      "Desça o halter em arco atrás da cabeça mantendo os braços com leve flexão estável.",
+      "Ao sentir o alongamento máximo do peitoral e serrátil, retorne até a altura dos olhos."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/dumbbell-pullover.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-puxada-frontal-polia": {
+    "exerciseId": "ex-puxada-frontal-polia",
+    "name": "Puxada Frontal na Polia Alta",
+    "family": "vertical_pull",
+    "load": "cable-bar",
+    "grip": "wide-pronated",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Sente-se com as coxas firmemente travadas sob as almofadas de apoio.",
+      "Segure a barra com pegada pronada ligeiramente aberta.",
+      "Inicie o movimento deprimindo as escápulas e puxe a barra em direção ao esterno superior.",
+      "Retorne controladamente estendendo totalmente o grande dorsal na fase excêntrica."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/blog/training/the-biomechanics-of-the-lat-pulldown-muscles-grip-and-form"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-barra-fixa-pronada": {
+    "exerciseId": "ex-barra-fixa-pronada",
+    "name": "Barra Fixa com Pegada Pronada (Pull-Up)",
+    "family": "vertical_pull",
+    "load": "pullup-bar",
+    "grip": "wide-pronated",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Suspenda-se na barra fixa com pegada pronada (palmas para frente) além dos ombros.",
+      "Ative as escápulas deprimindo-as antes de dobrar os braços.",
+      "Puxe o corpo para cima até que o queixo ultrapasse com folga a linha da barra.",
+      "Desça com total controle até os braços ficarem quase retos sob tensão muscular."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/blog/training/chin-ups-vs-pull-ups-the-difference-the-benefits-muscles-worked"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-barra-fixa-supinada": {
+    "exerciseId": "ex-barra-fixa-supinada",
+    "name": "Barra Fixa com Pegada Supinada (Chin-Up)",
+    "family": "vertical_pull",
+    "load": "pullup-bar",
+    "grip": "supinated",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Segure a barra fixa com pegada supinada (palmas voltadas para você) na largura dos ombros.",
+      "Puxe o corpo verticalmente concentrando no feixe inferior do latíssimo e nos bíceps.",
+      "Leve o queixo acima da barra mantendo os cotovelos apontados para o solo.",
+      "Desça de forma excêntrica e lenta."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/blog/training/chin-ups-vs-pull-ups-the-difference-the-benefits-muscles-worked"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-puxada-triangulo": {
+    "exerciseId": "ex-puxada-triangulo",
+    "name": "Puxada Alta com Triângulo (Pegada Neutra)",
+    "family": "vertical_pull",
+    "load": "cable-triangle",
+    "grip": "close-neutral",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Conecte o acessório triângulo na polia alta.",
+      "Segure com as palmas voltadas uma para a outra.",
+      "Incline o tronco levemente (10° a 15°) e puxe o triângulo até o esterno médio.",
+      "Esprema a musculatura do meio das costas e dorsal por 1 segundo no final."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/blog/training/the-biomechanics-of-the-lat-pulldown-muscles-grip-and-form"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-curvada-barra": {
+    "exerciseId": "ex-remada-curvada-barra",
+    "name": "Remada Curvada com Barra",
+    "family": "row",
+    "load": "barbell",
+    "posture": "bent",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Pés na largura dos quadris, incline o tronco em ~45° mantendo a coluna lombar rigorosamente neutra.",
+      "Segure a barra com pegada pronada ou supinada na largura dos ombros.",
+      "Puxe a barra em direção ao umbigo / parte inferior do abdômen, aproximando as escápulas.",
+      "Desça a barra controladamente sem arredondar as costas."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/back/rows/barbell-bent-over-row/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-unilateral-serrote": {
+    "exerciseId": "ex-remada-unilateral-serrote",
+    "name": "Remada Unilateral com Halter (Serrote)",
+    "family": "row",
+    "load": "single-dumbbell",
+    "posture": "bench-supported",
+    "side": "L",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Apoie um joelho e a mão do mesmo lado sobre um banco plano.",
+      "Mantenha a coluna paralela ao chão com a outra perna firme no solo.",
+      "Com a mão livre segurando o halter, puxe o cotovelo para cima e para trás em direção ao quadril.",
+      "Desça o halter sentindo o grande dorsal se alongar totalmente sem girar o tronco."
+    ],
+    "techniqueSources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-cavalinho-tbar": {
+    "exerciseId": "ex-remada-cavalinho-tbar",
+    "name": "Remada Cavalinho / T-Bar com Barra",
+    "family": "row",
+    "load": "landmine",
+    "posture": "bent",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Posicione a barra em um landmine ou no canto da sala com puxador em V sob a barra.",
+      "Fique de pé com as pernas montadas sobre a barra e joelhos flexionados a 45°.",
+      "Segure as manoplas, trave a coluna e puxe a carga até o abdômen superior.",
+      "Aperte os rombóides e latíssimo no ponto de contração máxima."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/back/rows/landmine-row/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-baixa-triangulo": {
+    "exerciseId": "ex-remada-baixa-triangulo",
+    "name": "Remada Baixa com Triângulo",
+    "family": "row",
+    "load": "cable-triangle",
+    "posture": "seated",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Sente-se com os joelhos levemente destravados e pés firmes na plataforma.",
+      "Mantenha a coluna ereta e puxe o triângulo até a altura do abdômen inferior.",
+      "Aperte as escápulas por 1 segundo no final com o peito estufado.",
+      "Alongue as costas na volta sem dobrar a coluna para a frente."
+    ],
+    "techniqueSources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/",
+      "https://www.puregym.com/exercises/back/rows/seated-cable-row/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-articulada-maquina": {
+    "exerciseId": "ex-remada-articulada-maquina",
+    "name": "Remada Articulada na Máquina (Pegada Neutra)",
+    "family": "row",
+    "load": "machine",
+    "posture": "chest-supported",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Ajuste a altura do assento e do apoio peitoral na máquina.",
+      "Apoie o peito firmemente contra a almofada e segure as manoplas.",
+      "Puxe os braços para trás aproximando as escápulas.",
+      "Retorne estendendo os braços e permitindo que as escápulas se abram com controle."
+    ],
+    "techniqueSources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-pulldown-polia-alta": {
+    "exerciseId": "ex-pulldown-polia-alta",
+    "name": "Pulldown na Polia Alta com Barra Reta / Corda",
+    "family": "straight_pull",
+    "load": "cable-bar",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Em pé, segure a barra na polia alta com braços estendidos e pegada pronada.",
+      "Dê um passo atrás e incline o tronco em 30° com cotovelos levemente flexionados e travados.",
+      "Abaixe a barra em arco até encostar nas coxas usando puramente o grande dorsal.",
+      "Retorne controlando até a altura dos olhos sentindo as asas das costas expandirem."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/back/lat-exercises/straight-arm-lat-pulldown/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-levantamento-terra-convencional": {
+    "exerciseId": "ex-levantamento-terra-convencional",
+    "name": "Levantamento Terra Convencional com Barra",
+    "family": "hinge",
+    "load": "barbell",
+    "style": "deadlift",
+    "kneeFlex": 45,
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Posicione os pés na largura dos quadris com a barra sobre o meio do peito do pé.",
+      "Incline-se flexionando quadris e joelhos, segurando a barra logo por fora das canelas.",
+      "Estufe o peito, deprima as dorsais e tire a folga da barra antes de puxar.",
+      "Empurre o chão com os pés estendendo quadris e joelhos simultaneamente até ficar ereto."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/deadlift/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crucifixo-invertido-halteres": {
+    "exerciseId": "ex-crucifixo-invertido-halteres",
+    "name": "Crucifixo Invertido com Halteres (Deltóide Posterior)",
+    "family": "rear_fly",
+    "load": "dumbbells",
+    "posture": "bent",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Incline o tronco à frente a quase 90° ou apoie o peito em um banco inclinado a 30°.",
+      "Com halteres sob o peito e cotovelos semiflexionados, eleve os braços para os lados.",
+      "Concentre a força na parte de trás dos ombros e no meio das costas.",
+      "Desça resistindo à gravidade sem balanceio."
+    ],
+    "techniqueSources": [
+      "https://www.livritefitness.com/blog/bent-over-fly"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-crucifixo-invertido-peck-deck": {
+    "exerciseId": "ex-crucifixo-invertido-peck-deck",
+    "name": "Voador Invertido no Peck Deck (Máquina)",
+    "family": "rear_fly",
+    "load": "machine",
+    "posture": "seated-supported",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Sente-se de frente para o encosto do voador com o peito apoiado.",
+      "Ajuste os braços da máquina na posição mais recuada.",
+      "Segure as manoplas na altura dos ombros com pegada neutra ou pronada.",
+      "Abra os braços lateralmente até alinhar com o tronco, apertando os deltóides posteriores."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/node/48997"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-extensao-lombar-banco": {
+    "exerciseId": "ex-extensao-lombar-banco",
+    "name": "Hiperextensão Lombar no Banco 45°",
+    "family": "hinge",
+    "load": "hyperextension-bench",
+    "style": "back-extension",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Apoie as coxas nas almofadas do banco com a crista ilíaca livre para dobrar o quadril.",
+      "Cruze os braços sobre o peito com a coluna alinhada.",
+      "Desça o tronco flexionando os quadris até a sensação de alongamento.",
+      "Suba até que o corpo forme uma linha reta contínua sem hiperextender excessivamente a coluna."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/back-extension/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-desenvolvimento-halteres": {
+    "exerciseId": "ex-desenvolvimento-halteres",
+    "name": "Desenvolvimento com Halteres Sentado",
+    "family": "overhead_press",
+    "load": "dumbbells",
+    "posture": "seated",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Sentado no banco com encosto a 80°-85°, segure os halteres na altura das orelhas.",
+      "Empurre os halteres para cima em trajetória ligeiramente convergente até a extensão quase total.",
+      "Desça até a linha dos queixos/orelhas mantendo a tensão contínua.",
+      "Mantenha o abdômen firme contraído e os pés apoiados."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandfitness.com/exercise/workouts/shoulder-exercises/seated-dumbbell-shoulder-press/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-desenvolvimento-militar-barra": {
+    "exerciseId": "ex-desenvolvimento-militar-barra",
+    "name": "Desenvolvimento Militar em Pé com Barra (OHP)",
+    "family": "overhead_press",
+    "load": "barbell",
+    "posture": "standing",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Fique em pé com os pés na largura dos ombros e segure a barra logo à frente da clavícula.",
+      "Contraia fortemente os glúteos, abdômen e quadríceps para formar uma base sólida.",
+      "Pressione a barra verticalmente para cima, passando rente ao rosto.",
+      "Trave a barra acima da cabeça alinhada com as orelhas e a coluna."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/military-press/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-desenvolvimento-arnold": {
+    "exerciseId": "ex-desenvolvimento-arnold",
+    "name": "Desenvolvimento Arnold com Halteres",
+    "family": "overhead_press",
+    "load": "dumbbells",
+    "posture": "seated",
+    "arnold": true,
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Comece sentado com os halteres na frente do peito e as palmas voltadas para você (supinação).",
+      "Ao iniciar a subida, rotacione os braços para fora abrindo os cotovelos.",
+      "Termine no topo com as palmas voltadas para frente (pronação).",
+      "Inverta a rotação de forma coordenada durante a descida até a posição inicial."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/seated-arnold-press.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-desenvolvimento-maquina": {
+    "exerciseId": "ex-desenvolvimento-maquina",
+    "name": "Desenvolvimento de Ombros na Máquina Articulada",
+    "family": "overhead_press",
+    "load": "machine",
+    "posture": "seated",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Ajuste a altura do assento para que as manoplas fiquem na linha dos ombros.",
+      "Segure as manoplas com pegada pronada ou neutra.",
+      "Empurre para cima com movimento constante e sem trancos.",
+      "Desça de forma controlada até a altura do queixo."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/shoulder-press-machine/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-lateral-halteres": {
+    "exerciseId": "ex-elevacao-lateral-halteres",
+    "name": "Elevação Lateral com Halteres",
+    "family": "raise",
+    "load": "dumbbells",
+    "plane": "lateral",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Em pé com tronco ligeiramente inclinado (5° a 10°) e halteres ao lado das coxas.",
+      "Eleve os braços no plano escapular (30° à frente da linha do tronco) até a altura dos ombros.",
+      "Mantenha os cotovelos com discreta flexão e ligeiramente acima dos punhos.",
+      "Desça resistindo à gravidade em 2 a 3 segundos mantendo o deltóide sob tensão."
+    ],
+    "techniqueSources": [
+      "https://legionathletics.com/lateral-raises/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-lateral-polia": {
+    "exerciseId": "ex-elevacao-lateral-polia",
+    "name": "Elevação Lateral Unilateral na Polia Baixa",
+    "family": "raise",
+    "load": "single-cable",
+    "plane": "lateral",
+    "side": "L",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajuste a polia na altura do tornozelo e segure a manopla com o braço oposto cruzado por trás ou pela frente.",
+      "Incline o corpo ligeiramente para o lado de trabalho para aumentar a tensão no ponto de estiramento.",
+      "Eleve o braço lateralmente até a altura do ombro mantendo tensão contínua do cabo.",
+      "Desça de maneira excêntrica controlada até cruzar o tronco."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/lateral-raises/cable-lateral-raise/",
+      "https://legionathletics.com/lateral-raises/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-lateral-inclinada": {
+    "exerciseId": "ex-elevacao-lateral-inclinada",
+    "name": "Elevação Lateral no Banco Inclinado",
+    "family": "raise",
+    "load": "single-dumbbell",
+    "plane": "lateral",
+    "posture": "incline-supported",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite-se de lado em um banco ajustado a 30° a 45° de inclinação.",
+      "Segure o halter com o braço superior apoiado junto à coxa.",
+      "Eleve o halter lateralmente até o braço ficar perpendicular ao tronco, mantendo leve flexão do cotovelo.",
+      "Desça lentamente sentindo a resistência constante mesmo no início da amplitude."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandfitness.com/exercise/workouts/shoulder-exercises/side-lying-lateral-raise/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "side": "R"
+  },
+  "ex-elevacao-frontal-halteres": {
+    "exerciseId": "ex-elevacao-frontal-halteres",
+    "name": "Elevação Frontal Alternada com Halteres",
+    "family": "raise",
+    "load": "dumbbells",
+    "plane": "front",
+    "alternating": true,
+    "frames": 192,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Em pé, segure os halteres à frente das coxas com pegada pronada ou semi-neutra.",
+      "Eleve um braço à frente até a altura dos olhos com cotovelo semiflexionado.",
+      "Pause por 1 segundo no topo e desça controlando enquanto sobe o outro braço."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/alternate-standing-dumbbell-front-raise.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-frontal-corda": {
+    "exerciseId": "ex-elevacao-frontal-corda",
+    "name": "Elevação Frontal na Polia Baixa com Corda",
+    "family": "raise",
+    "load": "cable-rope",
+    "plane": "front",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Posicione a corda na polia mais baixa e fique de costas para a máquina, com a corda passando entre as pernas.",
+      "Segure as pontas da corda com pegada neutra.",
+      "Eleve os braços à frente até a altura dos ombros/olhos.",
+      "Desça controlando a tensão sem deixar a polia bater."
+    ],
+    "techniqueSources": [
+      "https://www.gettfit.com/exercise-database/shoulders/cable-front-raise-with-rope/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-face-pull-corda": {
+    "exerciseId": "ex-face-pull-corda",
+    "name": "Face Pull na Polia Alta com Corda",
+    "family": "face_pull",
+    "load": "cable-rope",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Posicione a polia na altura dos olhos ou testa com acessório de corda dupla.",
+      "Segure as pontas da corda com os polegares voltados para você.",
+      "Dê um passo atrás e puxe a corda em direção ao rosto, separando as mãos.",
+      "No final, faça uma rotação externa dos ombros trazendo os polegares para trás das orelhas."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/face-pull"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-remada-alta-barra-w": {
+    "exerciseId": "ex-remada-alta-barra-w",
+    "name": "Remada Alta com Barra W",
+    "family": "upright_row",
+    "load": "ez-bar",
+    "frames": 120,
+    "highlight": "shoulders",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Segure a barra W com pegada na largura dos ombros (evite pegada muito fechada).",
+      "Mantenha a postura ereta e puxe a barra verticalmente rente ao corpo.",
+      "Suba até que os cotovelos atinjam a linha dos ombros.",
+      "Desça controladamente estendendo os braços."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/upright-row.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-encolhimento-barra": {
+    "exerciseId": "ex-encolhimento-barra",
+    "name": "Encolhimento de Ombros com Barra (Trapézio)",
+    "family": "shrug",
+    "load": "barbell",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Segure a barra à frente das coxas na largura dos ombros com os braços totalmente estendidos.",
+      "Eleve os ombros diretamente para cima em direção às orelhas em linha reta vertical.",
+      "Segure o pico de contração no topo por 2 segundos.",
+      "Abaixe a barra lentamente até sentir o trapézio alongar."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/back/shrugs/barbell-shrug/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-encolhimento-halteres": {
+    "exerciseId": "ex-encolhimento-halteres",
+    "name": "Encolhimento com Halteres com Isometria",
+    "family": "shrug",
+    "load": "dumbbells",
+    "frames": 120,
+    "highlight": "back",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Fique em pé segurando halteres pesados ao lado do corpo com pegada neutra.",
+      "Eleve os ombros verticalmente em direção às orelhas sem fletir os braços.",
+      "Segure a contração isométrica por 2 segundos espremendo o trapézio superior.",
+      "Desça de forma suave e controlada."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/back/shrugs/dumbbell-shrug/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-agachamento-livre-barra": {
+    "exerciseId": "ex-agachamento-livre-barra",
+    "name": "Agachamento Livre com Barra",
+    "family": "squat",
+    "load": "back-bar",
+    "stance": 0.35,
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Apoie a barra firme sobre os trapézios (high bar) ou espinha da escápula (low bar).",
+      "Pés afastados na largura dos ombros com pontas ligeiramente apontadas para fora (15° a 30°).",
+      "Inicie a descida flexionando quadris e joelhos simultaneamente até que as coxas quebrem a linha paralela.",
+      "Empurre o solo com força homogênea nos calcanhares e metatarsos, subindo em linha reta."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/squat/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-agachamento-frontal-barra": {
+    "exerciseId": "ex-agachamento-frontal-barra",
+    "name": "Agachamento Frontal com Barra (Front Squat)",
+    "family": "squat",
+    "load": "front-bar",
+    "stance": 0.35,
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Apoie a barra na parte frontal dos ombros e deltóides com pegada clean ou braços cruzados.",
+      "Mantenha os cotovelos altos apontados para frente durante toda a execução.",
+      "Desça o tronco em ângulo muito vertical até profundidade completa.",
+      "Empurre de volta mantendo os cotovelos elevados e o core firme."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/front-squat/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-leg-press-45": {
+    "exerciseId": "ex-leg-press-45",
+    "name": "Leg Press 45°",
+    "family": "leg_press",
+    "load": "sled-45",
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Apoie toda a extensão da coluna e glúteos firmemente no encosto.",
+      "Posicione os pés no meio da plataforma na largura dos ombros.",
+      "Destrave a máquina e desça o trenó controladamente até os joelhos atingirem 90° ou mais.",
+      "Empurre a plataforma pelos calcanhares sem travar as articulações no topo (sem hiperextensão)."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/leg-press/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-hack-squat-maquina": {
+    "exerciseId": "ex-hack-squat-maquina",
+    "name": "Agachamento Hack na Máquina",
+    "family": "squat",
+    "load": "hack-sled",
+    "incline": 45,
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Posicione os ombros e as costas no acolchoado do Hack Machine.",
+      "Pés na plataforma ligeiramente à frente, com pontas abertas a 20°.",
+      "Destrave e desça até obter flexão profunda dos joelhos com excelente estímulo nos quadríceps.",
+      "Empurre subindo até antes do bloqueio articular."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/hack-squat-machine/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-agachamento-smith": {
+    "exerciseId": "ex-agachamento-smith",
+    "name": "Agachamento no Smith Machine com Pés Avançados",
+    "family": "squat",
+    "load": "smith-bar",
+    "feetForward": 0.18,
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Posicione a barra nos ombros e avance os pés cerca de 20-30 cm à frente da linha do trilho.",
+      "Mantenha o tronco ereto e desça dobrando os joelhos em profundidade.",
+      "Concentre a força nos quadríceps isolados devido ao alívio do equilíbrio lombar.",
+      "Retorne à posição inicial sem trancos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/smith-machine-squat/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-cadeira-extensora": {
+    "exerciseId": "ex-cadeira-extensora",
+    "name": "Cadeira Extensora (Isolador de Quadríceps)",
+    "family": "leg_isolation",
+    "load": "extension-machine",
+    "style": "extension",
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Ajuste o encosto de forma que a articulação do joelho fique alinhada com o eixo da máquina.",
+      "Ajuste a almofada inferior para repousar logo acima dos tornozelos.",
+      "Estenda as pernas totalmente contraindo o reto femoral e vastos no topo com 1 segundo de isometria.",
+      "Retorne descendo a carga de forma lenta e resistida."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/leg-extension/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-agachamento-bulgaro-halteres": {
+    "exerciseId": "ex-agachamento-bulgaro-halteres",
+    "name": "Agachamento Búlgaro com Halteres",
+    "family": "lunge",
+    "load": "dumbbells",
+    "style": "bulgarian",
+    "side": "L",
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Fique de costas para um banco e apoie o dorso de um dos pés sobre ele.",
+      "Com a perna da frente a um passo largo de distância, segure os halteres ao lado do tronco.",
+      "Abaixe o corpo até o joelho traseiro quase encostar no chão e a coxa frontal ficar paralela.",
+      "Empurre pelo calcanhar dianteiro para retornar à posição inicial."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/bulgarian-split-squat"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-afundo-passada-halteres": {
+    "exerciseId": "ex-afundo-passada-halteres",
+    "name": "Avanço / Passada Caminhando com Halteres",
+    "family": "lunge",
+    "load": "dumbbells",
+    "style": "walking",
+    "locomotion": true,
+    "frames": 192,
+    "highlight": "quads",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Segure halteres ao lado do corpo e dê um passo longo para frente.",
+      "Flexione ambos os joelhos em ângulos de aproximadamente 90°.",
+      "Empurre com a perna da frente e dê o próximo passo de forma contínua e ritmada.",
+      "Mantenha o abdômen ativado e o tronco ereto durante a passada."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/dumbbell-walking-lunge/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "travelDistance": 1.7
+  },
+  "ex-sissy-squat": {
+    "exerciseId": "ex-sissy-squat",
+    "name": "Sissy Squat Livre ou na Máquina",
+    "family": "squat",
+    "load": "sissy-support",
+    "style": "sissy",
+    "frames": 120,
+    "highlight": "quads",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Na base do Sissy Squat com canelas travadas ou em pé segurando um suporte fixo.",
+      "Incline o tronco para trás mantendo uma linha reta dos ombros aos joelhos.",
+      "Flexione os joelhos profundamente projetando-os à frente enquanto o tronco vai para trás.",
+      "Estenda os joelhos usando puramente a força excêntrica e concêntrica dos quadríceps."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/sissy-squat.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-stiff-halteres": {
+    "exerciseId": "ex-stiff-halteres",
+    "name": "Stiff com Halteres / RDL",
+    "family": "hinge",
+    "load": "dumbbells",
+    "style": "rdl",
+    "kneeFlex": 15,
+    "frames": 120,
+    "highlight": "hamstrings",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Em pé, segure os halteres rente à frente das coxas com pegada pronada.",
+      "Joelhos mantidos em discreta flexão isométrica fixa durante todo o exercício.",
+      "Empurre os quadris para trás como se quisesse fechar uma porta com os glúteos.",
+      "Desça os halteres rente às canelas até sentir o estiramento máximo dos isquiotibiais.",
+      "Retorne contraindo os glúteos e estendendo os quadris."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/dumbbell-romanian-deadlift/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-stiff-barra": {
+    "exerciseId": "ex-stiff-barra",
+    "name": "Stiff com Barra Reta",
+    "family": "hinge",
+    "load": "barbell",
+    "style": "rdl",
+    "kneeFlex": 15,
+    "frames": 120,
+    "highlight": "hamstrings",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Retire a barra do suporte ou do chão com pegada na largura dos ombros.",
+      "Com joelhos semiflexionados e fixos, projete o quadril para trás.",
+      "Abaixe a barra rente à tíbia mantendo as escápulas aduzidas e coluna neutra.",
+      "Retorne até ficar ereto apertando os glúteos e posteriores."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/romanian-deadlift/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-mesa-flexora": {
+    "exerciseId": "ex-mesa-flexora",
+    "name": "Mesa Flexora Deitada (Leg Curl)",
+    "family": "leg_isolation",
+    "load": "prone-curl-machine",
+    "style": "prone-curl",
+    "frames": 120,
+    "highlight": "hamstrings",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Deite de bruços na máquina com o apoio almofadado posicionado logo abaixo das panturrilhas.",
+      "Segure firme nas manoplas mantendo a pelve e os quadris colados no banco.",
+      "Flexione os joelhos trazendo os calcanhares em direção aos glúteos com força contínua.",
+      "Segure 1 segundo no topo e retorne controlando a descida em 3 segundos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/lying-leg-curl/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-cadeira-flexora": {
+    "exerciseId": "ex-cadeira-flexora",
+    "name": "Cadeira Flexora Sentada",
+    "family": "leg_isolation",
+    "load": "seated-curl-machine",
+    "style": "seated-curl",
+    "frames": 120,
+    "highlight": "hamstrings",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Ajuste o encosto de modo que o eixo do joelho coincida perfeitamente com a rotação da máquina.",
+      "Trave a almofada superior firmemente sobre as coxas para evitar qualquer elevação da perna.",
+      "Puxe os calcanhares para baixo e para trás com flexão vigorosa dos joelhos.",
+      "Retorne lentamente estendendo as pernas sentindo o estiramento profundo sob carga."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/seated-leg-curl/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-good-morning-barra": {
+    "exerciseId": "ex-good-morning-barra",
+    "name": "Good Morning (Bom Dia) com Barra",
+    "family": "hinge",
+    "load": "back-bar",
+    "style": "good-morning",
+    "kneeFlex": 15,
+    "frames": 120,
+    "highlight": "hamstrings",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Apoie a barra firme nos trapézios como no agachamento high bar.",
+      "Com pés na largura dos ombros e joelhos levemente destravados, incline o tronco à frente empurrando o quadril para trás.",
+      "Desça até o tronco ficar quase paralelo ao chão mantendo as costas rigorosamente retas.",
+      "Suba contraindo posteriores e glúteos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/good-morning/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-pelvica-barra": {
+    "exerciseId": "ex-elevacao-pelvica-barra",
+    "name": "Elevação Pélvica com Barra (Hip Thrust)",
+    "family": "hip_thrust",
+    "load": "barbell",
+    "frames": 120,
+    "highlight": "glutes",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Apoie as escápulas na borda de um banco estável (altura logo abaixo das escápulas).",
+      "Posicione a barra com acolchoamento protetor sobre a dobra dos quadris.",
+      "Pés afastados na largura dos ombros com canelas verticais no topo do movimento.",
+      "Eleve os quadris até que coxas e tronco formem uma linha reta horizontal.",
+      "Segure 1 a 2 segundos no topo com contração máxima dos glúteos e desça controladamente."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/hip-thrust/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-elevacao-pelvica-maquina": {
+    "exerciseId": "ex-elevacao-pelvica-maquina",
+    "name": "Elevação Pélvica na Máquina (Hip Thrust Machine)",
+    "family": "hip_thrust",
+    "load": "hip-thrust-machine",
+    "frames": 120,
+    "highlight": "glutes",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Prenda o cinto acolchoado de segurança sobre o quadril.",
+      "Ajuste a distância dos pés na chapa para garantir 90° nos joelhos no topo.",
+      "Empurre o quadril para cima até o alinhamento total.",
+      "Segure o pico de contração de glúteo e retorne sem tocar as placas."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/hip-thrust/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-cadeira-abdutora": {
+    "exerciseId": "ex-cadeira-abdutora",
+    "name": "Cadeira Abdutora (Tronco Inclinado à Frente)",
+    "family": "abduction",
+    "load": "abduction-machine",
+    "frames": 120,
+    "highlight": "glutes",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Sente-se na máquina com as almofadas na parte externa dos joelhos.",
+      "Incline o tronco para a frente em aproximadamente 30° a 45° mantendo a coluna alinhada (ativa glúteo médio e superior).",
+      "Abra as pernas com força máxima empurrando os joelhos para fora.",
+      "Segure 1 segundo no ponto de abertura total e feche controlando o movimento."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/hip-abduction-machine/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-gluteo-coice-polia": {
+    "exerciseId": "ex-gluteo-coice-polia",
+    "name": "Glúteo Coice / Extensão de Quadril na Polia Baixa",
+    "family": "kickback",
+    "load": "ankle-cable",
+    "side": "L",
+    "frames": 120,
+    "highlight": "glutes",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Prenda a tornozeleira na polia baixa e fique de frente para a torre segurando os apoios.",
+      "Com a perna de apoio levemente flexionada e tronco inclinado a 45°, estenda a perna de trabalho para trás.",
+      "Eleve a perna contraindo fortemente o glúteo sem arquear excessivamente a lombar.",
+      "Retorne lentamente até a perna voltar à frente da linha do quadril."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/cable-glute-kickback/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-agachamento-sumo-halter": {
+    "exerciseId": "ex-agachamento-sumo-halter",
+    "name": "Agachamento Sumô sobre Steps com Halter",
+    "family": "squat",
+    "load": "single-dumbbell",
+    "style": "sumo",
+    "stance": 0.65,
+    "step": 0.15,
+    "frames": 120,
+    "highlight": "glutes",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Posicione dois steps paralelos e fique em pé sobre eles com base bem aberta e pés rodados a 45° para fora.",
+      "Segure um halter pesado com as duas mãos entre as pernas com braços estendidos.",
+      "Agache profundamente até o halter ultrapassar a altura dos steps.",
+      "Suba empurrando os calcanhares no step e espremendo os glúteos e adutores."
+    ],
+    "techniqueSources": [
+      "https://www.macfit.com/blog/egzersiz-kutuphanesi/bacak-ve-kalca/dumbbell-sumo-squat"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-panturrilha-em-pe-maquina": {
+    "exerciseId": "ex-panturrilha-em-pe-maquina",
+    "name": "Elevação de Panturrilhas em Pé na Máquina (Gastrocnêmio)",
+    "family": "calf",
+    "load": "standing-calf-machine",
+    "posture": "standing",
+    "frames": 120,
+    "highlight": "calves",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Apoie os ombros sob as almofadas acolchoadas com o corpo ereto e joelhos semiflexionados/estendidos sob controle.",
+      "Apoie apenas o terço anterior dos pés (metatarsos) na borda do degrau da máquina.",
+      "Desça os calcanhares ao ponto de máximo alongamento sentindo a fáscia e tendão de Aquiles.",
+      "Eleve-se na ponta máxima dos pés contraindo por 2 segundos completos no topo."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/standing-calf-raise/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-panturrilha-sentado-soleo": {
+    "exerciseId": "ex-panturrilha-sentado-soleo",
+    "name": "Elevação de Panturrilha Sentado (Máquina Sóleo)",
+    "family": "calf",
+    "load": "seated-calf-machine",
+    "posture": "seated",
+    "frames": 120,
+    "highlight": "calves",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Sente-se com as almofadas acolchoadas ajustadas firmemente sobre a porção distal das coxas.",
+      "Apoie os metatarsos na borda do apoio com calcanhares suspensos.",
+      "Abaixe os calcanhares o máximo possível para alongamento do músculo sóleo.",
+      "Eleve os calcanhares ao ponto mais alto sustentando a contração por 1 a 2 segundos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/seated-calf-raise/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-panturrilha-leg-press-45": {
+    "exerciseId": "ex-panturrilha-leg-press-45",
+    "name": "Panturrilha no Leg Press 45°",
+    "family": "calf",
+    "load": "sled-45",
+    "posture": "leg-press",
+    "frames": 120,
+    "highlight": "calves",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Sente-se no Leg Press com as costas apoiadas e travas de segurança acionadas.",
+      "Apoie a ponta dos pés na borda inferior da plataforma com os calcanhares livres.",
+      "Com joelhos destravados mantidos firmes, flexione os tornozelos para frente e para trás.",
+      "Sinta o pico de contração dos gêmeos e desça até alongar completamente."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/calf-raise-in-leg-press/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-panturrilha-unilateral-degrau": {
+    "exerciseId": "ex-panturrilha-unilateral-degrau",
+    "name": "Elevação de Panturrilha Unilateral no Degrau com Halter",
+    "family": "calf",
+    "load": "single-dumbbell",
+    "posture": "standing",
+    "side": "L",
+    "step": 0.15,
+    "frames": 120,
+    "highlight": "calves",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Fique na ponta de um pé na borda de um degrau ou step segurando um halter na mão do mesmo lado.",
+      "Segure em um corrimão ou suporte com a outra mão para manter o equilíbrio.",
+      "Desça o calcanhar até o alongamento máximo.",
+      "Suba na ponta do dedão até contração máxima e pause por 2 segundos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/standing-calf-raise/",
+      "https://www.muscleandstrength.com/exercises/standing-one-leg-calf-raise-with-dumbbell.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-direta-barra-w": {
+    "exerciseId": "ex-rosca-direta-barra-w",
+    "name": "Rosca Direta com Barra W",
+    "family": "curl",
+    "load": "ez-bar",
+    "posture": "standing",
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Em pé com postura ereta, segure a barra W nas curvaturas anguladas (pegada semi-supinada ergonômica).",
+      "Cotovelos colados firmemente ao lado das costelas.",
+      "Flexione os antebraços trazendo a barra até a altura do peito sem mover os ombros.",
+      "Desça totalmente alongando o bíceps com controle excêntrico de 3 segundos."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-curl.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-martelo-corda": {
+    "exerciseId": "ex-rosca-martelo-corda",
+    "name": "Rosca Martelo na Polia Baixa com Corda",
+    "family": "curl",
+    "load": "cable-rope",
+    "posture": "standing",
+    "grip": "neutral",
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Conecte a corda na polia baixa e segure pelas extremidades com pegada neutra.",
+      "Mantenha os cotovelos colados ao tronco e flexione os antebraços.",
+      "No topo, mantenha as palmas frente a frente e aperte o braquial.",
+      "Retorne controlando até a extensão quase total."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/rope-cable-curl.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-scott-barra-w": {
+    "exerciseId": "ex-rosca-scott-barra-w",
+    "name": "Rosca Scott no Banco com Barra W",
+    "family": "curl",
+    "load": "ez-bar",
+    "posture": "preacher",
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Apoie os braços e o peito firmemente no estofado inclinado do banco Scott.",
+      "Segure a barra W na curvatura interna.",
+      "Flexione os cotovelos erguendo a barra até a posição vertical.",
+      "Desça lentamente alongando o bíceps com cuidado especial no final do curso."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-preacher-curl.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-inclinada-45-halteres": {
+    "exerciseId": "ex-rosca-inclinada-45-halteres",
+    "name": "Rosca Bíceps no Banco Inclinado a 45°",
+    "family": "curl",
+    "load": "dumbbells",
+    "posture": "incline",
+    "incline": 45,
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Ajuste o banco em uma inclinação de 45° e apoie totalmente as costas.",
+      "Segure os halteres com os braços estendidos pendendo para trás da linha do tronco (alongamento da cabeça longa).",
+      "Flexione os cotovelos supinando as mãos e trazendo os halteres para cima.",
+      "Desça lentamente sentindo o alongamento profundo dos bíceps."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/incline-dumbbell-curl/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-concentrada-halter": {
+    "exerciseId": "ex-rosca-concentrada-halter",
+    "name": "Rosca Concentrada com Halter",
+    "family": "curl",
+    "load": "single-dumbbell",
+    "posture": "concentration",
+    "side": "L",
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Sentado na beirada de um banco, apoie a parte de trás do braço na face interna da coxa correspondente.",
+      "Com o braço estendido segurando o halter, flexione o cotovelo levando o peso em direção ao ombro.",
+      "Esprema o bíceps no topo por 1 segundo e desça com amplitude completa."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/concentration-curl/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-rosca-aranha-spider-curl": {
+    "exerciseId": "ex-rosca-aranha-spider-curl",
+    "name": "Rosca Aranha (Spider Curl) no Banco Inclinado",
+    "family": "curl",
+    "load": "dumbbells",
+    "posture": "spider",
+    "incline": 45,
+    "frames": 120,
+    "highlight": "biceps",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite o tronco de bruços sobre o encosto de um banco inclinado a 45°.",
+      "Deixe os braços caírem verticalmente perpendiculares ao solo segurando halteres ou barra W.",
+      "Flexione os cotovelos subindo a carga sem mover os braços para trás.",
+      "Aperte o topo da contração e desça suavemente."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/spider-curl.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-corda-polia": {
+    "exerciseId": "ex-triceps-corda-polia",
+    "name": "Tríceps Corda na Polia Alta",
+    "family": "triceps",
+    "load": "cable-rope",
+    "posture": "pushdown",
+    "splitRope": true,
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Segure as extremidades da corda na polia alta com pegada neutra.",
+      "Com cotovelos colados ao tronco e tronco levemente inclinado à frente, estenda os braços para baixo.",
+      "No ponto mais baixo da extensão, afaste as pontas da corda para fora para máxima contração da cabeça lateral.",
+      "Retorne controlando até os antebraços ficarem paralelos ao solo."
+    ],
+    "techniqueSources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-pulley-barra-reta": {
+    "exerciseId": "ex-triceps-pulley-barra-reta",
+    "name": "Tríceps Pulley na Polia com Barra Reta",
+    "family": "triceps",
+    "load": "cable-bar",
+    "posture": "pushdown",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Segure a barra reta com pegada pronada na largura dos ombros.",
+      "Cotovelos colados ao tronco e coluna alinhada.",
+      "Empurre a barra para baixo até estender completamente os braços.",
+      "Retorne até 90° de flexão mantendo os cotovelos imóveis."
+    ],
+    "techniqueSources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-pulley-barra-v": {
+    "exerciseId": "ex-triceps-pulley-barra-v",
+    "name": "Tríceps Pulley com Barra V",
+    "family": "triceps",
+    "load": "cable-v",
+    "posture": "pushdown",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Segure a barra V com as palmas voltadas semi-para dentro.",
+      "Mantenha a postura firme e empurre a barra para baixo até a contração plena.",
+      "Desça de forma explosiva sob controle e suba resistindo."
+    ],
+    "techniqueSources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-testa-barra-w": {
+    "exerciseId": "ex-triceps-testa-barra-w",
+    "name": "Tríceps Testa com Barra W no Banco Reto (Skull Crusher)",
+    "family": "triceps",
+    "load": "ez-bar",
+    "posture": "lying",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Deite no banco plano segurando a barra W na pegada mais estreita, braços estendidos acima do peito/olhos.",
+      "Incline os braços ligeiramente para trás (cerca de 10° a 15°) para manter tensão na cabeça longa.",
+      "Flexione apenas os cotovelos descendo a barra controladamente em direção à testa ou topo da cabeça.",
+      "Estenda os antebraços de volta sem deixar os cotovelos abrirem para fora."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-skullcrusher.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-testa-halteres": {
+    "exerciseId": "ex-triceps-testa-halteres",
+    "name": "Tríceps Testa com Halteres (Pegada Neutra)",
+    "family": "triceps",
+    "load": "dumbbells",
+    "posture": "lying",
+    "grip": "neutral",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Deite no banco plano segurando dois halteres com pegada neutra (palmas frente a frente).",
+      "Flexione os cotovelos descendo os halteres ao lado das orelhas.",
+      "Estenda os braços para cima até contrair fortemente o tríceps sem bater os pesos."
+    ],
+    "techniqueSources": [
+      "https://www.strengthlog.com/dumbbell-lying-triceps-extension/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-frances-unilateral": {
+    "exerciseId": "ex-triceps-frances-unilateral",
+    "name": "Tríceps Francês Unilateral com Halter",
+    "family": "triceps",
+    "load": "single-dumbbell",
+    "posture": "overhead",
+    "side": "L",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Sentado com o tronco ereto, eleve o braço acima da cabeça com o halter seguro verticalmente.",
+      "Dobre o cotovelo descendo o halter atrás do pescoço sentindo alongamento profundo da cabeça longa.",
+      "Estenda o antebraço verticalmente até contrair o tríceps.",
+      "Use a outra mão para apoiar e estabilizar o cotovelo de trabalho se necessário."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/overhead-tricep-extension/",
+      "https://www.muscleandstrength.com/exercises/one-arm-seated-dumbbell-extension.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-frances-polia-corda": {
+    "exerciseId": "ex-triceps-frances-polia-corda",
+    "name": "Tríceps Francês na Polia com Corda Acima da Cabeça",
+    "family": "triceps",
+    "load": "cable-rope",
+    "posture": "overhead-cable",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajuste a polia na altura média ou baixa com a corda.",
+      "Fique de costas para a torre, puxe a corda por trás da cabeça e dê um passo à frente.",
+      "Incline o tronco e estenda os braços para frente e para cima em diagonal.",
+      "Flexione os cotovelos de volta atrás da cabeça sentindo o estiramento."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/overhead-tricep-extension/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-paralelas-peso": {
+    "exerciseId": "ex-triceps-paralelas-peso",
+    "name": "Mergulho em Barras Paralelas Foco em Tríceps",
+    "family": "dip",
+    "lean": 0,
+    "highlight": "triceps",
+    "frames": 120,
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Suspenda o corpo nas barras paralelas mantendo o tronco rigorosamente ereto e cotovelos próximos às costelas.",
+      "Flexione os cotovelos descendo até 90° mantendo os braços paralelos ao solo.",
+      "Empurre para cima estendendo os cotovelos com força pura dos tríceps."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/tricep-dip.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-supino-fechado-barra": {
+    "exerciseId": "ex-supino-fechado-barra",
+    "name": "Supino com Pegada Fechada (Close-Grip Bench Press)",
+    "family": "press",
+    "load": "barbell",
+    "incline": 0,
+    "gripWidth": 0.36,
+    "highlight": "triceps",
+    "frames": 120,
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Deite no banco plano e segure a barra com pegada na largura dos ombros (cerca de 30-40cm de distância).",
+      "Abaixe a barra mantendo os cotovelos colados junto às costelas até tocar o peitoral inferior.",
+      "Empurre verticalmente focando a extensão dos cotovelos pelos tríceps."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/close-grip-bench-press"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-triceps-coice-polia": {
+    "exerciseId": "ex-triceps-coice-polia",
+    "name": "Tríceps Coice Unilateral na Polia (Kickback)",
+    "family": "triceps",
+    "load": "single-cable",
+    "posture": "kickback",
+    "side": "L",
+    "frames": 120,
+    "highlight": "triceps",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajuste a polia na altura do quadril sem acessório (segurando na bolinha do cabo).",
+      "Incline o tronco paralelo ao chão com o cotovelo fixo e colado na costela.",
+      "Estenda o antebraço totalmente para trás alinhando com o tronco.",
+      "Segure a contração isométrica por 1 segundo e retorne até 90°."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandstrength.com/exercises/cable-tricep-kickback.html"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-prancha-isometrica": {
+    "exerciseId": "ex-prancha-isometrica",
+    "name": "Prancha Frontal Isométrica",
+    "family": "plank",
+    "style": "front",
+    "isometric": true,
+    "frames": 192,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Apoie os antebraços no solo alinhados verticalmente sob os ombros.",
+      "Estenda as pernas apoiando na ponta dos pés na largura dos quadris.",
+      "Mantenha cabeça, tronco, pelve e calcanhares em uma linha rígida sem afundar a lombar.",
+      "Sustente a posição respirando com ritmo contínuo enquanto contrai o abdômen e glúteos."
+    ],
+    "techniqueSources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/32/front-plank/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-abdominal-polia-cable-crunch": {
+    "exerciseId": "ex-abdominal-polia-cable-crunch",
+    "name": "Abdominal na Polia Alta Ajoelhado (Cable Crunch com Corda)",
+    "family": "crunch",
+    "load": "cable-rope",
+    "posture": "kneeling",
+    "frames": 120,
+    "highlight": "core",
+    "equipmentLabel": "Polia/Cabos",
+    "instructions": [
+      "Ajoelhe-se de frente para a polia alta segurando a corda ao lado das orelhas/têmporas.",
+      "Fixe o quadril em posição estável sem sentar nos calcanhares.",
+      "Flexione a coluna torácica e lombar enrolando o tronco e levando os cotovelos em direção às coxas.",
+      "Esprema o abdômen por 1 segundo e retorne estendendo a coluna de forma controlada."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandfitness.com/exercise/workouts/abs-and-core-exercises/kneeling-cable-crunch/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-abdominal-infra-paralela": {
+    "exerciseId": "ex-abdominal-infra-paralela",
+    "name": "Elevação de Pernas na Paralela / Torre Abdominal",
+    "family": "leg_raise",
+    "load": "captains-chair",
+    "style": "straight-legs",
+    "frames": 120,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Apoie os antebraços nas almofadas da torre e encoste as costas no suporte.",
+      "Com as pernas juntas, eleve os joelhos (ou pernas estendidas) em direção ao peito.",
+      "No ponto mais alto, faça uma retroversão pélvica tirando a lombar do apoio para ativar o reto abdominal.",
+      "Desça com controle evitando qualquer balanço."
+    ],
+    "techniqueSources": [
+      "https://www.muscleandfitness.com/workouts/abs-and-core-exercises/the-captains-chair-exercise-and-workout-for-rock-hard-abs/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-roda-abdominal-abwheel": {
+    "exerciseId": "ex-roda-abdominal-abwheel",
+    "name": "Rolamento com Roda Abdominal (Ab Wheel Rollout)",
+    "family": "rollout",
+    "load": "ab-wheel",
+    "frames": 120,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Ajoelhe-se em um colchonete segurando as manoplas da roda no chão abaixo dos ombros.",
+      "Arredonde ligeiramente a coluna torácica e contraia o abdômen firmemente.",
+      "Role a roda para frente estendendo o corpo o máximo que conseguir sem perder a estabilidade lombar.",
+      "Puxe o corpo de volta contraindo o abdômen até a posição inicial."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/abs/ab-wheel-rollouts/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-abdominal-supra-solo": {
+    "exerciseId": "ex-abdominal-supra-solo",
+    "name": "Abdominal Crunch Tradicional no Solo",
+    "family": "crunch",
+    "load": "mat",
+    "posture": "lying",
+    "frames": 120,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Deite de costas com os joelhos dobrados e pés firmes no chão.",
+      "Mãos apoiadas na nuca ou cruzadas sobre o peito (sem puxar o pescoço).",
+      "Eleve as escápulas do chão enrolando as costelas em direção ao umbigo.",
+      "Segure a contração máxima por 1 segundo soltando todo o ar e desça controladamente."
+    ],
+    "techniqueSources": [
+      "https://www.catalystathletics.com/exercise/430/Crunch/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-prancha-lateral-estatica": {
+    "exerciseId": "ex-prancha-lateral-estatica",
+    "name": "Prancha Lateral Isométrica (Oblíquos)",
+    "family": "plank",
+    "style": "side",
+    "side": "L",
+    "isometric": true,
+    "frames": 192,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Deite de lado apoiado sobre um antebraço com o cotovelo posicionado diretamente sob o ombro.",
+      "Pernas estendidas com os pés sobrepostos ou alinhados no solo.",
+      "Eleve o quadril formando uma linha reta dos ombros aos pés.",
+      "Mantenha a posição sustentada contraindo os oblíquos do lado de apoio."
+    ],
+    "techniqueSources": [
+      "https://www.nasm.org/resource-center/exercise-library/side-plank"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-russian-twist-anilha": {
+    "exerciseId": "ex-russian-twist-anilha",
+    "name": "Giro Russo (Russian Twist) com Anilha / Halter",
+    "family": "twist",
+    "load": "plate",
+    "frames": 192,
+    "highlight": "core",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Sente-se no solo com os joelhos dobrados e incline o tronco para trás em cerca de 45°.",
+      "Mantenha os pés suspensos do chão ou calcanhares apoiados.",
+      "Segure a anilha com as duas mãos e faça uma rotação controlada do tronco levando o peso de um lado para o outro.",
+      "Gire os ombros acompanhando o movimento sem mover as pernas."
+    ],
+    "techniqueSources": [
+      "https://www.puregym.com/exercises/abs/russian-twists/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-abdominal-vacuum": {
+    "exerciseId": "ex-abdominal-vacuum",
+    "name": "Stomach Vacuum (Vácuo Abdominal e Transverso)",
+    "family": "vacuum",
+    "isometric": true,
+    "frames": 360,
+    "highlight": "core",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Fique em pé ou em quatro apoios e expire completamente todo o ar dos pulmões.",
+      "Sem inspirar, expanda a caixa torácica e sugue a parede abdominal para dentro e para cima, colando o umbigo na coluna vertebral.",
+      "Mantenha a sucção isométrica do vácuo por 10 a 20 segundos.",
+      "Relaxe e inspire suavemente pelo nariz."
+    ],
+    "techniqueSources": [
+      "https://www.exercises.com.au/stomach-vacuum/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-corrida-ao-ar-livre": {
+    "exerciseId": "ex-corrida-ao-ar-livre",
+    "name": "Corrida Contínua / Fartlek",
+    "family": "run",
+    "locomotion": true,
+    "cycles": 7,
+    "frames": 120,
+    "highlight": "full-body",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Aquecimento dinâmico com trote leve e mobilidade de tornozelos por 5 min.",
+      "Mantenha cadência entre 165-175 passos por minuto.",
+      "Postura ereta com inclinação sutil a partir dos tornozelos.",
+      "Pouso no mediopé sob o centro de gravidade."
+    ],
+    "techniqueSources": [
+      "https://clubspark.englandathletics.org/gr8runners/News/7003bc8b-71ae-46f6-b478-9670684b3ba4",
+      "https://worldathletics.org/news/series/advice-runners-beginners"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "travelDistance": 10.5
+  },
+  "ex-hyrox-skierg": {
+    "exerciseId": "ex-hyrox-skierg",
+    "name": "SkiErg Intervalado (Hyrox Station)",
+    "family": "skierg",
+    "load": "skierg",
+    "frames": 120,
+    "highlight": "full-body",
+    "equipmentLabel": "Máquina",
+    "instructions": [
+      "Pés na largura dos ombros de frente para a máquina.",
+      "Inicie com os braços elevados e pegada firme nas manoplas.",
+      "Puxe para baixo flexionando quadris e joelhos simultaneamente, usando o peso do corpo.",
+      "Estenda os quadris na subida retornando à posição inicial de forma fluida."
+    ],
+    "techniqueSources": [
+      "https://www.concept2.com/training/skierg-technique"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-hyrox-sled-push": {
+    "exerciseId": "ex-hyrox-sled-push",
+    "name": "Sled Push (Empurrar Trenó na Pista)",
+    "family": "sled_push",
+    "load": "sled",
+    "locomotion": true,
+    "frames": 192,
+    "highlight": "quads",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Segure as barras verticais do trenó com os braços estendidos ou cotovelos semiflexionados.",
+      "Incline o tronco a 45 graus formando uma linha reta dos ombros aos calcanhares.",
+      "Empurre a pista dando passadas firmes com a ponta dos pés gerando tração contínua."
+    ],
+    "techniqueSources": [
+      "https://www.compromisedrunning.com/post/hyrox-training-manual.files/HYROX_ENG_Manual_10_2020.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "travelDistance": 1.8
+  },
+  "ex-hyrox-wall-balls": {
+    "exerciseId": "ex-hyrox-wall-balls",
+    "name": "Wall Balls (Arremesso no Alvo)",
+    "family": "wall_ball",
+    "load": "medicine-ball",
+    "frames": 168,
+    "highlight": "shoulders",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Segure a medicine ball de 6-9kg na altura do queixo.",
+      "Agache profundamente até que os quadris fiquem abaixo dos joelhos.",
+      "Suba com impulsão máxima das pernas e arremesse a bola no alvo a 3m de altura.",
+      "Apanhe a bola na descida e entre diretamente no próximo agachamento."
+    ],
+    "techniqueSources": [
+      "https://www.crossfit.com/essentials/functionality-and-wall-ball",
+      "https://www.crossfit.com/essentials/the-wall-ball?topicId=article.20190721155518618"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-fight-shadow": {
+    "exerciseId": "ex-fight-shadow",
+    "name": "Shadow Boxing com Halteres Leves",
+    "family": "boxing",
+    "load": "light-dumbbells",
+    "frames": 192,
+    "highlight": "shoulders",
+    "equipmentLabel": "Halteres",
+    "instructions": [
+      "Adote a base de combate mantendo o queixo recolhido e guarda alta.",
+      "Desfira combinações de jab, direto, cruzado e upper mantendo cotovelos protegendo o tronco.",
+      "Gire o quadril e o calcanhar traseiro para transferir a potência mecânica do solo."
+    ],
+    "techniqueSources": [
+      "https://www.englandboxing.org/wp-content/uploads/2022/03/EB_Boxing-Coaching-Handbook-Part-1_v8-002.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "reviewKeyFrames": [
+      20,
+      68,
+      116,
+      164
+    ]
+  },
+  "ex-fight-sprawl": {
+    "exerciseId": "ex-fight-sprawl",
+    "name": "Sprawl Explosivo de Defesa de Queda",
+    "family": "sprawl",
+    "frames": 192,
+    "highlight": "quads",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "A partir da base de luta, jogue as pernas rapidamente para trás.",
+      "Projete os quadris contra o solo com o peito erguido bloqueando a entrada imaginária de queda.",
+      "Retorne instantaneamente à base de combate pronto para contra-atacar."
+    ],
+    "techniqueSources": [
+      "https://www.championshipproductions.com/news/2014/09/01/avoid-a-takedown-with-a-good-sprawl/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "reviewKeyFrames": [
+      54,
+      87,
+      112,
+      144
+    ]
+  },
+  "ex-swim-crawl-sprints": {
+    "exerciseId": "ex-swim-crawl-sprints",
+    "name": "Tiros de 50m Nado Crawl (Estilo Livre)",
+    "family": "swim",
+    "frames": 144,
+    "cycles": 4,
+    "highlight": "full-body",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Mantenha o corpo alinhado horizontalmente na superfície da água com o olhar voltado para o fundo.",
+      "Braçada com pegada alta (high elbow catch) puxando a água sob a linha do corpo.",
+      "Respiração bilateral a cada 3 braçadas para equilíbrio muscular.",
+      "Pernada contínua a partir do quadril."
+    ],
+    "techniqueSources": [
+      "https://www.swimming.org/masters/improving-front-crawl-technique/"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "locomotion": true,
+    "travelDistance": 9,
+    "reviewKeyFrames": [
+      12,
+      25,
+      46,
+      99
+    ]
+  },
+  "ex-crossfit-thruster": {
+    "exerciseId": "ex-crossfit-thruster",
+    "name": "Thruster com Barra Olímpica",
+    "family": "thruster",
+    "load": "front-bar",
+    "frames": 192,
+    "highlight": "shoulders",
+    "equipmentLabel": "Barra",
+    "instructions": [
+      "Barra apoiada nos ombros na posição de front rack, cotovelos altos.",
+      "Realize um agachamento frontal completo abaixo da linha paralela.",
+      "Exploda na subida e use a aceleração para impulsionar a barra diretamente para cima da cabeça.",
+      "Trave os braços no topo alinhados com as orelhas."
+    ],
+    "techniqueSources": [
+      "https://www.crossfit.com/essentials/the-thruster"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  },
+  "ex-fut-sand-header-jump": {
+    "exerciseId": "ex-fut-sand-header-jump",
+    "name": "Salto de Cabeceio na Areia Fofa",
+    "family": "header_jump",
+    "load": "football",
+    "frames": 144,
+    "highlight": "glutes",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Posicione-se em base de ataque na areia fofa.",
+      "Flexione os joelhos e salte verticalmente com impulsão simultânea dos dois pés.",
+      "Encontre a bola com a testa no ponto mais alto do salto, coordenando a extensão e a flexão do tronco.",
+      "Aterrisse amortecendo com a planta dos pés na areia."
+    ],
+    "techniqueSources": [
+      "https://www.football.ch/portaldata/27/Resources/Dokumente/Nationalteams/Beach_Soccer/Abgrenzung_und_Trainingsformen/Beach_Soccer_Training_Spieler_%28Englische_Version%29.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "reviewKeyFrames": [
+      60,
+      64,
+      68
+    ]
+  },
+  "ex-dance-samba-funk-burst": {
+    "exerciseId": "ex-dance-samba-funk-burst",
+    "name": "Cardio Dance Rítmico (FitDance / Zumba)",
+    "family": "dance",
+    "frames": 192,
+    "cycles": 4,
+    "highlight": "full-body",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Siga a sequência autoral da demonstração: passos laterais com aproximação dos pés e dois agachamentos rítmicos.",
+      "Eleve os braços em sincronia com as rotações de quadril.",
+      "Mantenha a intensidade aeróbica sustentada com sorriso e respiração contínua."
+    ],
+    "techniqueSources": [
+      "https://www.zumba.com/en-US/zumba-beginner-guide"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true,
+    "reviewKeyFrames": [
+      13,
+      24,
+      37,
+      72,
+      120,
+      168
+    ]
+  },
+  "ex-cal-muscle-up": {
+    "exerciseId": "ex-cal-muscle-up",
+    "name": "Muscle-Up na Barra Fixa",
+    "family": "muscle_up",
+    "load": "pullup-bar",
+    "frames": 240,
+    "highlight": "back",
+    "equipmentLabel": "Peso Corporal",
+    "instructions": [
+      "Pegada falsa ou pronada com dedos sobre a barra.",
+      "Inicie com balanço controlado (kip) ou subida estrita puxando a barra em direção ao abdômen superior.",
+      "Transicione os cotovelos rapidamente por cima da barra.",
+      "Empurre até a extensão completa dos braços na parte superior (dip)."
+    ],
+    "techniqueSources": [
+      "https://www.crossfit.com/essentials/the-strict-bar-muscle-up",
+      "https://www.crossfit.com/wp-content/uploads/2025/10/30140558/CAP_Open_Training_Plans_03_BMU_20251027_R1.pdf"
+    ],
+    "productionStatus": "approved",
+    "visualReviewRequired": true
+  }
+}

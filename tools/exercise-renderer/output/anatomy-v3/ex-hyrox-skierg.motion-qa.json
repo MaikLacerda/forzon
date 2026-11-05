@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-hyrox-skierg",
+  "sourceSceneSha256": "ee661c85bc58a2f4f8a59a41fbc007ab2223b7a848daab39897911aaa9bca14f",
+  "sceneSha256": "f46c94f394da2777037b7c0505bb5640adf55b8c197949d528e85252addda600",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

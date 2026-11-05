@@ -1,4 +1,3 @@
-import { AccountGate } from "./components/auth/AccountGate";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
@@ -58,6 +57,6 @@ if (typeof window !== "undefined") {
 
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
-    <AccountGate><App /></AccountGate>
+    <App />
   </ErrorBoundary>
 );

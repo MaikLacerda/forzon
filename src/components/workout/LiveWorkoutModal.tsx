@@ -524,7 +524,7 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                   setSelectedExerciseForModal(details);
                 }}
                 className="text-2xl sm:text-4xl font-black text-white tracking-tight hover:text-emerald-400 transition-colors cursor-pointer"
-                title="Ver execução e instruções do exercício"
+                title="Clique para ver vídeo explicativo da execução"
               >
                 {currentExercise.name}
               </h2>
@@ -541,7 +541,7 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                   className="px-3 py-1 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Play className="w-3 h-3 fill-current" />
-                  <span>Ver execução</span>
+                  <span>Ver Vídeo da Execução</span>
                 </button>
                 <span className="text-xs sm:text-sm text-neutral-400 font-mono">
                   Série {nextUncompletedSet.setNumber} de {currentExercise.sets.length}
@@ -924,11 +924,11 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                       setSelectedExerciseForModal(details);
                     }}
                     className="text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition-colors cursor-pointer flex items-center gap-2 group"
-                    title="Abrir demonstração e instruções de execução"
+                    title="Clique para abrir demonstração em vídeo e guia biomecânico"
                   >
                     <span>{currentExercise.name}</span>
                     <span className="opacity-0 group-hover:opacity-100 text-xs font-mono font-normal text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 transition-opacity">
-                      ▶ Ver execução
+                      ▶ Ver Vídeo
                     </span>
                   </h2>
                 </div>
@@ -950,10 +950,10 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
                     setSelectedExerciseForModal(details);
                   }}
                   className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-bold font-mono text-emerald-300 flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shadow-emerald-500/10"
-                  title="Abrir instruções de execução"
+                  title="Ver vídeo explicativo passo a passo e animação biomecânica"
                 >
                   <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Ver execução</span>
+                  <span>Vídeo da Execução</span>
                 </button>
 
                 <button

@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-cadeira-flexora",
+  "videoSha256": "3129faf7046caf2235071c4e72db0f7d37d74c01de60e3e76a88c0cf8fb807dc",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "5e8e7418e5a3a09eacf57bdb95ede9f03e6657bfa6e63631a61bbd52913b7281",
+    "30": "6a0e3251afdba6f6c6ef3f969e23ba67d0fbbb2aa6054f20bdf2e511a6dcce1b",
+    "60": "f98c1f66d404c0489f433e93eb0736844213ead2c5318a51c43674e629f52c2e",
+    "90": "c1f4460bb06c2552dcb63f3e504e3ba3f3aa859df7263055a457f9aec19f03be",
+    "120": "c57ba9392947a9af6d8b5c06a7986800ee16374998e0a37496405fae884d10d9"
+  },
+  "uniqueFrameCount": 5
+}

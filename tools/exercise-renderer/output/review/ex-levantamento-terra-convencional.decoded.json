@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-levantamento-terra-convencional",
+  "videoSha256": "9bf6bc84ef7010e93904969b52ee41dea3f63646581c1e0125caf1e189fd623b",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "e5ecfa65a847e83720126d841f6929e6eb5ae5e02de7661a0ac651a98f35f26b",
+    "30": "e48dc6600a9616f22fbe7909b474af5be2c182b1a9ae2c9b74adfabe41e84f7e",
+    "60": "9251bc48e806ce570dd87cdf01bf93415d121fcebe35187c40ebf6a753d6f555",
+    "90": "ff2b125c2a8161a0e04ec399a9f1ac9ea7aa44b69de7c64d083eaa8fd07e692c",
+    "120": "a66db7d1d5c12113250b7b0ff4ba097c721320e8d170724cbbfc0c94a7725fb8"
+  },
+  "uniqueFrameCount": 5
+}

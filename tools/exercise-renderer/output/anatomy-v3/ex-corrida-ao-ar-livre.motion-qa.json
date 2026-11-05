@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-corrida-ao-ar-livre",
+  "sourceSceneSha256": "f4b1f6293f8d82bfb50d0e73533c135ee95b2866fc92b6d38f89f28041e5f8d7",
+  "sceneSha256": "1f611425b2b725a2ce660a0f2a48849794bc65cad77d07f30fe9a184adeda706",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

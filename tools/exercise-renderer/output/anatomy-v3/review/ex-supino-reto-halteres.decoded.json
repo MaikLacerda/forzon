@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-supino-reto-halteres",
+  "videoSha256": "8d737fedfd70e66991d403ba9800a5b84f1c208ee6e6dada2ac0b45d7b5e6558",
+  "framePixelSha256": {
+    "1": "e99f134f3b60ec2e007edca97b79a4c0ac920f38e45b30da0732c8cad0d5618c",
+    "30": "ea248eda2b369db6d6e4c34f48d84612a4ee76422fda5b4d1d57a37eca79d058",
+    "60": "b6bc11346b4767a5022df8d06f2f30df0e228aa6326eed71f980efe712304915",
+    "90": "a0388a808186310ce7568059c8b3933c0719bfda810e39a220bb24f3573b9be8",
+    "120": "0ff0c86cb915b126ee24e0059500d2ff62efe0495224c7b3e70b56402033f3ac"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+.app-header button { min-height: 2.25rem; min-width: 2.25rem; }
+#root { width: 100%; min-width: 0; }
+main :where(.grid) > * { min-width: 0; }
+
+@layer base {
+  /* ==========================================================================
+     PALETA DE ALTO IMPACTO FORZON (AZUL NEON PADRÃO & ACENTOS DINÂMICOS)
+     ========================================================================== */
+
+  /* PADRÃO: AZUL NEON ELÉTRICO (Cyber Neon Cyan / Vivid Azure) */
+  :root,
+  html,
+  html[data-accent="neon-blue"] {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --chart-grid: #262626;
+    --chart-axis: #737373;
+    --chart-rest-bar: #27272a;
+
+    /* Primary Accent Token - Azul Neon Elétrico / Ciano Fluorescente */
+    --color-emerald-50: #f0fdfa;
+    --color-emerald-100: #e0f2fe;
+    --color-emerald-200: #bae6fd;
+    --color-emerald-300: #67e8f9;
+    --color-emerald-400: #00d2ff; /* Impactante Azul Neon / Cyan */
+    --color-emerald-500: #00b4d8; /* Neon Azure Primary */
+    --color-emerald-600: #0096c7;
+    --color-emerald-700: #0284c7;
+    --color-emerald-800: #0369a1;
+    --color-emerald-900: #075985;
+    --color-emerald-950: #082f49;
+
+    --brand-accent-hex: #00d2ff;
+    --brand-accent-glow: rgba(0, 210, 255, 0.35);
+  }
+
+  /* OPÇÃO: AZUL COBALTO HYPER (Deep Motorsport Blue) */
+  html[data-accent="cobalt-blue"] {
+    --color-emerald-50: #eff6ff;
+    --color-emerald-100: #dbeafe;
+    --color-emerald-200: #bfdbfe;
+    --color-emerald-300: #93c5fd;
+    --color-emerald-400: #60a5fa;
+    --color-emerald-500: #3b82f6;
+    --color-emerald-600: #2563eb;
+    --color-emerald-700: #1d4ed8;
+    --color-emerald-800: #1e40af;
+    --color-emerald-900: #1e3a8a;
+    --color-emerald-950: #172554;
+
+    --brand-accent-hex: #3b82f6;
+    --brand-accent-glow: rgba(59, 130, 246, 0.35);
+  }
+
+  /* OPÇÃO: VIOLETA / ROXO NEON (Cyber Ultraviolet) */
+  html[data-accent="ultra-violet"] {
+    --color-emerald-50: #faf5ff;
+    --color-emerald-100: #f3e8ff;
+    --color-emerald-200: #e9d5ff;
+    --color-emerald-300: #d8b4fe;
+    --color-emerald-400: #c084fc;
+    --color-emerald-500: #a855f7;
+    --color-emerald-600: #9333ea;
+    --color-emerald-700: #7e22ce;
+    --color-emerald-800: #6b21a8;
+    --color-emerald-900: #581c87;
+    --color-emerald-950: #3b0764;
+
+    --brand-accent-hex: #a855f7;
+    --brand-accent-glow: rgba(168, 85, 247, 0.35);
+  }
+
+  /* OPÇÃO: LARANJA HIPER-ATIVO (High-Octane Adrenaline Orange) */
+  html[data-accent="hyper-orange"] {
+    --color-emerald-50: #fff7ed;
+    --color-emerald-100: #ffedd5;
+    --color-emerald-200: #fed7aa;
+    --color-emerald-300: #fdba74;
+    --color-emerald-400: #fb923c;
+    --color-emerald-500: #f97316;
+    --color-emerald-600: #ea580c;
+    --color-emerald-700: #c2410c;
+    --color-emerald-800: #9a3412;
+    --color-emerald-900: #7c2d12;
+    --color-emerald-950: #431407;
+
+    --brand-accent-hex: #f97316;
+    --brand-accent-glow: rgba(249, 115, 22, 0.35);
+  }
+
+  /* OPÇÃO: VERDE NEON CLÁSSICO */
+  html[data-accent="neon-green"] {
+    --color-emerald-50: #ecfdf5;
+    --color-emerald-100: #d1fae5;
+    --color-emerald-200: #a7f3d0;
+    --color-emerald-300: #6ee7b7;
+    --color-emerald-400: #34d399;
+    --color-emerald-500: #10b981;
+    --color-emerald-600: #059669;
+    --color-emerald-700: #047857;
+    --color-emerald-800: #065f46;
+    --color-emerald-900: #064e3b;
+    --color-emerald-950: #022c22;
+
+    --brand-accent-hex: #10b981;
+    --brand-accent-glow: rgba(16, 185, 129, 0.35);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #09090b;
+    color: #f4f4f5;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Custom scrollbar for dark gym/sports feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Tabular figures for telemetry & timers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   TEMA CLARO DE ALTO CONTRASTE (LIGHT HIGH-CONTRAST THEME)
+   Conformidade de Acessibilidade WCAG AAA & Máxima Legibilidade
+   ========================================================================== */
+html.light-hc {
+  color-scheme: light;
+
+  /* Tailwind 4 theme token overrides for Light High Contrast */
+  --color-neutral-950: #f8fafc; /* Canvas background */
+  --color-neutral-900: #ffffff; /* Card/Modal surface */
+  --color-neutral-850: #e2e8f0;
+  --color-neutral-800: #e2e8f0; /* Dividers & secondary surfaces */
+  --color-neutral-700: #cbd5e1; /* Visible borders */
+  --color-neutral-600: #64748b; /* Secondary icons */
+  --color-neutral-500: #475569; /* Muted text */
+  --color-neutral-400: #334155; /* High-contrast readable body text */
+  --color-neutral-300: #1e293b; /* Medium-bold text */
+  --color-neutral-200: #0f172a; /* Strong headings */
+  --color-neutral-100: #020617; /* Absolute black text */
+  --color-neutral-50: #000000;
+
+  /* Invert pure white text utility into high contrast dark text */
+  --color-white: #020617;
+
+  /* Accessible high-contrast colors on light backgrounds */
+  --color-emerald-400: #0284c7; /* Accessible Blue in light mode (5.5:1 on white) */
+  --color-emerald-500: #0369a1;
+  --color-emerald-600: #075985;
+  --color-blue-400: #1d4ed8;
+  --color-blue-500: #2563eb;
+  --color-amber-400: #b45309;
+  --color-rose-400: #be123c;
+  --color-purple-400: #6d28d9;
+
+  --chart-grid: #e2e8f0;
+  --chart-axis: #334155;
+  --chart-rest-bar: #e2e8f0;
+}
+
+html.light-hc[data-accent="neon-blue"] {
+  --color-emerald-400: #0284c7;
+  --color-emerald-500: #0369a1;
+  --color-emerald-600: #075985;
+}
+
+html.light-hc[data-accent="cobalt-blue"] {
+  --color-emerald-400: #2563eb;
+  --color-emerald-500: #1d4ed8;
+  --color-emerald-600: #1e40af;
+}
+
+html.light-hc[data-accent="ultra-violet"] {
+  --color-emerald-400: #9333ea;
+  --color-emerald-500: #7e22ce;
+  --color-emerald-600: #6b21a8;
+}
+
+html.light-hc[data-accent="hyper-orange"] {
+  --color-emerald-400: #ea580c;
+  --color-emerald-500: #c2410c;
+  --color-emerald-600: #9a3412;
+}
+
+html.light-hc[data-accent="neon-green"] {
+  --color-emerald-400: #047857;
+  --color-emerald-500: #059669;
+  --color-emerald-600: #047857;
+}
+
+html.light-hc body {
+  background-color: #f1f5f9;
+  color: #020617;
+}
+
+/* Explicit high-contrast structural overrides */
+html.light-hc header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+html.light-hc .border-neutral-800,
+html.light-hc .border-neutral-850,
+html.light-hc .border-neutral-900 {
+  border-color: #cbd5e1 !important;
+}
+
+/* High contrast inputs and form controls */
+html.light-hc input,
+html.light-hc select,
+html.light-hc textarea {
+  background-color: #ffffff !important;
+  color: #020617 !important;
+  border-color: #94a3b8 !important;
+}
+
+html.light-hc input:focus,
+html.light-hc select:focus,
+html.light-hc textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+}
+
+html.light-hc input::placeholder,
+html.light-hc textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Solid high contrast primary buttons (Buttons get crisp white text) */
+html.light-hc button.bg-emerald-500,
+html.light-hc button.bg-emerald-400,
+html.light-hc .bg-emerald-500.text-neutral-950,
+html.light-hc .bg-emerald-400.text-neutral-950 {
+  background-color: #0369a1 !important;
+  color: #ffffff !important;
+  border-color: #0284c7 !important;
+}
+
+/* Modal dark scrim to maintain focal depth and accessibility */
+html.light-hc .fixed.inset-0.bg-neutral-950\/90,
+html.light-hc .fixed.inset-0.bg-neutral-950\/80,
+html.light-hc .fixed.inset-0.bg-neutral-950\/70,
+html.light-hc .fixed.inset-0.bg-neutral-950\/60,
+html.light-hc .fixed.inset-0.backdrop-blur-md {
+  background-color: rgba(15, 23, 42, 0.72) !important;
+}
+
+/* High-contrast cards and elevation */
+html.light-hc .bg-neutral-900 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+}
+
+html.light-hc .bg-neutral-950 {
+  background-color: #f8fafc !important;
+}
+
+html.light-hc .bg-neutral-950\/70,
+html.light-hc .bg-neutral-950\/80,
+html.light-hc .bg-neutral-950\/90 {
+  background-color: #f8fafc !important;
+}
+
+html.light-hc .bg-neutral-900\/70,
+html.light-hc .bg-neutral-900\/80,
+html.light-hc .bg-neutral-900\/90,
+html.light-hc .bg-neutral-900\/95 {
+  background-color: #ffffff !important;
+}
+
+/* Custom scrollbars for light theme */
+html.light-hc ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light-hc ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border: 1px solid #94a3b8;
+  border-radius: 9999px;
+}
+html.light-hc ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Bottom Nav bar in mobile */
+html.light-hc nav.fixed.bottom-0 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-top-color: #cbd5e1 !important;
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+}

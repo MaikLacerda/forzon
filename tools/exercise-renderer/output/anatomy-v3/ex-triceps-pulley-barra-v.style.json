@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-triceps-pulley-barra-v",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "9656f847a64ee5217333439363716a055774c199b7d369c279f28986b97ab041",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "triceps",
+  "productionStatus": "preview"
+}

@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-triceps-testa-halteres",
+  "videoSha256": "27c0f58706456210896f350e0c2f84cdf1b688bc5a9e725a68403e6edffd10d4",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "ae3d886b406c3d216b7d1f8c3d3ba95188ed3e7839b41361949454e385deeeb6",
+    "30": "c683f566c6d1d16497a429be29de6a8fd352059452ed8f35af231ca7d248ce3f",
+    "60": "d3152081682b360ed04f38914dd2eaef48c9a00f06e13ca9d58358affae82aa1",
+    "90": "9cdcc2408c44ee61dc6d7befca521d7e71f73220ac2a2295c2cd1efc54333e3d",
+    "120": "d11215d9a110ca145e6857e96e12603acba4f72f4e4a5af4421309a8010c2e80"
+  },
+  "uniqueFrameCount": 5
+}

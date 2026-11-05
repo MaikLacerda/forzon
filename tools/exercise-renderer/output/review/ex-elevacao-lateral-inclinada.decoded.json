@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-elevacao-lateral-inclinada",
+  "videoSha256": "6506d28662ecff3af462acffcf35d0762d144434e5e8debe35e00fa0df86e3b3",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "e27458606b47bc7c08bb0a10c3a6bb2b82a4731e8d752d1a537b2f4394ae7c6c",
+    "30": "af4d63cf038c35ceeb5c89e2a20c98f1fade98e12781704e771be4ce8c45ac88",
+    "60": "94b8af5e94a80b1f2fadf71e45a59d039eefab65fe73064e11f897796ddebf4c",
+    "90": "ff499b1a864b8338c992617e7fb80658309276ee25c97013d45c06789a857dbe",
+    "120": "5853d5fa2025c061cc0c186385b8853f09fc5b190ef6f61d173aaa5f3b7c3cd3"
+  },
+  "uniqueFrameCount": 5
+}

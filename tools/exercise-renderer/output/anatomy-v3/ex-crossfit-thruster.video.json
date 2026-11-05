@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-crossfit-thruster",
+  "style": "anatomy-v3",
+  "frames": 192,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "b4f29f64bc156093c97012a3ee250b5a4e4eff200bf87d58fa78b13666ab8288",
+  "videoSha256": "c74b159ed99be73caae980d1b5172ce8c604382048d5b73d3f0fd805c50121f1",
+  "visualReviewRequired": true
+}

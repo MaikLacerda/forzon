@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-encolhimento-barra",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "8798677d30fdb7125fe73d2fbfe298ea4cde0b045548218833ab341552b0b971",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "back",
+  "productionStatus": "preview"
+}

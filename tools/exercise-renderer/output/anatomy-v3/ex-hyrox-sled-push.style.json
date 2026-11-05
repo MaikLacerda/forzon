@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-hyrox-sled-push",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "f3510f81687dc14ad98a02c26952e3c589d2a14bfa12ba3b8d59d2a9f459dbe2",
+  "frames": 192,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "quads",
+  "productionStatus": "preview"
+}

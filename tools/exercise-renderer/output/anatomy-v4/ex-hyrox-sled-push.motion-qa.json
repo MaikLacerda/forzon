@@ -1,0 +1,25 @@
+{
+  "exerciseId": "ex-hyrox-sled-push",
+  "style": "anatomy-v4",
+  "auditRecipeSha256": "e6ee0ba8a625b4f83f7b3741d3795ef34346db37c7029d054bbaa693b65be4bc",
+  "sourceV3SceneSha256": "224533fa80777fd4be899a6a981d5d8742fb007f68b2823a7e9095e9fc068d5e",
+  "sceneSha256": "221c1594e5c46100edae858aa9c55943041ba1cae21c4bd4696b5ee0d2aa32a3",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06872063875198364
+  },
+  "checksPassed": true,
+  "framesChecked": 192,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

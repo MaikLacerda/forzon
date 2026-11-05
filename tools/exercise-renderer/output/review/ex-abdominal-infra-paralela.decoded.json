@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-abdominal-infra-paralela",
+  "videoSha256": "10db99cacfe977beab564f1c07182a5ab3fc763ff9bcb8db6814cbb7a392b523",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "bd2632b32737013936782862826624a5cf15e8780da74bca701e128bc44ee5ce",
+    "30": "bc4ae5e144490ef252a643eee40accb6d034e91dd5fcbe192c2eeeeb4448dd58",
+    "60": "513ac4893392a2b184ce5ab99f79fd1e836ec93d74a9631dccf8822a8069db6a",
+    "90": "fba7ae3da7f49228cf5ca0a6b6d5ecf79bec39aaafc8ae1cf3002ab4d5618301",
+    "120": "11a38e6a76d57708606637f651ac03a87b0aec150481937c83b17d51fab8b92c"
+  },
+  "uniqueFrameCount": 5
+}

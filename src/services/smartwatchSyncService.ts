@@ -1,4 +1,3 @@
-import { accountStorage } from "./accountStorage";
 import {
   DailyNutrition,
   CompletedWorkoutRecord,
@@ -33,14 +32,14 @@ export const smartwatchSyncService = {
    */
   getConnectedDevice(): SmartwatchDevice {
     try {
-      const stored = accountStorage.getItem(DEVICE_STORAGE_KEY);
+      const stored = localStorage.getItem(DEVICE_STORAGE_KEY);
       if (stored) {
         return JSON.parse(stored);
       }
     } catch (e) {
       console.warn("Error reading smartwatch device", e);
     }
-    return { ...DEFAULT_DEVICE, deviceName: "Nenhum relógio conectado", connected: false, batteryPercent: 0, activeCaloriesBurnedToday: 0, lastSyncedAt: "" };
+    return DEFAULT_DEVICE;
   },
 
   /**
@@ -48,7 +47,7 @@ export const smartwatchSyncService = {
    */
   saveConnectedDevice(device: SmartwatchDevice): void {
     try {
-      accountStorage.setItem(DEVICE_STORAGE_KEY, JSON.stringify(device));
+      localStorage.setItem(DEVICE_STORAGE_KEY, JSON.stringify(device));
       window.dispatchEvent(
         new CustomEvent("athlynx_smartwatch_device_change", { detail: device })
       );
@@ -85,7 +84,6 @@ export const smartwatchSyncService = {
   async syncNutritionWithWatch(
     nutrition: DailyNutrition
   ): Promise<SmartwatchSyncTelemetry> {
-    const owner = accountStorage.id;
     const device = this.getConnectedDevice();
 
     // Simulate real BLE / Cloud synchronization latency
@@ -109,11 +107,10 @@ export const smartwatchSyncService = {
       batteryPercent: Math.max(15, device.batteryPercent - (Math.random() > 0.8 ? 1 : 0)),
     };
 
-    if (!device.connected || owner !== accountStorage.id) return telemetry;
     this.saveConnectedDevice(updatedDevice);
 
     try {
-      accountStorage.setItem(SYNC_TELEMETRY_KEY, JSON.stringify(telemetry));
+      localStorage.setItem(SYNC_TELEMETRY_KEY, JSON.stringify(telemetry));
     } catch {}
 
     window.dispatchEvent(
@@ -193,7 +190,7 @@ export const smartwatchSyncService = {
     let applied = false;
     let appliedAt: string | undefined = undefined;
     try {
-      const stored = accountStorage.getItem(HYDRATION_ADJUSTMENT_KEY);
+      const stored = localStorage.getItem(HYDRATION_ADJUSTMENT_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed.date === todayStr && parsed.applied) {
@@ -245,7 +242,7 @@ export const smartwatchSyncService = {
     };
 
     try {
-      accountStorage.setItem(HYDRATION_ADJUSTMENT_KEY, JSON.stringify(savedAdj));
+      localStorage.setItem(HYDRATION_ADJUSTMENT_KEY, JSON.stringify(savedAdj));
     } catch {}
 
     // Auto sync new goal to smartwatch
@@ -273,7 +270,7 @@ export const smartwatchSyncService = {
     storage.saveNutrition(updatedNutrition);
 
     try {
-      accountStorage.removeItem(HYDRATION_ADJUSTMENT_KEY);
+      localStorage.removeItem(HYDRATION_ADJUSTMENT_KEY);
     } catch {}
 
     await this.syncNutritionWithWatch(updatedNutrition);

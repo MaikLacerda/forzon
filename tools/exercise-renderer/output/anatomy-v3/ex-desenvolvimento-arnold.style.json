@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-desenvolvimento-arnold",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "786b797dacd262ad4669a9ceffd6f9146d10249c2a550b817db509fc516b7b56",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "shoulders",
+  "productionStatus": "preview"
+}

@@ -1,0 +1,224 @@
+{
+  "style": "anatomy-v4",
+  "required": 31,
+  "publication": "not-published",
+  "exercises": [
+    {
+      "exerciseId": "ex-crucifixo-reto-halteres",
+      "finding": "Bracos abrem de forma assimetrica no crucifixo reto; corrigir sincronizacao/espelhamento da animacao.",
+      "sourceV3SceneSha256": "7f6d3e3e6c1259a6f9d5e33dee34964c0b7b767f64d73d4c224cccd45e0d7fe4",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-cadeira-extensora",
+      "finding": "O destaque vermelho dos quadriceps fica restrito a faixas estreitas; a superficie frontal das coxas permanece cinza.",
+      "sourceV3SceneSha256": "6ab100af8f1d3f598fcdd8ed25527ab865ae53af26ac1a11650d0c3cbb7cb2b6",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-frances-unilateral",
+      "finding": "O braco de apoio tambem recebe destaque vermelho; restringir a enfase ao triceps do braco que executa o movimento.",
+      "sourceV3SceneSha256": "d2ef044ff97a300e1e1f44e0fa603573a86db70dffc0a347fc391d864d518b1e",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-cadeira-flexora",
+      "finding": "Destaque posterior aparece proximo dos joelhos e oculto pelo assento; revisar mascara e angulo.",
+      "sourceV3SceneSha256": "71ce9e78fc7bf12bd121c7d88a610a2ad834427e4aa0c10ab42b83fdaf900bbf",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-barra",
+      "finding": "Destaque dos gluteos fica escondido na vista anterior.",
+      "sourceV3SceneSha256": "5d005e2d66f366960d753bcd9f1333529aef10e4cd682c1942a05a818d0e848e",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-abdominal-vacuum",
+      "finding": "Movimento respiratorio sutil; os cinco quadros nao permitem avaliar bem a demonstracao.",
+      "sourceV3SceneSha256": "9114b9c62d9b6380320e79dd2eb9fd334803c77af9d058a02d5428b7a2b62095",
+      "surfaceAnimationRevision": true,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-sumo-halter",
+      "finding": "Regiao muscular destacada quase invisivel no angulo frontal.",
+      "sourceV3SceneSha256": "50073e5ebf1b7e3c12ebaa9677dfd25803334fde01fb3ed39976ab2f25c25b28",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-cadeira-abdutora",
+      "finding": "Destaque do gluteo lateral pequeno e parcialmente oculto pelos apoios.",
+      "sourceV3SceneSha256": "fc0404e2a47494efddad154419cd935112c24bfd03c602c0204f5375d68c0406",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-cal-muscle-up",
+      "finding": "Destaque muscular quase invisivel durante a transicao do muscle-up.",
+      "sourceV3SceneSha256": "e8c00ce0477379c64ccb8008ade7ccf9ffb21ce67595722081a2a1fff8a190ec",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crossfit-thruster",
+      "finding": "Destaque fica concentrado nos bracos; verificar enfase para o movimento composto.",
+      "sourceV3SceneSha256": "b4f29f64bc156093c97012a3ee250b5a4e4eff200bf87d58fa78b13666ab8288",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crucifixo-inclinado-halteres",
+      "finding": "Bracos abrem de forma assimetrica no crucifixo inclinado; um halter permanece elevado enquanto o outro desce.",
+      "sourceV3SceneSha256": "49514d726b2c4e89b3349f9170e93e4750ed77e2e5c456265248ec84e8783c2c",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-maquina",
+      "finding": "Maquina e camera anterior escondem a regiao dos gluteos.",
+      "sourceV3SceneSha256": "a16bf6b8239988032bacdf143dfe77562ca2f54366e64ce44391c930c65ec5d8",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-encolhimento-barra",
+      "finding": "Amplitude do encolhimento e sutil nos quadros; conferir ciclo em ampliacao.",
+      "sourceV3SceneSha256": "74fc80a3c36b3f9fb5230c2bc3daf311edb4a35196db2d26f8d5a339806333e4",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-encolhimento-halteres",
+      "finding": "Amplitude do encolhimento e sutil nos quadros; conferir ciclo em ampliacao.",
+      "sourceV3SceneSha256": "b104749f0076f675479fee017e40cdc2db6990957a757b826013a5dfaf88cc1b",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-extensao-lombar-banco",
+      "finding": "Destaque lombar pouco visivel na maior parte do ciclo.",
+      "sourceV3SceneSha256": "777fb343694843ff2bbffb2fd1284d89016449f0a999c50ba7a7fbb4cfce6276",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-fight-shadow",
+      "finding": "Ha halteres nas maos da demonstracao de sombra; conferir correspondencia com a descricao do exercicio.",
+      "sourceV3SceneSha256": "36d5076abeaa72e5995498db76b9dc536923fb81b9fdec41b5fcc7eb180d8e7f",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-flexao-solo-deficit",
+      "finding": "Destaque do peitoral fica oculto pela vista superior e pelo solo.",
+      "sourceV3SceneSha256": "13afd09185023b946bd5382c6a86b1a80457b83f92e5e8e90004678ab1cdf9f5",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-fut-sand-header-jump",
+      "finding": "Destaque muscular quase ausente; conferir tambem contato cabeca-bola em quadros intermediarios.",
+      "sourceV3SceneSha256": "cc49aa737e6a90a8724fd79fdbdef5e46cbad983a51b4ca76ea7bda978454e31",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-good-morning-barra",
+      "finding": "Cadeia posterior fica oculta pela camera frontal.",
+      "sourceV3SceneSha256": "fc3df04d04f74a81bb088adf188ecc59cc6f82f5afae3d1fd24cc3bab742782f",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-hyrox-sled-push",
+      "finding": "Regiao destacada e gesto das pernas pouco legiveis neste angulo.",
+      "sourceV3SceneSha256": "224533fa80777fd4be899a6a981d5d8742fb007f68b2823a7e9095e9fc068d5e",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-hyrox-wall-balls",
+      "finding": "Personagem pequeno em relacao a parede; amostras nao mostram o contato da bola com o alvo.",
+      "sourceV3SceneSha256": "c5fc2a6120d784e1063e7b9f21f3c0528b2c12b33b125178311695f9707e105a",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-levantamento-terra-convencional",
+      "finding": "Enfase posterior fica oculta pela camera frontal do levantamento terra.",
+      "sourceV3SceneSha256": "3d4f1b5258db798916ca59d5408a5a0c30cc59724577ecc791b37c7c8b65b12a",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-panturrilha-leg-press-45",
+      "finding": "Destaque das panturrilhas oculto por pernas e plataforma do leg press.",
+      "sourceV3SceneSha256": "bdb8b050a847298e9a891dd319c73c334d2b27f552803ada5de5132bee14c6e7",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-panturrilha-sentado-soleo",
+      "finding": "Destaque do soleo muito discreto; revisar em vista posterior-lateral.",
+      "sourceV3SceneSha256": "049204e8ee399e476e1be5b4114ea23e7660aacd415bc248ea91cf9f6b7897e5",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-prancha-isometrica",
+      "finding": "Abdomen pouco visivel pela vista superior da prancha.",
+      "sourceV3SceneSha256": "74ff4675e33741be950205346fb9a76bff8cccdff1d9734c2f7b5adf5be54d1c",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-roda-abdominal-abwheel",
+      "finding": "Abdomen destacado fica parcialmente oculto na roda abdominal.",
+      "sourceV3SceneSha256": "2cb3f2ed657a96b47c319ad45e6131b72307c90b8b029d886451ba7a3b9da439",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-concentrada-halter",
+      "finding": "Conferir contato do cotovelo ativo com a coxa na rosca concentrada.",
+      "sourceV3SceneSha256": "248610b54730bc27ca1558501fa721b20ad1e9c6b991b123d039527bca8196a4",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-stiff-barra",
+      "finding": "Posterior da coxa fica escondido pela camera frontal do stiff com barra.",
+      "sourceV3SceneSha256": "53a2986eab201ea437f5e1fc88d3ca25d58e90904db44a784e13a52cc03d8aa0",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-stiff-halteres",
+      "finding": "Posterior da coxa fica escondido pela camera frontal do stiff com halteres.",
+      "sourceV3SceneSha256": "719c4dccf98518e3c800eaab084814f8fb050039bf62be6e857b854209abd72b",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-testa-barra-w",
+      "finding": "Destaque do triceps pequeno ou escondido pelo angulo e banco.",
+      "sourceV3SceneSha256": "8013e3aa210ab15476eba24e3c1baffce8dd2971b823c3023d294e343a911a40",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-testa-halteres",
+      "finding": "Destaque do triceps pequeno ou escondido pelo angulo e banco.",
+      "sourceV3SceneSha256": "d1d753632cbfd9f33b3b0c643f58486350424d8da087e2b70dfe51d77a14f2bd",
+      "surfaceAnimationRevision": false,
+      "approvedForPublication": false
+    }
+  ]
+}

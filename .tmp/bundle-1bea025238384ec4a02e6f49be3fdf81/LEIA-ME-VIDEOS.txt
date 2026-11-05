@@ -1,0 +1,23 @@
+FORZON - ATUALIZACAO DOS VIDEOS E DISPONIBILIDADE
+
+Inclui os tres videos do primeiro lote com mais definicao muscular:
+- Rosca direta com barra reta.
+- Rosca martelo com halteres.
+- Rosca alternada com halteres e supinacao.
+
+Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
+Aceite substituir os arquivos correspondentes.
+
+No Git Bash, dentro da pasta do projeto:
+npm install
+npm run dev
+
+O player repete os videos automaticamente e oferece controles de reproducao.
+Os enderecos dos videos foram atualizados para renovar o cache do navegador.
+Na Biblioteca, marque "Somente exercicios com video" para localizar os videos disponiveis.
+No site publicado, os videos prontos sao somente barra reta, martelo e alternada.
+Os demais exercicios possuem instrucoes escritas e ainda precisam de videos.
+
+Este pacote cobre 3 dos 104 exercicios do catalogo principal.
+As estrias e a definicao do personagem sao uma ilustracao muscular estilizada.
+Os avisos de licenca acompanham as midias proprias.

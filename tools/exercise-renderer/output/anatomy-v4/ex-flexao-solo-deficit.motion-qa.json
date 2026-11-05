@@ -1,0 +1,24 @@
+{
+  "exerciseId": "ex-flexao-solo-deficit",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "13afd09185023b946bd5382c6a86b1a80457b83f92e5e8e90004678ab1cdf9f5",
+  "sceneSha256": "349a7816e4b33722dc6111db2b8239107355076993b33be92b33028003bc7da1",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.0689651370048523
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

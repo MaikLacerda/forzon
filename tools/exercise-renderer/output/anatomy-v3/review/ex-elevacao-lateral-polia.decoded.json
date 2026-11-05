@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-elevacao-lateral-polia",
+  "videoSha256": "3deea004985b83035dd8fd70ddeaed455d3dbe650a48c8ebf7c95bcd2efed5af",
+  "framePixelSha256": {
+    "1": "5eae2ede0b4853f16279677cca44a56cbf632e31106bd5d15328df00370e17b6",
+    "30": "3b57d9f4f879e1a6ee4a2ba2ed5afd6bddbd25038436533c919714a206a47075",
+    "60": "18b38d641b2fccc45635a73f5c280511b1939dc3c98cb284d87558cfc0a2fbc5",
+    "90": "0eab2cef0de24c9eb362f387367dba1448d31c9e50e7a15a18f4654c030c5b1c",
+    "120": "fc653cb4cd970ec4d6f891b424b78ea9683a585398cdee0afc311d5b2d830573"
+  },
+  "uniqueFrameCount": 5
+}

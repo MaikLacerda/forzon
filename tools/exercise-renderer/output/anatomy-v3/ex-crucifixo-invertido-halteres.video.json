@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-crucifixo-invertido-halteres",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "6f23cc3c67fd1e94ab246172bc69bccb9c138b3995302df37e711fcb8e7554f2",
+  "videoSha256": "e482a2c32364d13c87ab6f8ee3fda630446213d5db464794b783dedb054db5c3",
+  "visualReviewRequired": true
+}

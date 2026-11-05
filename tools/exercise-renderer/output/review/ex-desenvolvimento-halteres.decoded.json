@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-desenvolvimento-halteres",
+  "videoSha256": "8b2593db4a67a2905ea5c03790c5d9959b8ff23a5f67655dbdf1e27c98e43ca7",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "f572eae7b297c79d969634c09f4dcb6cc39d7d44f2e3a1c827784da2ac81169b",
+    "30": "d8cc23c76cffa3828c139a8f9140f81286d0ce9be4737dd99057d2b68de76b86",
+    "60": "2ce9336e569341e149de1cd3cc60d1337a6d7a3bc2bb8ffaed4bc69c35a0345b",
+    "90": "d96ca8b04b3231e6ca8a2752ddf4a63ba69821270246fba0d0858f3ed04e1957",
+    "120": "d2e53cbef4daf37513b3db03c56b34c7a93f418e069735f2ed9ccf64231fed81"
+  },
+  "uniqueFrameCount": 5
+}

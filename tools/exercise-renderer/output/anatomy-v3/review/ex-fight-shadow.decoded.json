@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-fight-shadow",
+  "videoSha256": "7fd8030bcbb12917728c9b9ffaff7708db78c806a98dcf2ac2bf650be2b73e66",
+  "framePixelSha256": {
+    "1": "86572e7b106b592562d6749995ba8631b8afc5be1b761971e733b9bf516c5762",
+    "48": "d9b9729b74d65e3016e20b5e6b0cc2417bad5de0777a94e45af044a3a7af2cf9",
+    "96": "19175748c022ac8428bde9cd8dd9049257f435d44bbd850e9d588cb54464c1e8",
+    "144": "5bb85d4adb0933387af6a947350cd79580a281361d05b4e27a9abf4c4843883c",
+    "192": "b21f874c0e2f405a089caf9b67a4ecdf7f627ce0c80ac34a5c203875829d4f14"
+  },
+  "uniqueFrameCount": 5
+}

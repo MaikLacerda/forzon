@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-dance-samba-funk-burst",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "b947a0e75445e4a921bc25bef106381d2adf07cfe5c4f7c8d4e5dad352f6c42d",
+  "frames": 192,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "full-body",
+  "productionStatus": "preview"
+}

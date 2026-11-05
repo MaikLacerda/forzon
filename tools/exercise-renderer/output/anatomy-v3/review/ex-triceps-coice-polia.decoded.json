@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-triceps-coice-polia",
+  "videoSha256": "69748c4416b70caebd020c5778e73aee1b917feab187aea60163d84561b5e9dd",
+  "framePixelSha256": {
+    "1": "879d14b61f3f648aacb3315eba8a91b8ab65656a812bad0c48bfc86a23cf1416",
+    "30": "dbf12e7f377b2afde7774543393d3d46455f9e1cf78796cc1d39fc37ca6d1a79",
+    "60": "1de6af4a3b79fd180e7b8607cc8052649d97f0e32b92bbbd5cba66cb22198272",
+    "90": "924b3133cef8b54fa8afe16b4700dbd803cae54635ef120643478a1d80adf9e1",
+    "120": "def3190f65832db7e4e6b8780a3a5b050de19a9380dd202890c42604db3f70cf"
+  },
+  "uniqueFrameCount": 5
+}

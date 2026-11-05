@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-elevacao-pelvica-maquina",
+  "videoSha256": "9caf0bea1627a0fdfa027ad74299266a4228c5534514940008df105ca7431557",
+  "framePixelSha256": {
+    "1": "4869fe5a3f82a3afe12ecfec9154028c3c4d415e9701c4333e633cfe814fc6c8",
+    "30": "25faa567d37ccecf885dae533b16f86fbe4accef50403dcd8b4de2412e1cbd0b",
+    "60": "c8d89c186a7d69d6557868b17fed5425373a849afee1b25515de8d0f6b1fa2bc",
+    "90": "64de63278b83b4b55eb0314317d81e95c76f7a70222e322b2b6b97241c53d249",
+    "120": "7f39ec1490d676a1d0ea48a411928d74bb17d0f1a6e7b9b7c89f9f0c23b9c6d1"
+  },
+  "uniqueFrameCount": 5
+}

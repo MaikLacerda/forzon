@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-supino-fechado-barra",
+  "videoSha256": "b8106fa5068d7aafa7202f3fd91d035922a81d9ec649f2069b9639656e3cb2c9",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "d13f9675f9d530365b09ff8deadab6edd93e5da5439c5aec057c57e13490b5eb",
+    "30": "bbd0ffe9824912d6581866ac5d09d68b3c3678cb5437e01dd2ffaa10acf528a3",
+    "60": "6425a5e71ed4b660b2f99a3dc160f6e65e7116b8e91f253398a254a9094dc65d",
+    "90": "16ad630556ccdf62aac97dbff44f01994ae982786998238a0f5262fb2d3ca0ac",
+    "120": "fd5e36b09a3de94dfab91505a784fb56ba2461889754789cbb3ab2247b6cd5ec"
+  },
+  "uniqueFrameCount": 5
+}

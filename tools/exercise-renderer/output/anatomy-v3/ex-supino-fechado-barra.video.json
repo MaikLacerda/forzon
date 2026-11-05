@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-supino-fechado-barra",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "589eb817a227b5030e5ea5bfef950c1d9292f1f5f04e867235fed367131f1bcf",
+  "videoSha256": "6f180a0126b95c021078b3512b0f33c746980179436dcad363c5b46e0438990a",
+  "visualReviewRequired": true
+}

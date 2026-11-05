@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-panturrilha-unilateral-degrau",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "9eda07c6e69d399c101e532fe160bbae10a83b8e99a5820bbf07781c9f35f823",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "calves",
+  "productionStatus": "preview"
+}

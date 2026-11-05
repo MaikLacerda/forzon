@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-elevacao-pelvica-barra",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "5d005e2d66f366960d753bcd9f1333529aef10e4cd682c1942a05a818d0e848e",
+  "videoSha256": "8b6c355e29dc9d0c2b65ea818dc49a1af9e05b34543a444e8a7c176a87a35959",
+  "visualReviewRequired": true
+}

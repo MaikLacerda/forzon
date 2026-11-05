@@ -1,0 +1,32 @@
+FORZON - ATUALIZACAO DOS VIDEOS E DISPONIBILIDADE
+
+Inclui 4 videos proprios:
+- Rosca Direta com Barra Reta
+- Rosca Martelo com Halteres (Braquial e Braquiorradial)
+- Supino Reto com Barra
+- Rosca Alternada com Halteres e Supinação
+
+Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
+Aceite substituir os arquivos correspondentes.
+
+No Git Bash, dentro da pasta do projeto:
+npm install
+npm run dev
+
+O player repete os videos automaticamente e oferece controles de reproducao.
+Os enderecos dos videos foram atualizados para renovar o cache do navegador.
+Na Biblioteca, marque "Somente exercicios com video" para localizar os videos disponiveis.
+Na lista, clique no nome do exercicio para abrir a ficha de execucao.
+Os demais exercicios possuem instrucoes escritas e ainda precisam de videos.
+
+Este pacote cobre 4 dos 104 exercicios do catalogo principal.
+As estrias e a definicao do personagem sao uma ilustracao muscular estilizada.
+Os avisos de licenca acompanham as midias proprias.
+
+A correcao do cache fica em public/sw.js. Depois da publicacao, recarregue o
+site com Ctrl+F5 para atualizar a pagina que estava aberta.
+
+Para enviar ao GitHub:
+git add src public/assets/exercise-videos public/sw.js EXERCISE_VIDEO_STATUS.md
+git commit -m "Adiciona video do supino e corrige abertura e cache dos exercicios"
+git push origin main

@@ -1,0 +1,943 @@
+{
+  "scope": "Production references; not a claim that all 100 exercises have been researched or approved",
+  "ex-supino-reto-halteres": {
+    "sources": [
+      "https://www.nsca.com/contentassets/116c55d64e1343d2b264e05aaf158a91/basics_of_strength_and_conditioning_manual.pdf"
+    ],
+    "reviewFocus": [
+      "Stable bench support and feet",
+      "Independent converging implements",
+      "Controlled shoulder and elbow excursion"
+    ]
+  },
+  "ex-supino-inclinado-halteres": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/two-arm-incline-dumbbell-chest-press",
+      "https://www.nsca.com/contentassets/116c55d64e1343d2b264e05aaf158a91/basics_of_strength_and_conditioning_manual.pdf"
+    ],
+    "reviewFocus": [
+      "Inclined back support",
+      "Grounded feet",
+      "Controlled return beside upper chest",
+      "Avoid forced elbow lockout"
+    ]
+  },
+  "ex-supino-inclinado-barra": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/incline-barbell-bench-press"
+    ],
+    "reviewFocus": [
+      "Bar returns just above upper chest",
+      "Stable back and feet",
+      "Palm-supported grip",
+      "Controlled extension within rig reach"
+    ]
+  },
+  "ex-crucifixo-reto-halteres": {
+    "sources": [
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "reviewFocus": [
+      "Neutral parallel implements",
+      "Slight elbow bend held throughout shoulder arc",
+      "Bench contact and controlled convergence"
+    ]
+  },
+  "ex-crucifixo-inclinado-halteres": {
+    "sources": [
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "reviewFocus": [
+      "Neutral parallel implements",
+      "Slight elbow bend held throughout shoulder arc",
+      "Bench contact and controlled convergence"
+    ]
+  },
+  "ex-supino-declinado-barra": {
+    "sources": [
+      "https://health.clevelandclinic.org/bench-press-form"
+    ],
+    "reviewFocus": [
+      "Declined backrest",
+      "Secure ankle and heel supports",
+      "Controlled return toward lower pectoral line"
+    ]
+  },
+  "ex-supino-declinado-halteres": {
+    "sources": [
+      "https://health.clevelandclinic.org/bench-press-form"
+    ],
+    "reviewFocus": [
+      "Declined backrest",
+      "Secure ankle and heel supports",
+      "Controlled return toward lower pectoral line"
+    ]
+  },
+  "ex-supino-fechado-barra": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/close-grip-bench-press"
+    ],
+    "reviewFocus": [
+      "Narrower grip",
+      "Tucked elbows",
+      "Palm-supported bar and controlled extension"
+    ]
+  },
+  "ex-supino-maquina-articulada": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/chest-press-machine"
+    ],
+    "reviewFocus": [
+      "Chest-height neutral handles",
+      "Supported torso and feet",
+      "Forward press on rigid converging levers"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-crossover-polia-media": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/cable-crossover"
+    ],
+    "reviewFocus": [
+      "Matching pulley height and directional path",
+      "Slight elbow bend maintained",
+      "Split stance and stable torso",
+      "Rigid D handles connected to cables"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-crossover-polia-alta": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/cable-crossover"
+    ],
+    "reviewFocus": [
+      "Matching pulley height and directional path",
+      "Slight elbow bend maintained",
+      "Split stance and stable torso",
+      "Rigid D handles connected to cables"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-crossover-polia-baixa": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/cable-lower-chest-raise.html"
+    ],
+    "reviewFocus": [
+      "Matching pulley height and directional path",
+      "Slight elbow bend maintained",
+      "Split stance and stable torso",
+      "Rigid D handles connected to cables"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-peck-deck-voador": {
+    "sources": [
+      "https://www.precor.com/en-US/products/RSL0505",
+      "https://www.wiu.edu/coehs/healthwellness/documents/exercise_science/lift.pdf"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Seated neutral-handle pec fly",
+      "Stable slight elbow flexion",
+      "Rigid levers and controlled peak hold"
+    ]
+  },
+  "ex-mergulho-paralelas-peito": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/chest-dip.html"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Forward torso inclination",
+      "Suspended crossed legs",
+      "Right-angle descent and controlled support extension"
+    ]
+  },
+  "ex-pullover-halter": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/dumbbell-pullover.html"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Cross-bench upper-back support",
+      "Two palms beneath the upper plate",
+      "Stable slight elbow flexion and overhead shoulder arc"
+    ]
+  },
+  "ex-flexao-solo-deficit": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/push-up"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Plank alignment, straight knees and planted toes",
+      "Fixed palm contact on blocks",
+      "Chest below palm line and controlled elbow extension"
+    ]
+  },
+  "ex-puxada-frontal-polia": {
+    "sources": [
+      "https://www.nasm.org/resource-center/blog/training/the-biomechanics-of-the-lat-pulldown-muscles-grip-and-form"
+    ],
+    "reviewFocus": [
+      "Planted feet and secured thighs",
+      "Stable slight torso recline",
+      "Front upper-chest pull with correct grip",
+      "Complete controlled overhead return"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-puxada-triangulo": {
+    "sources": [
+      "https://www.nasm.org/resource-center/blog/training/the-biomechanics-of-the-lat-pulldown-muscles-grip-and-form"
+    ],
+    "reviewFocus": [
+      "Planted feet and secured thighs",
+      "Stable slight torso recline",
+      "Front upper-chest pull with correct grip",
+      "Complete controlled overhead return"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-barra-fixa-pronada": {
+    "sources": [
+      "https://www.nasm.org/resource-center/blog/training/chin-ups-vs-pull-ups-the-difference-the-benefits-muscles-worked"
+    ],
+    "reviewFocus": [
+      "Correct pronation or supination",
+      "Near-straight-arm hanging start",
+      "Chin clears bar with neutral head",
+      "Controlled vertical travel without swinging"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-barra-fixa-supinada": {
+    "sources": [
+      "https://www.nasm.org/resource-center/blog/training/chin-ups-vs-pull-ups-the-difference-the-benefits-muscles-worked"
+    ],
+    "reviewFocus": [
+      "Correct pronation or supination",
+      "Near-straight-arm hanging start",
+      "Chin clears bar with neutral head",
+      "Controlled vertical travel without swinging"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-remada-curvada-barra": {
+    "sources": [
+      "https://www.puregym.com/exercises/back/rows/barbell-bent-over-row/"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Stable hip hinge and neutral spine",
+      "Overhand grip, controlled arm extension",
+      "Row toward lower torso without torso swing"
+    ]
+  },
+  "ex-remada-baixa-triangulo": {
+    "sources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/",
+      "https://www.puregym.com/exercises/back/rows/seated-cable-row/"
+    ],
+    "sourceScope": "PureGym cable-row written steps cover footplates, neutral spine, full arm return and handle toward navel; ACE supports elbow and wrist mechanics.",
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Stable upright torso and planted feet",
+      "Neutral wrists and elbows passing torso",
+      "Controlled return to extended arms"
+    ]
+  },
+  "ex-remada-unilateral-serrote": {
+    "sources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/126/single-arm-row/"
+    ],
+    "reviewFocus": [
+      "Same-side hand and knee support on bench",
+      "Flat stable torso without rotation",
+      "Free arm extends toward floor then elbow pulls back"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-pulldown-polia-alta": {
+    "reviewFocus": [
+      "Fixed slight elbow bend",
+      "Stable hip hinge and planted feet",
+      "Overhand grip, shoulder-driven arc toward front of thighs"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.puregym.com/exercises/back/lat-exercises/straight-arm-lat-pulldown/"
+    ]
+  },
+  "ex-crucifixo-invertido-halteres": {
+    "reviewFocus": [
+      "Flat back and slight knee bend",
+      "Lateral arm opening with slight fixed elbow bend",
+      "Controlled return without trunk swing"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.livritefitness.com/blog/bent-over-fly"
+    ]
+  },
+  "ex-remada-cavalinho-tbar": {
+    "reviewFocus": [
+      "Fixed ground anchor and rigid shaft",
+      "Neutral grip with aligned wrists",
+      "Stable hip hinge, straddling stance and controlled row toward abdomen"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.puregym.com/exercises/back/rows/landmine-row/"
+    ]
+  },
+  "ex-remada-articulada-maquina": {
+    "sources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/168/seated-row/"
+    ],
+    "reviewFocus": [
+      "Chest support and planted feet",
+      "Neutral wrists and elbows pulling past torso",
+      "Rigid articulated machine arms and controlled return"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-crucifixo-invertido-peck-deck": {
+    "reviewFocus": [
+      "Chest against front pad and feet grounded",
+      "Fixed slight elbow bend and opening at shoulder height",
+      "Rigid levers and handle attachment"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.muscleandstrength.com/node/48997"
+    ]
+  },
+  "ex-encolhimento-barra": {
+    "reviewFocus": [
+      "Vertical shoulder elevation without rolling",
+      "Straight arms, stable head and pelvis",
+      "Two-second peak hold as prescribed in app instructions",
+      "Correct bar-in-front or neutral dumbbells-at-sides grip"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.puregym.com/exercises/back/shrugs/barbell-shrug/"
+    ]
+  },
+  "ex-encolhimento-halteres": {
+    "reviewFocus": [
+      "Vertical shoulder elevation without rolling",
+      "Straight arms, stable head and pelvis",
+      "Two-second peak hold as prescribed in app instructions",
+      "Correct bar-in-front or neutral dumbbells-at-sides grip"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.puregym.com/exercises/back/shrugs/dumbbell-shrug/"
+    ]
+  },
+  "ex-face-pull-corda": {
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Stable head and torso",
+      "Hands separate with elbows at shoulder height",
+      "Constant rope branch lengths and rope clearing the face"
+    ],
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/face-pull"
+    ]
+  },
+  "ex-desenvolvimento-halteres": {
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Supported upright torso and planted feet",
+      "Near-full overhead extension with slightly converging implements",
+      "Stacked forearms at ear-height bottom position"
+    ],
+    "sources": [
+      "https://www.muscleandfitness.com/exercise/workouts/shoulder-exercises/seated-dumbbell-shoulder-press/"
+    ]
+  },
+  "ex-desenvolvimento-arnold": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/seated-arnold-press.html"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Palms face body at bottom and rotate forward overhead",
+      "Coordinated elbow opening with stable supported trunk",
+      "All-frame dumbbell-to-head and dumbbell-to-dumbbell collision checks"
+    ]
+  },
+  "ex-desenvolvimento-maquina": {
+    "sources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/shoulder-press-machine/"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Stable supported torso and planted feet",
+      "Rigid parallel links with connected horizontal grips",
+      "Converging overhead extension and controlled ear-height return"
+    ]
+  },
+  "ex-desenvolvimento-militar-barra": {
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Strict standing press without leg drive",
+      "Supported rack grip and aligned overhead finish",
+      "All-frame bar clearance based on head geometry"
+    ],
+    "sources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/military-press/"
+    ]
+  },
+  "ex-elevacao-lateral-halteres": {
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Slight stable forward lean",
+      "Slight fixed elbow bend, raising 30 degrees forward of lateral plane",
+      "Hands at shoulder height with palms down at top"
+    ],
+    "sources": [
+      "https://legionathletics.com/lateral-raises/"
+    ]
+  },
+  "ex-elevacao-frontal-halteres": {
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Alternating arms while opposite arm stays down",
+      "Neutral grip and slight fixed elbow bend",
+      "Forward lift slightly above horizontal without torso swing"
+    ],
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/alternate-standing-dumbbell-front-raise.html"
+    ]
+  },
+  "ex-elevacao-lateral-polia": {
+    "reviewFocus": [
+      "Stable opposite-hand tower support and slight lean away",
+      "Cross-body return and shoulder-height working-arm finish",
+      "Rigid D handle with external low pulley and cable clearing torso and legs"
+    ],
+    "sources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/lateral-raises/cable-lateral-raise/",
+      "https://legionathletics.com/lateral-raises/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-elevacao-frontal-corda": {
+    "reviewFocus": [
+      "Facing away from low pulley with rope between legs",
+      "Neutral grip, slight fixed elbow bend and stable torso",
+      "Fixed rope branch lengths and cable clearance from legs and torso"
+    ],
+    "sources": [
+      "https://www.gettfit.com/exercise-database/shoulders/cable-front-raise-with-rope/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-corda-polia": {
+    "reviewFocus": [
+      "Fixed upper arms, full elbow extension and controlled return",
+      "Distinct rope, straight bar and angled V grips",
+      "High pulley connection and cable clearance"
+    ],
+    "sources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-pulley-barra-reta": {
+    "reviewFocus": [
+      "Fixed upper arms, full elbow extension and controlled return",
+      "Distinct rope, straight bar and angled V grips",
+      "High pulley connection and cable clearance"
+    ],
+    "sources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-pulley-barra-v": {
+    "reviewFocus": [
+      "Fixed upper arms, full elbow extension and controlled return",
+      "Distinct rope, straight bar and angled V grips",
+      "High pulley connection and cable clearance"
+    ],
+    "sources": [
+      "https://www.catalystathletics.com/exercise/911/Tricep-Pushdown/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-testa-halteres": {
+    "reviewFocus": [
+      "Supine flat bench support with planted feet",
+      "Fixed upper arms, neutral grip and lowering behind head",
+      "Dumbbells clear head throughout cycle"
+    ],
+    "sources": [
+      "https://www.strengthlog.com/dumbbell-lying-triceps-extension/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-direta-barra-w": {
+    "reviewFocus": [
+      "Underhand angled EZ grip with contact on angled bar segments",
+      "Stable elbows and upright trunk",
+      "Controlled elbow flexion and extension without swinging"
+    ],
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-curl.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-stiff-halteres": {
+    "sources": [
+      "https://www.strengthlog.com/dumbbell-romanian-deadlift/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-stiff-barra": {
+    "sources": [
+      "https://www.strengthlog.com/romanian-deadlift/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-good-morning-barra": {
+    "sources": [
+      "https://www.strengthlog.com/good-morning/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-martelo-corda": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/rope-cable-curl.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-inclinada-45-halteres": {
+    "sources": [
+      "https://www.strengthlog.com/incline-dumbbell-curl/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-scott-barra-w": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-preacher-curl.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-aranha-spider-curl": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/spider-curl.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-rosca-concentrada-halter": {
+    "sources": [
+      "https://www.strengthlog.com/concentration-curl/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-testa-barra-w": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/ez-bar-skullcrusher.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-frances-unilateral": {
+    "sources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/overhead-tricep-extension/",
+      "https://www.muscleandstrength.com/exercises/one-arm-seated-dumbbell-extension.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-frances-polia-corda": {
+    "sources": [
+      "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/overhead-tricep-extension/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-coice-polia": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/cable-tricep-kickback.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-triceps-paralelas-peso": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/tricep-dip.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-remada-alta-barra-w": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/upright-row.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-abdominal-vacuum": {
+    "sources": [
+      "https://www.exercises.com.au/stomach-vacuum/"
+    ],
+    "status": "approved-encoded-video",
+    "reviewFocus": [
+      "Standing isometric pose with hands supported at hips",
+      "Visible abdominal retraction and release over a 15-second cycle",
+      "More than ten seconds of hold, without skeletal movement or breathing animation"
+    ]
+  },
+  "ex-levantamento-terra-convencional": {
+    "sources": [
+      "https://www.strengthlog.com/deadlift/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-agachamento-livre-barra": {
+    "sources": [
+      "https://www.strengthlog.com/squat/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-agachamento-frontal-barra": {
+    "sources": [
+      "https://www.strengthlog.com/front-squat/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-agachamento-smith": {
+    "sources": [
+      "https://www.strengthlog.com/smith-machine-squat/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-agachamento-sumo-halter": {
+    "sources": [
+      "https://www.macfit.com/blog/egzersiz-kutuphanesi/bacak-ve-kalca/dumbbell-sumo-squat"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-agachamento-bulgaro-halteres": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/bulgarian-split-squat"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-afundo-passada-halteres": {
+    "sources": [
+      "https://www.strengthlog.com/dumbbell-walking-lunge/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-elevacao-pelvica-barra": {
+    "sources": [
+      "https://www.strengthlog.com/hip-thrust/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-gluteo-coice-polia": {
+    "sources": [
+      "https://www.strengthlog.com/cable-glute-kickback/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-cadeira-abdutora": {
+    "sources": [
+      "https://www.strengthlog.com/hip-abduction-machine/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-panturrilha-em-pe-maquina": {
+    "sources": [
+      "https://www.strengthlog.com/standing-calf-raise/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-panturrilha-sentado-soleo": {
+    "sources": [
+      "https://www.strengthlog.com/seated-calf-raise/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-panturrilha-unilateral-degrau": {
+    "sources": [
+      "https://www.strengthlog.com/standing-calf-raise/",
+      "https://www.muscleandstrength.com/exercises/standing-one-leg-calf-raise-with-dumbbell.html"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-cadeira-extensora": {
+    "sources": [
+      "https://www.strengthlog.com/leg-extension/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-mesa-flexora": {
+    "sources": [
+      "https://www.strengthlog.com/lying-leg-curl/"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-cadeira-flexora": {
+    "sources": [
+      "https://www.strengthlog.com/seated-leg-curl/"
+    ],
+    "reviewFocus": [
+      "Fixed upper thigh restraint and knee-aligned pivot; ankle roller on posterior lower leg"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-extensao-lombar-banco": {
+    "sources": [
+      "https://www.strengthlog.com/back-extension/"
+    ],
+    "reviewFocus": [
+      "Upper thigh support with free hip crease, fixed straight legs and neutral body line at top"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-elevacao-lateral-inclinada": {
+    "sources": [
+      "https://www.muscleandfitness.com/exercise/workouts/shoulder-exercises/side-lying-lateral-raise/"
+    ],
+    "reviewFocus": [
+      "Side-lying incline support; active arm reaches perpendicular to trunk with slight fixed elbow bend"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-leg-press-45": {
+    "sources": [
+      "https://www.strengthlog.com/leg-press/"
+    ],
+    "reviewFocus": [
+      "Supported torso and hips, whole foot contact and knee flexion without hard knee lockout"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-hack-squat-maquina": {
+    "sources": [
+      "https://www.strengthlog.com/hack-squat-machine/"
+    ],
+    "reviewFocus": [
+      "Back and shoulders supported by loaded 45-degree carriage; fixed feet and controlled depth"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-sissy-squat": {
+    "sources": [
+      "https://www.muscleandstrength.com/exercises/sissy-squat.html"
+    ],
+    "reviewFocus": [
+      "Balance support, forefoot anchors and heel rise, backward lean with extended hips"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-elevacao-pelvica-maquina": {
+    "sources": [
+      "https://www.strengthlog.com/hip-thrust/"
+    ],
+    "reviewFocus": [
+      "Padded hip belt, fixed feet and grips, upper-back support, hip extension to neutral lockout"
+    ],
+    "status": "approved-encoded-video",
+    "equipmentReference": "https://truefitness.com/products/pls-0700-hip-thrust/"
+  },
+  "ex-panturrilha-leg-press-45": {
+    "sources": [
+      "https://www.strengthlog.com/calf-raise-in-leg-press/"
+    ],
+    "reviewFocus": [
+      "Forefoot support at platform edge, free heels, soft knees and ankle-driven sled travel"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-prancha-isometrica": {
+    "sources": [
+      "https://www.acefitness.org/resources/everyone/exercise-library/32/front-plank/"
+    ],
+    "reviewFocus": [
+      "Forearm and toe support, open palms, elbows below shoulders, stable aligned body and breathing"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-abdominal-polia-cable-crunch": {
+    "sources": [
+      "https://www.muscleandfitness.com/exercise/workouts/abs-and-core-exercises/kneeling-cable-crunch/"
+    ],
+    "reviewFocus": [
+      "Rope by temples, palms facing inward, stable kneeling pelvis and spinal curl with elbows descending"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-abdominal-infra-paralela": {
+    "sources": [
+      "https://www.muscleandfitness.com/workouts/abs-and-core-exercises/the-captains-chair-exercise-and-workout-for-rock-hard-abs/"
+    ],
+    "reviewFocus": [
+      "Forearm pads and fixed grips, back support, controlled straight-leg raise with pelvic curl"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-roda-abdominal-abwheel": {
+    "sources": [
+      "https://www.puregym.com/exercises/abs/ab-wheel-rollouts/"
+    ],
+    "reviewFocus": [
+      "Fixed knees, nearly straight arms, forward wheel roll and braced trunk without lumbar extension"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-abdominal-supra-solo": {
+    "sources": [
+      "https://www.catalystathletics.com/exercise/430/Crunch/"
+    ],
+    "reviewFocus": [
+      "Feet and pelvis supported, crossed arms and scapular lift through spinal flexion with peak hold"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-prancha-lateral-estatica": {
+    "sources": [
+      "https://www.nasm.org/resource-center/exercise-library/side-plank"
+    ],
+    "reviewFocus": [
+      "Forearm below shoulder, lifted hips and aligned torso, stacked or staggered feet with breathing"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-russian-twist-anilha": {
+    "sources": [
+      "https://www.puregym.com/exercises/abs/russian-twists/"
+    ],
+    "reviewFocus": [
+      "Seated glute contact, stable feet and pelvis, controlled trunk rotation carrying a plate"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-hyrox-wall-balls": {
+    "sources": [
+      "https://www.crossfit.com/essentials/functionality-and-wall-ball",
+      "https://www.crossfit.com/essentials/the-wall-ball?topicId=article.20190721155518618"
+    ],
+    "reviewFocus": [
+      "Deep front squat; legs drive before throw",
+      "Independent ballistic flight to three-metre wall target",
+      "Catch and absorb into receiving squat"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-corrida-ao-ar-livre": {
+    "sources": [
+      "https://clubspark.englandathletics.org/gr8runners/News/7003bc8b-71ae-46f6-b478-9670684b3ba4",
+      "https://worldathletics.org/news/series/advice-runners-beginners"
+    ],
+    "reviewFocus": [
+      "Compact reciprocal arms and neutral relaxed hands",
+      "Alternating foot support with flight and no stance sliding",
+      "Illustrative cadence 168 per minute"
+    ],
+    "status": "approved-encoded-video"
+  },
+  "ex-fut-sand-header-jump": {
+    "reviewFocus": [
+      "Two-foot jump and cushioned landing",
+      "Forehead contact at jump apex",
+      "Ball reverses direction after contact"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.football.ch/portaldata/27/Resources/Dokumente/Nationalteams/Beach_Soccer/Abgrenzung_und_Trainingsformen/Beach_Soccer_Training_Spieler_%28Englische_Version%29.pdf"
+    ]
+  },
+  "ex-dance-samba-funk-burst": {
+    "reviewFocus": [
+      "Original lateral step-touch and rhythmic squat combination",
+      "Continuous floor support",
+      "Alternating raised arms and controlled hip rhythm"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.zumba.com/en-US/zumba-beginner-guide"
+    ]
+  },
+  "ex-fight-shadow": {
+    "reviewFocus": [
+      "Jab, cross, hook and uppercut paths",
+      "Free hand guards chin",
+      "Return to stance with controlled trunk and foot pivot"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.englandboxing.org/wp-content/uploads/2022/03/EB_Boxing-Coaching-Handbook-Part-1_v8-002.pdf"
+    ]
+  },
+  "ex-cal-muscle-up": {
+    "reviewFocus": [
+      "Hang and pull",
+      "Close-bar turnover",
+      "Extended-arm support and controlled return"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.crossfit.com/essentials/the-strict-bar-muscle-up",
+      "https://www.crossfit.com/wp-content/uploads/2025/10/30140558/CAP_Open_Training_Plans_03_BMU_20251027_R1.pdf"
+    ]
+  },
+  "ex-crossfit-thruster": {
+    "reviewFocus": [
+      "Full front rack and below-parallel squat",
+      "Leg drive before press",
+      "Extended overhead lockout"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.crossfit.com/essentials/the-thruster"
+    ]
+  },
+  "ex-swim-crawl-sprints": {
+    "reviewFocus": [
+      "High-elbow catch and recovery",
+      "Body roll and bilateral breathing every third stroke",
+      "Small continuous hip-led flutter kick"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.swimming.org/masters/improving-front-crawl-technique/"
+    ]
+  },
+  "ex-hyrox-skierg": {
+    "reviewFocus": [
+      "Core-led double-pole drive",
+      "Hip hinge with soft knees",
+      "Handles finish near thighs and slower recovery"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.concept2.com/training/skierg-technique"
+    ]
+  },
+  "ex-fight-sprawl": {
+    "reviewFocus": [
+      "Defensive hips down and legs back",
+      "Chest and head raised",
+      "Hands supported on mat and return to guard"
+    ],
+    "status": "approved-encoded-video",
+    "sources": [
+      "https://www.championshipproductions.com/news/2014/09/01/avoid-a-takedown-with-a-good-sprawl/"
+    ]
+  },
+  "ex-hyrox-sled-push": {
+    "sources": [
+      "https://www.compromisedrunning.com/post/hyrox-training-manual.files/HYROX_ENG_Manual_10_2020.pdf"
+    ],
+    "sourceDescription": "HYROX Manual 10/2020, original organizer manual, page 6",
+    "reviewFocus": [
+      "Staggered stance and firm handle grip",
+      "Leg drive transmitted through stable inclined trunk",
+      "Continuous short steps with planted forefoot"
+    ],
+    "status": "approved-encoded-video"
+  }
+}

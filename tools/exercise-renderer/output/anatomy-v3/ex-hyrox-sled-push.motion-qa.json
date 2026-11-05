@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-hyrox-sled-push",
+  "sourceSceneSha256": "f3510f81687dc14ad98a02c26952e3c589d2a14bfa12ba3b8d59d2a9f459dbe2",
+  "sceneSha256": "224533fa80777fd4be899a6a981d5d8742fb007f68b2823a7e9095e9fc068d5e",
+  "framesChecked": 192,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

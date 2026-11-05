@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-supino-declinado-halteres",
+  "sourceSceneSha256": "ff71fb8929f9b2912171069194bfa5d79d06985fbb0c1ab22253af3082c30d71",
+  "sceneSha256": "bc6760ca97b66139446c4b198f83a7e8b1c125454ddee13884805cc9a3ad4538",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

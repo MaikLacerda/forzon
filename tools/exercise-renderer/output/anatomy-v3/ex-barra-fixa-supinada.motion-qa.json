@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-barra-fixa-supinada",
+  "sourceSceneSha256": "c2c37d972a331468df7b22a70d3f3ae8de68adbe440d03f4fad4e9f6fe620b58",
+  "sceneSha256": "f27a6354bdd6f8a783acc104bfb97673cd7586220ad15c21781a99fdd397f7a8",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

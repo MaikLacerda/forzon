@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-panturrilha-em-pe-maquina",
+  "videoSha256": "343a087e7b765ca99f59df5c8ccf4211fc9cd09c2c4611455f4109aaa67ddd58",
+  "framePixelSha256": {
+    "1": "523f2347b63736f85b931eb717a5e7555a68c4d97c2ee31348f1f1e762fe578c",
+    "30": "f2f0b76c5a7d2c21c599ab2a267129581fee6ef009c56bfffadb6d5114e592c7",
+    "60": "c1af7f5308cd2c7a5f67b0920235dca4bd2836008d433c42b654797902977d33",
+    "90": "ec6962f709a6f7bccd7dc13498023921ecbde18039e1d9605e113f362f487fbb",
+    "120": "64a876e413205d9c899ac9cee34798740df6b2ff81503e6f2a7886702dbd87be"
+  },
+  "uniqueFrameCount": 5
+}

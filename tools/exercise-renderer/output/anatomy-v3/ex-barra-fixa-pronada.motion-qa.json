@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-barra-fixa-pronada",
+  "sourceSceneSha256": "6bc6029f63ade648f815cfd9c05ad53b97eec0238a5613d54e93336e1c5894e7",
+  "sceneSha256": "8b585cd8143003abd5adf24e28ed5208a32f5b58dc0be6b4d778e555ea3cd327",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

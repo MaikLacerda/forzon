@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-crucifixo-inclinado-halteres",
+  "videoSha256": "83ab33e3f830935baf1da0411cdc2ee2b907d776065a4bb8cc8875631e0c54ec",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "132106c74b7391ae676caf1ec4f1dcbe50d2e421db78106fff645b05b6e35b10",
+    "30": "79c1b4f98d7713f514755fd8628210b11e0acbb9ebf555f59e409ab84150eff4",
+    "60": "1eba42957a29bd9d1c6d45068d2f5ba59569b207cf4cea9a8fe60debf31e40df",
+    "90": "42a6db10560af1312df3dc6e730e77384dd62e4cf4214df10ada50cbe7695f92",
+    "120": "bf09fef9c487b0891de37e23142acaf554965b007fae178e0608f27f3448f3f9"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-flexao-solo-deficit",
+  "sourceSceneSha256": "1e57eaebbefa9b092e3a643631ef8edf6b17c78aa492cb62d4fab69cabbb8f45",
+  "sceneSha256": "13afd09185023b946bd5382c6a86b1a80457b83f92e5e8e90004678ab1cdf9f5",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

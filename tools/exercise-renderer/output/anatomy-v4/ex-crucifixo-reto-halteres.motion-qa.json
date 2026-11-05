@@ -1,0 +1,29 @@
+{
+  "exerciseId": "ex-crucifixo-reto-halteres",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "7f6d3e3e6c1259a6f9d5e33dee34964c0b7b767f64d73d4c224cccd45e0d7fe4",
+  "sceneSha256": "b5265ef2e7e81056a97d90d84836c021a2d79287732e1ab77f5660f7f0606e3b",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bilateralJointSymmetry": true,
+    "handArcPresent": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "symmetryMaximumMetres": 0.0,
+    "handTravelMetres": 0.6947906764842239,
+    "previousFinding": "Perspective looked asymmetric; world-space joint coordinates prove symmetry in v3 and v4. Camera correction only.",
+    "minimumBodyFrameMargin": 0.06896543502807617
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

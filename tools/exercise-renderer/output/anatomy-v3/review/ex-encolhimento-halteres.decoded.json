@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-encolhimento-halteres",
+  "videoSha256": "be6880a038a9a2d463fc6d1c2ef5336efbe038f9f3db42375ff93f2a0b17c0e1",
+  "framePixelSha256": {
+    "1": "61b4439b803a2de7fc2528dfb66252ad4b232b6687d742821fa074134c247bd4",
+    "30": "26f438c318b0909235c682814a030913dac0fd4d4b3164334b422f55ab56682c",
+    "60": "df8c8816e8aec2331406facd0ceb0283029ea0676fc103124db1949991073d36",
+    "90": "702e04d02d6d4c0d8c394f299d275ade4893e3be6fdd328ed3cade20d7200a73",
+    "120": "2be22b1ab468f49eebc011ea6f59959c2af1d526a16374c9023c4e6f200d5cce"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-agachamento-sumo-halter",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "50073e5ebf1b7e3c12ebaa9677dfd25803334fde01fb3ed39976ab2f25c25b28",
+  "surfaceAnimationRevision": null,
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.588348388671875,
+    0.7844645380973816,
+    0.1961161345243454
+  ],
+  "cameraScale": 2.856529474258423,
+  "reviewSampleFrames": [
+    1,
+    8,
+    16,
+    23,
+    31,
+    38,
+    46,
+    53,
+    61,
+    68,
+    75,
+    83,
+    90,
+    98,
+    105,
+    113,
+    120
+  ],
+  "publication": "not-published"
+}

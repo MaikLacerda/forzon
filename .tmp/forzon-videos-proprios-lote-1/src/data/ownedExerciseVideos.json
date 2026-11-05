@@ -1,0 +1,20 @@
+{
+  "ex-rosca-direta-barra-reta": {
+    "video": "/assets/exercise-videos/ex-rosca-direta-barra-reta.mp4",
+    "poster": "/assets/exercise-videos/ex-rosca-direta-barra-reta.png",
+    "durationSeconds": 4,
+    "provenance": "FORZON / MakeHuman CC0"
+  },
+  "ex-rosca-martelo-halteres": {
+    "video": "/assets/exercise-videos/ex-rosca-martelo-halteres.mp4",
+    "poster": "/assets/exercise-videos/ex-rosca-martelo-halteres.png",
+    "durationSeconds": 4,
+    "provenance": "FORZON / MakeHuman CC0"
+  },
+  "ex-rosca-alternada-halteres": {
+    "video": "/assets/exercise-videos/ex-rosca-alternada-halteres.mp4",
+    "poster": "/assets/exercise-videos/ex-rosca-alternada-halteres.png",
+    "durationSeconds": 8,
+    "provenance": "FORZON / MakeHuman CC0"
+  }
+}

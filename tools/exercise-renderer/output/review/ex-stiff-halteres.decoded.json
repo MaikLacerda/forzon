@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-stiff-halteres",
+  "videoSha256": "6c1f4affb0f315072bceffd2d578631f3763fa9a47dac84ace76eb8728b625ec",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "f7b184f6b76ec61c60b639da4f6539eda433086d633d37e0a83546cba7012901",
+    "30": "99df93c3a595d5d821653226379cb6fc6d26dfbb582598f65c1764aeaaeffe42",
+    "60": "fee46094bb2a36715e51572fe698138627cdfc724a5688499077a7d645539551",
+    "90": "44109c7194dd5393ebe0e688de060afe7dceca2bccfa785b286f87c5b2cc068a",
+    "120": "513c0302e990d2b0c807a7a961201c37f9eb80b94bef67b63e0ba282f486bbdb"
+  },
+  "uniqueFrameCount": 5
+}

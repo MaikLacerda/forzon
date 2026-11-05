@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-desenvolvimento-maquina",
+  "videoSha256": "ce24e948e879c90bacc37b2f443b3308bc5c78f45d788dfde2f354b01db007a7",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "c1f2be17c1056b2eaa81ffc266787d8852da71739de8a77615185bdf7b75f1f5",
+    "30": "4be9a5272f3a5a44a40fb0db318e5ded134548624f9185a782fed86530d4f68b",
+    "60": "09bbbf1d0e1103d8e1303cf849be35c495e2fb09e617b4f8c6cec2529b074929",
+    "90": "bd46dea32bd1a51102ff2d9636373f059e46b906fe185f63ff4535ea328694b2",
+    "120": "5dcca9ae9ab99565542f706fb4e85e672b524f1820e7edd8e58b9198d09804e4"
+  },
+  "uniqueFrameCount": 5
+}

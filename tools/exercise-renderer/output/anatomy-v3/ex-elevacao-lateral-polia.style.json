@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-elevacao-lateral-polia",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "4a0a05615749171ae330f8013254039e606f4fd49373dd07db3e36a6ed579b91",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "shoulders",
+  "productionStatus": "preview"
+}

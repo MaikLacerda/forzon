@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-agachamento-livre-barra",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "87d05ab1b918f526e52885e6afb772408c14f8dada2a4ebb74d16466e0e94a9f",
+  "videoSha256": "7a1150b05db0b085bcb577cb7fc3a892b9f11215c775414c30f9913b6a5dfd4c",
+  "visualReviewRequired": true
+}

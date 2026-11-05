@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-remada-cavalinho-tbar",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "3e41a2cba8989d054179c0b98a420955ea4c1a517c0fb254797700b8c413b327",
+  "videoSha256": "e2b7330e220c1040e8920e09be5f7469515c361c3d9f1ee08f6d2b17675d970f",
+  "visualReviewRequired": true
+}

@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-supino-inclinado-barra",
+  "videoSha256": "45ac691525a90f472ce0156694b17babdc6d1dd4b5496bb438c786502a2989f6",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "a8a342cc03809a9a0ab8deea42bc923e57b7aa852effa3176123926758bf23d3",
+    "30": "9153b6dc6eb7c4d98a5436b54d743f5273097f3c2bd5725f559d920a9d11af57",
+    "60": "cb53ff31d6256dd13470107e4ecf6378b64ad26fd02d4cfbcd76efcfb4c1967f",
+    "90": "1eb6358949c3266e7b78c6f4f46eb150c9f6d9918d1ae8021a03a70411ab2204",
+    "120": "1403cc2f1c97328a85e217faaee65673028242eefc754e438fcbb5846c95902d"
+  },
+  "uniqueFrameCount": 5
+}

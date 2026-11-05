@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-triceps-frances-polia-corda",
+  "videoSha256": "85e0525d5d18b70c136cf8b095b8fa3dd0d58901847bec146afe11ff278474ec",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "440d337ff62c406dc50ea567687a328ac9e1cdb07dd164d85776f4e0c38d4c81",
+    "30": "c26c0e83303c4da8361e0f741cea4ae07f06d6b2a473d6338dde384b612b7b48",
+    "60": "02cea8cf383bfb5406a12507b06cbee5833ad4f819db759c75cc1d25f2b76289",
+    "90": "bf47cb822734a81143f0078675151bf1cc1719465833ac875781c023b174aa79",
+    "120": "416c344f48002afa62e2cc418681c5e47e63b15190e7f06228dc491a4edbfb93"
+  },
+  "uniqueFrameCount": 5
+}

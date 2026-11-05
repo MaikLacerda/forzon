@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-leg-press-45",
+  "videoSha256": "7faa64b7a55e849e72f6464f2c41e814e20c8ca29044269d69139bd706888757",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "01b99d99ab6e3e610589430263bb6610d9301b8c276fe4a0475ba84dc721e557",
+    "30": "001d18b6cdf3a039c9567f4f732acf7ec5302eb2150303bb25568da5a5a2a137",
+    "60": "1c909ff7ceb62e5523f7e7b64d15fd78092e11c886653f7832174221a803f93b",
+    "90": "ce5a351f7a48e62090702057cd0aae746514d3c8deccf8abdf183c58b0d711e2",
+    "120": "3ec041b387cd78f8d164f3875ec1bc0410d9d9278f309948f181cab10ba5dccd"
+  },
+  "uniqueFrameCount": 5
+}

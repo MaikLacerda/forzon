@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-crucifixo-invertido-halteres",
+  "videoSha256": "e482a2c32364d13c87ab6f8ee3fda630446213d5db464794b783dedb054db5c3",
+  "framePixelSha256": {
+    "1": "71dd5b28e95367883c3a1cf21a74bf393e438616caf927b9cf16c9c92b10e08c",
+    "30": "a822c1e59a53587c1c3f508f433944265fea0321b681190654d096f61e85d3cb",
+    "60": "330c9eec76e142945c46fc3400a747314a14e86858e3fd8b25d801ba353ee8f4",
+    "90": "a6ad0b5e686215419c82abe44247227f92bed7cd478cc14e530830478842ad29",
+    "120": "d2d9a6ba8a2720f2d65ff3a0f8bb9d81dfd6978226ec9422420fa232ddae8f16"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-hyrox-skierg",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "ee661c85bc58a2f4f8a59a41fbc007ab2223b7a848daab39897911aaa9bca14f",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "full-body",
+  "productionStatus": "preview"
+}

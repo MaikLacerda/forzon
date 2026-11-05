@@ -1,0 +1,1829 @@
+{
+  "reviewedAt": "2026-11-04T09:29:15.2747937-03:00",
+  "scope": "Revisao inicial de 520 quadros, seguida de revisao ampliada dos 38 casos sinalizados; sete videos receberam 17 amostras cada para resolver duvidas temporais. Analise por amostragem, nao de todos os quadros.",
+  "reference": "Previa de estilo aprovada pelo usuario; isso nao aprova automaticamente a execucao de outros exercicios.",
+  "publication": "not-published",
+  "summary": [
+    {
+      "Name": "needs-correction",
+      "Count": 31
+    },
+    {
+      "Name": "no-obvious-issue-in-reviewed-samples",
+      "Count": 7
+    },
+    {
+      "Name": "no-obvious-issue-in-sampled-frames",
+      "Count": 66
+    }
+  ],
+  "exercises": [
+    {
+      "exerciseId": "ex-abdominal-infra-paralela",
+      "videoSha256": "31e46de33490a85efe1331d7735668711bbcc21524aae58f4485f877ef24d48a",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-abdominal-polia-cable-crunch",
+      "videoSha256": "52373508ae18f36e1e268e71486dc8fa2a3e59db25caf4a9bb8233d2aa3b386c",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-abdominal-supra-solo",
+      "videoSha256": "71e0c9d0ee77a899ae9937e76b9ef3619af3d093d4868801b2ff0e6d3580b7c0",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-abdominal-vacuum",
+      "videoSha256": "039f21a9e169a381782258df23a07fa14d96eb4bbd2b82ad373a745629005b79",
+      "sampledFrames": [
+        "1",
+        "90",
+        "180",
+        "270",
+        "360"
+      ],
+      "contactSheetPage": 1,
+      "status": "needs-correction",
+      "observation": "Movimento respiratorio sutil; os cinco quadros nao permitem avaliar bem a demonstracao.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "23",
+        "46",
+        "68",
+        "91",
+        "113",
+        "136",
+        "158",
+        "181",
+        "203",
+        "225",
+        "248",
+        "270",
+        "293",
+        "315",
+        "338",
+        "360"
+      ],
+      "expandedFinding": "Em 17 amostras a retracao abdominal continua pouco legivel. Melhorar visualizacao do gesto respiratorio."
+    },
+    {
+      "exerciseId": "ex-afundo-passada-halteres",
+      "videoSha256": "69755d578fb51b4f3fc701b240cf70da9753a26df638addc726345985ce7f356",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-bulgaro-halteres",
+      "videoSha256": "ca2ac5581520af4719e5f6dcd2554a8236f1fb989f09ec3aa8dfd808c46735ca",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-frontal-barra",
+      "videoSha256": "5e46e36920b7ad5f2c89f480287d4bac84829e2aac84e11d1a8ad678aef5a3ba",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-livre-barra",
+      "videoSha256": "7a1150b05db0b085bcb577cb7fc3a892b9f11215c775414c30f9913b6a5dfd4c",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 1,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-smith",
+      "videoSha256": "e185b3ec672de326837e36e9d41946e9e2539ae1fcfbd14966262f7a0b7edbbf",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-agachamento-sumo-halter",
+      "videoSha256": "dd6b39e9cf5be7ca0562b81d95e7bd6cbc49c88fa4d42c737978ac4c7b6642ea",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "needs-correction",
+      "observation": "Regiao muscular destacada quase invisivel no angulo frontal.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-barra-fixa-pronada",
+      "videoSha256": "48d69a28f824b5734b1de4df13c193e3c077e3266804f1bbcc967d0008098c8a",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-barra-fixa-supinada",
+      "videoSha256": "363aab81052bd0a669ab1a91ea368b073b813af1c9e0431a151c518fea71e3b4",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-cadeira-abdutora",
+      "videoSha256": "b36fd1d0eed6d1ad30f69a0bd62acdf35ab2ad993d7d38a9693b5cc864425a73",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "needs-correction",
+      "observation": "Destaque do gluteo lateral pequeno e parcialmente oculto pelos apoios.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-cadeira-extensora",
+      "videoSha256": "20a6833268f77efa5cd635fbb06b50a70a72414b4d60427774325c1a53ee4f8b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "needs-correction",
+      "observation": "O destaque vermelho dos quadriceps fica restrito a faixas estreitas; a superficie frontal das coxas permanece cinza.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-correction",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-cadeira-flexora",
+      "videoSha256": "e99e912c8197f291c771d368e969c17cef38e1cdd90b3e8a422ab8b7ab0c256b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 2,
+      "status": "needs-correction",
+      "observation": "Destaque posterior aparece proximo dos joelhos e oculto pelo assento; revisar mascara e angulo.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-cal-muscle-up",
+      "videoSha256": "f4e437591b55818d39b5e82a870aff424084d613c6bdc9bb5b607e95cb2fda1d",
+      "sampledFrames": [
+        "1",
+        "60",
+        "120",
+        "180",
+        "240"
+      ],
+      "contactSheetPage": 2,
+      "status": "needs-correction",
+      "observation": "Destaque muscular quase invisivel durante a transicao do muscle-up.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-corrida-ao-ar-livre",
+      "videoSha256": "27745ccee801f4d2a4e7673404eb7470b6c185dfe1b1885c39676e434fc8f037",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crossfit-thruster",
+      "videoSha256": "c74b159ed99be73caae980d1b5172ce8c604382048d5b73d3f0fd805c50121f1",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 3,
+      "status": "needs-correction",
+      "observation": "Destaque fica concentrado nos bracos; verificar enfase para o movimento composto.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-crossover-polia-alta",
+      "videoSha256": "a24cd8d91dfcb9097de5ff6a7bda3d5f95e9fc48661e7b3ff04cc693cb324f43",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crossover-polia-baixa",
+      "videoSha256": "d6b0e2430a8cadd0450d186f56ce06bdce220600f8c99b447dbe318d80a24c84",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crossover-polia-media",
+      "videoSha256": "5d36de1672ae7223f33342014af35bc213a333a78eb3b56682ced94f6bd40179",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crucifixo-inclinado-halteres",
+      "videoSha256": "95907d28861e9caaa84890c1bf7d06e93a69b8441430bba9d92782e21db539ae",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "needs-correction",
+      "observation": "Bracos abrem de forma assimetrica no crucifixo inclinado; um halter permanece elevado enquanto o outro desce.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-correction",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-crucifixo-invertido-halteres",
+      "videoSha256": "e482a2c32364d13c87ab6f8ee3fda630446213d5db464794b783dedb054db5c3",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crucifixo-invertido-peck-deck",
+      "videoSha256": "3ed78efe62db4568cf7188e6cf3686ca218f7103c8cfa836e7a0cfdfac2d9bf0",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 3,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-crucifixo-reto-halteres",
+      "videoSha256": "11c813ecfa0c709449eba28896c118742d7e41bc615eaf985198d5e3c04dbcce",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "needs-correction",
+      "observation": "Bracos abrem de forma assimetrica no crucifixo reto; corrigir sincronizacao/espelhamento da animacao.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-correction",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-dance-samba-funk-burst",
+      "videoSha256": "6963b6ea0227b7027a227e358a68d6a8c9690b1f2059af6cb9a09467c9ee94f6",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Cinco amostras mostram pouca variacao do gesto; conferir ciclo completo para evitar aliasing temporal.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "13",
+        "25",
+        "37",
+        "49",
+        "61",
+        "73",
+        "85",
+        "97",
+        "108",
+        "120",
+        "132",
+        "144",
+        "156",
+        "168",
+        "180",
+        "192"
+      ],
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-arnold",
+      "videoSha256": "f081cf68f7291540ee6b941d0a748802d4fe29e9b06f6a71d31a5c6f3057ee2f",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-halteres",
+      "videoSha256": "b950d7e3a2b2ccf5c867364c5a07d9e1a041de92654a98cc73791e5024c253f4",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-maquina",
+      "videoSha256": "268b5d8a571abd223ec2f2bb015579b5593de697427769a2455eb5930df86e8c",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-militar-barra",
+      "videoSha256": "150c57f4835ef979b40b2c89c9f851cfee239aabf1e993eea0ba2d3cf1a59108",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-frontal-corda",
+      "videoSha256": "aa5033fefe3d76c32229bca89da0f6d58c9c9c7ec237e0ed17a5fb72ae8ab703",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-frontal-halteres",
+      "videoSha256": "eeea0c27bd3b27fec489ad885c0a4fa401a8d34a5df03494a904da54d6318527",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 4,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-halteres",
+      "videoSha256": "f38956598d09a48fbf0a71e98b813dd98b37e385af22060d95278dc3a129a304",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-inclinada",
+      "videoSha256": "38b76713e8dc8f90e77c9e474fab3aea68f25ed3138352bcdd8e87be6703871d",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-polia",
+      "videoSha256": "3deea004985b83035dd8fd70ddeaed455d3dbe650a48c8ebf7c95bcd2efed5af",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-barra",
+      "videoSha256": "8b6c355e29dc9d0c2b65ea818dc49a1af9e05b34543a444e8a7c176a87a35959",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "needs-correction",
+      "observation": "Destaque dos gluteos fica escondido na vista anterior.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-maquina",
+      "videoSha256": "9caf0bea1627a0fdfa027ad74299266a4228c5534514940008df105ca7431557",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "needs-correction",
+      "observation": "Maquina e camera anterior escondem a regiao dos gluteos.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-encolhimento-barra",
+      "videoSha256": "3de01fcdf27776907ad9e0753e5fdfb32e221e4179f0cb891ee8dc0f5e14dec1",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "needs-correction",
+      "observation": "Amplitude do encolhimento e sutil nos quadros; conferir ciclo em ampliacao.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "8",
+        "16",
+        "23",
+        "31",
+        "38",
+        "46",
+        "53",
+        "61",
+        "68",
+        "75",
+        "83",
+        "90",
+        "98",
+        "105",
+        "113",
+        "120"
+      ],
+      "expandedFinding": "Em 17 amostras a elevacao dos ombros continua pouco legivel. Rever demonstracao e/ou enquadramento."
+    },
+    {
+      "exerciseId": "ex-encolhimento-halteres",
+      "videoSha256": "be6880a038a9a2d463fc6d1c2ef5336efbe038f9f3db42375ff93f2a0b17c0e1",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "needs-correction",
+      "observation": "Amplitude do encolhimento e sutil nos quadros; conferir ciclo em ampliacao.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "8",
+        "16",
+        "23",
+        "31",
+        "38",
+        "46",
+        "53",
+        "61",
+        "68",
+        "75",
+        "83",
+        "90",
+        "98",
+        "105",
+        "113",
+        "120"
+      ],
+      "expandedFinding": "Em 17 amostras a elevacao dos ombros continua pouco legivel. Rever demonstracao e/ou enquadramento."
+    },
+    {
+      "exerciseId": "ex-extensao-lombar-banco",
+      "videoSha256": "e9aac66bb1d1cc05e33ab4018bad0781eafdd5e4ab3d466b9889e988e8d1cb8b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 5,
+      "status": "needs-correction",
+      "observation": "Destaque lombar pouco visivel na maior parte do ciclo.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-face-pull-corda",
+      "videoSha256": "247520dce10959f0f310463e19e8e2e1e9fb419e6bafe6b8b95078412f105cb5",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 6,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-fight-shadow",
+      "videoSha256": "7fd8030bcbb12917728c9b9ffaff7708db78c806a98dcf2ac2bf650be2b73e66",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 6,
+      "status": "needs-correction",
+      "observation": "Ha halteres nas maos da demonstracao de sombra; conferir correspondencia com a descricao do exercicio.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-fight-sprawl",
+      "videoSha256": "6e219d2c285c5d3184184c691de51953fd4a238e8526f31360df743bb24c67a9",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 6,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-flexao-solo-deficit",
+      "videoSha256": "99f23d5967f179ea80fda12c39b17c69b0c953e94c0f313c59983364a395c977",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 6,
+      "status": "needs-correction",
+      "observation": "Destaque do peitoral fica oculto pela vista superior e pelo solo.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-fut-sand-header-jump",
+      "videoSha256": "9cf500a21f247f362cecc77a6118b497b731733336899192a2746f0a78b5d292",
+      "sampledFrames": [
+        "1",
+        "36",
+        "72",
+        "108",
+        "144"
+      ],
+      "contactSheetPage": 6,
+      "status": "needs-correction",
+      "observation": "Destaque muscular quase ausente; conferir tambem contato cabeca-bola em quadros intermediarios.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "10",
+        "19",
+        "28",
+        "37",
+        "46",
+        "55",
+        "64",
+        "73",
+        "81",
+        "90",
+        "99",
+        "108",
+        "117",
+        "126",
+        "135",
+        "144"
+      ],
+      "expandedFinding": "As 17 amostras mostram salto e passagem da bola junto a cabeca. Pendencia restante: destaque muscular praticamente invisivel."
+    },
+    {
+      "exerciseId": "ex-gluteo-coice-polia",
+      "videoSha256": "0e7b067434f85d3231dc59d379da012424c49dbed4df05453104891faa8152d2",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 6,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Perna ativa fica sobreposta a perna de apoio; amplitude do coice pouco legivel.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-good-morning-barra",
+      "videoSha256": "16ee3d3ecf7967910edc4a645d6afa1b571577a270e2a66a710a4e11383b4d6b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 6,
+      "status": "needs-correction",
+      "observation": "Cadeia posterior fica oculta pela camera frontal.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-hack-squat-maquina",
+      "videoSha256": "28bf6ff9c7a9ccb33ca6fa73f38fa8cbadba740f519a01850705ca6ce313a4ba",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 6,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-hyrox-skierg",
+      "videoSha256": "fa5bce8a6e1cb26095d51895f166a3fd86e3ca474ccbc83920a3ae711f923214",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-hyrox-sled-push",
+      "videoSha256": "7fd5c691e84fb3c6d713af916aa0c06bd64c05562883f9ed966e62b1bfb0ca2e",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 7,
+      "status": "needs-correction",
+      "observation": "Regiao destacada e gesto das pernas pouco legiveis neste angulo.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-hyrox-wall-balls",
+      "videoSha256": "572833a569d43d42fe0cc669787408225144ab396f2c8f31924b275595e7f4d4",
+      "sampledFrames": [
+        "1",
+        "42",
+        "84",
+        "126",
+        "168"
+      ],
+      "contactSheetPage": 7,
+      "status": "needs-correction",
+      "observation": "Personagem pequeno em relacao a parede; amostras nao mostram o contato da bola com o alvo.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "11",
+        "22",
+        "32",
+        "43",
+        "53",
+        "64",
+        "74",
+        "85",
+        "95",
+        "105",
+        "116",
+        "126",
+        "137",
+        "147",
+        "158",
+        "168"
+      ],
+      "expandedFinding": "As 17 amostras mostram arremesso e contato com o alvo. Pendencia restante: enquadramento deixa personagem pequeno e destaque muscular discreto."
+    },
+    {
+      "exerciseId": "ex-leg-press-45",
+      "videoSha256": "1cfc363a4f83436f9bea1d4f57356cf1f58d4e4a1bab3a8fe1a4dca0b46d3cd4",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-levantamento-terra-convencional",
+      "videoSha256": "47f81e1a0e3063d11eac95b824d6c3b61a85dcf5644be2c2435ca987e06f1d84",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "needs-correction",
+      "observation": "Enfase posterior fica oculta pela camera frontal do levantamento terra.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-mergulho-paralelas-peito",
+      "videoSha256": "0d5f87d20205977965e9b0abde12737244e25144d0d3151de1784539afb33a99",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-mesa-flexora",
+      "videoSha256": "8a7b3c19231f6693dce654777c886bc5fb9897941f0a50715efb0ac5274847c3",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-panturrilha-em-pe-maquina",
+      "videoSha256": "343a087e7b765ca99f59df5c8ccf4211fc9cd09c2c4611455f4109aaa67ddd58",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 7,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-panturrilha-leg-press-45",
+      "videoSha256": "07c06100e68a00a3efecdcb61aa486cceefca10979a9953cc4f4451164719e59",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "needs-correction",
+      "observation": "Destaque das panturrilhas oculto por pernas e plataforma do leg press.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-panturrilha-sentado-soleo",
+      "videoSha256": "3fe78bb39e399a03b96869324ed694aa545a644aaa03128b5dc0791f287d6147",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "needs-correction",
+      "observation": "Destaque do soleo muito discreto; revisar em vista posterior-lateral.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-panturrilha-unilateral-degrau",
+      "videoSha256": "e828ca9a3ac76af74d973ad83204a0a83aa1119c9456ebde83f2b805431e609e",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-peck-deck-voador",
+      "videoSha256": "bcccf8ced1b2ab388a05a70f293bffe561cc7fa2c1fb0d555a5e9cf9cec157fe",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-prancha-isometrica",
+      "videoSha256": "b9dec7e48d27f4e23ec7c0f38c353b385a01e6d73d2319e638fb178adec80dd3",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 8,
+      "status": "needs-correction",
+      "observation": "Abdomen pouco visivel pela vista superior da prancha.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-prancha-lateral-estatica",
+      "videoSha256": "e13bb46ab51ddfdbe36160015174082df0ae28949fbe7fddd27cfd4ec2cfd001",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 8,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-pulldown-polia-alta",
+      "videoSha256": "1627b41423f90744b10dc9e8ae6bc26ffb07585a4a8f85e3c9ff43a3c11d04d7",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-pullover-halter",
+      "videoSha256": "fec41e925901b7d9e4f3d7968b5d2123cfe283f12662505084de4cd206bedfa8",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 8,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Conferir pegada e trajetoria do halter no pullover em quadros intermediarios.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-puxada-frontal-polia",
+      "videoSha256": "c96878622f1832d2c7fd8854a381abd0491f5762f833d7569a34a08107cd83cf",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-puxada-triangulo",
+      "videoSha256": "3341f7932d995659f0fa3f87af0683889b341d2cc380abc606ab7e6f00914f95",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-alta-barra-w",
+      "videoSha256": "0000a200cfb6a4e6022075f08fd2af78d2be5c5d2772f294c7f634667ea3008a",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-articulada-maquina",
+      "videoSha256": "2fb1909c49b49b6648e7dd107f2f33d9ae8775f07c48c8413a758c5350fb2084",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-baixa-triangulo",
+      "videoSha256": "7c0a3c3abe5f1806ef897f568cbea3cf963829fa5bcf32e1591ce64d60391bbc",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-cavalinho-tbar",
+      "videoSha256": "e2b7330e220c1040e8920e09be5f7469515c361c3d9f1ee08f6d2b17675d970f",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-curvada-barra",
+      "videoSha256": "1bffdc60704f58ca461dae545aadcfed5d20b85676b90b5b228e201765087895",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-remada-unilateral-serrote",
+      "videoSha256": "ecec223406852d07c7d39dcf7b2cda3ba01e622c37f15ec6288d16ad7122ed44",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 9,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-roda-abdominal-abwheel",
+      "videoSha256": "f8eb141631abebc68cde67577668ffba1776bff898442902faa27eff4425c14b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "needs-correction",
+      "observation": "Abdomen destacado fica parcialmente oculto na roda abdominal.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-rosca-alternada-halteres",
+      "videoSha256": "87da90e13a8e78de5133d32d63b49f598a169f34cfaa7b113933177c9727d161",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-aranha-spider-curl",
+      "videoSha256": "1fb1906141c2df449cb4b6faf2f29eb183616b2e0cb9e6d7de854cd1452774cf",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Conferir apoio dos bracos e separacao entre halteres no topo da rosca aranha.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-rosca-concentrada-halter",
+      "videoSha256": "3570a37ce12610b21474a451767251163f369a4b69225d8c79d6605454979ca5",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "needs-correction",
+      "observation": "Conferir contato do cotovelo ativo com a coxa na rosca concentrada.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-rosca-direta-barra-reta",
+      "videoSha256": "71087d03f41a6609d4ddfb41a730e7b0fea27bf2734637787bda6de341b22bb7",
+      "sampledFrames": [
+        "1",
+        "24",
+        "48",
+        "72",
+        "96"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-direta-barra-w",
+      "videoSha256": "a17cb4122c646d878ff4497622475456fc007403b5c21e79ac9942bab353ce90",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-inclinada-45-halteres",
+      "videoSha256": "ba53180cd21601fea2b7ce2d9f70fcb5df1d0aeaa15ec5448ac2b363d645bde4",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-martelo-corda",
+      "videoSha256": "c7064b99d84a9e0f5f207cad4c40c5063baf31e8387923031dc821c05ca1e22a",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 10,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-martelo-halteres",
+      "videoSha256": "714176759253c246a170a222d4d90102855a80effdd1c647f9af9f2d1217c4da",
+      "sampledFrames": [
+        "1",
+        "24",
+        "48",
+        "72",
+        "96"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-rosca-scott-barra-w",
+      "videoSha256": "a0b7ba4e11d5998b2463ae39879a39dbf04bf4ceb5fed9a87442697c28e14104",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Conferir continuidade do apoio do braco no banco Scott durante a flexao.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-russian-twist-anilha",
+      "videoSha256": "98e80a78af6fe3ca70c9cd21cf705b55ad85ec000e19c1486deddcb00abe81f9",
+      "sampledFrames": [
+        "1",
+        "48",
+        "96",
+        "144",
+        "192"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-sissy-squat",
+      "videoSha256": "b470830a211fee3bd98e5cdedcc0818c9acabad5a71c6b75bc8a70d1c9644a35",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-stiff-barra",
+      "videoSha256": "61e976771dc6dce63eb7e93f690785702cfe2648529d796916f7dd5eb39855a3",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "needs-correction",
+      "observation": "Posterior da coxa fica escondido pela camera frontal do stiff com barra.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-stiff-halteres",
+      "videoSha256": "f6f5c5cc7345026e1eb4908c332c076f2ed1ac2730048f07afa1934f2e496287",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "needs-correction",
+      "observation": "Posterior da coxa fica escondido pela camera frontal do stiff com halteres.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-supino-declinado-barra",
+      "videoSha256": "d58ec88eb3db4ceb266200e8f67f00e3ed2227b315588c06795275a7d9afc68d",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-declinado-halteres",
+      "videoSha256": "36f83172fe66f96c5b7d2cf50ac4ae4497ec331721b6b4764b6d0d19d5d4ebd5",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 11,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-fechado-barra",
+      "videoSha256": "6f180a0126b95c021078b3512b0f33c746980179436dcad363c5b46e0438990a",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Destaque do triceps pouco visivel durante a descida do supino fechado.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-supino-inclinado-barra",
+      "videoSha256": "8c574d1da8e05915880936d2a1411b82f531ccec321b8561a5d57a0131b55ef2",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-inclinado-halteres",
+      "videoSha256": "a62778dfb9a560cf5e9057308e18d8f2d45bdbd82d7c84cae3228b49a98c934c",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-maquina-articulada",
+      "videoSha256": "a5b55d36a789f9ca1701da5841eb06d45b197f475bbb0cdb14d5744ad6918d5f",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-reto-barra",
+      "videoSha256": "a3ddaa3d97159bd53fff5b619291d48ca550e4e94da3873cd5531f7aec234b92",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-supino-reto-halteres",
+      "videoSha256": "8d737fedfd70e66991d403ba9800a5b84f1c208ee6e6dada2ac0b45d7b5e6558",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-swim-crawl-sprints",
+      "videoSha256": "304ba76b0acccbd8ecbeff090b9f2d4eb1f8602a06ee58e389556640c63dbab2",
+      "sampledFrames": [
+        "1",
+        "36",
+        "72",
+        "108",
+        "144"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-reviewed-samples",
+      "observation": "Amostras mostram fases muito semelhantes da natacao; conferir ciclo em intervalos menores.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "detailedSampledFrames": [
+        "1",
+        "10",
+        "19",
+        "28",
+        "37",
+        "46",
+        "55",
+        "64",
+        "73",
+        "81",
+        "90",
+        "99",
+        "108",
+        "117",
+        "126",
+        "135",
+        "144"
+      ],
+      "expandedFinding": "A duvida inicial nao se confirmou nas amostras ampliadas/adicionais: gesto e regiao principal legiveis; nao equivale a certificacao clinica nem aprovacao para publicar."
+    },
+    {
+      "exerciseId": "ex-triceps-coice-polia",
+      "videoSha256": "69748c4416b70caebd020c5778e73aee1b917feab187aea60163d84561b5e9dd",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 12,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-corda-polia",
+      "videoSha256": "dc347016eca4618b779afed6753b6f60ec13dcc8e013cfab3db664d1442c6c9f",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-frances-polia-corda",
+      "videoSha256": "2da4ba5bcbca528038f755f3f8f8f468d1eb42029ca17920053fd3323ba08a1c",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-frances-unilateral",
+      "videoSha256": "3e55a93fd6bf81d35c65b69b6fb937aeac9f0378c8ae59f42fa9d9962f74d3c7",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "needs-correction",
+      "observation": "O braco de apoio tambem recebe destaque vermelho; restringir a enfase ao triceps do braco que executa o movimento.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-correction",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-triceps-paralelas-peso",
+      "videoSha256": "4c74ba9b667e3aa0edd5061e818fa99c9c726a77b05c336408f02b4abc9502a5",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-pulley-barra-reta",
+      "videoSha256": "2bf6f96d1c0caf9c2a67d86eab3c7a8e138bdef551eb0be0c5a63d2a771cac5b",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-pulley-barra-v",
+      "videoSha256": "298d439497e5a479276d4210632224487a3cdeb7c8941295666fc8806246c8ed",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "no-obvious-issue-in-sampled-frames",
+      "observation": "Sem problema evidente de enquadramento ou destaque nos cinco quadros analisados. Nao equivale a revisao de todos os quadros ou certificacao tecnica de execucao.",
+      "approvedForPublication": false
+    },
+    {
+      "exerciseId": "ex-triceps-testa-barra-w",
+      "videoSha256": "821ce600ec4b54b9f7d0230f0424812e696faa7edff962b44d3a1de89d9fd219",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "needs-correction",
+      "observation": "Destaque do triceps pequeno ou escondido pelo angulo e banco.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    },
+    {
+      "exerciseId": "ex-triceps-testa-halteres",
+      "videoSha256": "940f66333ca79a8f44ef94ba15712520afd0f720030420912edf4fb50ac396bd",
+      "sampledFrames": [
+        "1",
+        "30",
+        "60",
+        "90",
+        "120"
+      ],
+      "contactSheetPage": 13,
+      "status": "needs-correction",
+      "observation": "Destaque do triceps pequeno ou escondido pelo angulo e banco.",
+      "approvedForPublication": false,
+      "previousStatus": "needs-closer-review",
+      "expandedReview": "Reavaliados quadros ampliados em folhas de contato de 384 px por quadro; demais quadros iniciais preservados.",
+      "expandedFinding": "Manter fora da publicacao. A observacao inicial permanece relevante apos ampliacao: ajustar visibilidade da regiao, mascara ou demonstracao conforme observacao por exercicio."
+    }
+  ]
+}

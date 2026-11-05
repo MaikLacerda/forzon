@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-triceps-paralelas-peso",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "5eb1b375910e509b44456f08768c9418c45b23e1b987ee672720b1f52ff77eea",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "triceps",
+  "productionStatus": "preview"
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-dance-samba-funk-burst",
+  "videoSha256": "6963b6ea0227b7027a227e358a68d6a8c9690b1f2059af6cb9a09467c9ee94f6",
+  "framePixelSha256": {
+    "1": "7e404821efbfc6e34e3ea1e2b2669411f51eae4b84658bb9f89d68220174d881",
+    "48": "6bf6e03485c37af2a2bc433369442d24fb02c266a09655bc6f567bfe054cae95",
+    "96": "495c6c57129bebe4c2f47a10dd762a73681cee094c2eecd54870e4713fd27eae",
+    "144": "e5d2c05949d575410e706dde010b437644767da52c0f37966e3e7624a500f372",
+    "192": "4d0fa69eda8b3897b711ec326e4f88f0689d23cba7c82d42e1e603d7fc4272e3"
+  },
+  "uniqueFrameCount": 5
+}

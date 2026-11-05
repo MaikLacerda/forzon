@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-triceps-pulley-barra-reta",
+  "videoSha256": "f65b1f9f9cdef1a8b39d50722189032af1dd57a1cf1c9d0c17b00a8fce8a0506",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "becad519f20d22224a36ce4c1e10a2795f80248cb085ba0abfb775ebd9327be6",
+    "30": "e484a96df2d5d9d05fbb337217d9449b34838a7df2c83caf0fd0914bc1ca6e40",
+    "60": "6bd602f5ce1696581246dd089f8c9895cc79ed20e405cbb999ef0a41512d3bbd",
+    "90": "f8f865d0a9ad2e7b714c5af750fd24b9f43745f5d872c0d251867986a60bc73c",
+    "120": "878cbe99a8ed97c7ccfc116cad399da4e48e0cbc67a52daa43e4788643fc85b6"
+  },
+  "uniqueFrameCount": 5
+}

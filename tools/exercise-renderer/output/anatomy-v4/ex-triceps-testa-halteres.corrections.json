@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-triceps-testa-halteres",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "d1d753632cbfd9f33b3b0c643f58486350424d8da087e2b70dfe51d77a14f2bd",
+  "surfaceAnimationRevision": null,
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.8888888955116272,
+    -0.4444444477558136,
+    0.1111111119389534
+  ],
+  "cameraScale": 2.291613817214966,
+  "reviewSampleFrames": [
+    1,
+    8,
+    16,
+    23,
+    31,
+    38,
+    46,
+    53,
+    61,
+    68,
+    75,
+    83,
+    90,
+    98,
+    105,
+    113,
+    120
+  ],
+  "publication": "not-published"
+}

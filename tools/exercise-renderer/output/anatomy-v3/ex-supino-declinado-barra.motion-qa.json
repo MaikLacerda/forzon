@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-supino-declinado-barra",
+  "sourceSceneSha256": "d4828d8f478d06c7026012aba1a64b267213604e485a8d8f63d28772fb167f17",
+  "sceneSha256": "d80ed03df56263f3af538b06854c4fe7955f5a2cc3cd118ff20350b01921f380",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

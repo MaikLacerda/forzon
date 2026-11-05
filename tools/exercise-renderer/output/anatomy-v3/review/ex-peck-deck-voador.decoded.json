@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-peck-deck-voador",
+  "videoSha256": "bcccf8ced1b2ab388a05a70f293bffe561cc7fa2c1fb0d555a5e9cf9cec157fe",
+  "framePixelSha256": {
+    "1": "45462860480442ad4c5cf0ba105c729effcb0e647d86a57bb4c3462dfcc0ebe8",
+    "30": "9ca75b8efd12ecdc3cbbfcaf5ffa9d593b460586794a76a6d3d9b79d980f2fc2",
+    "60": "e38112c511a57a146e687e5c7d569c99c33203deb2bff4365ba63d0bc4751695",
+    "90": "4bfa7701a1eead982b954abd8ff82f2c2cd08b2f23cb6fa01dc4e268cd0d1e20",
+    "120": "dc1d68ad42c62de18c2581fae63bfd4707a259361579668d6f729281056726c3"
+  },
+  "uniqueFrameCount": 5
+}

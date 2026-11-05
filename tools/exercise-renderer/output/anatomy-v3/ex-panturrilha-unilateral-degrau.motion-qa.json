@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-panturrilha-unilateral-degrau",
+  "sourceSceneSha256": "9eda07c6e69d399c101e532fe160bbae10a83b8e99a5820bbf07781c9f35f823",
+  "sceneSha256": "c15e475fb8f6f8627a8ddf86f85a8b0ad64ba18d2b0da9a3b837b5f6a1accd39",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

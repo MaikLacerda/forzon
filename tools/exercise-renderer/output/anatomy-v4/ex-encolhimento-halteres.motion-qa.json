@@ -1,0 +1,27 @@
+{
+  "exerciseId": "ex-encolhimento-halteres",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "b104749f0076f675479fee017e40cdc2db6990957a757b826013a5dfaf88cc1b",
+  "sceneSha256": "87f0c48a85d93fb3ece2b9393c411fa2a3ca777b2b514ea465685ddd931e9e5e",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "shoulderElevationPresent": true,
+    "elbowsRemainExtended": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "shoulderElevationMetres": 0.04499995708465576,
+    "minimumBodyFrameMargin": 0.06896525621414185
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

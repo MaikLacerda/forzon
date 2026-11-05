@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-crossover-polia-baixa",
+  "sourceSceneSha256": "4e6a2dd5bb02227378d53dbbdcfcb20e6a7ea3359c0946e63fb8da905312ed5d",
+  "sceneSha256": "4a57557efc334b48f65724c7e1c1b3c6d1894a96fdf65cc0b64953a5b5a61086",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

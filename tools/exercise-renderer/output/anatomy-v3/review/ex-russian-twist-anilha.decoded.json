@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-russian-twist-anilha",
+  "videoSha256": "98e80a78af6fe3ca70c9cd21cf705b55ad85ec000e19c1486deddcb00abe81f9",
+  "framePixelSha256": {
+    "1": "5cfdf8f6cd2ed97674f55e6674c0cfa07511271461eadbfee9a1d3eee659c7ab",
+    "48": "1cc721515b14edb696fd723e09febc44adcc82e14e1451a033959b0e4023c1d0",
+    "96": "c1aeb38f73c2de8e1e0b50a4c467e5d70443ca5132acce964c29d121dd218f8f",
+    "144": "801b8c3c60fd61ef388445e8f0ab5cc298e0b19b3ff22dec6c32b75b76073177",
+    "192": "7264a8ea1aec8773ed3dbfe07758882fc41ca6b7f69c4973044d578a02d76da2"
+  },
+  "uniqueFrameCount": 5
+}

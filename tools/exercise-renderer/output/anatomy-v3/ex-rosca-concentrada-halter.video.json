@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-rosca-concentrada-halter",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "248610b54730bc27ca1558501fa721b20ad1e9c6b991b123d039527bca8196a4",
+  "videoSha256": "3570a37ce12610b21474a451767251163f369a4b69225d8c79d6605454979ca5",
+  "visualReviewRequired": true
+}

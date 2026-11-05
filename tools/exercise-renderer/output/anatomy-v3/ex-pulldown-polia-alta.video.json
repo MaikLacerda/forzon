@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-pulldown-polia-alta",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "b9cb14844ede7bbbf8d33fce08aecf0d71185ce4a83599bc53726a08bd1fd3db",
+  "videoSha256": "1627b41423f90744b10dc9e8ae6bc26ffb07585a4a8f85e3c9ff43a3c11d04d7",
+  "visualReviewRequired": true
+}

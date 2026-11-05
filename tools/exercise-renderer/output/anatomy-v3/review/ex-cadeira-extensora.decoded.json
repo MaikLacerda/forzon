@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-cadeira-extensora",
+  "videoSha256": "20a6833268f77efa5cd635fbb06b50a70a72414b4d60427774325c1a53ee4f8b",
+  "framePixelSha256": {
+    "1": "8ae226ec881ee19062debd364707ac677952b63f129d5a1267fbc0abe63adfd9",
+    "30": "d453a4d47f7a9e0b585943d8221604e4d7e02e4e55b1e537a64dd76bcf9a571f",
+    "60": "851c3e89fc766196612c5436fc303dbc2a3ff484c7e59cf8502a5cd67eb2d86c",
+    "90": "c138657e6668cb15af4f32719e38422f0c083d952e158da47118fdc979a9491a",
+    "120": "824b1976cfe1b9098a2b809382ab164d8836ffb9ad93c61d7e1e74d2aabc7c82"
+  },
+  "uniqueFrameCount": 5
+}

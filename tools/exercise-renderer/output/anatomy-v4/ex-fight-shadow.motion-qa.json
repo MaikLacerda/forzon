@@ -1,0 +1,25 @@
+{
+  "exerciseId": "ex-fight-shadow",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "36d5076abeaa72e5995498db76b9dc536923fb81b9fdec41b5fcc7eb180d8e7f",
+  "sceneSha256": "0f7e594f9bed4f77cdc22328fcc5e2c07679f7f9a5270db9b8c46c47788c1e79",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "noVisibleDumbbells": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896534562110901
+  },
+  "checksPassed": true,
+  "framesChecked": 192,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

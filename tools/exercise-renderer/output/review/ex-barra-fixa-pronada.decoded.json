@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-barra-fixa-pronada",
+  "videoSha256": "ac53e168e1a2bdfc3ed776a5dd104065b93069f33a5d97076edb0a08b188bce3",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "783bc3c3bf4525ff9a2e1dc65628c546266ee1015d16013bef791b6f9af9ab0c",
+    "30": "acaa55131b013ce5b3d69920f14cefb3dc93607e74e2db14750514df8a2cb770",
+    "60": "6b30b943d40c424c47d11c6a8ccd73b2d60067badefc16fe22a4a572e74a1acc",
+    "90": "db2e97318c8631ae4aa7ef41ae9b6c79aebafb3bd8e06caeb6744dc3d4c43e68",
+    "120": "e426bc3e23d6c5bd60e8ee219a29f3369aac9c0fe337b2cdbb86abfdd41004f8"
+  },
+  "uniqueFrameCount": 5
+}

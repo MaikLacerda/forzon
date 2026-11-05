@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-.app-header button { min-height: 2.25rem; min-width: 2.25rem; }
-#root { width: 100%; min-width: 0; }
-main :where(.grid) > * { min-width: 0; }
-
 @layer base {
   /* ==========================================================================
      PALETA DE ALTO IMPACTO FORZON (AZUL NEON PADRÃO & ACENTOS DINÂMICOS)

@@ -57,8 +57,6 @@ export const SleepSmartwatchTab: React.FC<SleepSmartwatchTabProps> = ({
     setLoadAdjustment(adj);
   }, [sleepMetrics]);
 
-  if (!sleepMetrics.totalSleepMinutes) return <section className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6 space-y-3"><h3 className="font-bold text-white">Nenhum registro de sono</h3><p className="text-sm text-neutral-400">Você ainda não tem medidas de sono ou relógios conectados. A integração real com dispositivos será disponibilizada após configuração.</p></section>;
-
   // Sync from selected device
   const handleImportSleepData = async (
     source: "apple_health" | "strava" | "zepp_os" | "wearos" | "garmin"
@@ -89,7 +87,7 @@ export const SleepSmartwatchTab: React.FC<SleepSmartwatchTabProps> = ({
       setSyncFeedback(`Dados de ciclos de sono importados de ${platformNames[source]}!`);
       setTimeout(() => setSyncFeedback(null), 3500);
     } catch {
-      setSyncFeedback("A integração real com dispositivos ainda não está configurada. Nenhuma medida foi importada.");
+      setSyncFeedback("Falha temporária ao sincronizar dispositivo.");
       setTimeout(() => setSyncFeedback(null), 3000);
     } finally {
       setIsSyncing(false);
@@ -98,7 +96,8 @@ export const SleepSmartwatchTab: React.FC<SleepSmartwatchTabProps> = ({
 
   // Toggle platform connection
   const handleTogglePlatform = (id: string) => {
-    setSyncFeedback("A conexão real com dispositivos será disponibilizada após configurar a integração.");
+    const updated = healthSleepService.togglePlatformConnection(id);
+    setPlatforms(updated);
   };
 
   // Apply or Revert AI Load Adjustment

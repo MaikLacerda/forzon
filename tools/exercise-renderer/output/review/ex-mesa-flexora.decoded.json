@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-mesa-flexora",
+  "videoSha256": "05db04b4b7488c9f0f4f167fd770def3542ae13da64c05a7602d48f84defe5a8",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "40cd921094709b9855f5d90027bac8b09b1e118977ea77a9ca51556c9a50fa83",
+    "30": "2ead6827e880028df2093b30a4c0c2c5909a4a211818eab0b226eab63a10b2b2",
+    "60": "352e8721d39d41c2ea8996e3983382333ad4b5aaa49889702214cb36ae7ae9cd",
+    "90": "fa3dd2d28398837bda6826eec9799cf12dfb72b0bcb6a43c412d42f407ced08b",
+    "120": "d79a70105b919622e33aff894ab26524a791d2abf856c19bc736ae1efee01049"
+  },
+  "uniqueFrameCount": 5
+}

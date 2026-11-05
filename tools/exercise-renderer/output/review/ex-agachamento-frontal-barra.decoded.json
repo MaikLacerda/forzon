@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-agachamento-frontal-barra",
+  "videoSha256": "bb95ef8a5974edcb73df388e440329f7f5b4f8e33835679b2af254150486bb8a",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "9d6cf4932373237a3cd906598b7908ed3b4bce632815b23b1a03f8e4830e3c8c",
+    "30": "032deb465659969baf324d8b220d6f61ae09d999184e91986dd95b14e91964b4",
+    "60": "42cfaa79230fadf98dadea1b1f98289c72a5a8c9c45e1d644cffe0e9199e0881",
+    "90": "c14dabd8c7d268e23d574f294b21c9bff5d744f7e06def447ab0892f25d380df",
+    "120": "1bb05dc2c42e51d3bd17770b904691e078c999489d9c866b424d33a2efdc0c87"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-agachamento-sumo-halter",
+  "videoSha256": "dd6b39e9cf5be7ca0562b81d95e7bd6cbc49c88fa4d42c737978ac4c7b6642ea",
+  "framePixelSha256": {
+    "1": "31fc876fbd2b4d3d5ffce321e832028f73a10be43777513ed9a143b45ae68d90",
+    "30": "89c792c59b53474d03782f97ae1a47aa99b243d91fc81c83a25feb6eb470c2f3",
+    "60": "006de0f31d9f847fb6f20aa1ff387fbb9782a0471ee9f415cc8a002c9c82a6b5",
+    "90": "b415f48e1677c2bbf0be40e1f01377c10f3c797f564729c881e7186bc9d0c14d",
+    "120": "c553262ced1abdb0d94de5b7e8bfa9df5d6549cd91a266c0d89a09db2f498989"
+  },
+  "uniqueFrameCount": 5
+}

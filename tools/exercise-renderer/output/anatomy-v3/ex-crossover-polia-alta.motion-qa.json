@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-crossover-polia-alta",
+  "sourceSceneSha256": "d5d8b15599875306c1fd68cfab96e0cdadf360c40abca72de68f290470af2b50",
+  "sceneSha256": "2761137d17343ff7e23bb9f66daa8f94ab1ab4614ddbf1e83c70b746e8f15766",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

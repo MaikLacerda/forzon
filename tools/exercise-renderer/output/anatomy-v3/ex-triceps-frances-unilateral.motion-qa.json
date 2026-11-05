@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-triceps-frances-unilateral",
+  "sourceSceneSha256": "d86f1bfbb232ad8c5f1f38670b7f4f7957da83d44829c6957389ce6f1201b2a3",
+  "sceneSha256": "d2ef044ff97a300e1e1f44e0fa603573a86db70dffc0a347fc391d864d518b1e",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

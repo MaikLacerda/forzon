@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-rosca-concentrada-halter",
+  "videoSha256": "0ec67fcf688cd82e1eff67d0edca4c3f605af7b2c155e73f72485e9a782e7e25",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "1334c96277f46403a9df9b6d71c4b9d0ec0f823671fa07ad7a0a95b6cb5e77ce",
+    "30": "b3fd09055f07610d23345fe3f46e98caab7922334c8d270e46bf3af58a222a52",
+    "60": "52e8dab78b01fb7dbca8e90742b823f90c55d83201d1310003c79333f0085b90",
+    "90": "a2e087c5904c1ecfb2db58325c45fbbce0de92af916067fa1fb8327c93a4c1ef",
+    "120": "307079cb773d4b12eb0bdf866680fc48928f217dc209a2ee1a99befcbf9f18d4"
+  },
+  "uniqueFrameCount": 5
+}

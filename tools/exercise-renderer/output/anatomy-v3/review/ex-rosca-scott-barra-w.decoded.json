@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-rosca-scott-barra-w",
+  "videoSha256": "a0b7ba4e11d5998b2463ae39879a39dbf04bf4ceb5fed9a87442697c28e14104",
+  "framePixelSha256": {
+    "1": "9a9fc66847c17f71f9dc14142bb47dde10bc9e870b2ad16a581765f06bcbacfb",
+    "30": "f1410386f1ccdba50b005551f5f3fd1e2f08e57fe7458867ff9abf4956593885",
+    "60": "f3f99bd0c4ef314bc92af4eee023e02a94f30d92539a5f766726008bdb4c8c0b",
+    "90": "8e8308195e8ca4d8f5d869155f9f5fac96dc5930d99a7b324a350269ebb32e5b",
+    "120": "ccbafc26229934d01586b8c768034304224f2f98813ed16a80c15a0ca0cae2e5"
+  },
+  "uniqueFrameCount": 5
+}

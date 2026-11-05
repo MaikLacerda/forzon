@@ -1,0 +1,18 @@
+FORZON - VIDEOS PROPRIOS - LOTE 1
+
+Este pacote inclui 3 videos: rosca direta com barra reta, rosca martelo com halteres e rosca alternada com supinacao. Os outros 101 exercicios ainda nao receberam videos proprios.
+
+Extraia o conteudo na raiz do projeto, preservando as pastas src e public. Aceite substituir os arquivos correspondentes.
+
+No Git Bash, na pasta do projeto:
+npm install
+npm run dev
+
+Abra o app e consulte os tres exercicios acima. Os videos repetem automaticamente e possuem controles de reproducao.
+
+Para enviar ao GitHub:
+git add package.json package-lock.json server.ts .gitignore src/components/workout/ExerciseExecutionModal.tsx src/components/workout/ExerciseVideoDemonstration.tsx src/data/ownedExerciseVideos.json public/assets/exercise-videos EXERCISE_VIDEO_STATUS.md
+git commit -m "Adiciona primeiro lote de videos proprios de exercicios"
+git push origin main
+
+Os videos comerciais de amostra nao estao incluidos neste ZIP. Os videos deste lote foram renderizados para o FORZON usando dados base MakeHuman CC0; o aviso acompanha os arquivos.

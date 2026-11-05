@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-encolhimento-halteres",
+  "sourceSceneSha256": "e91afd8655558dddce24b22099ed603b2942f42567d982fdc9f1968af03b01d6",
+  "sceneSha256": "b104749f0076f675479fee017e40cdc2db6990957a757b826013a5dfaf88cc1b",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

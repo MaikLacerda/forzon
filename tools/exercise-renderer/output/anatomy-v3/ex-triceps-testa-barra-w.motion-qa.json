@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-triceps-testa-barra-w",
+  "sourceSceneSha256": "c239d2277bce5bf74cfc4a975ed9e122b438f3245b0e6d9f03b2c8cd5bd26988",
+  "sceneSha256": "8013e3aa210ab15476eba24e3c1baffce8dd2971b823c3023d294e343a911a40",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-supino-inclinado-barra",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "9c8292bd8ecbacaa826264346c505633eea1eb77b990a207bdbf5b90493f5f1d",
+  "videoSha256": "8c574d1da8e05915880936d2a1411b82f531ccec321b8561a5d57a0131b55ef2",
+  "visualReviewRequired": true
+}

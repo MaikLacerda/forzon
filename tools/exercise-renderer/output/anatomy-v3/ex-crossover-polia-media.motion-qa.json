@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-crossover-polia-media",
+  "sourceSceneSha256": "3e2a763773cff3eafd716986be32bc211efc1d42c0dd309c4da8ab320c9efde9",
+  "sceneSha256": "036291747e378e8da78bec229d117fcb5564d4231fd001f1d1747cc389ae295d",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

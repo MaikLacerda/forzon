@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-elevacao-lateral-inclinada",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "6b1921c402eab05eb3adf17f5b8ddf8148cb07d0407334ad62ff95203fb783f6",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "shoulders",
+  "productionStatus": "preview"
+}

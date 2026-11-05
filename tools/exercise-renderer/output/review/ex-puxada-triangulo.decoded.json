@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-puxada-triangulo",
+  "videoSha256": "b96a5489a748fcece77da960515c86707b4ceb722efe4eb31a2035be17f46db7",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "2df807eef4a41d856e070bd1b0f6499e3324e545dee5d6f988784abdf431ed3c",
+    "30": "9fbac84d3cc88ee7e7f01d2e241bf70bb1182a596f7e3b16995ca9732a7b1935",
+    "60": "d7e21e916f83d5450e3258b123b749933e08dafbd2f2a31fb42798b8062991cb",
+    "90": "d8d8fbfb4b3e27915bf2719b6f0d4222f74e6473cc354dacd8e6378f2b7f0275",
+    "120": "c9d84ba056fd6808b8f031202f5833293063011bd7d3b93485a30179a045b1d9"
+  },
+  "uniqueFrameCount": 5
+}

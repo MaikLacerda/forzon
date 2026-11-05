@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-crossover-polia-baixa",
+  "videoSha256": "4ffc44a4c91b2e6cb3f66b13518392a51bd1e74c1b6ccaa3377d4c50b40d270a",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "a6bf32c7a30305c961499e37ffcb060876c63ea2cc8bb1b11c264133354472bd",
+    "30": "647f947c20667e3541e0e7ceaa05b455d4ef041973eda05d5f63412a084eecaf",
+    "60": "1992bef8a6642363758e4753181618eb42d3e4e655827839d39ffb072df6ffe0",
+    "90": "d6067ce692f330fce6cd290b9cfc449ce0594f924cfa00e9ab165dafba81e5bc",
+    "120": "e52d6a2e9fb2b7063e465d10899f18fb47bd88834352f123b4081d51937bf928"
+  },
+  "uniqueFrameCount": 5
+}

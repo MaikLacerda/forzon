@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-panturrilha-sentado-soleo",
+  "videoSha256": "26fb913e37baff3fbe43b24b933a65c3d898170a8d323a0d7a498c85bd1b676f",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "1fc84ba846ae5c1001da5580505637eedbde99764804080686bf79ddc87296ae",
+    "30": "64f2e4241b73a07dca8ac5b5320ebca6616f1bd41192d392d01b544844d7178f",
+    "60": "0752b4d47b827891153837f536da3065c5dd2fcfd5824f6fc54dac91b761232f",
+    "90": "9fabeac70c93ca68b3e85f5f242fa23adec5e0ce46278be95e20bd47382ab213",
+    "120": "a4c236e61272cb5580bd4ec3722e71b4d14ef4b4503a73ef0dd89f4174124074"
+  },
+  "uniqueFrameCount": 5
+}

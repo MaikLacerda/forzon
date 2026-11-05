@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-leg-press-45",
+  "sourceSceneSha256": "3b506c0576d54bcf074f2d5ccb510fdc44d625c8807ec5e73783f786c694da54",
+  "sceneSha256": "0446bf145ed5d55caf0fc10446ddffba8e177d48119bb15f7345829c67ae5dc7",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

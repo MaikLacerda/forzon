@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-agachamento-sumo-halter",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "0c41f7d36e8988a3185ffc5b009d1bc9e0f5cd268a40a800b419dd730bee60ba",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "glutes",
+  "productionStatus": "preview"
+}

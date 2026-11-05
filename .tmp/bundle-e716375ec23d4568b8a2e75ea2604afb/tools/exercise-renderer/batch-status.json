@@ -1,0 +1,909 @@
+{
+  "deliveryMode": "single-complete-batch",
+  "required": 100,
+  "ready": 100,
+  "rendered": 100,
+  "complete": true,
+  "exercises": [
+    {
+      "exerciseId": "ex-supino-reto-halteres",
+      "name": "Supino Reto com Halteres",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-inclinado-halteres",
+      "name": "Supino Inclinado com Halteres",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-inclinado-barra",
+      "name": "Supino Inclinado com Barra",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-declinado-barra",
+      "name": "Supino Declinado com Barra (Canadense)",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-declinado-halteres",
+      "name": "Supino Declinado com Halteres",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-maquina-articulada",
+      "name": "Supino Reto na Máquina Articulada",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crucifixo-reto-halteres",
+      "name": "Crucifixo Reto com Halteres",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crucifixo-inclinado-halteres",
+      "name": "Crucifixo Inclinado com Halteres",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-peck-deck-voador",
+      "name": "Voador Peitoral / Peck Deck",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crossover-polia-media",
+      "name": "Crucifixo no Crossover (Polia Média)",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crossover-polia-alta",
+      "name": "Crossover na Polia Alta (Foco Inferior)",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crossover-polia-baixa",
+      "name": "Crossover na Polia Baixa (Foco Superior)",
+      "family": "fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-mergulho-paralelas-peito",
+      "name": "Paralelas com Foco em Peitoral (Chest Dips)",
+      "family": "dip",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-flexao-solo-deficit",
+      "name": "Flexão de Braço com Déficit / Carga",
+      "family": "pushup",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-pullover-halter",
+      "name": "Pullover com Halter no Banco Plano",
+      "family": "pullover",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-puxada-frontal-polia",
+      "name": "Puxada Frontal na Polia Alta",
+      "family": "vertical_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-barra-fixa-pronada",
+      "name": "Barra Fixa com Pegada Pronada (Pull-Up)",
+      "family": "vertical_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-barra-fixa-supinada",
+      "name": "Barra Fixa com Pegada Supinada (Chin-Up)",
+      "family": "vertical_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-puxada-triangulo",
+      "name": "Puxada Alta com Triângulo (Pegada Neutra)",
+      "family": "vertical_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-curvada-barra",
+      "name": "Remada Curvada com Barra",
+      "family": "row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-unilateral-serrote",
+      "name": "Remada Unilateral com Halter (Serrote)",
+      "family": "row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-cavalinho-tbar",
+      "name": "Remada Cavalinho / T-Bar com Barra",
+      "family": "row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-baixa-triangulo",
+      "name": "Remada Baixa com Triângulo",
+      "family": "row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-articulada-maquina",
+      "name": "Remada Articulada na Máquina (Pegada Neutra)",
+      "family": "row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-pulldown-polia-alta",
+      "name": "Pulldown na Polia Alta com Barra Reta / Corda",
+      "family": "straight_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-levantamento-terra-convencional",
+      "name": "Levantamento Terra Convencional com Barra",
+      "family": "hinge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crucifixo-invertido-halteres",
+      "name": "Crucifixo Invertido com Halteres (Deltóide Posterior)",
+      "family": "rear_fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crucifixo-invertido-peck-deck",
+      "name": "Voador Invertido no Peck Deck (Máquina)",
+      "family": "rear_fly",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-extensao-lombar-banco",
+      "name": "Hiperextensão Lombar no Banco 45°",
+      "family": "hinge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-halteres",
+      "name": "Desenvolvimento com Halteres Sentado",
+      "family": "overhead_press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-militar-barra",
+      "name": "Desenvolvimento Militar em Pé com Barra (OHP)",
+      "family": "overhead_press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-arnold",
+      "name": "Desenvolvimento Arnold com Halteres",
+      "family": "overhead_press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-desenvolvimento-maquina",
+      "name": "Desenvolvimento de Ombros na Máquina Articulada",
+      "family": "overhead_press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-halteres",
+      "name": "Elevação Lateral com Halteres",
+      "family": "raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-polia",
+      "name": "Elevação Lateral Unilateral na Polia Baixa",
+      "family": "raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-lateral-inclinada",
+      "name": "Elevação Lateral no Banco Inclinado",
+      "family": "raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-frontal-halteres",
+      "name": "Elevação Frontal Alternada com Halteres",
+      "family": "raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-frontal-corda",
+      "name": "Elevação Frontal na Polia Baixa com Corda",
+      "family": "raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-face-pull-corda",
+      "name": "Face Pull na Polia Alta com Corda",
+      "family": "face_pull",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-remada-alta-barra-w",
+      "name": "Remada Alta com Barra W",
+      "family": "upright_row",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-encolhimento-barra",
+      "name": "Encolhimento de Ombros com Barra (Trapézio)",
+      "family": "shrug",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-encolhimento-halteres",
+      "name": "Encolhimento com Halteres com Isometria",
+      "family": "shrug",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-agachamento-livre-barra",
+      "name": "Agachamento Livre com Barra",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-agachamento-frontal-barra",
+      "name": "Agachamento Frontal com Barra (Front Squat)",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-leg-press-45",
+      "name": "Leg Press 45°",
+      "family": "leg_press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-hack-squat-maquina",
+      "name": "Agachamento Hack na Máquina",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-agachamento-smith",
+      "name": "Agachamento no Smith Machine com Pés Avançados",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-cadeira-extensora",
+      "name": "Cadeira Extensora (Isolador de Quadríceps)",
+      "family": "leg_isolation",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-agachamento-bulgaro-halteres",
+      "name": "Agachamento Búlgaro com Halteres",
+      "family": "lunge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-afundo-passada-halteres",
+      "name": "Avanço / Passada Caminhando com Halteres",
+      "family": "lunge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-sissy-squat",
+      "name": "Sissy Squat Livre ou na Máquina",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-stiff-halteres",
+      "name": "Stiff com Halteres / RDL",
+      "family": "hinge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-stiff-barra",
+      "name": "Stiff com Barra Reta",
+      "family": "hinge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-mesa-flexora",
+      "name": "Mesa Flexora Deitada (Leg Curl)",
+      "family": "leg_isolation",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-cadeira-flexora",
+      "name": "Cadeira Flexora Sentada",
+      "family": "leg_isolation",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-good-morning-barra",
+      "name": "Good Morning (Bom Dia) com Barra",
+      "family": "hinge",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-barra",
+      "name": "Elevação Pélvica com Barra (Hip Thrust)",
+      "family": "hip_thrust",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-elevacao-pelvica-maquina",
+      "name": "Elevação Pélvica na Máquina (Hip Thrust Machine)",
+      "family": "hip_thrust",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-cadeira-abdutora",
+      "name": "Cadeira Abdutora (Tronco Inclinado à Frente)",
+      "family": "abduction",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-gluteo-coice-polia",
+      "name": "Glúteo Coice / Extensão de Quadril na Polia Baixa",
+      "family": "kickback",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-agachamento-sumo-halter",
+      "name": "Agachamento Sumô sobre Steps com Halter",
+      "family": "squat",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-panturrilha-em-pe-maquina",
+      "name": "Elevação de Panturrilhas em Pé na Máquina (Gastrocnêmio)",
+      "family": "calf",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-panturrilha-sentado-soleo",
+      "name": "Elevação de Panturrilha Sentado (Máquina Sóleo)",
+      "family": "calf",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-panturrilha-leg-press-45",
+      "name": "Panturrilha no Leg Press 45°",
+      "family": "calf",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-panturrilha-unilateral-degrau",
+      "name": "Elevação de Panturrilha Unilateral no Degrau com Halter",
+      "family": "calf",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-direta-barra-w",
+      "name": "Rosca Direta com Barra W",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-martelo-corda",
+      "name": "Rosca Martelo na Polia Baixa com Corda",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-scott-barra-w",
+      "name": "Rosca Scott no Banco com Barra W",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-inclinada-45-halteres",
+      "name": "Rosca Bíceps no Banco Inclinado a 45°",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-concentrada-halter",
+      "name": "Rosca Concentrada com Halter",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-rosca-aranha-spider-curl",
+      "name": "Rosca Aranha (Spider Curl) no Banco Inclinado",
+      "family": "curl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-corda-polia",
+      "name": "Tríceps Corda na Polia Alta",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-pulley-barra-reta",
+      "name": "Tríceps Pulley na Polia com Barra Reta",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-pulley-barra-v",
+      "name": "Tríceps Pulley com Barra V",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-testa-barra-w",
+      "name": "Tríceps Testa com Barra W no Banco Reto (Skull Crusher)",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-testa-halteres",
+      "name": "Tríceps Testa com Halteres (Pegada Neutra)",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-frances-unilateral",
+      "name": "Tríceps Francês Unilateral com Halter",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-frances-polia-corda",
+      "name": "Tríceps Francês na Polia com Corda Acima da Cabeça",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-paralelas-peso",
+      "name": "Mergulho em Barras Paralelas Foco em Tríceps",
+      "family": "dip",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-supino-fechado-barra",
+      "name": "Supino com Pegada Fechada (Close-Grip Bench Press)",
+      "family": "press",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-triceps-coice-polia",
+      "name": "Tríceps Coice Unilateral na Polia (Kickback)",
+      "family": "triceps",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-prancha-isometrica",
+      "name": "Prancha Frontal Isométrica",
+      "family": "plank",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-abdominal-polia-cable-crunch",
+      "name": "Abdominal na Polia Alta Ajoelhado (Cable Crunch com Corda)",
+      "family": "crunch",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-abdominal-infra-paralela",
+      "name": "Elevação de Pernas na Paralela / Torre Abdominal",
+      "family": "leg_raise",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-roda-abdominal-abwheel",
+      "name": "Rolamento com Roda Abdominal (Ab Wheel Rollout)",
+      "family": "rollout",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-abdominal-supra-solo",
+      "name": "Abdominal Crunch Tradicional no Solo",
+      "family": "crunch",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-prancha-lateral-estatica",
+      "name": "Prancha Lateral Isométrica (Oblíquos)",
+      "family": "plank",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-russian-twist-anilha",
+      "name": "Giro Russo (Russian Twist) com Anilha / Halter",
+      "family": "twist",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-abdominal-vacuum",
+      "name": "Stomach Vacuum (Vácuo Abdominal e Transverso)",
+      "family": "vacuum",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-corrida-ao-ar-livre",
+      "name": "Corrida Contínua / Fartlek",
+      "family": "run",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-hyrox-skierg",
+      "name": "SkiErg Intervalado (Hyrox Station)",
+      "family": "skierg",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-hyrox-sled-push",
+      "name": "Sled Push (Empurrar Trenó na Pista)",
+      "family": "sled_push",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-hyrox-wall-balls",
+      "name": "Wall Balls (Arremesso no Alvo)",
+      "family": "wall_ball",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-fight-shadow",
+      "name": "Shadow Boxing com Halteres Leves",
+      "family": "boxing",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-fight-sprawl",
+      "name": "Sprawl Explosivo de Defesa de Queda",
+      "family": "sprawl",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-swim-crawl-sprints",
+      "name": "Tiros de 50m Nado Crawl (Estilo Livre)",
+      "family": "swim",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-crossfit-thruster",
+      "name": "Thruster com Barra Olímpica",
+      "family": "thruster",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-fut-sand-header-jump",
+      "name": "Salto de Cabeceio na Areia Fofa",
+      "family": "header_jump",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-dance-samba-funk-burst",
+      "name": "Cardio Dance Rítmico (FitDance / Zumba)",
+      "family": "dance",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    },
+    {
+      "exerciseId": "ex-cal-muscle-up",
+      "name": "Muscle-Up na Barra Fixa",
+      "family": "muscle_up",
+      "status": "ready",
+      "videoValid": true,
+      "mechanical": true,
+      "reviewed": true
+    }
+  ]
+}

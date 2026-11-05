@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-puxada-triangulo",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "2efd3c4a59dee1b3b81a550c085c84043dbdf6a06d039c3c0a2545f652db31cb",
+  "videoSha256": "3341f7932d995659f0fa3f87af0683889b341d2cc380abc606ab7e6f00914f95",
+  "visualReviewRequired": true
+}

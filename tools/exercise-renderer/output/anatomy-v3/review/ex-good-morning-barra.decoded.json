@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-good-morning-barra",
+  "videoSha256": "16ee3d3ecf7967910edc4a645d6afa1b571577a270e2a66a710a4e11383b4d6b",
+  "framePixelSha256": {
+    "1": "edc1ce8eab297be3eb6ab339737f034b94c2a9f89998cfbddb9d232f434df4cd",
+    "30": "59f8402235cb7fa78cb7f671ae109573682e37524453d6be7cbfbc08ff1021b5",
+    "60": "7f5bf2a47d710ed77cc67437569d066fc796e0954d93fac15954c2fb9d0fce1e",
+    "90": "c7f87e1bc7002f7a787d9c4ee3a502b67c9790e41d2f8f25d3b57e497ab40e5e",
+    "120": "85f7f44484b863f5c446791f1afb7e883c9d5d035e6c74125186a5e8700ca2c2"
+  },
+  "uniqueFrameCount": 5
+}

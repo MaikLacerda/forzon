@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-prancha-isometrica",
+  "videoSha256": "7666a7ef36d4748adf5cc0071b97c9f355014791470b5291590f6ebf473afcb9",
+  "frames": [
+    1,
+    48,
+    96,
+    144,
+    192
+  ],
+  "framePixelSha256": {
+    "1": "c5bf021eb47797075fbcc209e8d03b49df0d2fb38e2fa8e054a181cda2aa1c77",
+    "48": "e1bc7e74f96683e4de3feec966e4c1aedcca14adb456e10f1e92a7ab961207cd",
+    "96": "50ee0d8f6416e27d7328fb5ca4d748ea7e49aec2b577df48486b1404ad441890",
+    "144": "63dc5a58b94dd6fa09d92474d881da6b552055964af4c096482a51eed7bc286f",
+    "192": "cdc54386474cbc14569415402109687e4e8208d85fe0784852052feae74f8411"
+  },
+  "uniqueFrameCount": 5
+}

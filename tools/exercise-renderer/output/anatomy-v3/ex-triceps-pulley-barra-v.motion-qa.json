@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-triceps-pulley-barra-v",
+  "sourceSceneSha256": "9656f847a64ee5217333439363716a055774c199b7d369c279f28986b97ab041",
+  "sceneSha256": "6aadf32397c2106cbca05a56644b12e11bd04005c6c8df5141d5dd5cc071a878",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-puxada-triangulo",
+  "sourceSceneSha256": "520c0050b19b89feecbd63cf5c6502b9f3526457caa6b0b5cb925a77dead8e3c",
+  "sceneSha256": "2efd3c4a59dee1b3b81a550c085c84043dbdf6a06d039c3c0a2545f652db31cb",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

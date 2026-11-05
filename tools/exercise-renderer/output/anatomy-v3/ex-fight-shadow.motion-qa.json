@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-fight-shadow",
+  "sourceSceneSha256": "e4826571d00d8f51a3ae2d99c308b4b882c4cf8a6a113e21ad9beec69ddbb790",
+  "sceneSha256": "36d5076abeaa72e5995498db76b9dc536923fb81b9fdec41b5fcc7eb180d8e7f",
+  "framesChecked": 192,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

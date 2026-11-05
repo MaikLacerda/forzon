@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-pulldown-polia-alta",
+  "sourceSceneSha256": "d6b4cd31f71b85c83f4d2f7aea17164a427b83c2ffbbe0c8207ec281be947ebf",
+  "sceneSha256": "b9cb14844ede7bbbf8d33fce08aecf0d71185ce4a83599bc53726a08bd1fd3db",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

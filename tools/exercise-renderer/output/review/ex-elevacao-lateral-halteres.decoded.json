@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-elevacao-lateral-halteres",
+  "videoSha256": "a1f631ea6b2d8e6c5b58f506d9884f31f0ba3603da7e3044234b133f675dfd9c",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "3a9db24ee46d66b09bfb230a5a5a1d7d17c046bc8b84cbda48ced5b3be13bd65",
+    "30": "478b9a17cfd7830140469d13ed61e1b05fd9509fd3e0358363a0d0645456ef0d",
+    "60": "343dac440b31a26b183ed4a520b19de665d267527da9d3ad1d432dd855c5ca6d",
+    "90": "4fd517272eca44159dac89ecc68d084f5a3fe15fe28e177e4dd7d64d8bf75e19",
+    "120": "024fd989aaa3d2c2a52667d8bb228e980c6754f17d6a38f68cfbc9a52964f7bf"
+  },
+  "uniqueFrameCount": 5
+}

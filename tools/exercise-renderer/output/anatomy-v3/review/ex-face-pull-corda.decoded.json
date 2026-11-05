@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-face-pull-corda",
+  "videoSha256": "247520dce10959f0f310463e19e8e2e1e9fb419e6bafe6b8b95078412f105cb5",
+  "framePixelSha256": {
+    "1": "7d8dd11d5bb67dcbd704b6088a70bdba456e2db4171b300088c85fc3c10d6bdf",
+    "30": "973734f1c4c02ea379583b8fd83ba8eaad3d9523701f3d6753c443d0f8ada9b4",
+    "60": "f255a0715be18e81ebd2a17bcdde0ef0cacc9e3ca661076511df50c8705aada2",
+    "90": "c9cc80309af540d9ed5b3e48d07a11cb839e15dab7bdf384b525e3b25eef3df7",
+    "120": "33274473ced2cafc800a99134c5c5246277c8285b8d0a11e83f16eabdbb0c98a"
+  },
+  "uniqueFrameCount": 5
+}

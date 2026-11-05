@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-hyrox-sled-push",
+  "videoSha256": "7fd5c691e84fb3c6d713af916aa0c06bd64c05562883f9ed966e62b1bfb0ca2e",
+  "framePixelSha256": {
+    "1": "cb5006c9eaf8f887f950b44dfe1bdf8ceff00b5cf01696100e1b7347c979f729",
+    "48": "d82be945d63d44c06f5b79ae34ba641913f83de44f4bb7cdea2c336d3d02cf49",
+    "96": "3d8d1535e9932fb287f032e7212c44b43410dfa0490423d15f113b84a94dfc38",
+    "144": "4aab7c0c42b4ab51dca5a69b32d3b329577916ecc9c68f428cdcc2568331cae8",
+    "192": "c141379d1927f631880e1773c42d30fe4a0920ebfbad4ca231b27a34e0033852"
+  },
+  "uniqueFrameCount": 5
+}

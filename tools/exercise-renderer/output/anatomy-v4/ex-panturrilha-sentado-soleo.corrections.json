@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-panturrilha-sentado-soleo",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "049204e8ee399e476e1be5b4114ea23e7660aacd415bc248ea91cf9f6b7897e5",
+  "surfaceAnimationRevision": null,
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.796029806137085,
+    0.5970223546028137,
+    0.09950372576713562
+  ],
+  "cameraScale": 2.17352557182312,
+  "reviewSampleFrames": [
+    1,
+    8,
+    16,
+    23,
+    31,
+    38,
+    46,
+    53,
+    61,
+    68,
+    75,
+    83,
+    90,
+    98,
+    105,
+    113,
+    120
+  ],
+  "publication": "not-published"
+}

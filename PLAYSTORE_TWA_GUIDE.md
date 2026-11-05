@@ -61,7 +61,7 @@ O Bubblewrap cria um projeto nativo Android a partir do `manifest.webmanifest`:
 
 2. Inicialize o projeto apontando para o seu domínio publicado:
    ```bash
-   bubblewrap init --manifest=https://seu-dominio-forzon.com/manifest.webmanifest
+   bubblewrap init --manifest=https://forzon.vercel.app/manifest.webmanifest
    ```
 
 3. Compile o pacote de produção Android App Bundle:
@@ -76,8 +76,8 @@ O Bubblewrap cria um projeto nativo Android a partir do `manifest.webmanifest`:
 
 ### Método 2: Via PWABuilder (Interface Visual)
 1. Acesse [https://www.pwabuilder.com](https://www.pwabuilder.com).
-2. Digite a URL onde seu FORZON está publicado.
-3. Clique em **Build My PWA** e escolha a opção **Android**.
+2. Digite a URL: `https://forzon.vercel.app/`.
+3. Clique em **Start** e escolha a opção **Package for Stores > Android**.
 4. Defina o Package ID como `com.forzon.fitness.app`.
 5. Baixe o pacote `.aab` assinado e envie na faixa de produção ou teste interno no Play Console.
 

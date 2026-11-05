@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-prancha-lateral-estatica",
+  "videoSha256": "8267589d7419dbfdc3b1f79c10f909c52d7a80238f84c99be538617a91df8835",
+  "frames": [
+    1,
+    48,
+    96,
+    144,
+    192
+  ],
+  "framePixelSha256": {
+    "1": "af21c91d7dd6732eb7dc896956f6f99c43bdc1d3311a2bc1de3ab6743031073f",
+    "48": "ca3c500f2cf1b516c3fe46deb86934ba9cfaeef6c0dc4c8837df807577345998",
+    "96": "b5f2390d78c65d14c78e5cf9603b79b3c7c8bba6cfd7a374e384e1612b87244a",
+    "144": "935c252eafd050369549f15d105a3c67d2132414cac6172126fb95d379cb4b1a",
+    "192": "0cb4bc2e6c6ae3684471b0d3e136027f5085f149392ebc540d97dbe7f37ad2db"
+  },
+  "uniqueFrameCount": 5
+}

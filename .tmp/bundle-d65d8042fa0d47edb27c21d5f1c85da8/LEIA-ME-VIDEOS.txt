@@ -1,0 +1,135 @@
+FORZON - ATUALIZACAO DOS VIDEOS E DISPONIBILIDADE
+
+Inclui 104 videos proprios:
+- Rosca Direta com Barra Reta
+- Rosca Martelo com Halteres (Braquial e Braquiorradial)
+- Supino Reto com Barra
+- Rosca Alternada com Halteres e Supinação
+- Supino Reto com Halteres
+- Supino Inclinado com Halteres
+- Supino Inclinado com Barra
+- Supino Declinado com Barra (Canadense)
+- Supino Declinado com Halteres
+- Supino Reto na Máquina Articulada
+- Crucifixo Reto com Halteres
+- Crucifixo Inclinado com Halteres
+- Voador Peitoral / Peck Deck
+- Crucifixo no Crossover (Polia Média)
+- Crossover na Polia Alta (Foco Inferior)
+- Crossover na Polia Baixa (Foco Superior)
+- Paralelas com Foco em Peitoral (Chest Dips)
+- Flexão de Braço com Déficit / Carga
+- Pullover com Halter no Banco Plano
+- Puxada Frontal na Polia Alta
+- Barra Fixa com Pegada Pronada (Pull-Up)
+- Barra Fixa com Pegada Supinada (Chin-Up)
+- Puxada Alta com Triângulo (Pegada Neutra)
+- Remada Curvada com Barra
+- Remada Unilateral com Halter (Serrote)
+- Remada Cavalinho / T-Bar com Barra
+- Remada Baixa com Triângulo
+- Remada Articulada na Máquina (Pegada Neutra)
+- Pulldown na Polia Alta com Barra Reta / Corda
+- Levantamento Terra Convencional com Barra
+- Crucifixo Invertido com Halteres (Deltóide Posterior)
+- Voador Invertido no Peck Deck (Máquina)
+- Hiperextensão Lombar no Banco 45°
+- Desenvolvimento com Halteres Sentado
+- Desenvolvimento Militar em Pé com Barra (OHP)
+- Desenvolvimento Arnold com Halteres
+- Desenvolvimento de Ombros na Máquina Articulada
+- Elevação Lateral com Halteres
+- Elevação Lateral Unilateral na Polia Baixa
+- Elevação Lateral no Banco Inclinado
+- Elevação Frontal Alternada com Halteres
+- Elevação Frontal na Polia Baixa com Corda
+- Face Pull na Polia Alta com Corda
+- Remada Alta com Barra W
+- Encolhimento de Ombros com Barra (Trapézio)
+- Encolhimento com Halteres com Isometria
+- Agachamento Livre com Barra
+- Agachamento Frontal com Barra (Front Squat)
+- Leg Press 45°
+- Agachamento Hack na Máquina
+- Agachamento no Smith Machine com Pés Avançados
+- Cadeira Extensora (Isolador de Quadríceps)
+- Agachamento Búlgaro com Halteres
+- Avanço / Passada Caminhando com Halteres
+- Sissy Squat Livre ou na Máquina
+- Stiff com Halteres / RDL
+- Stiff com Barra Reta
+- Mesa Flexora Deitada (Leg Curl)
+- Cadeira Flexora Sentada
+- Good Morning (Bom Dia) com Barra
+- Elevação Pélvica com Barra (Hip Thrust)
+- Elevação Pélvica na Máquina (Hip Thrust Machine)
+- Cadeira Abdutora (Tronco Inclinado à Frente)
+- Glúteo Coice / Extensão de Quadril na Polia Baixa
+- Agachamento Sumô sobre Steps com Halter
+- Elevação de Panturrilhas em Pé na Máquina (Gastrocnêmio)
+- Elevação de Panturrilha Sentado (Máquina Sóleo)
+- Panturrilha no Leg Press 45°
+- Elevação de Panturrilha Unilateral no Degrau com Halter
+- Rosca Direta com Barra W
+- Rosca Martelo na Polia Baixa com Corda
+- Rosca Scott no Banco com Barra W
+- Rosca Bíceps no Banco Inclinado a 45°
+- Rosca Concentrada com Halter
+- Rosca Aranha (Spider Curl) no Banco Inclinado
+- Tríceps Corda na Polia Alta
+- Tríceps Pulley na Polia com Barra Reta
+- Tríceps Pulley com Barra V
+- Tríceps Testa com Barra W no Banco Reto (Skull Crusher)
+- Tríceps Testa com Halteres (Pegada Neutra)
+- Tríceps Francês Unilateral com Halter
+- Tríceps Francês na Polia com Corda Acima da Cabeça
+- Mergulho em Barras Paralelas Foco em Tríceps
+- Supino com Pegada Fechada (Close-Grip Bench Press)
+- Tríceps Coice Unilateral na Polia (Kickback)
+- Prancha Frontal Isométrica
+- Abdominal na Polia Alta Ajoelhado (Cable Crunch com Corda)
+- Elevação de Pernas na Paralela / Torre Abdominal
+- Rolamento com Roda Abdominal (Ab Wheel Rollout)
+- Abdominal Crunch Tradicional no Solo
+- Prancha Lateral Isométrica (Oblíquos)
+- Giro Russo (Russian Twist) com Anilha / Halter
+- Stomach Vacuum (Vácuo Abdominal e Transverso)
+- Corrida Contínua / Fartlek
+- SkiErg Intervalado (Hyrox Station)
+- Sled Push (Empurrar Trenó na Pista)
+- Wall Balls (Arremesso no Alvo)
+- Shadow Boxing com Halteres Leves
+- Sprawl Explosivo de Defesa de Queda
+- Tiros de 50m Nado Crawl (Estilo Livre)
+- Thruster com Barra Olímpica
+- Salto de Cabeceio na Areia Fofa
+- Cardio Dance Rítmico (FitDance / Zumba)
+- Muscle-Up na Barra Fixa
+
+Extraia o conteudo na raiz do projeto mantendo as pastas src e public.
+Aceite substituir os arquivos correspondentes.
+
+No Git Bash, dentro da pasta do projeto:
+npm install
+npm run build
+npm run dev
+
+Para encerrar a previa e liberar o terminal, pressione Ctrl+C.
+
+O player repete os videos automaticamente e oferece controles de reproducao.
+Os enderecos dos videos foram atualizados para renovar o cache do navegador.
+Na Biblioteca, marque "Somente exercicios com video" para localizar os videos disponiveis.
+Na lista, clique no nome do exercicio para abrir a ficha de execucao.
+O lote completo inclui os 100 novos videos e os quatro videos anteriores.
+
+Este pacote cobre 104 dos 104 exercicios do catalogo principal.
+As estrias e a definicao do personagem sao uma ilustracao muscular estilizada.
+Os avisos de licenca acompanham as midias proprias.
+
+A correcao do cache fica em public/sw.js. Depois da publicacao, recarregue o
+site com Ctrl+F5 para atualizar a pagina que estava aberta.
+
+Para enviar ao GitHub:
+git add src public/assets/exercise-videos public/sw.js tools .gitignore EXERCISE_VIDEO_STATUS.md LEIA-ME-VIDEOS.txt
+git commit -m "Adiciona os 100 videos restantes dos exercicios"
+git push origin main

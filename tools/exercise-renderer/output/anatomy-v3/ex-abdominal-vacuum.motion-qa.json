@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-abdominal-vacuum",
+  "sourceSceneSha256": "af663116cf04d0a4fba8ffb4dc88eb3be767f53263696dbe9ce50c1c397315da",
+  "sceneSha256": "9114b9c62d9b6380320e79dd2eb9fd334803c77af9d058a02d5428b7a2b62095",
+  "framesChecked": 360,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

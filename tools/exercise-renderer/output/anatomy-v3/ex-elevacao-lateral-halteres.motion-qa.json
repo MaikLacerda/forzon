@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-elevacao-lateral-halteres",
+  "sourceSceneSha256": "da25bd284b5265be63a247ce868dbee08a5ef64ca66592e365dbe6c126d7a228",
+  "sceneSha256": "55aa902c1e5950f85b87445d5eda52bf624be2bb0c49436de33a5f58e2e3cd17",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

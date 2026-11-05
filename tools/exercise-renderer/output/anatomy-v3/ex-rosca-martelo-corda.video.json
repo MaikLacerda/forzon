@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-rosca-martelo-corda",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "3b415f4b196701ea03cdc07ebdf473a9749b13ec66ea7c5b98b480fa39529b57",
+  "videoSha256": "c7064b99d84a9e0f5f207cad4c40c5063baf31e8387923031dc821c05ca1e22a",
+  "visualReviewRequired": true
+}

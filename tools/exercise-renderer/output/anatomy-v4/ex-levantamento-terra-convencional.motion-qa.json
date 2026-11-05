@@ -1,0 +1,25 @@
+{
+  "exerciseId": "ex-levantamento-terra-convencional",
+  "style": "anatomy-v4",
+  "auditRecipeSha256": "e6ee0ba8a625b4f83f7b3741d3795ef34346db37c7029d054bbaa693b65be4bc",
+  "sourceV3SceneSha256": "3d4f1b5258db798916ca59d5408a5a0c30cc59724577ecc791b37c7c8b65b12a",
+  "sceneSha256": "51dfaa3cd1b926ef7b04ac749dcb0f5d57cf01b536a48b7889e899b414364c5d",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896530836820602
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

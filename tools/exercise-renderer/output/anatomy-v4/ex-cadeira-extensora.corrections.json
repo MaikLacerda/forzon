@@ -1,0 +1,34 @@
+{
+  "exerciseId": "ex-cadeira-extensora",
+  "style": "anatomy-v4",
+  "recipeSha256": "c0aeea57f97b94329308ec66f6de2e462fe7ea2c0e7c816cc976ff4e91c4a881",
+  "sourceSceneSha256": "6ab100af8f1d3f598fcdd8ed25527ab865ae53af26ac1a11650d0c3cbb7cb2b6",
+  "surfaceAnimationRevision": null,
+  "hiddenEquipment": [],
+  "cameraDirection": [
+    0.40824827551841736,
+    -0.8164965510368347,
+    0.40824827551841736
+  ],
+  "cameraScale": 2.5075292587280273,
+  "reviewSampleFrames": [
+    1,
+    8,
+    16,
+    23,
+    31,
+    38,
+    46,
+    53,
+    61,
+    68,
+    75,
+    83,
+    90,
+    98,
+    105,
+    113,
+    120
+  ],
+  "publication": "not-published"
+}

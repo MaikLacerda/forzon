@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-crucifixo-invertido-peck-deck",
+  "videoSha256": "3ed78efe62db4568cf7188e6cf3686ca218f7103c8cfa836e7a0cfdfac2d9bf0",
+  "framePixelSha256": {
+    "1": "6aabac527cc60551754ece5bda35976739e6d6cef36bf4e4c59e9318a0d024d2",
+    "30": "c0d6f6b97ebfa078609185ec77a825a535fd57dedd432d17e890a72ba571ffcf",
+    "60": "6467247c53275cd2fa0015518107b28e660a8baa32776065bfe2b29fe1a171e2",
+    "90": "c1b983fc623e280d8699f8a85a7411b22b6bf8164e95657473ab5657c0c994d9",
+    "120": "9da51cc4df9e2fd7e662e6ac935ec54de4c25c9561468fb075210a433748e9b8"
+  },
+  "uniqueFrameCount": 5
+}

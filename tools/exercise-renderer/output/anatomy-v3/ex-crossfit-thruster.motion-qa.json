@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-crossfit-thruster",
+  "sourceSceneSha256": "1494024c795f7631d700d82e6eb319dbfcf9f9d6432670a592851d999c785ceb",
+  "sceneSha256": "b4f29f64bc156093c97012a3ee250b5a4e4eff200bf87d58fa78b13666ab8288",
+  "framesChecked": 192,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

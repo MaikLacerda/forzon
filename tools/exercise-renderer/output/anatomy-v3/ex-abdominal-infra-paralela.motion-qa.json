@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-abdominal-infra-paralela",
+  "sourceSceneSha256": "c2c530bec522832ce644a7ef383e82775e4e333ad3dda4f7e97214adf90b5061",
+  "sceneSha256": "66f2da9185dec28757d6164b7c5a33ca037d3dea882e42c96b120524f1e53778",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

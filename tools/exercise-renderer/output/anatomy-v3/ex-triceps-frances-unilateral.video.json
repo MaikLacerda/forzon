@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-triceps-frances-unilateral",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "d2ef044ff97a300e1e1f44e0fa603573a86db70dffc0a347fc391d864d518b1e",
+  "videoSha256": "3e55a93fd6bf81d35c65b69b6fb937aeac9f0378c8ae59f42fa9d9962f74d3c7",
+  "visualReviewRequired": true
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-agachamento-bulgaro-halteres",
+  "videoSha256": "ca2ac5581520af4719e5f6dcd2554a8236f1fb989f09ec3aa8dfd808c46735ca",
+  "framePixelSha256": {
+    "1": "e97f05534809211fa1a19bbf886f124f685dd9ae358ca1ef8191ce51e3294c86",
+    "30": "6e231bde38af2eca418ffc59b1c2753a4d97898b0fce63d6c5d8e529c477fb5d",
+    "60": "59d828abc7dfc61897d7920f8290a8ef3e17a3093cbce087a2846fb8572a081e",
+    "90": "426193920181b950f6ffd02ea26e38229458d6a0f879027af898061da439f18b",
+    "120": "839bd3e6cfa0be571d8b797cd1de8e585e6796e87ac76fb91330f58b73578df8"
+  },
+  "uniqueFrameCount": 5
+}

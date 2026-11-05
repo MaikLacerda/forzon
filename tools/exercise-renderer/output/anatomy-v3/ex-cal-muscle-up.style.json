@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-cal-muscle-up",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "0a9161865d40be6facfac099db4cb0c3fd8a62534dfb4a8534f05d0cf7a86f71",
+  "frames": 240,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "back",
+  "productionStatus": "preview"
+}

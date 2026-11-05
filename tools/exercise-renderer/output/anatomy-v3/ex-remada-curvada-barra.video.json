@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-remada-curvada-barra",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "087ab827dd0f8926e90ec3f1b9a4cedbac95e4ea61de2cef12800cc07c6f98fc",
+  "videoSha256": "1bffdc60704f58ca461dae545aadcfed5d20b85676b90b5b228e201765087895",
+  "visualReviewRequired": true
+}

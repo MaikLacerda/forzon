@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-hack-squat-maquina",
+  "videoSha256": "cec19fda6192e3f68a52023253aef1a9458da26f24029328f1848f239e31fdf5",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "f83b0bef0abcd92c354b26c98bfbdd29a053824610d2a4158551e4dceb9d7891",
+    "30": "aef4d020d7c302cf8bf04ae10abaf41cf6f7ef9236d507f4fbe3ba1bf9fe9e3b",
+    "60": "ed2957cf981db1340087264a859d91c6d855f4eb87f12389d172471a7c208e8e",
+    "90": "35451247eee2c9f5462d4ebea2486e1f5150cab58caeb5ef2f70a92c0e5dc35d",
+    "120": "78df6899a1f2dbdba695b5864bc1920d0a349c72eae24f95a562229bcbbf21e6"
+  },
+  "uniqueFrameCount": 5
+}

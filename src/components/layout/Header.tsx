@@ -111,8 +111,8 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="app-header sticky top-0 z-40 w-full bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-h-14 py-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+    <header className="sticky top-0 z-40 w-full bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-8">
         {/* Zone 1: Brand Wordmark (FORZON) */}
         <div className="flex items-center gap-3">
           <button
@@ -138,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Zone 2: Desktop Clean Nav Links */}
-        <nav aria-label="Navegação principal" className="order-last hidden w-full min-w-0 md:flex flex-wrap items-center gap-x-5 gap-y-2 py-2 text-sm font-medium text-neutral-400">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-400">
           <button
             onClick={() => setActiveTab("hoje")}
             className={`transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
@@ -182,25 +182,22 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* Zone 3: 1 Primary Action + Utility Shortcuts */}
-        <div className="flex w-full min-w-0 flex-wrap items-center gap-1.5 sm:ml-auto sm:w-auto sm:flex-1 sm:justify-end">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Subscription Tier & Paywall Pill */}
           {onOpenUpgradeModal && (
             profile.isPremium ? (
               <button
-                onClick={() => onOpenUpgradeModal()}
-                aria-label="Gerenciar plano FORZON Pro"
+                onClick={onOpenUpgradeModal}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-sm shadow-cyan-500/10"
                 title="Plano FORZON Pro Ativo (100% Livre de Anúncios) · Gerenciar Assinatura"
               >
                 <Crown className="w-3.5 h-3.5 text-cyan-400 fill-cyan-400/20" />
                 <span className="hidden md:inline text-[11px]">FORZON PRO</span>
-                <span className="md:hidden text-[10px]">PRO</span>
-                <span className="hidden md:inline text-[10px] text-cyan-400 font-mono">★</span>
+                <span className="text-[10px] text-cyan-400 font-mono">★</span>
               </button>
             ) : (
               <button
-                onClick={() => onOpenUpgradeModal()}
-                aria-label="Seja Pro"
+                onClick={onOpenUpgradeModal}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-yellow-500/10 hover:from-amber-500/30 hover:to-yellow-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-sm shadow-amber-500/10"
                 title="Plano Free com Anúncios ativo · Clique para assinar o FORZON Pro e desbloquear tudo sem anúncios"
               >
@@ -214,7 +211,7 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenAIIntake && (
             <button
               onClick={onOpenAIIntake}
-              className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-teal-500/20 hover:from-cyan-500/30 hover:to-teal-500/30 border border-cyan-400/50 text-cyan-300 text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-sm shadow-cyan-500/10"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-teal-500/20 hover:from-cyan-500/30 hover:to-teal-500/30 border border-cyan-400/50 text-cyan-300 text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-sm shadow-cyan-500/10"
               title="Entrevista com IA para montar Treino e Dieta sob medida"
             >
               <Bot className="w-3.5 h-3.5 text-cyan-400" />
@@ -234,10 +231,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenLiveWorkout}
-            className="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs tracking-wide transition-all shadow-sm shadow-cyan-500/20 active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-neutral-950 font-bold text-xs tracking-wide transition-all shadow-sm shadow-cyan-500/20 active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
           >
             <Dumbbell className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Iniciar Treino</span><span className="sm:hidden">Treinar</span>
+            <span>Iniciar Treino</span>
           </button>
 
           {/* Offline Cache & Sync Status Pill */}
@@ -335,7 +332,6 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          <button onClick={onOpenAuth} aria-label="Minha conta" title="Minha conta e sair" className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 cursor-pointer"><User className="w-4 h-4" /></button>
           <button
             onClick={onOpenSettings}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors cursor-pointer"

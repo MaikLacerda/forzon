@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-face-pull-corda",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "bfb49e5a6252db2e652770f9566589d2be1f2e20e97ee714ef474227748cc299",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "shoulders",
+  "productionStatus": "preview"
+}

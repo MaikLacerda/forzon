@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-crossover-polia-alta",
+  "videoSha256": "fab8074e4d553bb5aac59cff06ae1d406cbec06b8431a1d131089f623764066c",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "5c8248fca98e21e3bf5dc5a66bd57c11ca9a529c933dbab0d155fa43244b896d",
+    "30": "22bdce972da0443e6e2b6e7c1339035b6a690863fe0900a1c51a6db5125c06dd",
+    "60": "75e4aa504f844d498a7ae0861973e7fd6a6226af74586f2cf0fafb82608c3dc2",
+    "90": "93380e587549d466770e1b7cd7135e9f5057214ad187250b95c55ae10c579c8e",
+    "120": "22cc6cae036f4ad90c307d2eda6ec99c6292104de6e0574886e7cf8a85aa383e"
+  },
+  "uniqueFrameCount": 5
+}

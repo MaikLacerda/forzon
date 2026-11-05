@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-supino-inclinado-halteres",
+  "sourceSceneSha256": "101811378336a2f68efe6f127e7720aee91aab5ed8162a7cc66c4aa150ce5414",
+  "sceneSha256": "fb8a85cb7e10756fce56e8a796ac9537c6bf86e7506d6d70095ef8b2b3dec6e5",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

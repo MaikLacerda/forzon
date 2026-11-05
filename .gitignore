@@ -4,12 +4,9 @@ dist/
 coverage/
 .DS_Store
 *.log
+*.zip
 .env*
 !.env.example
-.tmp/
-.private/
-.tools/
-tools/exercise-renderer/output/
-__pycache__/
-*.py[cod]
-forzon-*.zip
+tools/blender-*/
+*.pdb
+*.exe

@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-supino-maquina-articulada",
+  "style": "anatomy-v3",
+  "frames": 120,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "06137beb84b27ea7c971a9ca57b51c1e63bfaaabf25e668402a7e4d31f7d676d",
+  "videoSha256": "a5b55d36a789f9ca1701da5841eb06d45b197f475bbb0cdb14d5744ad6918d5f",
+  "visualReviewRequired": true
+}

@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-triceps-coice-polia",
+  "sourceSceneSha256": "849afc7c9da4a0bdf5977995d4d23b1e6bb4f4e694ef38b7843c78f332702cc1",
+  "sceneSha256": "53f26dd7df8c5a179dc867d8e09016d8f8878be1c1865f05f50be2c8ac5dc7ee",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

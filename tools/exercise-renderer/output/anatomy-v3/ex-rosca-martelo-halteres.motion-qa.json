@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-rosca-martelo-halteres",
+  "sourceSceneSha256": "ec88dea99a669e3c4b85421963a95ff55d1a38a67b639f43f51409a365d10d02",
+  "sceneSha256": "c945e7376eaecaae1e36d9aeacdeaa32c4600b734812907b906916cf254e6391",
+  "framesChecked": 96,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

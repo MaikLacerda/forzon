@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-mesa-flexora",
+  "sourceSceneSha256": "e79b969b0c3a2bc207d996ea04b6db3a6b3e14f2ca2d7939e25a995d022034df",
+  "sceneSha256": "9be466dac62eef8aeb49aacf95a787fc13840f6e50d57a3727ad25ebab3cb73e",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

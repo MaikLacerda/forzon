@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-abdominal-vacuum",
+  "videoSha256": "039f21a9e169a381782258df23a07fa14d96eb4bbd2b82ad373a745629005b79",
+  "framePixelSha256": {
+    "1": "19039722c5fd8575f76a9044573555cdead21f14127952b4346f57ddae8ed135",
+    "90": "534860a2baec46c088b493acd6bbe0da64054303e19a33cdfed91dcb6e5938d7",
+    "180": "66f2ef08632a0b20f68f6b983fa771ce5997e47ce86bdddcb4fb7bd62e35d957",
+    "270": "51de5e5e5febde2cefeee59d39ade85ad5425940407b7d1c464b6fbc3a40a367",
+    "360": "027cf2563d56b1bc796d82057a083abe04227e20f7d6b24d099d9f9330b80917"
+  },
+  "uniqueFrameCount": 5
+}

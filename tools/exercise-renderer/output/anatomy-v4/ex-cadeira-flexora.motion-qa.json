@@ -1,0 +1,24 @@
+{
+  "exerciseId": "ex-cadeira-flexora",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "71ce9e78fc7bf12bd121c7d88a610a2ad834427e4aa0c10ab42b83fdaf900bbf",
+  "sceneSha256": "0d58237afaf2dcaac6dfafa4b950756dacf8cebce7464c77ee0f34b5e2814c71",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896559149026871
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

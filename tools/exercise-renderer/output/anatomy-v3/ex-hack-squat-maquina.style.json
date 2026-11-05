@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-hack-squat-maquina",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "aadac169b0cfc2fdb4406e37b3c08dd7c94e12abc540c35738a18666477bad65",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "quads",
+  "productionStatus": "preview"
+}

@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-triceps-frances-polia-corda",
+  "sourceSceneSha256": "5e2b20c0fdd5d2c9a1885038ea2f81fa1d440290acb24608d47724ea577a4bba",
+  "sceneSha256": "21a8920d6cdef2c98992290ffda1c12cd9bc4cc4a98e301994585c5e14e038dc",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

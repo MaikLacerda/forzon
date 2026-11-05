@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-pullover-halter",
+  "sourceSceneSha256": "cb9b69bf05e148a023ae26936fc3990345378dde00068a2f09d976275bdc04f3",
+  "sceneSha256": "043c80cac419be0adef12d23a21896fc885bf4ff4ec77d08b034b4888f26d02e",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

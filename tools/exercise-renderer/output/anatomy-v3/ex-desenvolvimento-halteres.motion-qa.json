@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-desenvolvimento-halteres",
+  "sourceSceneSha256": "505bdfea6156c7c1429a7aac7fbb4cd6d9ba603618351672d8ae77167e7f2ba7",
+  "sceneSha256": "a504fbaf34f41f2584919ea0f4eddde013917a1f14f8a49d997fa4476240e2e0",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

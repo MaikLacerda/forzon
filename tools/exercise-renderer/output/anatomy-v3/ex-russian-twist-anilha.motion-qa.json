@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-russian-twist-anilha",
+  "sourceSceneSha256": "f707e6be41eeb06d7dd65e44b68854893a4370a58b334d62735a08ed8cdc743a",
+  "sceneSha256": "639d3c09ff86b51cdb984887fafdea0c9b36d6f39362113d43b8b697f69678a0",
+  "framesChecked": 192,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

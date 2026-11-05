@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-rosca-inclinada-45-halteres",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "b97885ff44ccced0d06abb994db084a2b4ce825bfe3b80b160623f6ed2ccfd1a",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "biceps",
+  "productionStatus": "preview"
+}

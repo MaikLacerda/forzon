@@ -1,0 +1,11 @@
+{
+  "exerciseId": "ex-rosca-alternada-halteres",
+  "style": "anatomy-v3",
+  "frames": 192,
+  "fps": 24.0,
+  "width": 768,
+  "height": 768,
+  "sceneSha256": "09092a6d219f00ddca6475632614018cab825f27e7a5ac6c83494dcd17a8c05e",
+  "videoSha256": "87da90e13a8e78de5133d32d63b49f598a169f34cfaa7b113933177c9727d161",
+  "visualReviewRequired": true
+}

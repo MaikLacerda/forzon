@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-crossover-polia-alta",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "d5d8b15599875306c1fd68cfab96e0cdadf360c40abca72de68f290470af2b50",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "chest",
+  "productionStatus": "preview"
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-triceps-corda-polia",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "7dc0dab52eac5ddec8308d2e5fd0a9d1a316934b811203b9a167e7df214cea3e",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "triceps",
+  "productionStatus": "preview"
+}

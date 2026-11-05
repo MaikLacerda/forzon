@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-rosca-martelo-corda",
+  "sourceSceneSha256": "e26583170b700d93af5261e3b7c4dccd7d53bcdd8aac90b045b3896dc18a3019",
+  "sceneSha256": "3b415f4b196701ea03cdc07ebdf473a9749b13ec66ea7c5b98b480fa39529b57",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

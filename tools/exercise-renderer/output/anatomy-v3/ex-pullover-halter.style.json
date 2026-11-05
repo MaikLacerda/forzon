@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-pullover-halter",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "cb9b69bf05e148a023ae26936fc3990345378dde00068a2f09d976275bdc04f3",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "chest",
+  "productionStatus": "preview"
+}

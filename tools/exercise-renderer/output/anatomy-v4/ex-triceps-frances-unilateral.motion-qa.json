@@ -1,0 +1,25 @@
+{
+  "exerciseId": "ex-triceps-frances-unilateral",
+  "style": "anatomy-v4",
+  "auditRecipeSha256": "e6ee0ba8a625b4f83f7b3741d3795ef34346db37c7029d054bbaa693b65be4bc",
+  "sourceV3SceneSha256": "d2ef044ff97a300e1e1f44e0fa603573a86db70dffc0a347fc391d864d518b1e",
+  "sceneSha256": "9ec50b6ff9ef65b7f76cdad926a9b983c7a521765cd26dd5b35bc12f9f4af04d",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.0689651221036911
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

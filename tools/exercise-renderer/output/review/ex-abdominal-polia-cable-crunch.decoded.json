@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-abdominal-polia-cable-crunch",
+  "videoSha256": "7adc3fc18983620e5344e3ceeb35d8c0326e767adad6f9281e10012283bd1145",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "bad13c5fcf68ccc27caafd5ec6c243d518ff3fe8e5208e2294dec3db82cdf7bb",
+    "30": "19ecb5e5370c222f1f68a3a29db359654bbf664cc9a90140695612b3a58a12e0",
+    "60": "3721e5f20cc3f444be0e60522c918f324bdd443f5aed3b8ac3eac46098f00f60",
+    "90": "a585c40c55910e6500fe77ab1f3689c2ac1bf81322ca58246aa0a180880e1445",
+    "120": "8950ae02312d7f8575c69ea47fb77c29a603130b451ef4e47e7cca63a56c92b4"
+  },
+  "uniqueFrameCount": 5
+}

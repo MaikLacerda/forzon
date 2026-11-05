@@ -1,0 +1,28 @@
+{
+  "exerciseId": "ex-rosca-concentrada-halter",
+  "style": "anatomy-v4",
+  "auditRecipeSha256": "e6ee0ba8a625b4f83f7b3741d3795ef34346db37c7029d054bbaa693b65be4bc",
+  "sourceV3SceneSha256": "248610b54730bc27ca1558501fa721b20ad1e9c6b991b123d039527bca8196a4",
+  "sceneSha256": "b63149f54cdcdbc0142e2062a807ceee67508ca863c712f11ff47f614fa78744",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "elbowRemainsAtThighSupport": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "maximumElbowJointToThighSurfaceMetres": 0.012041927315294743,
+    "supportReview": "Joint-to-surface distance checked at 17 samples; original support pose retained, no fabricated animation correction.",
+    "minimumBodyFrameMargin": 0.06896543502807617
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

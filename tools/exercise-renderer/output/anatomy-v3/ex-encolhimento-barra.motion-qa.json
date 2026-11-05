@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-encolhimento-barra",
+  "sourceSceneSha256": "8798677d30fdb7125fe73d2fbfe298ea4cde0b045548218833ab341552b0b971",
+  "sceneSha256": "74fc80a3c36b3f9fb5230c2bc3daf311edb4a35196db2d26f8d5a339806333e4",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

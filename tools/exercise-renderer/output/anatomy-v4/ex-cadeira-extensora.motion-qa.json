@@ -1,0 +1,24 @@
+{
+  "exerciseId": "ex-cadeira-extensora",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "6ab100af8f1d3f598fcdd8ed25527ab865ae53af26ac1a11650d0c3cbb7cb2b6",
+  "sceneSha256": "dfca3cf601c025c55f428f211c3243c2a7ebfcd990768db6348644ea8bc7bf0c",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896539777517319
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}

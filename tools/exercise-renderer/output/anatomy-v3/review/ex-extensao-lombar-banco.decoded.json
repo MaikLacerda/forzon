@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-extensao-lombar-banco",
+  "videoSha256": "e9aac66bb1d1cc05e33ab4018bad0781eafdd5e4ab3d466b9889e988e8d1cb8b",
+  "framePixelSha256": {
+    "1": "4b729b6292efba1a9594abd71a403b2ac0311ba1ac8e58e0c80ed43e97288dce",
+    "30": "9dc7eb15131c2c4f71c9eca8338515dc33a45b51b1ffb90548c451d6f229d3f1",
+    "60": "2801d6395548e2060372951fd05b180f4d76457f3ac40d4597fb47b7b10f59dd",
+    "90": "3117e4a5eb89297006a58ad3bec1a362d18396a29dc5efee9ee2659a6296865c",
+    "120": "7934196115d9dfda3055f4ba0f5584621da478566b33da56279dba7019550278"
+  },
+  "uniqueFrameCount": 5
+}

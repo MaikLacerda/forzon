@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-peck-deck-voador",
+  "sourceSceneSha256": "dedd0c771f51f7dbcc3c5792d2e00c1dfa72b7938271ecac78925a514cee8702",
+  "sceneSha256": "ca2f5417dba14fe00305343455548c8fda1d6db4ffa28884dac187272283a11f",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

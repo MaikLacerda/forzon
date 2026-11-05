@@ -1,4 +1,3 @@
-import { applyWorkoutPolicy } from "./src/services/workoutPlanPolicy";
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
@@ -15,23 +14,6 @@ const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 app.use(express.json());
-
-// Licensed samples are kept out of the public repository. This preview route
-// is deliberately available only on the local development machine.
-app.get("/api/exercise-preview/:clip", (req, res) => {
-  const localAddresses = ["127.0.0.1", "::1", "::ffff:127.0.0.1"];
-  const allowedClips = ["pull-ups.mp4", "dumbbell-chest-fly.mp4"];
-  if (process.env.NODE_ENV === "production" ||
-      !localAddresses.includes(req.socket.remoteAddress || "") ||
-      !allowedClips.includes(req.params.clip)) {
-    res.sendStatus(404);
-    return;
-  }
-  res.setHeader("Cache-Control", "private, no-store");
-  res.sendFile(path.join(__dirname, ".private", "exercise-videos", req.params.clip), (error) => {
-    if (error && !res.headersSent) res.sendStatus(404);
-  });
-});
 
 // Initialize Google Gemini AI SDK on the server side
 const ai = new GoogleGenAI({
@@ -271,7 +253,6 @@ app.post("/api/ai/generate-plan", async (req, res) => {
 - Qualidade do Sono: ${profile?.sleepQuality || "Boa"}
 - Nível de Estresse Diário: ${profile?.stressLevel ? `${profile.stressLevel}/10` : "3/10"}
 
-PREFERÊNCIA OBRIGATÓRIA: inclua abdominais dinâmicos em até duas sessões semanais, nunca prancha isométrica. Respeite restrições de saúde e equipamentos. Limite a sessão a até 6 exercícios, reservando uma vaga para abdômen e reduzindo acessórios para caber no tempo disponível.
 ATENÇÃO: É Mandatório que as séries, repetições (${calibration.repRangeTarget}) e descansos (${calibration.restIntervalSeconds}s) sejam calibrados rigorosamente de acordo com o OBJETIVO ESPECÍFICO informado.
 
 Retorne estritamente um JSON no seguinte formato (sem blocos markdown adicionais):
@@ -305,13 +286,13 @@ Retorne estritamente um JSON no seguinte formato (sem blocos markdown adicionais
       try {
         const parsed = JSON.parse(planText);
         if (parsed.sessions && parsed.sessions.length > 0) {
-          return res.json({ plan: applyWorkoutPolicy(parsed, profile) });
+          return res.json({ plan: parsed });
         }
       } catch {}
     }
-    return res.json({ plan: applyWorkoutPolicy(buildDeterministicPlan(), profile) });
+    return res.json({ plan: buildDeterministicPlan() });
   } catch (_error: any) {
-    return res.json({ plan: applyWorkoutPolicy(buildDeterministicPlan(), profile) });
+    return res.json({ plan: buildDeterministicPlan() });
   }
 });
 
@@ -326,7 +307,6 @@ app.post("/api/ai/intake-assessment", async (req, res) => {
       experienceLevel = "Intermediário",
       healthIssues,
       trainingDays,
-      trainingSplit = 'ABC',
       environment,
       cardioMachine = "Misto (Escada, Esteira, Bicicleta)",
       cardioMinutes = 20,
@@ -351,17 +331,15 @@ Gere uma periodização semanal de treinamento de verdade e um plano nutricional
 - Dieta & Preferência: ${dietaryPreference || "Padrão (Como de tudo)"}
 
 REGRAS OBRIGATÓRIAS E INEGOCIÁVEIS DE PRESCRIÇÃO:
-DIVISÃO ESCOLHIDA: ${trainingSplit}. UpperLower alterna superiores e inferiores; FullBody inclui superiores e inferiores em cada sessão. ABC mantém os grupos por dia. As cotas de peito abaixo são somente para o dia específico de peito, não para Upper ou Full Body.
-PEITO NO ABC: Iniciante: 2 exercícios de peito, 1 de ombro, 1 de tríceps. Intermediário: 3 de peito, 1 de ombro, 2 de tríceps. Avançado/Atleta: 4 de peito, 2 de ombro, 3 de tríceps; 4 séries de peito e 3 nos acessórios. Acrescente o abdominal nos dias previstos e preserve o cardio escolhido. Estes dias podem ultrapassar os limites gerais abaixo; informe a duração real.
-1. VOLUME POR NÍVEL: Iniciante: até 5 exercícios de musculação, 3 séries de trabalho; Intermediário: até 7, 3 séries; Avançado: até 8, 4 séries; Atleta: até 9, 4 séries. Inclua abdominais nos dias previstos. Não reduza as séries para 1 nem iguale todos os níveis. Não aumente cargas automaticamente. Se o plano exceder o tempo disponível, informe a duração real para revisão do usuário.
+1. VOLUME POR SESSÃO (TREINO DE VERDADE): CADA sessão de musculação DEVE CONTER OBRIGATORIAMENTE DE 6 A 8 EXERCÍCIOS COMPLETOS DE MUSCULAÇÃO + 1 BLOCO DE CARDIO PÓS-TREINO. NUNCA prescreva treinos fracos ou medíocres com apenas 4 exercícios! Um treino de musculação respeitável para nível ${experienceLevel} exige volume e sobrecarga adequados.
 2. CARDIO PÓS-TREINO INTEGRADO EM TODAS AS SESSÕES:
-   Preserve exatamente a duração selecionada de ${cardioMinutes} minutos variando entre as máquinas principais da academia:
+   Em CADA sessão de musculação, inclua OBRIGATORIAMENTE um protocolo de cardio pós-treino de ${cardioMinutes} minutos variando entre as máquinas principais da academia:
    - Simulador de Escada (Stairmaster - intensidade em degraus/minuto, queima lipídica intensa e glúteos)
    - Esteira Inclinada (Incline Treadmill Walk - inclinação 10 a 12%, velocidade 5.2 a 5.8 km/h, sem impacto articular)
    - Bicicleta Ergométrica / Spinning (recuperação ativa e flush de lactato especialmente no dia de pernas)
-   Descreva o cardio somente em cardioProtocol, sem duplicá-lo como exercício de musculação.
-3. PROIBIÇÃO TOTAL DE PRANCHA ISOMÉTRICA: NUNCA prescreva "Prancha Abdominal" ou exercícios de prancha estática em dias de hipertrofia. O atleta expressamente rejeita pranchas. INCLUA abdômen dinâmico em duas sessões semanais (ou uma, quando só houver um dia de treino), respeitando as restrições informadas. Reserve uma vaga dentro do limite do nível. Informe o tempo real quando necessário. Utilize exercícios dinâmicos como "Crunch na Polia Alta com Carga" ou "Elevação de Pernas na Barra Fixa", ou dedique os exercícios para movimentos reais de musculação (supinos, remadas, roscas, agachamentos, leg press).
-4. BRAÇOS: a partir do Intermediário, inclua pelo menos duas variações distintas de tríceps no dia de peito/tríceps e de bíceps no dia de costas/bíceps, respeitando equipamentos e restrições. Não inclua braços em todos os dias nem duplique o mesmo movimento com nomes diferentes.
+   Esse cardio DEVE estar descrito tanto no objeto "cardioProtocol" quanto como o último exercício da lista de exercícios de cada sessão!
+3. PROIBIÇÃO TOTAL DE PRANCHA ISOMÉTRICA: NUNCA prescreva "Prancha Abdominal" ou exercícios de prancha estática em dias de hipertrofia. O atleta expressamente rejeita pranchas. Para abdômen/core, se for prescrever, utilize exercícios dinâmicos com sobrecarga como "Crunch na Polia Alta com Carga" ou "Elevação de Pernas na Barra Fixa", ou dedique os exercícios para movimentos reais de musculação (supinos, remadas, roscas, agachamentos, leg press).
+4. VOLUME DE BRAÇOS COMPLETO (BÍCEPS E TRÍCEPS): NUNCA prescreva apenas 1 exercício para bíceps ou tríceps! Em treinos de empurrar/push, prescreva NO MÍNIMO 2 a 3 exercícios para Tríceps (cabeça lateral/medial, cabeça longa e extensão). Em treinos de puxar/pull, prescreva NO MÍNIMO 2 a 3 exercícios para Bíceps (Rosca Direta + Rosca Martelo para braquial e antebraço + Rosca Scott ou Inclinada para pico).
 5. DEMAIS ESPORTES (${sportsListStr}): Se o atleta selecionou outras modalidades (Corrida de Rua, Ciclismo, Lutas/Jiu-Jitsu, Natação, Cross Training, Futebol, etc.), crie blocos ou sessões específicas e ajuste os carboidratos e a meta calórica total para suportar o gasto energético do esporte.
 6. CALIBRAÇÃO CONFORME NÍVEL:
    - Para Avançado e Atleta: 4 séries nos exercícios compostos principais, rep ranges pesados (6-8 ou 8-10), RPE 8.5-9.5, descansos de 90-120s, e notas com técnicas de intensificação (pico de contração de 2s, cadência excêntrica de 3s, drop-set na última série).
@@ -373,7 +351,7 @@ Retorne estritamente um JSON no seguinte formato:
   "plan": {
     "id": "plan-intake-ai",
     "title": "FORZON Pro — ${goal} (${experienceLevel})",
-    "description": "Periodização completa de até 6 exercícios de musculação com abdominais dinâmicos e cardio se couber no tempo (Escada/Esteira/Bike) desenvolvida para nível ${experienceLevel}",
+    "description": "Periodização completa de 8 exercícios de musculação + Cardio Pós-Treino (Escada/Esteira/Bike) desenvolvida para nível ${experienceLevel}",
     "frequencyDaysPerWeek": ${trainingDays || 4},
     "active": true,
     "sessions": [
@@ -613,7 +591,7 @@ Retorne estritamente um JSON no seguinte formato:
           const normalizedPlan = {
             id: parsed.plan.id || "plan-ai-tailored",
             title: parsed.plan.title || "FORZON Pro — Periodização de Alta Performance",
-            description: parsed.plan.description || "Treino com até 6 exercícios por sessão com abdominais dinâmicos e cardio se houver tempo (Escada, Esteira e Bicicleta)",
+            description: parsed.plan.description || "Treino com 8 exercícios por sessão + Cardio Pós-Treino (Escada, Esteira e Bicicleta)",
             frequencyDaysPerWeek: parsed.plan.frequencyDaysPerWeek || trainingDays || 4,
             active: true,
             updatedAt: new Date().toISOString(),
@@ -635,13 +613,13 @@ Retorne estritamente um JSON no seguinte formato:
           };
 
           return res.json({
-            plan: applyWorkoutPolicy(normalizedPlan, { experienceLevel, cardioMinutes, trainingSplit, environment, equipment: [], injuriesOrNotes: healthIssues || "", trainingDaysPerWeek: trainingDays, timePerSessionMin: req.body.timePerSessionMin || 45 }),
+            plan: normalizedPlan,
             nutrition: normalizedNutrition,
             rationale: parsed.rationale || {
               tdee: targetCalories,
               deficitOrSurplus: "Superávit limpo de hipertrofia com cardio compensado",
               jointProtection: "Articulações protegidas com sobrecarga progressiva e biomecânica limpa",
-              coachMessage: "Plano com abdominais dinâmicos e volume ajustado ao tempo disponível.",
+              coachMessage: "Periodização com 8 exercícios e cardio pós-treino concluída!",
             },
           });
         }

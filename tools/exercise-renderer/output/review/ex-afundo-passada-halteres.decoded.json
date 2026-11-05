@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-afundo-passada-halteres",
+  "videoSha256": "93e34ed6407734486769f1a5a8d4852e7416910fc00aa081e98559c3594b89b0",
+  "frames": [
+    1,
+    48,
+    96,
+    144,
+    192
+  ],
+  "framePixelSha256": {
+    "1": "7651ec97f0967b0e71de5dd6bc570995c4dfd2c628027c9a54e8bd4dd00c521c",
+    "48": "925dbe0962befe367269fd9643ca3266c8c52f7c22e32849c1b3c47494c1b19f",
+    "96": "9fb1d26ae6c441fd8b69fe699d135e5514ef53ddb518d648f61efe8bfba87eeb",
+    "144": "bdc00f2c9a3574782fa798d6c404b1ac29d91e64f44ba217ca7ea381998f13d3",
+    "192": "98311d6597fc044405d8e63bdb3ccfebe7e66eb9f66147b42cf2cce1832983f8"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-remada-articulada-maquina",
+  "videoSha256": "2285c14e63e1ce7cfa8441f1d4aa24e342bcced62490f0c7a2b77dcfeed72fe5",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "8a9fa43a9106f8c362362804f52953c9ab9e21867c9da3eb45b5dab578e54963",
+    "30": "c0f21303915abfc9daf2067af72d030effb236a3be23a9ebd8f3ae9d378b8e6f",
+    "60": "c64dbb06c42cc4fdd8f700233405ceffe556d7a06a36d721a48fdf6b7e384af1",
+    "90": "5b0c5172b787bfaff34db287acf200ceff8bd9a9f7bcd8107631626750de595f",
+    "120": "21dbe49486a4e4ac7ec24f2b8712381aca3420f534c1899aea5462e4723fcfdc"
+  },
+  "uniqueFrameCount": 5
+}

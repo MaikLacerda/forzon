@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-mergulho-paralelas-peito",
+  "videoSha256": "0d5f87d20205977965e9b0abde12737244e25144d0d3151de1784539afb33a99",
+  "framePixelSha256": {
+    "1": "0f041c9fe0f0c77090f126897528d1d9d5eabc1ecbfa52d2ee09b48a780c0f47",
+    "30": "b9045fd56754f23cd18f5b99176efc2df20bbf02480e6db02287539c2e753811",
+    "60": "6184baeaf1f5a329fe104edb6e4f95356d483f6b4aba72897164aa18b3f63d59",
+    "90": "6d763b9fba941c3c6934f37d2344dbc910e6097271353c9a0eb636c79669d866",
+    "120": "0f504d1ddd7619fd9e4a1bffaba0b461198c0f2edbbd6613a8d853528d17ba5c"
+  },
+  "uniqueFrameCount": 5
+}

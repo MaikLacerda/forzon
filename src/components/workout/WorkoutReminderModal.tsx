@@ -96,7 +96,7 @@ export const WorkoutReminderModal: React.FC<WorkoutReminderModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-60 bg-neutral-950/90 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-md min-w-0 w-full max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6 space-y-6 shadow-2xl">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-md w-full p-6 space-y-6 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
           <div className="flex items-center gap-2.5">

@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-panturrilha-leg-press-45",
+  "videoSha256": "382c5f9bc95dc845d14abd8d1fc6785c3d4c4be5584be276b3d3bffaa9baa44b",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "72a5ffc606e73f72812430594df3acad83a020b6b5c50d30fa93b7056cceb967",
+    "30": "265f7cd759d6ca68f4f8834c6a2b82a5e6bd29f40686f03f95af504c28866259",
+    "60": "f15f43ed454ff1e80c9fb3f748ff7944f9c630dea2f3ee42b8faed06b8d0089d",
+    "90": "19d147df2c1d880d16b1dfa9ce6115e93aed67ee2ac3e511094ccc35de10e693",
+    "120": "0311b24e1a4910559ebd993c8c1b402c1ae5674d987c3b3d7174af67b9b8e90e"
+  },
+  "uniqueFrameCount": 5
+}

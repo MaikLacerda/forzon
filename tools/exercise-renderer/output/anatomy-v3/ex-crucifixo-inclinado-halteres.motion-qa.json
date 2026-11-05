@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-crucifixo-inclinado-halteres",
+  "sourceSceneSha256": "7fc6459874984dffd4149b5e9fdb23cd64d9da542a2696ece3b0c29be557684e",
+  "sceneSha256": "49514d726b2c4e89b3349f9170e93e4750ed77e2e5c456265248ec84e8783c2c",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

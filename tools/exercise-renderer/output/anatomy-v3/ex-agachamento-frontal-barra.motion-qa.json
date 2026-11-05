@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-agachamento-frontal-barra",
+  "sourceSceneSha256": "2430313ef350e98401de0f249745310323b0ce8271ffaaa8e2dea49bb18a130b",
+  "sceneSha256": "fdb0c0d1fd43276cab47e341743d4b16ebae3ff43155383c39c8a73798e2ff2e",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-gluteo-coice-polia",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "dfb3fb07e72c1404221e5839f5e0d7b1c69d91b9587cde07855e5c0549aa6902",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "glutes",
+  "productionStatus": "preview"
+}

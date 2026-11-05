@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-rosca-inclinada-45-halteres",
+  "sourceSceneSha256": "b97885ff44ccced0d06abb994db084a2b4ce825bfe3b80b160623f6ed2ccfd1a",
+  "sceneSha256": "00fbfa859fd2f29df716725dfd4ff029b3c7a80f2bb2aef9bbfb24a192627f37",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

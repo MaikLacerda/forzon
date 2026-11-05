@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-cadeira-extensora",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "edfeba3c919f378e564bd21bd98dc3d6e74a0d706ed5d5beebb7e40757bf2d4f",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "quads",
+  "productionStatus": "preview"
+}

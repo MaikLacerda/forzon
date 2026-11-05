@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-elevacao-frontal-halteres",
+  "videoSha256": "eeea0c27bd3b27fec489ad885c0a4fa401a8d34a5df03494a904da54d6318527",
+  "framePixelSha256": {
+    "1": "cb9e164cb0f88ccf5e827985566aeb0b1285b80929d655ea0e9a38eaaf329c40",
+    "48": "c30ed1f18b4a9c482d98d952960c61a4a690ba418c314efdb68b8f102cce0030",
+    "96": "5f8c026b7ec64e13e1f51260ac5b0246a2e32e9474a8582f673a1147436ebb96",
+    "144": "49741eb674712212e44ff242c6cb06886041e2083677ced2e9876cbe1ec73d57",
+    "192": "6fba5881e2846c08083dc11e3c303b2f1a515f7373a34ec82b3fbb1cad897086"
+  },
+  "uniqueFrameCount": 5
+}

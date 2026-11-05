@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-elevacao-frontal-halteres",
+  "sourceSceneSha256": "3e477217c84c1956888066397ce2d3ed962e38bc82c5a2283576b5476dbd82c7",
+  "sceneSha256": "736fb88dc184f517175db1c9adf51978651095459cde1eb95783782b0d61bf03",
+  "framesChecked": 192,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

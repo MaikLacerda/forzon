@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-remada-curvada-barra",
+  "videoSha256": "1bffdc60704f58ca461dae545aadcfed5d20b85676b90b5b228e201765087895",
+  "framePixelSha256": {
+    "1": "4386df7556d6bf9e2a444db62580b38e552d9e1f3d540aac29426abe964bf73a",
+    "30": "0c3d3bc58073cb801abb1e13a4c7f1168c6f4d7d50cca46f12f85f0715280f7b",
+    "60": "0e26e371abd28799784238f96dc2300cf3d1d17115459c5c739c534cca80ad5e",
+    "90": "61727e4ce3e0082e9f5386bf255319428dc55ae665ab59c66037c3f69514f3b8",
+    "120": "08c6ac2b0d8f013b75c58c4ac64c2c43bc42a0183a25b77eeaa576817a0d8cf3"
+  },
+  "uniqueFrameCount": 5
+}

@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-agachamento-sumo-halter",
+  "sourceSceneSha256": "0c41f7d36e8988a3185ffc5b009d1bc9e0f5cd268a40a800b419dd730bee60ba",
+  "sceneSha256": "50073e5ebf1b7e3c12ebaa9677dfd25803334fde01fb3ed39976ab2f25c25b28",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

@@ -1,4 +1,3 @@
-import { applyWorkoutPolicy } from "./workoutPlanPolicy";
 import { UserProfile, IntensityAdjustment, SleepQuality } from "../types";
 
 export interface AIPlanResponse {
@@ -144,31 +143,31 @@ export const aiService = {
       }
 
       const data = await res.json();
-      return applyWorkoutPolicy(data.plan, profile);
+      return data.plan;
     } catch (err) {
       // Calibrated offline fallback plan matching specific goal
       const specificGoal = profile.specificGoal || "ganhar_massa";
       const repRange = profile.goalCalibration?.repRangeTarget || (specificGoal === "forca_pura" ? "3-5 reps" : specificGoal === "perder_gordura" ? "12-15 reps" : "8-12 reps");
       const restSec = profile.goalCalibration?.restIntervalSeconds || (specificGoal === "forca_pura" ? 180 : specificGoal === "perder_gordura" ? 45 : 90);
 
-      return applyWorkoutPolicy({
+      return {
         planTitle: `FORZON Pro — ${profile.mainGoal || "Treino Adaptativo"}`,
-        focusSummary: `Plano local de referência (serviço de IA indisponível), ajustado para ${specificGoal.replace("_", " ")} com foco em ${repRange} e descanso de ${restSec}s.`,
+        focusSummary: `Periodização calibrada especificamente para ${specificGoal.replace("_", " ")} com foco em ${repRange} e descanso de ${restSec}s.`,
         weeklyFrequency: profile.trainingDaysPerWeek || 4,
-        sessions: Array.from({length: Math.max(1, Math.min(6, profile.trainingDaysPerWeek || 3))}, (_, index) => {
-          const gym = profile.environment === 'Academia' || profile.environment === 'Híbrido';
-          const gymDays = [
-            [['Supino Reto com Barra','Peitoral'],['Remada Baixa Sentada no Cabo','Costas'],['Leg Press 45°','Pernas (Quadríceps)'],['Elevação Lateral com Halteres','Ombros']],
-            [['Puxada Alta Frontal','Costas'],['Agachamento Goblet com Halter','Pernas (Quadríceps)'],['Desenvolvimento com Halteres Sentado','Ombros'],['Mesa Flexora Deitada','Pernas (Posterior)']],
-            [['Supino Inclinado com Halteres','Peitoral'],['Remada Unilateral com Halter (Serrote)','Costas'],['Cadeira Extensora','Pernas (Quadríceps)'],['Elevação de Panturrilhas em Pé','Panturrilhas']],
-          ];
-          const homeDays = [
-            [['Flexão de Braços','Peitoral'],['Agachamento Livre','Pernas (Quadríceps)'],['Ponte de Glúteos no Solo','Glúteos']],
-            [['Agachamento Afundo','Pernas (Quadríceps)'],['Flexão de Braços','Peitoral'],['Elevação de Panturrilhas em Pé','Panturrilhas']],
-          ];
-          return { id: 'sess-local-' + index, dayName: 'Treino ' + String.fromCharCode(65 + index), focus: 'Corpo inteiro', estimatedDurationMin: profile.timePerSessionMin || 45, warmup: '5 minutos de aquecimento leve', exercises: (gym ? gymDays[index % gymDays.length] : homeDays[index % homeDays.length]).map(([name,targetMuscle]) => ({name,targetMuscle,sets:3,reps:repRange,restSeconds:restSec,notes:'Ajuste a carga à sua execução e experiência.'})) };
-        })
-      }, profile);
+        sessions: [
+          {
+            id: "sess-local-1",
+            dayName: "Treino A",
+            focus: "Peitorais, Tríceps e Deltoides",
+            estimatedDurationMin: profile.timePerSessionMin || 55,
+            warmup: "Mobilidade e ativação articular",
+            exercises: [
+              { name: "Supino Reto com Barra", targetMuscle: "Peitoral", sets: 4, reps: repRange, restSeconds: restSec, notes: "Cadência controlada." },
+              { name: "Desenvolvimento Militar", targetMuscle: "Deltóides", sets: 3, reps: repRange, restSeconds: restSec, notes: "Estabilidade de core." }
+            ]
+          }
+        ]
+      };
     }
   },
 

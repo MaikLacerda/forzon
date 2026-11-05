@@ -1,0 +1,10 @@
+{
+  "exerciseId": "ex-stiff-barra",
+  "sourceSceneSha256": "4aee01e56c32e1e411d1035c74f12d069475fb120cc33d7de81e9b1a8e15cce5",
+  "sceneSha256": "53a2986eab201ea437f5e1fc88d3ca25d58e90904db44a784e13a52cc03d8aa0",
+  "framesChecked": 120,
+  "fps": 24,
+  "maximumJointOrEquipmentTransformDifference": 0.0,
+  "motionPreserved": true,
+  "visualReviewRequired": true
+}

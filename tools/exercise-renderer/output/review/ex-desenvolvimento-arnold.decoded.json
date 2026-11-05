@@ -1,0 +1,19 @@
+{
+  "exerciseId": "ex-desenvolvimento-arnold",
+  "videoSha256": "7f011ee4793c396f53da1fd50112fb859ff48f47eda85d73c4d2a51bfd37fe1a",
+  "frames": [
+    1,
+    30,
+    60,
+    90,
+    120
+  ],
+  "framePixelSha256": {
+    "1": "dec0d37239c86c22350f17491186f650a393faa51afbade821f943f713cec6a1",
+    "30": "c8d71dde0a83ffa6f68a2008e782009cab400a2131ce462efff0e68f36bec84e",
+    "60": "5214891e63511530b0d0acdebfcbb0cc31ded46b684ebbfc34b4ad5f64ecb403",
+    "90": "d88dedf5e031ebcd90501aef5962541e749150391fc51ebe9850badceae0e9b6",
+    "120": "510054da9c639342e465054d8af1f9ce6c0f4d39e148157eb1c8bb41a1550066"
+  },
+  "uniqueFrameCount": 5
+}

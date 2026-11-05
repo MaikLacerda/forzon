@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-rosca-scott-barra-w",
+  "style": "anatomy-v3",
+  "styleRecipeSha256": "07fb6d5e54c6141e8f2590fe21c0daabbb1aeb7b13a7d796f151d3fb5cbffe2b",
+  "sourceSceneSha256": "fcadd571344181bd12075854cafddc8fd73796217792392304c4dcb70b504777",
+  "frames": 120,
+  "fps": 24,
+  "width": 768,
+  "height": 768,
+  "highlight": "biceps",
+  "productionStatus": "preview"
+}

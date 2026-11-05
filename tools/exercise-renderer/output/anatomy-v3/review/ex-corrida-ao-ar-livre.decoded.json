@@ -1,0 +1,12 @@
+{
+  "exerciseId": "ex-corrida-ao-ar-livre",
+  "videoSha256": "27745ccee801f4d2a4e7673404eb7470b6c185dfe1b1885c39676e434fc8f037",
+  "framePixelSha256": {
+    "1": "117b21c2a749b550efdc79fc978062d2df207cdd07338f11ede109c06357e634",
+    "30": "14eb366524e539dd33ff7dc5f0ef8b909ddfd468d30bf4eef44a9affea5e491d",
+    "60": "a2b84784904cad585363e47846c6ab8e1c093bc0fe282aa1776bd883f18d8286",
+    "90": "4642e2570ca8e5e0a7d4a9d753a40952092de928c95e4137e69b5eb4d896f50e",
+    "120": "540838cb3a6041c4b98e65628c88a51ecc07e40d5cc86210e1111a185040ed2b"
+  },
+  "uniqueFrameCount": 5
+}

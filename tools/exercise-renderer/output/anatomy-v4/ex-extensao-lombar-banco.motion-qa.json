@@ -1,0 +1,24 @@
+{
+  "exerciseId": "ex-extensao-lombar-banco",
+  "style": "anatomy-v4",
+  "sourceV3SceneSha256": "777fb343694843ff2bbffb2fd1284d89016449f0a999c50ba7a7fbb4cfce6276",
+  "sceneSha256": "9bcb4c31bf0692713e7e710b1615c3bd92242bd49c0d4e44852d928858db63c1",
+  "sourceComparison": {
+    "skeletonAndEquipmentPreserved": true,
+    "maximumTransformDifference": 0.0,
+    "surfaceAnimationChanged": false
+  },
+  "checks": {
+    "sameTiming": true,
+    "sameEquipmentObjects": true,
+    "skeletonAndEquipmentTransformsUnchanged": true,
+    "bodyInFrameAt17Samples": true
+  },
+  "details": {
+    "minimumBodyFrameMargin": 0.06896549463272095
+  },
+  "checksPassed": true,
+  "framesChecked": 120,
+  "visualReviewRequired": true,
+  "publication": "not-published"
+}
