@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   Check
 } from 'lucide-react';
+import { AnatomicalExerciseIllustration } from './AnatomicalExerciseIllustration';
 
 export interface WorkoutSetItem {
   setNumber: number;
@@ -15,11 +16,12 @@ export interface WorkoutSetItem {
 }
 
 export interface WorkoutExerciseItem {
-  id: number;
+  id: string | number;
   name: string;
   targetMuscle: string;
   cue: string;
   sets: WorkoutSetItem[];
+  equipment?: string;
 }
 
 interface LiveWorkoutRunnerModalProps {
@@ -30,33 +32,6 @@ interface LiveWorkoutRunnerModalProps {
   onClose: () => void;
   onMinimize: () => void;
   onFinishWorkout: () => void;
-}
-
-// Mapeador oficial dos arquivos .mp4 existentes na sua pasta public/assets/exercise-videos/
-function getVideoPathForExercise(exerciseName: string): string {
-  const name = (exerciseName || '').toLowerCase();
-
-  if (name.includes('supino') || name.includes('peitoral') || name.includes('peito')) {
-    return '/assets/exercise-videos/bench-press.mp4';
-  }
-  if (name.includes('crucifixo') || name.includes('crossover') || name.includes('voador')) {
-    return '/assets/exercise-videos/dumbbell-chest-fly.mp4';
-  }
-  if (name.includes('martelo')) {
-    return '/assets/exercise-videos/hammer-curl.mp4';
-  }
-  if (name.includes('alternad')) {
-    return '/assets/exercise-videos/alternating-curl.mp4';
-  }
-  if (name.includes('rosca') || name.includes('biceps')) {
-    return '/assets/exercise-videos/barbell-curl.mp4';
-  }
-  if (name.includes('barra fixa') || name.includes('puxad') || name.includes('costas') || name.includes('pull')) {
-    return '/assets/exercise-videos/pull-ups.mp4';
-  }
-
-  // Fallback padrão para o primeiro vídeo catalogado do projeto
-  return '/assets/exercise-videos/bench-press.mp4';
 }
 
 export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
@@ -74,9 +49,8 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const [isResting, setIsResting] = useState<boolean>(false);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
-  const videoSrc = getVideoPathForExercise(currentExercise.name);
 
-  // Alternar conclusão da série
+  // Alternar conclusão da série com disparo de descanso
   const toggleSetComplete = (setIndex: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -95,7 +69,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Carga (Float)
+  // Ajustar Carga (Float com decimais livres)
   const handleWeightChange = (setIndex: number, newWeight: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -108,7 +82,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Repetições Feitas
+  // Ajustar Repetições Feitas (editável na hora se falhar)
   const handleRepsChange = (setIndex: number, newReps: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -138,6 +112,14 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     const mins = Math.floor(total / 60);
     const secs = total % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Objeto compatível com a prop exercise de AnatomicalExerciseIllustration
+  const exerciseIllustrationObj: any = {
+    id: String(currentExercise.id || currentExercise.name.toLowerCase().replace(/[^a-z0-9]/g, '-')),
+    name: currentExercise.name,
+    primaryMuscle: currentExercise.targetMuscle,
+    equipment: currentExercise.equipment || 'Livre / Aparelho',
   };
 
   return (
@@ -208,7 +190,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* ÁREA DO VÍDEO REAL */}
+      {/* ÁREA DA DEMONSTRAÇÃO ANATÔMICA REAL */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -219,17 +201,12 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Player de Vídeo Nativo */}
-        <div className="w-full h-56 rounded-3xl bg-black border border-cyan-500/40 overflow-hidden relative shadow-inner">
-          <video
-            key={videoSrc}
-            src={videoSrc}
-            autoPlay
-            loop
-            muted
-            playsInline
-            controls
-            className="w-full h-full object-cover"
+        {/* Componente Anatômico Real que já existe no seu projeto */}
+        <div className="w-full rounded-3xl overflow-hidden border border-cyan-500/40 bg-white shadow-xl flex items-center justify-center">
+          <AnatomicalExerciseIllustration
+            exercise={exerciseIllustrationObj}
+            size="full"
+            className="w-full"
           />
         </div>
 
