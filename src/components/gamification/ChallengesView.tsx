@@ -1,10 +1,11 @@
-import React from 'react';
-import { Flame, Dumbbell, Zap } from 'lucide-react';
+import React from "react";
+import { Trophy, Flame, Dumbbell, Zap } from "lucide-react";
+
 export const ChallengesView: React.FC = () => {
   const challenges = [
-    { id: '1', title: 'Desafio 50 Toneladas', desc: 'Acumule 50.000 kg em exercícios compostos.', progress: '48.250 / 50.000 kg', percent: 96, reward: '500 pts', icon: Dumbbell },
-    { id: '2', title: 'Streak Implacável de 14 Dias', desc: 'Registre treinos ou cardio contínuo sem falhar.', progress: '12 / 14 dias', percent: 85, reward: '350 pts', icon: Flame },
-    { id: '3', title: 'Expedição Outdoor 25km', desc: 'Complete 25km de corrida com GPS em Zona 2.', progress: '18 / 25 km', percent: 72, reward: '400 pts', icon: Zap },
+    { id: "1", title: "Desafio 50 Toneladas", desc: "Acumule 50.000 kg em exercícios compostos.", progress: "48.250 / 50.000 kg", percent: 96, reward: "500 pts", icon: Dumbbell },
+    { id: "2", title: "Streak Implacável de 14 Dias", desc: "Registre treinos ou cardio contínuo sem falhar.", progress: "12 / 14 dias", percent: 85, reward: "350 pts", icon: Flame },
+    { id: "3", title: "Expedição Outdoor 25km", desc: "Complete 25km de corrida com GPS em Zona 2.", progress: "18 / 25 km", percent: 72, reward: "400 pts", icon: Zap },
   ];
 
   return (
@@ -14,7 +15,6 @@ export const ChallengesView: React.FC = () => {
         <h1 className="text-2xl font-black text-white tracking-tight">Desafios & Conquistas</h1>
         <p className="text-xs text-slate-400">Desbloqueie medalhas e suba no ranking da comunidade.</p>
       </div>
-
       <div className="space-y-3">
         {challenges.map((c) => {
           const Icon = c.icon;
@@ -34,14 +34,13 @@ export const ChallengesView: React.FC = () => {
                   +{c.reward}
                 </span>
               </div>
-
               <div className="mt-3">
                 <div className="flex justify-between text-[10px] font-mono mb-1 text-slate-400">
                   <span>Progresso</span>
                   <span className="text-white font-bold">{c.progress}</span>
                 </div>
                 <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                  <div className="h-full bg-[#00d2ff] rounded-full" style={{ width: c.percent + '%' }} />
+                  <div className="h-full bg-[#00d2ff] rounded-full" style={{ width: c.percent + "%" }} />
                 </div>
               </div>
             </div>
