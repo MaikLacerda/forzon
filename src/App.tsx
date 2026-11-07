@@ -1,45 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Dumbbell,
-  Utensils,
-  Activity,
-  Users,
-  User,
   Play,
-  RotateCcw,
   Sparkles,
-  Camera,
   ShoppingBag,
   ArrowLeftRight,
   Scan,
   Maximize2,
-  Award,
-  Clock,
   Compass,
-  Plus
+  Dumbbell
 } from 'lucide-react';
-
-
-import { ProfileView } from './components/profile/ProfileView';
-Na renderização da aba community, use:
-{activeTab === 'community' && (
-  <CommunityFeedView
-    userName={userName || 'Maikon Lacerda'}
-    userHandle={userHandle || '@maiklacerda'}
-    onCreateChallengeClick={() => setShowCreateChallenge(true)}
-  />
-)}
-Na renderização da aba profile, use:
-{activeTab === 'profile' && (
-  <ProfileView
-    userName={userName}
-    userHandle={userHandle}
-    onUpdateProfile={(name, handle, _avatar) => {
-      setUserName(name);
-      setUserHandle(handle);
-    }}
-  />
-)}
 
 // Componentes de Layout Persistente
 import { Header } from './components/layout/Header';
@@ -48,8 +17,9 @@ import { BottomNavigation } from './components/layout/BottomNavigation';
 // Modais Centrais & Telas Especializadas
 import { LiveWorkoutRunnerModal, WorkoutExerciseItem } from './components/workout/LiveWorkoutRunnerModal';
 import { ExerciseLibraryModal } from './components/workout/ExerciseLibraryModal';
-import { CreateChallengeModal, CreatedChallengeData } from './components/social/CreateChallengeModal';
+import { CreateChallengeModal } from './components/social/CreateChallengeModal';
 import { CommunityFeedView } from './components/social/CommunityFeedView';
+import { ProfileView } from './components/profile/ProfileView';
 import { GPSOutdoorModal } from './components/gps/GPSOutdoorModal';
 import { ComprehensiveMedicalIntakeModal } from './components/intake/ComprehensiveMedicalIntakeModal';
 import { NutritionScannerModal, ScannedFoodResult } from './components/nutrition/NutritionScannerModal';
@@ -60,10 +30,9 @@ import { BiofeedbackReadinessCard } from './components/biofeedback/BiofeedbackRe
 export default function App() {
   const [activeTab, setActiveTab] = useState<'workout' | 'nutrition' | 'bio' | 'community' | 'profile'>('workout');
 
-  // Perfil do Atleta livre para edição
-  const [userName, setUserName] = useState('');
-  const [userHandle, setUserHandle] = useState('');
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  // Perfil do Atleta
+  const [userName, setUserName] = useState('Maikon Lacerda');
+  const [userHandle, setUserHandle] = useState('@maiklacerda');
 
   // Modais de Controle
   const [showLiveWorkout, setShowLiveWorkout] = useState(false);
@@ -79,7 +48,7 @@ export default function App() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [swapTargetFood, setSwapTargetFood] = useState<FoodItemData | null>(null);
 
-  // Timer Persistente do Treino ao Vivo (Continua rodando mesmo minimizado!)
+  // Timer Persistente do Treino ao Vivo (continua rodando mesmo minimizado)
   useEffect(() => {
     let interval: any = null;
     if (showLiveWorkout || isWorkoutMinimized) {
@@ -96,8 +65,8 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Exercícios da Sessão de Treino Ativa (com suporte a decimais)
-  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>([
+  // Exercícios da Sessão de Treino Ativa (com suporte a decimais float)
+  const [activeWorkoutExercises] = useState<WorkoutExerciseItem[]>([
     {
       id: 1,
       name: 'Supino Inclinado com Halteres',
@@ -157,7 +126,7 @@ export default function App() {
     },
   ]);
 
-  // Alimentos Prescritos no Diário Nutricional (Respeitando estritamente Mamão, Uva e Abacaxi; ZERO Banana)
+  // Alimentos Prescritos no Diário Nutricional (Mamão, Uva e Abacaxi; exclusão de Banana)
   const [dietMeals, setDietMeals] = useState([
     {
       id: 'm-1',
@@ -195,7 +164,7 @@ export default function App() {
     }
   ]);
 
-  // Handler de Swap (Substituição de Alimento em 1 toque)
+  // Handler de Swap
   const handleSwapFood = (newFood: FoodItemData) => {
     if (!swapTargetFood) return;
     setDietMeals(prev =>
@@ -207,7 +176,7 @@ export default function App() {
     setSwapTargetFood(null);
   };
 
-  // Handler para Adicionar Alimento Escaneado no Diário
+  // Handler de Scanner
   const handleAddScannedFood = (scanned: ScannedFoodResult) => {
     const newFoodItem = {
       id: `scanned-${Date.now()}`,
@@ -238,7 +207,7 @@ export default function App() {
       {/* Top Header Oficial */}
       <Header
         streakDays={14}
-        userName={userName || 'Atleta'}
+        userName={userName}
         onOpenCoach={() => setShowIntakeModal(true)}
       />
 
@@ -248,7 +217,6 @@ export default function App() {
         {/* ================= ABA 1: TREINO ================= */}
         {activeTab === 'workout' && (
           <div className="space-y-4 animate-in fade-in">
-            {/* Banner de Status & Prontidão */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_20px_rgba(0,210,255,0.1)]">
               <div>
                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -258,6 +226,7 @@ export default function App() {
                 <p className="text-[11px] text-slate-400">4 Séries • 5 Exercícios • Cargas Decimais Prontas</p>
               </div>
               <button
+                type="button"
                 onClick={() => setShowExerciseLibrary(true)}
                 className="px-3 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"
               >
@@ -265,8 +234,8 @@ export default function App() {
               </button>
             </div>
 
-            {/* Ação Primária: Iniciar Treino ao Vivo */}
             <button
+              type="button"
               onClick={() => {
                 setShowLiveWorkout(true);
                 setIsWorkoutMinimized(false);
@@ -277,13 +246,13 @@ export default function App() {
               {isWorkoutMinimized ? 'Continuar Treino em Andamento' : 'Iniciar Treino ao Vivo Agora'}
             </button>
 
-            {/* Lista dos Exercícios Prescritos com Foco & Cargas Float */}
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   Sequência da Sessão ({activeWorkoutExercises.length})
                 </span>
                 <button
+                  type="button"
                   onClick={() => setShowIntakeModal(true)}
                   className="text-[11px] font-bold text-[#00d2ff] flex items-center gap-1 hover:underline cursor-pointer"
                 >
@@ -317,9 +286,9 @@ export default function App() {
               ))}
             </div>
 
-            {/* Atalhos Complementares: GPS Outdoor & Biblioteca */}
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
+                type="button"
                 onClick={() => setShowGPSModal(true)}
                 className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer"
               >
@@ -331,6 +300,7 @@ export default function App() {
               </button>
 
               <button
+                type="button"
                 onClick={() => setShowExerciseLibrary(true)}
                 className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer"
               >
@@ -347,7 +317,6 @@ export default function App() {
         {/* ================= ABA 2: NUTRIÇÃO ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
-            {/* Header da Nutrição com Botão de Scanner e Lista de Compras */}
             <div className="flex items-center justify-between pb-1">
               <div>
                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -357,6 +326,7 @@ export default function App() {
               </div>
               <div className="flex gap-1.5">
                 <button
+                  type="button"
                   onClick={() => setShowScannerModal(true)}
                   className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"
                   title="Scanner de Tabela por Câmera/IA"
@@ -364,6 +334,7 @@ export default function App() {
                   <Scan className="w-4 h-4" />
                 </button>
                 <button
+                  type="button"
                   onClick={() => setShowGroceryList(true)}
                   className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"
                   title="Lista de Compras Semanal"
@@ -373,15 +344,13 @@ export default function App() {
               </div>
             </div>
 
-            {/* Aviso de Respeito às Frutas Selecionadas */}
             <div className="p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex items-center gap-2.5 text-xs text-slate-200">
               <Sparkles className="w-4 h-4 text-[#00d2ff] shrink-0" />
               <span>
-                Ficha Nutricional Ativa: <strong>Mamão, Uva e Abacaxi</strong> priorizados; <strong>Banana banida</strong>.
+                Ficha Nutricional: <strong>Mamão, Uva e Abacaxi</strong> priorizados; <strong>Banana banida</strong>.
               </span>
             </div>
 
-            {/* Metas de Macronutrientes */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2.5">
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400 font-bold">Balanço Calórico</span>
@@ -406,13 +375,13 @@ export default function App() {
               </div>
             </div>
 
-            {/* Refeições do Dia com Botão de Swap Individual */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   Refeições Prescritas ({dietMeals.length})
                 </span>
                 <button
+                  type="button"
                   onClick={() => setShowGroceryList(true)}
                   className="text-[11px] font-bold text-[#00d2ff] hover:underline cursor-pointer"
                 >
@@ -440,6 +409,7 @@ export default function App() {
                           </span>
                         </div>
                         <button
+                          type="button"
                           onClick={() => {
                             setSwapTargetFood(food);
                             setShowSwapModal(true);
@@ -468,8 +438,8 @@ export default function App() {
         {activeTab === 'community' && (
           <div className="space-y-4 animate-in fade-in">
             <CommunityFeedView
-              userName={userName || 'Maikon Lacerda'}
-              userHandle={userHandle || '@maiklacerda'}
+              userName={userName}
+              userHandle={userHandle}
               onCreateChallengeClick={() => setShowCreateChallenge(true)}
             />
           </div>
@@ -478,70 +448,14 @@ export default function App() {
         {/* ================= ABA 5: PERFIL ================= */}
         {activeTab === 'profile' && (
           <div className="space-y-4 animate-in fade-in">
-            <div>
-              <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
-                CONFIGURAÇÕES & IDENTIDADE
-              </span>
-              <h2 className="text-xl font-black text-white">Perfil do Atleta</h2>
-            </div>
-
-            {/* Card de Identidade com @Username Editável */}
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-xl font-mono font-black text-[#00d2ff]">
-                  {userName ? userName.charAt(0).toUpperCase() : 'ML'}
-                </div>
-                <div className="flex-1">
-                  {isEditingProfile ? (
-                    <div className="space-y-1.5">
-                      <input
-                        type="text"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        placeholder="Seu Nome Completo"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-lg px-2 py-1 text-xs text-white outline-none focus:border-[#00d2ff]"
-                      />
-                      <input
-                        type="text"
-                        value={userHandle}
-                        onChange={(e) => setUserHandle(e.target.value)}
-                        placeholder="@username"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-lg px-2 py-1 text-xs text-[#00d2ff] font-mono outline-none focus:border-[#00d2ff]"
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <h3 className="text-base font-black text-white">{userName || 'Maikon Lacerda'}</h3>
-                      <span className="text-xs font-mono text-[#00d2ff]">{userHandle || '@maiklacerda'}</span>
-                      <span className="block text-[10px] text-slate-400 mt-0.5">Plano FORZON PRO Ativo</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <button
-                onClick={() => setIsEditingProfile(!isEditingProfile)}
-                className="w-full py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition-all cursor-pointer"
-              >
-                {isEditingProfile ? 'Salvar Alterações de Perfil' : 'Editar Nome & @Username'}
-              </button>
-            </div>
-
-            {/* Informações Técnicas & Package TWA */}
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2 text-xs">
-              <div className="flex justify-between text-slate-400">
-                <span>Versão do Ecossistema:</span>
-                <strong className="text-white font-mono">1.0.0 (Kinetic Obsidian)</strong>
-              </div>
-              <div className="flex justify-between text-slate-400">
-                <span>Package Android TWA:</span>
-                <strong className="text-[#00d2ff] font-mono">com.forzon.fitness.app</strong>
-              </div>
-              <div className="flex justify-between text-slate-400">
-                <span>Vídeos Biomecânicos 3D:</span>
-                <strong className="text-emerald-400 font-mono">104 / 104 Catalogados</strong>
-              </div>
-            </div>
+            <ProfileView
+              userName={userName}
+              userHandle={userHandle}
+              onUpdateProfile={(name, handle) => {
+                setUserName(name);
+                setUserHandle(handle);
+              }}
+            />
           </div>
         )}
 
@@ -565,6 +479,7 @@ export default function App() {
               {formatTimer(workoutElapsedSeconds)}
             </span>
             <button
+              type="button"
               onClick={() => {
                 setIsWorkoutMinimized(false);
                 setShowLiveWorkout(true);
@@ -580,7 +495,6 @@ export default function App() {
 
       {/* ================= MODAIS ESPECÍFICOS ================= */}
       
-      {/* 1. Treino ao Vivo */}
       {showLiveWorkout && (
         <LiveWorkoutRunnerModal
           workoutTitle="Treino A — Peitorais, Deltóide & Tríceps"
@@ -600,12 +514,10 @@ export default function App() {
         />
       )}
 
-      {/* 2. Catálogo 104 Exercícios */}
       {showExerciseLibrary && (
         <ExerciseLibraryModal onClose={() => setShowExerciseLibrary(false)} />
       )}
 
-      {/* 3. Criar Desafio com Convite */}
       {showCreateChallenge && (
         <CreateChallengeModal
           onClose={() => setShowCreateChallenge(false)}
@@ -615,17 +527,14 @@ export default function App() {
         />
       )}
 
-      {/* 4. GPS Outdoor */}
       {showGPSModal && (
         <GPSOutdoorModal onClose={() => setShowGPSModal(false)} />
       )}
 
-      {/* 5. Anamnese Completa */}
       {showIntakeModal && (
         <ComprehensiveMedicalIntakeModal onClose={() => setShowIntakeModal(false)} />
       )}
 
-      {/* 6. Scanner por Câmera */}
       {showScannerModal && (
         <NutritionScannerModal
           onClose={() => setShowScannerModal(false)}
@@ -633,7 +542,6 @@ export default function App() {
         />
       )}
 
-      {/* 7. Swap de Alimentos */}
       {showSwapModal && swapTargetFood && (
         <FoodSwapModal
           currentFood={swapTargetFood}
@@ -645,7 +553,6 @@ export default function App() {
         />
       )}
 
-      {/* 8. Lista de Compras */}
       {showGroceryList && (
         <GroceryListModal onClose={() => setShowGroceryList(false)} />
       )}
