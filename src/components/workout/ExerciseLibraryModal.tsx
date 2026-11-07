@@ -20,37 +20,6 @@ interface ExerciseLibraryModalProps {
   onSelectExercise?: (exercise: CatalogExercise) => void;
 }
 
-// Mapeamento dos vídeos MP4
-function getCatalogVideoPath(exerciseName: string): string[] {
-  const clean = (exerciseName || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-
-  if (clean.includes('inclinado') && clean.includes('halter')) {
-    return ['/assets/exercise-videos/incline-dumbbell-bench-press.mp4', '/assets/exercise-videos/bench-press.mp4'];
-  }
-  if (clean.includes('supino') || clean.includes('peito')) {
-    return ['/assets/exercise-videos/bench-press.mp4', '/assets/exercise-videos/dumbbell-chest-fly.mp4'];
-  }
-  if (clean.includes('crucifixo') || clean.includes('crossover') || clean.includes('peck') || clean.includes('voador')) {
-    return ['/assets/exercise-videos/dumbbell-chest-fly.mp4', '/assets/exercise-videos/bench-press.mp4'];
-  }
-  if (clean.includes('martelo')) {
-    return ['/assets/exercise-videos/hammer-curl.mp4', '/assets/exercise-videos/barbell-curl.mp4'];
-  }
-  if (clean.includes('alternad')) {
-    return ['/assets/exercise-videos/alternating-curl.mp4', '/assets/exercise-videos/barbell-curl.mp4'];
-  }
-  if (clean.includes('rosca') || clean.includes('biceps')) {
-    return ['/assets/exercise-videos/barbell-curl.mp4', '/assets/exercise-videos/hammer-curl.mp4'];
-  }
-  if (clean.includes('barra fixa') || clean.includes('puxad') || clean.includes('costas') || clean.includes('pull')) {
-    return ['/assets/exercise-videos/pull-ups.mp4', '/assets/exercise-videos/bench-press.mp4'];
-  }
-  return ['/assets/exercise-videos/bench-press.mp4'];
-}
-
 export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
   // 1. PEITORAL (15)
   { id: 'ex-supino-inclinado-halteres', name: 'Supino Inclinado com Halteres', group: 'Peitoral', equipment: 'Halteres & Banco 30°', cue: 'Pegada neutra a 30° com retração escapular ativa.' },
@@ -156,7 +125,7 @@ export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
   { id: 'ex-prancha-lateral-estatica', name: 'Elevação de Pernas na Barra Fixa', group: 'Abdômen', equipment: 'Barra Fixa', cue: 'Eleve os joelhos até a linha do peito sem balanço.' },
   { id: 'ex-crunch-declinado', name: 'Crunch no Banco Declinado com Anilha', group: 'Abdômen', equipment: 'Banco Declinado', cue: 'Sobrecarga de flexão espinhal com torque máximo.' },
 
-  // 9. CARDIO & CONDICIONAMENTO (3)
+  // 9. CARDIO (3)
   { id: 'ex-corrida-ao-ar-livre', name: 'Simulador de Escadas (Stairmaster)', group: 'Cardio', equipment: 'Stairmaster', cue: 'Nível 7 a 9 sem apoiar o peso do corpo nos braços.' },
   { id: 'ex-esteira-inclinada-12', name: 'Esteira Inclinada (Incline Treadmill Walk)', group: 'Cardio', equipment: 'Esteira', cue: 'Inclinação de 10% a 12% a 5.4 km/h sem impacto.' },
   { id: 'ex-bicicleta-ergometrica-spinning', name: 'Bicicleta Ergométrica Regenerativa', group: 'Cardio', equipment: 'Bicicleta Ergométrica', cue: 'Cadência de 85 a 95 RPM para flush de lactato.' },
@@ -186,7 +155,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
     });
   }, [searchTerm, selectedGroup]);
 
-  // Autoplay ao abrir a prévia do exercício
+  // Autoplay da prévia
   useEffect(() => {
     if (previewExercise && previewVideoRef.current) {
       previewVideoRef.current.currentTime = 0;
@@ -194,7 +163,8 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
     }
   }, [previewExercise]);
 
-  const previewSources = previewExercise ? getCatalogVideoPath(previewExercise.name) : [];
+  const videoUrl = previewExercise ? `/assets/exercise-videos/${previewExercise.id}.mp4` : '';
+  const posterUrl = previewExercise ? `/assets/exercise-videos/${previewExercise.id}.png` : '';
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 animate-in fade-in">
@@ -283,7 +253,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
           ))}
         </div>
 
-        {/* Modal de Prévia com Player de Vídeo MP4 Real */}
+        {/* Modal de Prévia com Vídeo MP4 Direto */}
         {previewExercise && (
           <div className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
             <div className="bg-[#0a0e17] border border-cyan-500/50 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
@@ -296,11 +266,13 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
                 </button>
               </div>
 
-              {/* Player do Vídeo */}
+              {/* Player do Vídeo ex-*.mp4 */}
               <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden bg-black border border-cyan-500/40 relative flex items-center justify-center">
                 <video
                   ref={previewVideoRef}
-                  key={`preview-${previewExercise.name}`}
+                  key={videoUrl}
+                  src={videoUrl}
+                  poster={posterUrl}
                   autoPlay
                   loop
                   muted
@@ -309,12 +281,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
                   webkit-playsinline="true"
                   preload="auto"
                   className="w-full h-full object-cover"
-                >
-                  {previewSources.map((srcUrl) => (
-                    <source key={srcUrl} src={srcUrl} type="video/mp4" />
-                  ))}
-                  Vídeo indisponível.
-                </video>
+                />
               </div>
 
               {/* Ficha Biomecânica */}

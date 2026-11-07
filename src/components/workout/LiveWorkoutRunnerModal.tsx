@@ -4,9 +4,7 @@ import {
   Minimize2,
   ChevronRight,
   ChevronLeft,
-  Check,
-  RotateCcw,
-  Video
+  Check
 } from 'lucide-react';
 
 export interface WorkoutSetItem {
@@ -35,60 +33,22 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
-// Mapeador resiliente dos arquivos de vídeo MP4 do FORZON
-function resolveExerciseVideoUrl(exerciseName: string): string[] {
-  const clean = (exerciseName || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .trim();
-
-  // Mapeamentos diretos
-  if (clean.includes('inclinado') && clean.includes('halter')) {
-    return [
-      '/assets/exercise-videos/incline-dumbbell-bench-press.mp4',
-      '/assets/exercise-videos/bench-press.mp4'
-    ];
-  }
-  if (clean.includes('supino') || clean.includes('peito') || clean.includes('peitoral')) {
-    return [
-      '/assets/exercise-videos/bench-press.mp4',
-      '/assets/exercise-videos/dumbbell-chest-fly.mp4'
-    ];
-  }
-  if (clean.includes('crucifixo') || clean.includes('crossover') || clean.includes('voador') || clean.includes('peck')) {
-    return [
-      '/assets/exercise-videos/dumbbell-chest-fly.mp4',
-      '/assets/exercise-videos/bench-press.mp4'
-    ];
-  }
-  if (clean.includes('martelo')) {
-    return [
-      '/assets/exercise-videos/hammer-curl.mp4',
-      '/assets/exercise-videos/barbell-curl.mp4'
-    ];
-  }
-  if (clean.includes('alternad')) {
-    return [
-      '/assets/exercise-videos/alternating-curl.mp4',
-      '/assets/exercise-videos/barbell-curl.mp4'
-    ];
-  }
-  if (clean.includes('rosca') || clean.includes('biceps')) {
-    return [
-      '/assets/exercise-videos/barbell-curl.mp4',
-      '/assets/exercise-videos/hammer-curl.mp4'
-    ];
-  }
-  if (clean.includes('barra fixa') || clean.includes('pull') || clean.includes('puxad') || clean.includes('costas') || clean.includes('dorsal')) {
-    return [
-      '/assets/exercise-videos/pull-ups.mp4',
-      '/assets/exercise-videos/bench-press.mp4'
-    ];
+// Mapeia para o nome físico do arquivo ex-*.mp4 que existe na sua pasta public
+function getExerciseMedia(exerciseId: string | number, exerciseName: string): { videoUrl: string; posterUrl: string } {
+  let slug = String(exerciseId || '');
+  if (!slug || !slug.startsWith('ex-')) {
+    slug = 'ex-' + (exerciseName || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, '-')
+      .replace(/-+/g, '-');
   }
 
-  // Fallback seguro padrão
-  return ['/assets/exercise-videos/bench-press.mp4'];
+  return {
+    videoUrl: `/assets/exercise-videos/${slug}.mp4`,
+    posterUrl: `/assets/exercise-videos/${slug}.png`,
+  };
 }
 
 export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
@@ -107,22 +67,17 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
-  const videoSources = resolveExerciseVideoUrl(currentExercise.name);
+  const { videoUrl, posterUrl } = getExerciseMedia(currentExercise.id, currentExercise.name);
 
-  // Forçar autoplay no carregamento e ao trocar de exercício
+  // Reinicia e garante o play ao trocar de exercício
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay silenciado geralmente é permitido em todos os navegadores
-        });
-      }
+      videoRef.current.play().catch(() => {});
     }
-  }, [currentExIndex, currentExercise.name]);
+  }, [currentExIndex, videoUrl]);
 
-  // Alternar conclusão da série
+  // Alternar conclusão da série com disparo de descanso
   const toggleSetComplete = (setIndex: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -141,7 +96,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Carga (Float)
+  // Ajustar Carga Float
   const handleWeightChange = (setIndex: number, newWeight: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -254,7 +209,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* PLAYER DE VÍDEO DO EXERCÍCIO */}
+      {/* PLAYER DE VÍDEO MP4 REAL */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -265,11 +220,13 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Box do Vídeo */}
-        <div className="w-full aspect-[16/10] max-h-[260px] rounded-3xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative shadow-2xl flex items-center justify-center">
+        {/* Box do Vídeo com URL correspondente a ex-*.mp4 */}
+        <div className="w-full aspect-[16/10] max-h-[250px] rounded-3xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative shadow-2xl flex items-center justify-center">
           <video
             ref={videoRef}
-            key={`video-${currentExercise.name}-${currentExIndex}`}
+            key={videoUrl}
+            src={videoUrl}
+            poster={posterUrl}
             autoPlay
             loop
             muted
@@ -278,15 +235,9 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
             webkit-playsinline="true"
             preload="auto"
             className="w-full h-full object-cover"
-          >
-            {videoSources.map((srcUrl) => (
-              <source key={srcUrl} src={srcUrl} type="video/mp4" />
-            ))}
-            Seu navegador não suporta a tag de vídeo.
-          </video>
+          />
 
-          {/* Badge de vídeo ativo */}
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold pointer-events-none flex items-center gap-1">
+          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold pointer-events-none flex items-center gap-1.5 shadow-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-ping" />
             Vídeo 3D Loop
           </div>
@@ -298,7 +249,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         </div>
       </div>
 
-      {/* Lista de Séries com Carga (kg) e Repetições (reps) Editáveis */}
+      {/* Lista de Séries */}
       <div className="space-y-2 my-2">
         <div className="grid grid-cols-4 gap-2 text-[10px] font-bold text-slate-400 uppercase text-center px-2">
           <span>Série</span>
