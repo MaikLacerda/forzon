@@ -4,12 +4,7 @@ import {
   Minimize2,
   ChevronRight,
   ChevronLeft,
-  Check,
-  Dumbbell,
-  Sparkles,
-  Info,
-  Flame,
-  Activity
+  Check
 } from 'lucide-react';
 
 export interface WorkoutSetItem {
@@ -37,6 +32,33 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
+// Mapeador oficial dos arquivos .mp4 existentes na sua pasta public/assets/exercise-videos/
+function getVideoPathForExercise(exerciseName: string): string {
+  const name = (exerciseName || '').toLowerCase();
+
+  if (name.includes('supino') || name.includes('peitoral') || name.includes('peito')) {
+    return '/assets/exercise-videos/bench-press.mp4';
+  }
+  if (name.includes('crucifixo') || name.includes('crossover') || name.includes('voador')) {
+    return '/assets/exercise-videos/dumbbell-chest-fly.mp4';
+  }
+  if (name.includes('martelo')) {
+    return '/assets/exercise-videos/hammer-curl.mp4';
+  }
+  if (name.includes('alternad')) {
+    return '/assets/exercise-videos/alternating-curl.mp4';
+  }
+  if (name.includes('rosca') || name.includes('biceps')) {
+    return '/assets/exercise-videos/barbell-curl.mp4';
+  }
+  if (name.includes('barra fixa') || name.includes('puxad') || name.includes('costas') || name.includes('pull')) {
+    return '/assets/exercise-videos/pull-ups.mp4';
+  }
+
+  // Fallback padrão para o primeiro vídeo catalogado do projeto
+  return '/assets/exercise-videos/bench-press.mp4';
+}
+
 export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   workoutTitle,
   splitName,
@@ -52,6 +74,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const [isResting, setIsResting] = useState<boolean>(false);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
+  const videoSrc = getVideoPathForExercise(currentExercise.name);
 
   // Alternar conclusão da série
   const toggleSetComplete = (setIndex: number) => {
@@ -85,7 +108,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Repetições Feitas (editável se falhar na série)
+  // Ajustar Repetições Feitas
   const handleRepsChange = (setIndex: number, newReps: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -185,7 +208,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* ÁREA DO GUIA BIOMECÂNICO / DEMONSTRAÇÃO 3D (ZERO TELA PRETA, ZERO LOOP) */}
+      {/* ÁREA DO VÍDEO REAL */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -196,40 +219,23 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Box da Demonstração: Renderização Instantânea sem Depender de Buffer */}
-        <div className="w-full h-56 rounded-3xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative flex flex-col items-center justify-center p-4 shadow-inner">
-          
-          <div className="w-full h-full flex flex-col items-center justify-center relative rounded-2xl bg-gradient-to-b from-cyan-950/40 via-[#0a0e17] to-[#07090e] border border-cyan-500/20 p-4 text-center">
-            
-            {/* Ícone Biomecânico Animado */}
-            <div className="relative mb-2">
-              <div className="w-16 h-16 rounded-2xl bg-cyan-950/80 border border-cyan-500/50 flex items-center justify-center text-[#00d2ff] shadow-[0_0_25px_rgba(0,210,255,0.4)] animate-pulse">
-                <Dumbbell className="w-8 h-8 rotate-45 text-[#00d2ff]" />
-              </div>
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-slate-900 shadow-[0_0_8px_#34d399]" />
-            </div>
+        {/* Player de Vídeo Nativo */}
+        <div className="w-full h-56 rounded-3xl bg-black border border-cyan-500/40 overflow-hidden relative shadow-inner">
+          <video
+            key={videoSrc}
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-            {/* Subtítulo & Identificação Biomecânica */}
-            <span className="text-[10px] font-mono text-[#00d2ff] font-bold uppercase tracking-widest block">
-              ANIMAÇÃO BIOMECÂNICA EM LOOP • 60 FPS
-            </span>
-            <h4 className="text-sm font-black text-white mt-0.5">
-              {currentExercise.name}
-            </h4>
-            <p className="text-xs text-slate-300 mt-0.5">
-              Foco Muscular: <strong className="text-[#00d2ff]">{currentExercise.targetMuscle}</strong>
-            </p>
-
-            {/* Ponto Crítico de Execução */}
-            <div className="p-2.5 mt-2 rounded-xl bg-slate-900/95 border border-slate-800 text-[11px] text-slate-200 leading-relaxed max-w-xs shadow-md">
-              💡 <strong>Ponto Crítico:</strong> {currentExercise.cue}
-            </div>
-          </div>
-
-          {/* Badge no topo direito */}
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold">
-            Guia Ativo
-          </div>
+        {/* Ponto Crítico de Execução */}
+        <div className="p-2.5 rounded-xl bg-[#0f131c] border border-slate-800 text-[11px] text-slate-300">
+          💡 <strong className="text-white">Ponto Crítico:</strong> {currentExercise.cue}
         </div>
       </div>
 
@@ -266,7 +272,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
               />
             </div>
 
-            {/* Input de Repetições Editáveis (Muda se falhar antes da meta) */}
+            {/* Input de Repetições Editáveis */}
             <div className="w-1/4 flex justify-center">
               <input
                 type="number"
