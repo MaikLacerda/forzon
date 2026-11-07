@@ -2,14 +2,10 @@ import React, { useState, useMemo } from 'react';
 import {
   Search,
   X,
-  Video,
   Dumbbell,
-  Play,
   Sparkles,
   ChevronRight,
-  Filter,
-  CheckCircle2,
-  Info
+  Video
 } from 'lucide-react';
 
 export interface CatalogExercise {
@@ -18,7 +14,6 @@ export interface CatalogExercise {
   group: 'Peitoral' | 'Costas' | 'Ombros' | 'Bíceps' | 'Tríceps' | 'Pernas' | 'Glúteos' | 'Panturrilhas' | 'Abdômen' | 'Cardio';
   equipment: string;
   cue: string;
-  videoUrl?: string;
 }
 
 interface ExerciseLibraryModalProps {
@@ -29,7 +24,7 @@ interface ExerciseLibraryModalProps {
 // Lista oficial com os 104 exercícios catalogados do FORZON
 export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
   // 1. PEITORAL (15 exercícios)
-  { id: 'ex-supino-inclinado-halteres', name: 'Supino Inclinado com Halteres', group: 'Peitoral', equipment: 'Halteres & Banco 30°', cue: 'Pegada neutra a 30° com retração escapular.' },
+  { id: 'ex-supino-inclinado-halteres', name: 'Supino Inclinado com Halteres', group: 'Peitoral', equipment: 'Halteres & Banco 30°', cue: 'Pegada neutra a 30° com retração escapular ativa.' },
   { id: 'ex-supino-reto-barra', name: 'Supino Reto com Barra Olímpica', group: 'Peitoral', equipment: 'Barra Olímpica & Banco Reto', cue: 'Descida controlada até a linha do esterno.' },
   { id: 'ex-supino-reto-halteres', name: 'Supino Reto com Halteres', group: 'Peitoral', equipment: 'Halteres & Banco', cue: 'Maior amplitude articular sem estalar ombros.' },
   { id: 'ex-supino-inclinado-barra', name: 'Supino Inclinado com Barra', group: 'Peitoral', equipment: 'Barra Olímpica', cue: 'Foco em feixes claviculares do peitoral superior.' },
@@ -122,7 +117,7 @@ export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
   { id: 'ex-panturrilha-leg-press-45', name: 'Panturrilha no Leg Press 45°', group: 'Panturrilhas', equipment: 'Leg Press 45°', cue: 'Pressão na bola do dedão com arco plantar firme.' },
   { id: 'ex-panturrilha-unilateral-degrau', name: 'Elevação Unilateral no Degrau com Halter', group: 'Panturrilhas', equipment: 'Degrau & Halter', cue: 'Amplitude total eliminando assimetrias entre pernas.' },
 
-  // 8. ABDÔMEN DINÂMICO & CORE (8 exercícios - ZERO Pranchas Estáticas)
+  // 8. ABDÔMEN DINÂMICO & CORE (8 exercícios)
   { id: 'ex-cable-crunch-polia-alta', name: 'Abdominal na Polia Alta Ajoelhado (Cable Crunch)', group: 'Abdômen', equipment: 'Polia Alta & Corda', cue: 'Aproxime as costelas do quadril sem puxar com os braços.' },
   { id: 'ex-elevacao-pernas-paralela', name: 'Elevação de Pernas na Torre / Paralelas', group: 'Abdômen', equipment: 'Torre Abdominal', cue: 'Retroverso pélvico no topo ativando o infra-abdominal.' },
   { id: 'ex-ab-wheel-rollout', name: 'Rolamento com Roda Abdominal (Ab Wheel)', group: 'Abdômen', equipment: 'Roda Abdominal', cue: 'Transverso do abdômen ativado sem hiperextensão lombar.' },
@@ -158,7 +153,6 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<string>('Todos');
   const [previewExercise, setPreviewExercise] = useState<CatalogExercise | null>(null);
-  const [videoError, setVideoError] = useState(false);
 
   const groups = ['Todos', 'Peitoral', 'Costas', 'Ombros', 'Bíceps', 'Tríceps', 'Pernas', 'Glúteos', 'Panturrilhas', 'Abdômen', 'Cardio'];
 
@@ -234,10 +228,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
           {filteredExercises.map((ex, idx) => (
             <div
               key={ex.id}
-              onClick={() => {
-                setVideoError(false);
-                setPreviewExercise(ex);
-              }}
+              onClick={() => setPreviewExercise(ex)}
               className="p-3 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/40 transition-all cursor-pointer flex items-center justify-between group"
             >
               <div className="flex items-center gap-3">
@@ -272,54 +263,34 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
           )}
         </div>
 
-        {/* Preview Técnico & Demonstração Biomecânica do Exercício Selecionado */}
+        {/* Modal de Prévia Biomecânica sem Buffer Infinito */}
         {previewExercise && (
-          <div className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
+          <div className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
             <div className="bg-[#0a0e17] border border-cyan-500/50 rounded-3xl max-w-sm w-full p-5 space-y-3.5 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                 <div className="flex items-center gap-2">
-                  <Video className="w-4 h-4 text-[#00d2ff]" />
+                  <Dumbbell className="w-4 h-4 text-[#00d2ff]" />
                   <h4 className="text-xs font-bold text-white truncate max-w-[210px]">
                     {previewExercise.name}
                   </h4>
                 </div>
-                <button onClick={() => setPreviewExercise(null)} className="p-1 text-slate-400 hover:text-white">
+                <button onClick={() => setPreviewExercise(null)} className="p-1 text-slate-400 hover:text-white cursor-pointer">
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Player com Fallback Garantido */}
-              <div className="w-full h-52 rounded-2xl bg-[#07090e] border border-cyan-500/30 overflow-hidden relative flex items-center justify-center shadow-inner">
-                {!videoError ? (
-                <video
-                  key={previewExercise.name}
-                  src={previewExercise.videoUrl || `/assets/exercise-videos/bench-press.mp4`}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  webkit-playsinline="true"
-                  controls
-                  className="w-full h-full object-cover rounded-xl"
-                  onError={(e) => {
-         // Se falhar o arquivo local, carrega a amostra web garantida
-                  (e.currentTarget as HTMLVideoElement).src = 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-a-barbell-in-a-gym-44339-large.mp4';
-                }}
-              />
-                ) : (
-                  <div className="text-center p-4 space-y-2">
-                    <div className="w-12 h-12 mx-auto rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_15px_rgba(0,210,255,0.2)]">
-                      <Sparkles className="w-6 h-6 animate-pulse" />
-                    </div>
-                    <span className="text-[10px] font-mono text-[#00d2ff] font-bold uppercase block">
-                      Guia Biomecânico em Loop
-                    </span>
-                    <h5 className="text-xs font-bold text-white">{previewExercise.name}</h5>
-                    <p className="text-[10px] text-slate-400 leading-relaxed">
-                      Equipamento: <strong className="text-slate-200">{previewExercise.equipment}</strong>
-                    </p>
-                  </div>
-                )}
+              {/* Caixa Biomecânica Instantânea */}
+              <div className="w-full h-52 rounded-2xl bg-gradient-to-b from-cyan-950/40 via-[#0a0e17] to-[#07090e] border border-cyan-500/30 overflow-hidden relative flex flex-col items-center justify-center p-4 text-center shadow-inner">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_20px_rgba(0,210,255,0.3)] mb-2">
+                  <Sparkles className="w-7 h-7 animate-pulse text-[#00d2ff]" />
+                </div>
+                <span className="text-[10px] font-mono text-[#00d2ff] font-bold uppercase block tracking-wider">
+                  GUIA BIOMECÂNICO & EXECUÇÃO TÉCNICA
+                </span>
+                <h5 className="text-sm font-black text-white mt-0.5">{previewExercise.name}</h5>
+                <p className="text-xs text-slate-300 mt-1">
+                  Aparelho: <strong className="text-white">{previewExercise.equipment}</strong>
+                </p>
               </div>
 
               {/* Ficha Biomecânica */}
@@ -327,10 +298,6 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
                 <div className="flex justify-between text-[11px] text-slate-400">
                   <span>Grupamento:</span>
                   <strong className="text-[#00d2ff]">{previewExercise.group}</strong>
-                </div>
-                <div className="flex justify-between text-[11px] text-slate-400">
-                  <span>Aparelho:</span>
-                  <strong className="text-white">{previewExercise.equipment}</strong>
                 </div>
                 <p className="text-[11px] text-slate-300 pt-1 border-t border-slate-800 leading-relaxed">
                   <strong>Ponto Crítico:</strong> {previewExercise.cue}
@@ -345,14 +312,14 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
                       setPreviewExercise(null);
                       onClose();
                     }}
-                    className="flex-1 py-2.5 rounded-xl bg-[#00d2ff] text-neutral-950 font-black text-xs hover:bg-cyan-400 transition-all cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl bg-[#00d2ff] text-neutral-950 font-black text-xs hover:bg-cyan-400 cursor-pointer"
                   >
                     Usar no Treino Atual
                   </button>
                 )}
                 <button
                   onClick={() => setPreviewExercise(null)}
-                  className="flex-1 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white"
+                  className="flex-1 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white cursor-pointer"
                 >
                   Voltar à Lista
                 </button>
