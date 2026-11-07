@@ -15,10 +15,10 @@ export interface WorkoutSetItem {
 }
 
 export interface WorkoutExerciseItem {
-  id: string | number;
+  id?: string | number;
   name: string;
   targetMuscle: string;
-  cue: string;
+  cue?: string;
   sets: WorkoutSetItem[];
   equipment?: string;
 }
@@ -33,21 +33,199 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
-// Mapeia para o nome físico do arquivo ex-*.mp4 que existe na sua pasta public
-function getExerciseMedia(exerciseId: string | number, exerciseName: string): { videoUrl: string; posterUrl: string } {
-  let slug = String(exerciseId || '');
-  if (!slug || !slug.startsWith('ex-')) {
-    slug = 'ex-' + (exerciseName || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-');
+// Mapeador universal à prova de falhas: converte qualquer nome ou ID para o arquivo físico ex-*.mp4 real
+function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: string): { videoUrl: string; posterUrl: string } {
+  const rawId = String(exerciseId || '').toLowerCase().trim();
+  const rawName = String(exerciseName || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+
+  // Se o id já começar com ex- e for um ID válido
+  if (rawId.startsWith('ex-') && rawId.length > 5 && !rawId.includes('norm') && !rawId.includes('sess')) {
+    return {
+      videoUrl: `/assets/exercise-videos/${rawId}.mp4`,
+      posterUrl: `/assets/exercise-videos/${rawId}.png`,
+    };
+  }
+
+  // Mapeamento semântico direto baseado no nome em português
+  let fileSlug = 'ex-supino-reto-barra';
+
+  if (rawName.includes('inclinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-inclinado-halteres';
+  } else if (rawName.includes('inclinado') && rawName.includes('barra')) {
+    fileSlug = 'ex-supino-inclinado-barra';
+  } else if (rawName.includes('declinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-declinado-halteres';
+  } else if (rawName.includes('declinado') || rawName.includes('canadense')) {
+    fileSlug = 'ex-supino-declinado-barra';
+  } else if (rawName.includes('supino') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-reto-halteres';
+  } else if (rawName.includes('supino') && rawName.includes('maquina')) {
+    fileSlug = 'ex-supino-maquina-articulada';
+  } else if (rawName.includes('supino') && rawName.includes('fechad')) {
+    fileSlug = 'ex-supino-fechado-barra';
+  } else if (rawName.includes('supino') || rawName.includes('peito')) {
+    fileSlug = 'ex-supino-reto-barra';
+  } else if (rawName.includes('crucifixo') && rawName.includes('inclinado')) {
+    fileSlug = 'ex-crucifixo-inclinado-halteres';
+  } else if (rawName.includes('crucifixo') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-crucifixo-reto-halteres';
+  } else if (rawName.includes('crucifixo') && rawName.includes('invertido') && rawName.includes('peck')) {
+    fileSlug = 'ex-crucifixo-invertido-peck-deck';
+  } else if (rawName.includes('crucifixo') && rawName.includes('invertido')) {
+    fileSlug = 'ex-crucifixo-invertido-halteres';
+  } else if (rawName.includes('peck') || rawName.includes('voador')) {
+    fileSlug = 'ex-peck-deck-voador';
+  } else if (rawName.includes('crossover') && rawName.includes('alta')) {
+    fileSlug = 'ex-crossover-polia-alta';
+  } else if (rawName.includes('crossover') && rawName.includes('baixa')) {
+    fileSlug = 'ex-crossover-polia-baixa';
+  } else if (rawName.includes('crossover') || rawName.includes('polia')) {
+    fileSlug = 'ex-crossover-polia-media';
+  } else if (rawName.includes('mergulho') || rawName.includes('paralela')) {
+    fileSlug = 'ex-mergulho-paralelas-peito';
+  } else if (rawName.includes('pullover')) {
+    fileSlug = 'ex-pullover-halter';
+  } else if (rawName.includes('barra fixa') && rawName.includes('supinad')) {
+    fileSlug = 'ex-barra-fixa-supinada';
+  } else if (rawName.includes('barra fixa') || rawName.includes('pull-up')) {
+    fileSlug = 'ex-barra-fixa-pronada';
+  } else if (rawName.includes('puxada') && rawName.includes('triangulo')) {
+    fileSlug = 'ex-puxada-triangulo';
+  } else if (rawName.includes('puxada')) {
+    fileSlug = 'ex-puxada-frontal-polia';
+  } else if (rawName.includes('remada') && rawName.includes('curvada')) {
+    fileSlug = 'ex-remada-curvada-barra';
+  } else if (rawName.includes('remada') && (rawName.includes('serrote') || rawName.includes('unilateral'))) {
+    fileSlug = 'ex-remada-unilateral-serrote';
+  } else if (rawName.includes('remada') && (rawName.includes('cavalinho') || rawName.includes('t-bar'))) {
+    fileSlug = 'ex-remada-cavalinho-tbar';
+  } else if (rawName.includes('remada') && rawName.includes('baixa')) {
+    fileSlug = 'ex-remada-baixa-triangulo';
+  } else if (rawName.includes('remada') && rawName.includes('articulada')) {
+    fileSlug = 'ex-remada-articulada-maquina';
+  } else if (rawName.includes('remada') && rawName.includes('alta')) {
+    fileSlug = 'ex-remada-alta-barra-w';
+  } else if (rawName.includes('pulldown')) {
+    fileSlug = 'ex-pulldown-polia-alta';
+  } else if (rawName.includes('levantamento terra') || rawName.includes('terra')) {
+    fileSlug = 'ex-levantamento-terra-convencional';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('arnold')) {
+    fileSlug = 'ex-desenvolvimento-arnold';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('militar')) {
+    fileSlug = 'ex-desenvolvimento-militar-barra';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('maquina')) {
+    fileSlug = 'ex-desenvolvimento-maquina';
+  } else if (rawName.includes('desenvolvimento')) {
+    fileSlug = 'ex-desenvolvimento-halteres';
+  } else if (rawName.includes('elevacao lateral') && rawName.includes('polia')) {
+    fileSlug = 'ex-elevacao-lateral-polia';
+  } else if (rawName.includes('elevacao lateral') && rawName.includes('inclinad')) {
+    fileSlug = 'ex-elevacao-lateral-inclinada';
+  } else if (rawName.includes('elevacao lateral')) {
+    fileSlug = 'ex-elevacao-lateral-halteres';
+  } else if (rawName.includes('elevacao frontal') && rawName.includes('corda')) {
+    fileSlug = 'ex-elevacao-frontal-corda';
+  } else if (rawName.includes('elevacao frontal')) {
+    fileSlug = 'ex-elevacao-frontal-halteres';
+  } else if (rawName.includes('face pull')) {
+    fileSlug = 'ex-face-pull-corda';
+  } else if (rawName.includes('encolhimento') && rawName.includes('barra')) {
+    fileSlug = 'ex-encolhimento-barra';
+  } else if (rawName.includes('encolhimento')) {
+    fileSlug = 'ex-encolhimento-halteres';
+  } else if (rawName.includes('rosca direta') && rawName.includes('barra w')) {
+    fileSlug = 'ex-rosca-direta-barra-w';
+  } else if (rawName.includes('rosca direta')) {
+    fileSlug = 'ex-rosca-direta-barra-reta';
+  } else if (rawName.includes('martelo') && rawName.includes('corda')) {
+    fileSlug = 'ex-rosca-martelo-corda';
+  } else if (rawName.includes('martelo')) {
+    fileSlug = 'ex-rosca-martelo-halteres';
+  } else if (rawName.includes('alternada')) {
+    fileSlug = 'ex-rosca-alternada-halteres';
+  } else if (rawName.includes('scott')) {
+    fileSlug = 'ex-rosca-scott-barra-w';
+  } else if (rawName.includes('concentrada')) {
+    fileSlug = 'ex-rosca-concentrada-halter';
+  } else if (rawName.includes('aranha') || rawName.includes('spider')) {
+    fileSlug = 'ex-rosca-aranha-spider-curl';
+  } else if (rawName.includes('triceps') && rawName.includes('corda')) {
+    fileSlug = 'ex-triceps-corda-polia';
+  } else if (rawName.includes('triceps') && rawName.includes('barra v')) {
+    fileSlug = 'ex-triceps-pulley-barra-v';
+  } else if (rawName.includes('triceps') && (rawName.includes('pulley') || rawName.includes('barra reta'))) {
+    fileSlug = 'ex-triceps-pulley-barra-reta';
+  } else if (rawName.includes('testa') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-triceps-testa-halteres';
+  } else if (rawName.includes('testa')) {
+    fileSlug = 'ex-triceps-testa-barra-w';
+  } else if (rawName.includes('frances') && rawName.includes('polia')) {
+    fileSlug = 'ex-triceps-frances-polia-corda';
+  } else if (rawName.includes('frances')) {
+    fileSlug = 'ex-triceps-frances-unilateral';
+  } else if (rawName.includes('coice')) {
+    fileSlug = 'ex-triceps-coice-polia';
+  } else if (rawName.includes('agachamento') && rawName.includes('frontal')) {
+    fileSlug = 'ex-agachamento-frontal-barra';
+  } else if (rawName.includes('agachamento') && rawName.includes('smith')) {
+    fileSlug = 'ex-agachamento-smith';
+  } else if (rawName.includes('agachamento') && rawName.includes('sumo')) {
+    fileSlug = 'ex-agachamento-sumo-halter';
+  } else if (rawName.includes('agachamento') && rawName.includes('bulgaro')) {
+    fileSlug = 'ex-agachamento-bulgaro-halteres';
+  } else if (rawName.includes('agachamento') && rawName.includes('hack')) {
+    fileSlug = 'ex-hack-squat-maquina';
+  } else if (rawName.includes('agachamento')) {
+    fileSlug = 'ex-agachamento-livre-barra';
+  } else if (rawName.includes('leg press')) {
+    fileSlug = 'ex-leg-press-45';
+  } else if (rawName.includes('extensora')) {
+    fileSlug = 'ex-cadeira-extensora';
+  } else if (rawName.includes('flexora') && rawName.includes('mesa')) {
+    fileSlug = 'ex-mesa-flexora';
+  } else if (rawName.includes('flexora')) {
+    fileSlug = 'ex-cadeira-flexora';
+  } else if (rawName.includes('stiff') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-stiff-halteres';
+  } else if (rawName.includes('stiff')) {
+    fileSlug = 'ex-stiff-barra';
+  } else if (rawName.includes('passada') || rawName.includes('avanco')) {
+    fileSlug = 'ex-afundo-passada-halteres';
+  } else if (rawName.includes('pelvica') && rawName.includes('maquina')) {
+    fileSlug = 'ex-elevacao-pelvica-maquina';
+  } else if (rawName.includes('pelvica') || rawName.includes('hip thrust')) {
+    fileSlug = 'ex-elevacao-pelvica-barra';
+  } else if (rawName.includes('abdutora')) {
+    fileSlug = 'ex-cadeira-abdutora';
+  } else if (rawName.includes('panturrilha') && rawName.includes('sentado')) {
+    fileSlug = 'ex-panturrilha-sentado-soleo';
+  } else if (rawName.includes('panturrilha') && rawName.includes('leg')) {
+    fileSlug = 'ex-panturrilha-leg-press-45';
+  } else if (rawName.includes('panturrilha') && rawName.includes('unilateral')) {
+    fileSlug = 'ex-panturrilha-unilateral-degrau';
+  } else if (rawName.includes('panturrilha')) {
+    fileSlug = 'ex-panturrilha-em-pe-maquina';
+  } else if (rawName.includes('cable crunch') || (rawName.includes('abdominal') && rawName.includes('polia'))) {
+    fileSlug = 'ex-abdominal-polia-cable-crunch';
+  } else if (rawName.includes('infra') || (rawName.includes('abdominal') && rawName.includes('paralela'))) {
+    fileSlug = 'ex-abdominal-infra-paralela';
+  } else if (rawName.includes('roda') || rawName.includes('wheel')) {
+    fileSlug = 'ex-roda-abdominal-abwheel';
+  } else if (rawName.includes('vacuum')) {
+    fileSlug = 'ex-abdominal-vacuum';
+  } else if (rawName.includes('russian')) {
+    fileSlug = 'ex-russian-twist-anilha';
+  } else if (rawName.includes('abdominal') || rawName.includes('crunch')) {
+    fileSlug = 'ex-abdominal-supra-solo';
   }
 
   return {
-    videoUrl: `/assets/exercise-videos/${slug}.mp4`,
-    posterUrl: `/assets/exercise-videos/${slug}.png`,
+    videoUrl: `/assets/exercise-videos/${fileSlug}.mp4`,
+    posterUrl: `/assets/exercise-videos/${fileSlug}.png`,
   };
 }
 
@@ -67,17 +245,20 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
-  const { videoUrl, posterUrl } = getExerciseMedia(currentExercise.id, currentExercise.name);
+  const { videoUrl, posterUrl } = resolvePhysicalVideoPath(currentExercise.id, currentExercise.name);
 
-  // Reinicia e garante o play ao trocar de exercício
+  // Forçar autoplay no início e ao trocar de exercício
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {});
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
     }
   }, [currentExIndex, videoUrl]);
 
-  // Alternar conclusão da série com disparo de descanso
+  // Alternar conclusão da série com disparo do descanso
   const toggleSetComplete = (setIndex: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -209,7 +390,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* PLAYER DE VÍDEO MP4 REAL */}
+      {/* PLAYER DE VÍDEO MP4 REAL RESOLVIDO */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -220,7 +401,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Box do Vídeo com URL correspondente a ex-*.mp4 */}
+        {/* Box do Vídeo */}
         <div className="w-full aspect-[16/10] max-h-[250px] rounded-3xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative shadow-2xl flex items-center justify-center">
           <video
             ref={videoRef}
@@ -245,11 +426,11 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         {/* Ponto Crítico de Execução */}
         <div className="p-2.5 rounded-xl bg-[#0f131c] border border-slate-800 text-[11px] text-slate-300">
-          💡 <strong className="text-white">Ponto Crítico:</strong> {currentExercise.cue}
+          💡 <strong className="text-white">Ponto Crítico:</strong> {currentExercise.cue || 'Cadência excêntrica de 3s mantendo escápulas aduzidas e retração ativa.'}
         </div>
       </div>
 
-      {/* Lista de Séries */}
+      {/* Lista de Séries com Carga (kg) e Repetições (reps) Editáveis */}
       <div className="space-y-2 my-2">
         <div className="grid grid-cols-4 gap-2 text-[10px] font-bold text-slate-400 uppercase text-center px-2">
           <span>Série</span>
