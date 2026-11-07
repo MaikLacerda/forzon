@@ -66,7 +66,10 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Exercícios da Sessão de Treino Ativa (com suporte a decimais float)
+  // =========================================================================
+  // PERIODIZAÇÃO REAL PESADA (60-75 MIN • INTERMEDIÁRIO / AVANÇADO)
+  // Treino A: Peitoral Completo, Deltóide Lateral, 3 Variações de Tríceps e Abdômen com Carga
+  // =========================================================================
   const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>([
     {
       id: 1,
@@ -82,9 +85,21 @@ export default function App() {
     },
     {
       id: 2,
+      name: 'Supino Reto com Barra Olímpica',
+      targetMuscle: 'Peitoral Maior (Esternal)',
+      cue: 'Descida controlada na linha dos mamilos mantendo pontes e arco lombar firme.',
+      sets: [
+        { setNumber: 1, weightKg: 80.0, reps: 10, completed: false },
+        { setNumber: 2, weightKg: 85.0, reps: 8, completed: false },
+        { setNumber: 3, weightKg: 90.0, reps: 6, completed: false },
+        { setNumber: 4, weightKg: 95.0, reps: 6, completed: false },
+      ],
+    },
+    {
+      id: 3,
       name: 'Crucifixo no Crossover (Polia Média)',
       targetMuscle: 'Peitoral Médio',
-      cue: 'Tensão constante em todo o arco sem hiperestender cotovelos.',
+      cue: 'Tensão constante em todo o arco sem hiperestender cotovelos. Pico de contração de 2s.',
       sets: [
         { setNumber: 1, weightKg: 17.5, reps: 12, completed: false },
         { setNumber: 2, weightKg: 17.5, reps: 12, completed: false },
@@ -93,18 +108,42 @@ export default function App() {
       ],
     },
     {
-      id: 3,
+      id: 4,
       name: 'Elevação Lateral com Halteres',
       targetMuscle: 'Deltóide Lateral',
-      cue: 'Plano escapular com cotovelos liderando o vetor de subida.',
+      cue: 'Plano escapular com cotovelos liderando o vetor de subida sem impulso.',
       sets: [
         { setNumber: 1, weightKg: 14.0, reps: 15, completed: false },
         { setNumber: 2, weightKg: 14.0, reps: 12, completed: false },
         { setNumber: 3, weightKg: 16.0, reps: 10, completed: false },
+        { setNumber: 4, weightKg: 16.0, reps: 10, completed: false },
       ],
     },
     {
-      id: 4,
+      id: 5,
+      name: 'Desenvolvimento com Halteres Sentado',
+      targetMuscle: 'Deltóides (Anterior/Lateral)',
+      cue: 'Banco a 80°, empurrar vertical controlando a descida até a orelha.',
+      sets: [
+        { setNumber: 1, weightKg: 24.0, reps: 10, completed: false },
+        { setNumber: 2, weightKg: 26.0, reps: 8, completed: false },
+        { setNumber: 3, weightKg: 28.0, reps: 8, completed: false },
+      ],
+    },
+    {
+      id: 6,
+      name: 'Tríceps Testa com Barra W no Banco Reto',
+      targetMuscle: 'Tríceps (Cabeça Medial e Lateral)',
+      cue: 'Cotovelos fechados paralelos, descida controlada até a linha da testa.',
+      sets: [
+        { setNumber: 1, weightKg: 25.0, reps: 12, completed: false },
+        { setNumber: 2, weightKg: 30.0, reps: 10, completed: false },
+        { setNumber: 3, weightKg: 32.5, reps: 8, completed: false },
+        { setNumber: 4, weightKg: 35.0, reps: 8, completed: false },
+      ],
+    },
+    {
+      id: 7,
       name: 'Tríceps Francês Unilateral com Halter',
       targetMuscle: 'Tríceps (Cabeça Longa)',
       cue: 'Alongamento profundo com tronco reto sem abrir os cotovelos.',
@@ -115,10 +154,21 @@ export default function App() {
       ],
     },
     {
-      id: 5,
+      id: 8,
+      name: 'Tríceps Corda na Polia Alta',
+      targetMuscle: 'Tríceps (Extensão Completa)',
+      cue: 'Abra as pontas da corda no final com 1s de contração isométrica na fase concêntrica.',
+      sets: [
+        { setNumber: 1, weightKg: 25.0, reps: 15, completed: false },
+        { setNumber: 2, weightKg: 30.0, reps: 12, completed: false },
+        { setNumber: 3, weightKg: 35.0, reps: 10, completed: false },
+      ],
+    },
+    {
+      id: 9,
       name: 'Abdominal na Polia Alta Ajoelhado (Cable Crunch)',
       targetMuscle: 'Abdômen Dinâmico',
-      cue: 'Aproxime as costelas da pelve mantendo o quadril travado.',
+      cue: 'Aproxime as costelas da pelve mantendo o quadril travado. Carga progressiva real.',
       sets: [
         { setNumber: 1, weightKg: 35.0, reps: 15, completed: false },
         { setNumber: 2, weightKg: 40.0, reps: 12, completed: false },
@@ -279,10 +329,10 @@ export default function App() {
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_20px_rgba(0,210,255,0.1)]">
               <div>
                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
-                  DIVISÃO ATIVA: ABCD CLÁSSICO
+                  DIVISÃO ATIVA: ABCD CLÁSSICO PESADO (60-75 MIN)
                 </span>
-                <h2 className="text-base font-black text-white">Treino A — Peitorais, Deltóide & Tríceps</h2>
-                <p className="text-[11px] text-slate-400">4 Séries • 5 Exercícios • Cargas Decimais Prontas</p>
+                <h2 className="text-base font-black text-white">Treino A — Peitorais, Deltóide & 3x Tríceps</h2>
+                <p className="text-[11px] text-slate-400">4 Séries • 9 Exercícios de Verdade • Cargas Decimais</p>
               </div>
               <button
                 type="button"
@@ -308,7 +358,7 @@ export default function App() {
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  Sequência da Sessão ({activeWorkoutExercises.length})
+                  Sequência da Sessão ({activeWorkoutExercises.length} Exercícios)
                 </span>
                 <button
                   type="button"
@@ -598,7 +648,7 @@ export default function App() {
               <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">
                 TREINO EM ANDAMENTO (MINIMIZADO)
               </span>
-              <h4 className="text-xs font-black text-white">Treino A — Peitorais, Deltóide & Tríceps</h4>
+              <h4 className="text-xs font-black text-white">Treino A — Peitorais, Deltóide & 3x Tríceps</h4>
             </div>
           </div>
 
@@ -624,8 +674,8 @@ export default function App() {
       {/* ================= MODAIS ================= */}
       {showLiveWorkout && (
         <LiveWorkoutRunnerModal
-          workoutTitle="Treino A — Peitorais, Deltóide & Tríceps"
-          splitName="ABCD CLÁSSICO"
+          workoutTitle="Treino A — Peitorais, Deltóide & 3x Tríceps"
+          splitName="ABCD CLÁSSICO PESADO"
           exercises={activeWorkoutExercises}
           elapsedSeconds={workoutElapsedSeconds}
           onClose={() => setShowLiveWorkout(false)}
@@ -658,7 +708,6 @@ export default function App() {
         <GPSOutdoorModal onClose={() => setShowGPSModal(false)} />
       )}
 
-      {/* Modal de Anamnese com Prop Segura onApplyIntake conectada e navegando para Treino */}
       {showIntakeModal && (
         <ComprehensiveMedicalIntakeModal
           onClose={() => setShowIntakeModal(false)}

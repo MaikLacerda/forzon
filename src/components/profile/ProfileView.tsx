@@ -1,18 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   User,
   Camera,
   CheckCircle2,
   Watch,
   Activity,
-  Flame,
   Radio,
-  RefreshCw,
-  LogOut,
   Bell,
   HardDrive,
   ShieldCheck,
-  ChevronRight,
   UploadCloud,
   Edit2,
   Check
@@ -31,7 +27,16 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 }) => {
   const [userName, setUserName] = useState(initialName || 'Maikon Lacerda');
   const [userHandle, setUserHandle] = useState(initialHandle || '@maiklacerda');
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  
+  // Persistência real em LocalStorage para a foto não sumir ao recarregar a aba ou dar F5
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem('forzon_athlete_avatar') || null;
+    } catch {
+      return null;
+    }
+  });
+
   const [isEditing, setIsEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,12 +50,22 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   const [notificationsActive, setNotificationsActive] = useState(true);
 
+  // Leitura como Base64 permanente: nunca expira no reload
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setAvatarUrl(url);
-      onUpdateProfile(userName, userHandle, url);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Data = reader.result as string;
+        setAvatarUrl(base64Data);
+        try {
+          localStorage.setItem('forzon_athlete_avatar', base64Data);
+        } catch (err) {
+          console.warn('Erro ao salvar avatar no localStorage:', err);
+        }
+        onUpdateProfile(userName, userHandle, base64Data);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -105,7 +120,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         <div className="space-y-1">
           <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
             <UploadCloud className="w-3 h-3 text-[#00d2ff]" />
-            <span>Foto e biometria sincronizadas com Firebase</span>
+            <span>Foto e biometria persistidas localmente & Firebase</span>
           </div>
 
           {isEditing ? (
