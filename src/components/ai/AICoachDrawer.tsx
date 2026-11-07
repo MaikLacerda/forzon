@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { X, Send, Sparkles, Bot } from 'lucide-react';
+
 interface AICoachDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   userName?: string;
 }
 
-export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
-  isOpen,
-  onClose,
-  userName = "Maikon",
-}) => {
-  const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string }>>([
+export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({ isOpen, onClose, userName = 'Maikon' }) => {
+  const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      text: `Olá, ${userName}! Sou o FORZON Coach. Seu biofeedback de hoje está em 88% com VFC ótima. Precisa de algum ajuste em exercício, sugestão de drop-set ou orientação nutricional?`,
+      text: 'Olá, ' + userName + '! Sou o FORZON Coach. Seu biofeedback de hoje está em 88% com VFC ótima. Precisa de algum ajuste em exercício, sugestão de drop-set ou orientação nutricional?',
     },
   ]);
   const [input, setInput] = useState('');
@@ -69,18 +66,18 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
 
         <div className="flex-1 p-4 space-y-3 overflow-y-auto text-xs">
           {messages.map((m, i) => (
-            <div key={i} className={`flex gap-2.5 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div key={i} className={'flex gap-2.5 ' + (m.role === 'user' ? 'justify-end' : 'justify-start')}>
               {m.role === 'assistant' && (
                 <div className="w-6 h-6 rounded-lg bg-cyan-950 border border-cyan-500/30 flex items-center justify-center text-[#00d2ff] shrink-0">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
               )}
               <div
-                className={`max-w-[80%] p-3 rounded-2xl leading-relaxed ${
-                  m.role === 'user'
+                className={'max-w-[80%] p-3 rounded-2xl leading-relaxed ' +
+                  (m.role === 'user'
                     ? 'bg-[#00d2ff] text-slate-950 font-semibold rounded-br-none'
-                    : 'bg-[#0f131c] border border-slate-800 text-slate-200 rounded-bl-none'
-                }`}
+                    : 'bg-[#0f131c] border border-slate-800 text-slate-200 rounded-bl-none')
+                }
               >
                 {m.text}
               </div>

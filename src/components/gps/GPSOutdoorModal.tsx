@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { X, Play, Square, Compass, MapPin } from 'lucide-react';
+
 interface GPSOutdoorProps {
   isOpen: boolean;
   onClose: () => void;
   onFinishRun?: (distKm: number) => void;
 }
 
-export const GPSOutdoorModal: React.FC<GPSOutdoorProps> = ({
-  isOpen,
-  onClose,
-  onFinishRun,
-}) => {
+export const GPSOutdoorModal: React.FC<GPSOutdoorProps> = ({ isOpen, onClose, onFinishRun }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [distanceKm, setDistanceKm] = useState(0);
 
   useEffect(() => {
-    let timer: any = null;
+    let timer = null;
     if (isRunning) {
       timer = setInterval(() => {
         setSeconds((s) => s + 1);
@@ -28,10 +25,10 @@ export const GPSOutdoorModal: React.FC<GPSOutdoorProps> = ({
 
   if (!isOpen) return null;
 
-  const formatTime = (secs: number) => {
+  const formatTime = (secs) => {
     const mins = Math.floor(secs / 60);
     const rem = secs % 60;
-    return `${mins.toString().padStart(2, '0')}:${rem.toString().padStart(2, '0')}`;
+    return mins.toString().padStart(2, '0') + ':' + rem.toString().padStart(2, '0');
   };
 
   const pace = distanceKm > 0 ? (seconds / 60 / distanceKm).toFixed(2) : '5.30';
