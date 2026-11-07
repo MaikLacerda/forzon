@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import {
   Sparkles,
   X,
-  AlertTriangle,
   HeartPulse,
   Pill,
   Clock,
   Dumbbell,
   Utensils,
-  Droplets,
   Target,
   ShieldCheck,
   Check,
@@ -41,7 +39,7 @@ export interface MedicalIntakeData {
 
 interface ComprehensiveMedicalIntakeModalProps {
   onClose: () => void;
-  onApplyIntake: (data: MedicalIntakeData) => void;
+  onApplyIntake?: (data: MedicalIntakeData) => void;
 }
 
 export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntakeModalProps> = ({
@@ -69,14 +67,14 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
 
   // 4. Nutrição, Aversões & Hábitos Gastrointestinais
   const [mealsPerDay, setMealsPerDay] = useState('4 refeições estruturadas');
-  const [forbiddenFoods, setForbiddenFoods] = useState('');
-  const [essentialFoods, setEssentialFoods] = useState('Ovos, aveia, banana, café, pasta de amendoim');
+  const [forbiddenFoods, setForbiddenFoods] = useState('Frutos do mar, lactose, carne vermelha, banana');
+  const [essentialFoods, setEssentialFoods] = useState('Mamão, uva, abacaxi, ovos, aveia, café');
   const [cookingHabit, setCookingHabit] = useState('Cozinha em casa diariamente');
-  const [gutHealth, setGutHealth] = useState('Regular (sem estufamento ou refluxo)');
-  const [alcoholSodaHabit, setAlcoholSodaHabit] = useState('Esporádico / Raro (0 a 1x semana)');
+  const [gutHealth, setGutHealth] = useState('Gases frequentes ou estufamento');
+  const [alcoholSodaHabit, setAlcoholSodaHabit] = useState('Zero consumo / Nunca');
 
   // 5. Metas 90 Dias
-  const [goal90Days, setGoal90Days] = useState('Hipertrofia com foco estético e densidade muscular');
+  const [goal90Days, setGoal90Days] = useState('Ganhar 3kg de massa magra mantendo o abdômen definido');
   const [pastFailures, setPastFailures] = useState('Dietas muito restritivas e treinos com volume excessivo');
   const [absoluteSuccessDefinition, setAbsoluteSuccessDefinition] = useState('Ganhar 3kg de massa magra mantendo o abdômen definido');
 
@@ -107,8 +105,9 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
     }
   };
 
+  // Finalização segura à prova de falhas: nunca trava se a prop for opcional
   const handleFinish = () => {
-    onApplyIntake({
+    const intakePayload: MedicalIntakeData = {
       heightCm,
       weightKg,
       waterLiters,
@@ -129,12 +128,21 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
       goal90Days,
       pastFailures,
       absoluteSuccessDefinition,
-    });
+    };
+
+    try {
+      localStorage.setItem('forzon_intake_data', JSON.stringify(intakePayload));
+    } catch (_) {}
+
+    if (typeof onApplyIntake === 'function') {
+      onApplyIntake(intakePayload);
+    }
+
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 animate-in fade-in">
+    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 animate-in fade-in select-none">
       <div className="bg-[#0a0e17] border border-cyan-500/40 rounded-3xl max-w-md w-full max-h-[92vh] flex flex-col justify-between p-5 space-y-4 shadow-[0_0_35px_rgba(0,210,255,0.2)]">
         
         {/* Cabeçalho */}
@@ -150,7 +158,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
               <h3 className="text-sm font-black text-white">Intake Médico & Nutricional</h3>
             </div>
           </div>
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white">
+          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -235,7 +243,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                         key={diag}
                         type="button"
                         onClick={() => toggleDiagnosis(diag)}
-                        className={`w-full p-2.5 text-left rounded-xl border flex items-center justify-between transition-all ${
+                        className={`w-full p-2.5 text-left rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
                           isSelected
                             ? 'bg-cyan-950/70 border-[#00d2ff] text-[#00d2ff]'
                             : 'bg-[#0f131c] border-slate-800 text-slate-300 hover:border-slate-700'
@@ -292,7 +300,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                       key={hist}
                       type="button"
                       onClick={() => setTrainingHistory(hist)}
-                      className={`p-2.5 text-left rounded-xl border text-[11px] font-semibold transition-all ${
+                      className={`p-2.5 text-left rounded-xl border text-[11px] font-semibold transition-all cursor-pointer ${
                         trainingHistory === hist
                           ? 'bg-cyan-950/70 border-[#00d2ff] text-[#00d2ff]'
                           : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -315,7 +323,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                       key={days}
                       type="button"
                       onClick={() => setSustainableDays(days)}
-                      className={`py-2 rounded-xl text-xs font-bold border transition-all ${
+                      className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                         sustainableDays === days
                           ? 'bg-cyan-950/90 border-[#00d2ff] text-[#00d2ff] shadow-[0_0_10px_rgba(0,210,255,0.2)]'
                           : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -338,7 +346,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                       key={mins}
                       type="button"
                       onClick={() => setExactSessionMinutes(mins)}
-                      className={`py-2 rounded-xl text-xs font-bold border transition-all ${
+                      className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
                         exactSessionMinutes === mins
                           ? 'bg-cyan-950/90 border-[#00d2ff] text-[#00d2ff] shadow-[0_0_10px_rgba(0,210,255,0.2)]'
                           : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -359,7 +367,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                       key={split}
                       type="button"
                       onClick={() => setSplitPreference(split)}
-                      className={`py-2 px-1 text-center rounded-xl text-[11px] font-bold border transition-all ${
+                      className={`py-2 px-1 text-center rounded-xl text-[11px] font-bold border transition-all cursor-pointer ${
                         splitPreference === split
                           ? 'bg-cyan-950/70 border-[#00d2ff] text-[#00d2ff]'
                           : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -405,7 +413,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                         key={muscle}
                         type="button"
                         onClick={() => toggleMuscle(muscle, 'focus')}
-                        className={`p-2 text-left rounded-xl border text-[11px] font-semibold flex items-center justify-between transition-all ${
+                        className={`p-2 text-left rounded-xl border text-[11px] font-semibold flex items-center justify-between transition-all cursor-pointer ${
                           isSel
                             ? 'bg-cyan-950/70 border-[#00d2ff] text-[#00d2ff]'
                             : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -439,7 +447,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                         key={muscle}
                         type="button"
                         onClick={() => toggleMuscle(muscle, 'strong')}
-                        className={`p-2 text-left rounded-xl border text-[11px] font-semibold flex items-center justify-between transition-all ${
+                        className={`p-2 text-left rounded-xl border text-[11px] font-semibold flex items-center justify-between transition-all cursor-pointer ${
                           isSel
                             ? 'bg-emerald-950/50 border-emerald-500/50 text-emerald-300'
                             : 'bg-[#0f131c] border-slate-800 text-slate-400'
@@ -504,7 +512,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                   type="text"
                   value={forbiddenFoods}
                   onChange={(e) => setForbiddenFoods(e.target.value)}
-                  placeholder="Ex: Frutos do mar, lactose, carne vermelha, nenhum..."
+                  placeholder="Ex: Frutos do mar, lactose, carne vermelha, banana..."
                   className="w-full bg-[#0f131c] border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-[#00d2ff] outline-none"
                 />
               </div>
@@ -518,7 +526,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                   type="text"
                   value={essentialFoods}
                   onChange={(e) => setEssentialFoods(e.target.value)}
-                  placeholder="Ex: Ovos mexidos, café com leite, banana, chocolate 70%..."
+                  placeholder="Ex: Mamão, uva, abacaxi, ovos, aveia, café..."
                   className="w-full bg-[#0f131c] border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-[#00d2ff] outline-none"
                 />
               </div>
@@ -532,8 +540,8 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                     onChange={(e) => setGutHealth(e.target.value)}
                     className="w-full py-2 px-2 rounded-xl bg-[#0f131c] border border-slate-800 text-xs font-semibold text-white focus:border-[#00d2ff] outline-none"
                   >
-                    <option>Regular (sem estufamento ou refluxo)</option>
                     <option>Gases frequentes ou estufamento</option>
+                    <option>Regular (sem estufamento ou refluxo)</option>
                     <option>Refluxo ocasional</option>
                     <option>Intestino preso / irregular</option>
                   </select>
@@ -562,8 +570,11 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
                 <textarea
                   rows={2}
                   value={absoluteSuccessDefinition}
-                  onChange={(e) => setAbsoluteSuccessDefinition(e.target.value)}
-                  placeholder="Ex: Ganhar 3kg de massa muscular mantendo o percentual de gordura baixo e bater 100kg no supino."
+                  onChange={(e) => {
+                    setAbsoluteSuccessDefinition(e.target.value);
+                    setGoal90Days(e.target.value);
+                  }}
+                  placeholder="Ex: Ganhar 3kg de massa magra mantendo o abdômen definido."
                   className="w-full bg-[#0f131c] border border-slate-800 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:border-[#00d2ff] outline-none leading-relaxed resize-none"
                 />
               </div>
@@ -578,7 +589,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
             <button
               type="button"
               onClick={() => setActiveStep((prev) => (prev - 1) as any)}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 flex items-center gap-1 hover:text-white"
+              className="px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 flex items-center gap-1 hover:text-white cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" /> Voltar
             </button>
@@ -590,7 +601,7 @@ export const ComprehensiveMedicalIntakeModal: React.FC<ComprehensiveMedicalIntak
             <button
               type="button"
               onClick={() => setActiveStep((prev) => (prev + 1) as any)}
-              className="px-4 py-2.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-xs font-black text-[#00d2ff] flex items-center gap-1 hover:bg-cyan-900 shadow-[0_0_12px_rgba(0,210,255,0.2)]"
+              className="px-4 py-2.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-xs font-black text-[#00d2ff] flex items-center gap-1 hover:bg-cyan-900 shadow-[0_0_12px_rgba(0,210,255,0.2)] cursor-pointer"
             >
               Avançar <ChevronRight className="w-4 h-4" />
             </button>

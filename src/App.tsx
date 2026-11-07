@@ -67,7 +67,7 @@ export default function App() {
   };
 
   // Exercícios da Sessão de Treino Ativa (com suporte a decimais float)
-  const [activeWorkoutExercises] = useState<WorkoutExerciseItem[]>([
+  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>([
     {
       id: 1,
       name: 'Supino Inclinado com Halteres',
@@ -496,7 +496,6 @@ export default function App() {
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2.5">
-                      {/* Caixa de Seleção / Checkbox */}
                       <button
                         type="button"
                         onClick={() => toggleMealCompleted(meal.id)}
@@ -659,8 +658,16 @@ export default function App() {
         <GPSOutdoorModal onClose={() => setShowGPSModal(false)} />
       )}
 
+      {/* Modal de Anamnese com Prop Segura onApplyIntake conectada e navegando para Treino */}
       {showIntakeModal && (
-        <ComprehensiveMedicalIntakeModal onClose={() => setShowIntakeModal(false)} />
+        <ComprehensiveMedicalIntakeModal
+          onClose={() => setShowIntakeModal(false)}
+          onApplyIntake={(data) => {
+            console.log('Anamnese aplicada com sucesso no App:', data);
+            setShowIntakeModal(false);
+            setActiveTab('workout');
+          }}
+        />
       )}
 
       {showScannerModal && (
@@ -689,7 +696,6 @@ export default function App() {
       <BottomNavigation
         activeTab={activeTab}
         onTabChange={(tab) => {
-          // Fecha qualquer janela/modal aberta imediatamente ao mudar de aba
           setShowExerciseLibrary(false);
           setShowCreateChallenge(false);
           setShowGPSModal(false);
@@ -698,7 +704,6 @@ export default function App() {
           setShowSwapModal(false);
           setShowGroceryList(false);
           
-          // Se o treino ao vivo estiver ativo, minimiza para a barra flutuante sem perder os dados
           if (showLiveWorkout) {
             setShowLiveWorkout(false);
             setIsWorkoutMinimized(true);
