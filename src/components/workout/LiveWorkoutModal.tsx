@@ -145,6 +145,37 @@ export const LiveWorkoutModal: React.FC<LiveWorkoutModalProps> = ({
               </div>
             </div>
 
+            <div className="w-full h-52 rounded-2xl bg-[#07090e] border border-cyan-500/40 overflow-hidden relative flex items-center justify-center shadow-inner">
+              {!videoError ? (
+                <video
+                  src="/assets/exercise-videos/bench-press.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  onError={() => setVideoError(true)}
+                  className="w-full h-full object-cover"
+                />
+             ) : (
+              <div className="text-center p-4 space-y-2">
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_15px_rgba(0,210,255,0.2)]">
+                  <Sparkles className="w-6 h-6 animate-pulse" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#00d2ff] font-bold uppercase block">
+                  Guia Biomecânico em Loop
+                </span>
+                <h4 className="text-xs font-bold text-white mt-0.5">{currentExercise.name}</h4>
+                <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                  Grupamento ativo: <strong className="text-[#00d2ff]">{currentExercise.targetMuscle}</strong>
+                </p>
+                <p className="text-[10px] text-slate-400 mt-0.5">{currentExercise.cue}</p>
+              </div>
+              </div>
+              )}
+            </div>
+
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
               <span className="text-[10px] font-semibold text-slate-400">Repetições Alvo</span>
               <div className="flex items-center justify-between mt-1.5">

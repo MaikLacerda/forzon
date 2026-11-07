@@ -19,6 +19,28 @@ import {
   Plus
 } from 'lucide-react';
 
+
+import { ProfileView } from './components/profile/ProfileView';
+Na renderização da aba community, use:
+{activeTab === 'community' && (
+  <CommunityFeedView
+    userName={userName || 'Maikon Lacerda'}
+    userHandle={userHandle || '@maiklacerda'}
+    onCreateChallengeClick={() => setShowCreateChallenge(true)}
+  />
+)}
+Na renderização da aba profile, use:
+{activeTab === 'profile' && (
+  <ProfileView
+    userName={userName}
+    userHandle={userHandle}
+    onUpdateProfile={(name, handle, _avatar) => {
+      setUserName(name);
+      setUserHandle(handle);
+    }}
+  />
+)}
+
 // Componentes de Layout Persistente
 import { Header } from './components/layout/Header';
 import { BottomNavigation } from './components/layout/BottomNavigation';
