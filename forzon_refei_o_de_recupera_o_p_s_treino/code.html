@@ -1,0 +1,417 @@
+<!DOCTYPE html><html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#31353f", "error": "#ffb4ab", "on-primary-fixed-variant": "#004e60", "on-primary-container": "#00566a", "on-surface-variant": "#bbc9cf", "surface-container-lowest": "#0a0e17", "outline-variant": "#3c494e", "on-error": "#690005", "tertiary": "#beee00", "surface-container": "#1c1f29", "secondary-container": "#0053db", "surface": "#0f131c", "on-tertiary-container": "#435500", "surface-container-low": "#181b25", "tertiary-container": "#a6d000", "on-primary-fixed": "#001f28", "on-surface": "#dfe2ef", "on-secondary-fixed": "#00174b", "primary-container": "#00d2ff", "secondary-fixed-dim": "#b4c5ff", "on-secondary-fixed-variant": "#003ea8", "primary-fixed-dim": "#47d6ff", "surface-container-high": "#262a34", "on-primary": "#003543", "surface-bright": "#353943", "error-container": "#93000a", "tertiary-fixed": "#c3f400", "primary-fixed": "#b6ebff", "surface-tint": "#47d6ff", "outline": "#859399", "on-tertiary": "#283500", "background": "#0f131c", "secondary-fixed": "#dbe1ff", "tertiary-fixed-dim": "#abd600", "primary": "#a5e7ff", "inverse-on-surface": "#2c303a", "on-background": "#dfe2ef", "surface-dim": "#0f131c", "inverse-surface": "#dfe2ef", "on-tertiary-fixed": "#161e00", "inverse-primary": "#00677f", "on-tertiary-fixed-variant": "#3c4d00", "surface-variant": "#31353f", "on-secondary": "#002a78", "on-secondary-container": "#cdd7ff", "on-error-container": "#ffdad6", "secondary": "#b4c5ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "2.5rem", "margin": "1rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "gutter-desktop": "2rem", "margin-desktop": "3rem", "gutter": "1rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "1rem" }, fontFamily: { "display-hero": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"] }, fontSize: { "display-hero": ["48px", { "lineHeight": "54px", "fontWeight": "800" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-hero-mobile": ["36px", { "lineHeight": "42px", "fontWeight": "800" }], "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "18px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Fechar modal" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button><div class="flex flex-col"><h1 class="font-headline-sm text-headline-sm tracking-tight text-on-surface font-bold leading-none">Recuperação Pós Treino</h1><div class="flex items-center gap-space-xs mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Firestore Sync</span></div></div></div><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface-container-lowest min-h-screen"><div class="flex flex-col w-full pb-safe">
+<!-- Interactive Modal Bottom-Sheet Container -->
+<div class="flex flex-col w-full bg-surface-container-low rounded-t-3xl shadow-2xl relative px-margin pt-space-sm pb-space-xl">
+<!-- Top Drag Handle & Dismiss -->
+<div class="flex items-center justify-between w-full pt-1 pb-space-sm">
+<div class="w-10"></div>
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest cursor-grab active:cursor-grabbing"></div>
+<button aria-label="Fechar tela" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Sheet Header -->
+<div class="flex flex-col gap-space-xs mt-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-bold">FORZON Bio-Engine v4.2</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">Refeição Pós-Treino IA</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Calibrada milimetricamente pelo volume fisiológico da sessão.</p>
+<!-- Workout Context Status Pills -->
+<div class="flex flex-wrap items-center gap-space-xs mt-space-xs">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">SESSÃO: 8.420 kg LEVANTADOS</span>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary">bolt</span>
+<span class="font-label-sm text-label-sm">Peito &amp; Tríceps (Alta Depleção)</span>
+</div>
+</div>
+</div>
+<!-- Telemetry Metric Strip -->
+<div class="grid grid-cols-3 gap-space-xs mt-space-md">
+<!-- Volume Card -->
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container justify-between shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Volume Total</span>
+<span class="material-symbols-outlined text-[16px] text-primary">fitness_center</span>
+</div>
+<div class="mt-2">
+<p class="font-headline-sm text-headline-sm font-extrabold text-on-surface tracking-tight">8.420 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">kg</span></p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-1.5 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 86%;"></div>
+</div>
+</div>
+</div>
+<!-- Burn Card -->
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container justify-between shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Gasto Estimado</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">local_fire_department</span>
+</div>
+<div class="mt-2">
+<p class="font-headline-sm text-headline-sm font-extrabold text-tertiary tracking-tight">580 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">kcal</span></p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate mt-0.5">+20m Stairmaster</p>
+</div>
+</div>
+<!-- Anabolic Window Card -->
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Janela Ótima</span>
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">timer</span>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<div>
+<p class="font-headline-sm text-headline-sm font-extrabold text-on-surface tracking-tight" id="countdown-timer">33:54</p>
+<p class="font-label-sm text-label-sm text-primary font-semibold">remanescentes</p>
+</div>
+<div class="w-6 h-6 flex items-center justify-center">
+<svg class="w-6 h-6 -rotate-90" viewBox="0 0 36 36">
+<path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4"></path>
+<path class="text-primary-container stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="72, 100" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Biochemical Rationale Card -->
+<div class="flex flex-col p-space-md rounded-2xl bg-surface-container mt-space-md shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">psychology</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Racional Bioquímico da IA</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold tracking-wide">Ratio 1.8:1 CHO:PTN</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Com <strong class="text-on-surface">8.420 kg levantados</strong> sob tensão mecânica severa (RPE 8.5), identificou-se depleção aguda de glicogênio miofibrilar e microtraumas em peitoral e tríceps. A recomendação dispara a síntese proteica (<strong class="text-tertiary">via mTOR</strong>) garantindo <strong class="text-on-surface">≥3.8g de Leucina livre</strong> associados a carboidratos de rápida e média taxa de absorção para reposição celular acelerada.
+      </p>
+</div>
+<!-- Meal Type Selector Tabs -->
+<div class="flex items-center p-1 rounded-xl bg-surface-container mt-space-md">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all" id="tab-sweet" onclick="switchMealTab('sweet')" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">icecream</span>
+<span class="">Açaí Turbo Anabólico</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 hover:text-on-surface transition-all" id="tab-savory" onclick="switchMealTab('savory')" type="button">
+<span class="material-symbols-outlined text-[18px]">egg</span>
+<span class="">Omelete com Mandioca</span>
+</button>
+</div>
+<!-- OPTION A: Sweet Meal View (Açaí Turbo) -->
+<div class="flex flex-col gap-space-md mt-space-md" id="meal-content-sweet">
+<!-- Dish Hero Card -->
+<div class="flex flex-col rounded-3xl bg-surface-container overflow-hidden shadow-lg">
+<div class="relative w-full h-44 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up gourmet presentation of a thick dark purple Brazilian acai recovery bowl topped with neatly sliced yellow bananas, a scoop of vanilla whey protein powder, scattered crushed Brazil nuts and golden wild honey swirl in dark athletic aesthetic lighting with high contrast neon cyan accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4TrqOOVsVpy39izaPb_4Mv3ciKeaIxiq5rFv-Y428nGNcudMt_fO44OnaFzA6BsekM6pvCYViDUtVY3-6f0j10oxbZANW9rBLz9syAhllevHKfVlHOQNOo-Q1-z_CRyhKk4WCnU10ChxEj63nQ_K6olAOgLopEKNZNV8cN0vl4ZTCBD_YnXWGc7r731mIfYLI6BJ5F_oN_X7mSWROLuG69EZlxBIs5Kfb5ZiPD3lI">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/30 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+<span class="font-label-sm text-label-sm font-bold">5 a 8 min de preparo</span>
+</div>
+<div class="absolute bottom-3 left-4 right-4">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Refeição Principal Sugerida</span>
+<h3 class="font-headline-md text-headline-md font-extrabold text-on-surface leading-tight">Bowl de Açaí Turbo com Whey Isolado &amp; Banana Prata</h3>
+</div>
+</div>
+<!-- Macros Breakdown Grid -->
+<div class="grid grid-cols-4 gap-2 p-4 bg-surface-container-high rounded-2xl mx-3 my-3">
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Energia</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">580</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">kcal</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold">Proteína</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary mt-0.5">42g</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">3.8g Leuc.</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Carboidrato</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">74g</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Glicogênio</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Lipídios</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">12g</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Omegas</span>
+</div>
+</div>
+</div>
+<!-- Ingredient List with Precise Weigh-ins -->
+<div class="flex flex-col p-4 rounded-2xl bg-surface-container shadow-sm">
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">scale</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Ingredientes Balanceados</h4>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 itens</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">water_bottle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Whey Protein Isolado / 100%</span>
+<span class="font-body-sm text-body-sm text-primary">32g proteína pura • alta absorção</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">40g</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">1.5 scoop</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-[20px]">nutrition</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Polpa de Açaí Puro (zero xarope)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Antioxidantes e eletrólitos</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">200g</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">2 pacotes</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">energy_savings_leaf</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Banana Prata Fatiada</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">48g carboidratos de rápida reposição</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">2 un</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">médias (~140g)</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[20px]">hive</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Mel Silvestre Puro</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pico insulínico e transporte de creatina</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">20g</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">1 colher sopa</span>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">grain</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Castanha-do-Pará Triturada</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Selênio e modulação de estresse oxidativo</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">10g</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">2 unidades</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Preparation Instructions -->
+<div class="flex flex-col p-4 rounded-2xl bg-surface-container shadow-sm">
+<div class="flex items-center gap-space-xs pb-3">
+<span class="material-symbols-outlined text-[20px] text-tertiary">restaurant</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Modo de Preparo Flash</h4>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">1</span>
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Bata a base:</strong> No liquidificador ou mixer, bata as 200g de polpa de açaí com 40g de Whey e apenas 50ml de água até virar um creme denso.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">2</span>
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Monte a cobertura:</strong> Despeje na tigela, cubra com as bananas fatiadas e o mel silvestre em espiral.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">3</span>
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Finalize e consuma:</strong> Salpique as castanhas-do-pará trituradas. Consuma dentro da janela de 45 minutos para máxima perfusão muscular.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- OPTION B: Savory Meal View (Omelete & Mandioca) - Hidden by default -->
+<div class="hidden flex flex-col gap-space-md mt-space-md" id="meal-content-savory">
+<div class="flex flex-col rounded-3xl bg-surface-container overflow-hidden shadow-lg">
+<div class="relative w-full h-44 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Plated golden fluffy Brazilian omelette alongside steamed soft cassava yucca with chopped chives and white minas cheese in dark moody sports nutrition setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu41SQizBlAPocyKzutomY3rBEug7S_ta59vseQ_VA4FewbR44NK50GMAI-PE4qIb9y-dh0ySez_VsY9g4N-bK2UwqbcPFpwGcIDDC6AIRiwjQlMYg9tix8gepqtTV9z-NfxLNZN6hQ-2v7VkNalCIwcIVED5HbP-FGSkG9QIJYHpdT14eGe_4tCAi-jA0Z4csp2kBQNIkjFhK-izIMqSjEmW82wX20b7yj8Q-WWNO">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/30 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+<span class="font-label-sm text-label-sm font-bold">10 min de preparo</span>
+</div>
+<div class="absolute bottom-3 left-4 right-4">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Alternativa Salgada</span>
+<h3 class="font-headline-md text-headline-md font-extrabold text-on-surface leading-tight">Omelete Funcional com Mandioca Cozida e Queijo Minas</h3>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-2 p-4 bg-surface-container-high rounded-2xl mx-3 my-3">
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Energia</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">510</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">kcal</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold">Proteína</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary mt-0.5">38g</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">3.2g Leuc.</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Carboidrato</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">62g</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Amido lento</span>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Lipídios</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface mt-0.5">14g</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fosfolipídios</span>
+</div>
+</div>
+</div>
+<!-- Savory Ingredients -->
+<div class="flex flex-col p-4 rounded-2xl bg-surface-container shadow-sm">
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface pb-3">Ingredientes Salgados</h4>
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Ovos Caipiras (3 inteiros + 2 claras)</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">28g prot</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Mandioca Cozida no Vapor</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">180g</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Queijo Minas Frescal Padrão</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">40g</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-high">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Azeite de Oliva Extra Virgem</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">1 colher chá</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Physiological Micro-tip Banner -->
+<div class="flex items-center gap-space-sm p-3 rounded-2xl bg-primary/10 mt-space-md">
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary">Hidratação Eletrolítica Concomitante</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ingira ao menos 600ml de água com uma pitada de sal marinho nos próximos 30 minutos.</span>
+</div>
+</div>
+<!-- Bottom Fixed / Floating Action Deck -->
+<div class="flex flex-col p-4 rounded-2xl bg-surface-container mt-space-md shadow-md gap-3"><div class="flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[20px] text-primary-container">share</span><h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Compartilhamento &amp; Conexões Ativas</h4></div><span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">Live Sync</span></div><div class="flex flex-col gap-2"><button type="button" class="flex items-center justify-between p-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors text-left"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed-dim"><span class="material-symbols-outlined text-[20px]">photo_camera</span></div><div class="flex flex-col"><span class="font-label-lg text-label-lg text-on-surface font-semibold">Instagram Stories</span><span class="font-body-sm text-body-sm text-on-surface-variant">Compartilhar card biométrico</span></div></div><span class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">Card 9:16 Neon</span></button><div class="grid grid-cols-2 gap-2"><button type="button" class="flex items-center gap-2.5 p-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary shrink-0"><span class="material-symbols-outlined text-[18px]">chat</span></div><div class="flex flex-col text-left truncate"><span class="font-label-md text-label-md text-on-surface font-semibold truncate">WhatsApp</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Enviar Resumo</span></div></button><button type="button" class="flex items-center gap-2.5 p-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors"><div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-[18px]">directions_run</span></div><div class="flex flex-col text-left truncate"><span class="font-label-md text-label-md text-on-surface font-semibold truncate">Strava</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">GPS/Wearable</span></div></button></div></div><div class="pt-2 border-t border-outline-variant/30 flex flex-col gap-1.5"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Conexões de Telemetria no Treino</span><div class="grid grid-cols-2 gap-2 mt-1"><div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low"><span class="material-symbols-outlined text-[18px] text-tertiary">watch</span><div class="flex flex-col"><span class="font-label-sm text-label-sm font-bold text-on-surface">Apple Watch / Wear OS</span><span class="font-label-sm text-label-sm text-tertiary">72-158 bpm monitorados</span></div></div><div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low"><span class="material-symbols-outlined text-[18px] text-primary">sync_alt</span><div class="flex flex-col"><span class="font-label-sm text-label-sm font-bold text-on-surface">Hevy Sync</span><span class="font-label-sm text-label-sm text-primary">12 séries mapeadas</span></div></div></div></div></div><div class="flex flex-col gap-space-xs mt-space-lg">
+<button class="w-full py-4 px-6 rounded-2xl bg-primary-container text-on-primary-container font-headline-sm text-headline-sm font-extrabold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(0,210,255,0.4)] hover:brightness-110 active:scale-[0.99] transition-all" id="btn-log-meal" onclick="handleLogMeal()" type="button">
+<span class="material-symbols-outlined text-[24px]">add_task</span>
+<span id="btn-log-text" class="">Registrar Refeição no Diário (+580 kcal)</span>
+</button>
+<button class="w-full py-3.5 px-6 rounded-2xl bg-surface-container hover:bg-surface-container-highest text-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.99]" id="btn-regenerate" onclick="handleRegeneratePrompt()" type="button">
+<span class="material-symbols-outlined text-[20px]">autorenew</span>
+<span class="">Pedir outra opção para o Coach IA</span>
+</button>
+<!-- Sync Status Indicator -->
+<div class="flex items-center justify-center gap-1.5 py-1">
+<span class="material-symbols-outlined text-tertiary text-[16px]">cloud_done</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Vinculado ao plano calórico diário no Firestore</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let activeTab = 'sweet';
+
+  function switchMealTab(tab) {
+    activeTab = tab;
+    const tabSweet = document.getElementById('tab-sweet');
+    const tabSavory = document.getElementById('tab-savory');
+    const contentSweet = document.getElementById('meal-content-sweet');
+    const contentSavory = document.getElementById('meal-content-savory');
+    const btnLogText = document.getElementById('btn-log-text');
+
+    if (tab === 'sweet') {
+      tabSweet.className = "flex-1 py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all";
+      tabSavory.className = "flex-1 py-2 px-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 hover:text-on-surface transition-all";
+      contentSweet.classList.remove('hidden');
+      contentSavory.classList.add('hidden');
+      btnLogText.innerText = "Registrar Refeição no Diário (+580 kcal)";
+    } else {
+      tabSavory.className = "flex-1 py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all";
+      tabSweet.className = "flex-1 py-2 px-3 rounded-lg text-on-surface-variant font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 hover:text-on-surface transition-all";
+      contentSavory.classList.remove('hidden');
+      contentSweet.classList.add('hidden');
+      btnLogText.innerText = "Registrar Refeição no Diário (+510 kcal)";
+    }
+  }
+
+  function handleLogMeal() {
+    const btn = document.getElementById('btn-log-meal');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[24px] animate-spin">progress_activity</span> Gravando no Firestore...`;
+    btn.classList.add('opacity-80');
+
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[24px]">check_circle</span> Refeição Computada com Sucesso!`;
+      btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+      btn.classList.add('bg-tertiary', 'text-on-tertiary');
+
+      setTimeout(() => {
+        history.back();
+      }, 900);
+    }, 800);
+  }
+
+  function handleRegeneratePrompt() {
+    const regenBtn = document.getElementById('btn-regenerate');
+    regenBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Re-calibrando via GPT-4o Recovery Engine...`;
+    setTimeout(() => {
+      regenBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check</span> Novas proporções bioidênticas calculadas!`;
+      setTimeout(() => {
+        regenBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">autorenew</span> Pedir outra opção para o Coach IA`;
+      }, 1500);
+    }, 1000);
+  }
+
+  // Realtime Countdown Simulator (40 min window)
+  let minutes = 39;
+  let seconds = 48;
+  const countdownEl = document.getElementById('countdown-timer');
+  setInterval(() => {
+    if (seconds > 0) {
+      seconds--;
+    } else {
+      if (minutes > 0) {
+        minutes--;
+        seconds = 59;
+      }
+    }
+    if (countdownEl) {
+      countdownEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+  }, 1000);
+</script></main>
+
+</body></html>

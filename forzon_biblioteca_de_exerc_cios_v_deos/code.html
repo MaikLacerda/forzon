@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed-variant": "#003ea8", "surface-dim": "#0f131c", "on-background": "#dfe2ef", "outline": "#859399", "primary-fixed": "#b6ebff", "surface-tint": "#47d6ff", "tertiary-fixed": "#c3f400", "tertiary": "#beee00", "surface": "#0f131c", "on-error": "#690005", "on-surface-variant": "#bbc9cf", "error-container": "#93000a", "error": "#ffb4ab", "on-secondary": "#002a78", "on-primary-fixed": "#001f28", "on-secondary-fixed": "#00174b", "inverse-on-surface": "#2c303a", "on-primary": "#003543", "surface-container-low": "#181b25", "secondary-fixed": "#dbe1ff", "on-tertiary": "#283500", "inverse-surface": "#dfe2ef", "primary-fixed-dim": "#47d6ff", "surface-container": "#1c1f29", "inverse-primary": "#00677f", "on-primary-container": "#00566a", "outline-variant": "#3c494e", "on-tertiary-fixed-variant": "#3c4d00", "on-error-container": "#ffdad6", "secondary": "#b4c5ff", "surface-container-lowest": "#0a0e17", "on-primary-fixed-variant": "#004e60", "surface-container-highest": "#31353f", "surface-container-high": "#262a34", "on-tertiary-container": "#435500", "secondary-fixed-dim": "#b4c5ff", "surface-bright": "#353943", "secondary-container": "#0053db", "primary": "#a5e7ff", "tertiary-fixed-dim": "#abd600", "tertiary-container": "#a6d000", "primary-container": "#00d2ff", "background": "#0f131c", "on-surface": "#dfe2ef", "on-secondary-container": "#cdd7ff", "on-tertiary-fixed": "#161e00", "surface-variant": "#31353f" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin-tablet": "2rem", "gutter": "1rem", "margin": "1rem", "space-xl": "2.5rem", "space-md": "1rem" }, fontFamily: { "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"] }, fontSize: { "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "32px", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "600" }], "label-sm": ["10px", { lineHeight: "14px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "display-hero": ["48px", { lineHeight: "54px", fontWeight: "800" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "18px", fontWeight: "600" }], "display-hero-mobile": ["36px", { lineHeight: "42px", fontWeight: "800" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="flex items-center tracking-wider"><span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tighter">FOR</span><span class="font-headline-md text-headline-md font-extrabold text-primary-container tracking-tighter drop-shadow-[0_0_8px_rgba(0,210,255,0.6)]">Z</span><span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tighter">ON</span></div><div class="flex items-center gap-1 bg-surface-container-low px-2 py-0.5 rounded-full ml-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SYNC</span></div></div><div class="flex items-center gap-space-sm"><div class="h-9 px-2.5 rounded-full bg-surface-container-low flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">OFFLINE</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface"><div class="flex flex-col w-full pb-8">
+<div class="px-margin pt-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">video_library</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Biblioteca Técnica</h1>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-high px-2.5 py-1 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Blender 3D CC0</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Guias anatômicos tridimensionais com análise vetorial biomecânica.</p>
+</div>
+<div class="px-margin pt-space-md flex flex-col gap-space-sm">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-surface-container-high text-on-surface font-body-md text-body-md pl-11 pr-10 py-3 rounded-xl placeholder:text-outline focus:outline-none focus:bg-surface-container-highest shadow-inner" placeholder="Buscar exercício, articulação ou músculo..." type="text"/>
+<button class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-xl">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded bg-primary-container flex items-center justify-center text-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-medium">Somente com vídeo 3D</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-highest text-primary-container px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">smart_display</span>
+<span class="font-label-sm text-label-sm">104 ATIVOS</span>
+</div>
+</div>
+</div>
+<div class="pt-space-md">
+<div class="flex gap-2 overflow-x-auto px-margin no-scrollbar pb-1">
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Peito</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Costas</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Pernas</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Ombros</span>
+</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md font-bold shadow-[0_0_12px_rgba(0,210,255,0.35)] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-container-lowest"></span>
+<span>Bíceps</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Tríceps</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span>Abdômen Dinâmico</span>
+</button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5 hover:text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-tertiary">bolt</span>
+<span>Cardio &amp; Hyrox</span>
+</button>
+</div>
+</div>
+<div class="px-margin pt-space-md">
+<div class="bg-surface-container-low rounded-2xl overflow-hidden shadow-xl flex flex-col">
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Dark aesthetic 3D anatomical render of a male athlete performing an Olympic straight bar bicep curl. High-precision cybernetic muscular anatomy illustration with glowing crimson red bicep peak highlight, electric cyan joint vector alignment guidelines, dark studio background with subtle cyan ambient backlight, cinematic biomechanical simulation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWFB4fXuqlkn_m4jpeVDX0l5wCpU9E2UWChhMEWkQtZz64CbDimo8iIhnDeFQevwCWL1Vy1Umpp4kbh_4QWd_bmNHEby9cyXj2NW5P7FrfQb55hI4f23WTbtISv4t74Wyi1oiv2pPvRbyHeGAVsa9QV5ryY9CnLoOYVPRQ_AKv8orfPon9u2WR8M9277ZugPKFi6nlbrwtumzvfXzBTWnaN0r_ZwMnXhDDX9q2bWuN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-black/60 pointer-events-none"></div>
+<div class="absolute top-3 left-3 flex items-center gap-2">
+<span class="bg-surface-container-highest/90 backdrop-blur-md text-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded-full uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-error">adjust</span>
+<span>Target: Bíceps</span>
+</span>
+<span class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface-variant font-label-sm text-label-sm px-2 py-1 rounded-full">
+            LOOP ATIVO
+          </span>
+</div>
+<div class="absolute top-3 right-3 flex items-center gap-1.5">
+<button class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-lg transition-colors hover:text-primary-container" id="btn-speed-half">
+            0.5x
+          </button>
+<button class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded-lg font-bold" id="btn-speed-normal">
+            1.0x
+          </button>
+<button class="bg-surface-container-highest/80 backdrop-blur-md text-on-surface-variant w-7 h-7 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">view_in_ar</span>
+</button>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg" id="play-toggle">
+<span class="material-symbols-outlined text-[20px]">pause</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Rosca Direta Barra Reta</span>
+<span class="font-body-sm text-[11px] text-primary-container">00:03 / 00:06 (Loop)</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-full bg-surface-container-highest/70 text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-highest/70 text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-surface-container-highest">
+<div class="h-full bg-primary-container w-1/2"></div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-sm">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Rosca Direta com Barra Reta</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Sobrecarga máxima na fase excêntrica com estabilização escapular rígida.</p>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-container-high text-on-surface flex items-center justify-center hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[22px]">bookmark_border</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container p-2.5 rounded-xl flex items-start gap-2">
+<span class="material-symbols-outlined text-error text-[20px] mt-0.5">flare</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Músculo Alvo</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Bíceps Braquial</span>
+<span class="font-body-sm text-[10px] text-error font-medium">(Cabeça Longa &amp; Curta)</span>
+</div>
+</div>
+<div class="bg-surface-container p-2.5 rounded-xl flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">hub</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sinergistas</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Braquiorradial</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant">Deltóide Anterior</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-3 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Equipamento Padrão</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Barra Reta Olímpica (20kg)</span>
+</div>
+</div>
+<span class="bg-surface-container-highest font-label-sm text-label-sm text-secondary-fixed-dim px-2 py-0.5 rounded">Grip Supinado</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">engineering</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Diretrizes de Execução Técnica</span>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-start gap-2 bg-surface-container/60 p-2.5 rounded-xl">
+<span class="material-symbols-outlined text-[18px] text-primary-container flex-shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Pegada alinhada à largura dos ombros com punhos travados em leve extensão.</p>
+</div>
+<div class="flex items-start gap-2 bg-surface-container/60 p-2.5 rounded-xl">
+<span class="material-symbols-outlined text-[18px] text-primary-container flex-shrink-0 mt-0.5">lock</span>
+<p class="font-body-sm text-body-sm text-on-surface">Cotovelos colados às costelas durante 100% da trajetória; sem projeção anterior.</p>
+</div>
+</div>
+</div>
+<div class="bg-error-container/20 p-3 rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center gap-1.5 text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider">Erros Críticos a Evitar</span>
+</div>
+<div class="flex flex-col gap-1 text-on-surface-variant font-body-sm text-[13px]">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span><strong>Balanço lombar:</strong> Não use hiperextensão da coluna para iniciar o impulso.</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span><strong>Cotovelos adiantados:</strong> Não transfira a tensão para os deltóides frontais no topo.</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3.5 px-4 bg-primary-container hover:bg-primary-fixed-dim text-on-primary-container font-label-lg text-label-lg font-bold rounded-xl flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(0,210,255,0.3)] transition-all active:scale-[0.99]">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+<span>Adicionar à Sessão Atual</span>
+</button>
+</div>
+</div>
+</div>
+<div class="px-margin pt-space-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Outros Exercícios de Bíceps</h3>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">14 Variações</span>
+</div>
+<button class="text-primary-container font-label-md text-label-md font-semibold">Ver Todos</button>
+</div>
+<div class="flex flex-col gap-2.5">
+<div class="bg-surface-container-low p-2.5 rounded-2xl flex items-center gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="High tech 3D rendering of an athlete performing incline dumbbell curls on an adjustable bench. Dark athletic mode styling with bright red bicep elongation highlight and cyan biomechanical joint angles, clean blender viewport style render." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC83hOKFhc2iZsDvkRvWfA84OC72usQSkgxSG8JOL4WLCUeLeFRCJ8MP6kysIwq8QhqW8fuzO6TgfQyun6ADGEHIpp_3_mf0IfclSQ_pwUNprTJK3Va1kYb1B8G3S1rdhb5IXyzWofdVbPn7CiId1X1xSEBlWco4G44gyQIT1YasXjdhNOzW7b0pLEYu6qxVelZQAXOKOs8mWTZUyV2WtRBiGtEnBFtdBT5Axna8lf2"/>
+<span class="absolute bottom-1 right-1 bg-surface-container-lowest/90 text-on-surface font-label-sm text-[9px] px-1.5 py-0.5 rounded">4s</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5">
+<span class="bg-surface-container-highest text-secondary-fixed-dim font-label-sm text-[10px] px-1.5 py-0.2 rounded">Halteres</span>
+<span class="text-on-surface-variant font-label-sm text-[10px]">• Banco 45°</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Rosca Inclinada com Halteres</h4>
+<span class="font-body-sm text-[11px] text-outline truncate">Ênfase em cabeça longa estirada</span>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-container-high text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors" title="Adicionar ao Treino">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-2xl flex items-center gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="3D computer graphics simulation of athlete performing preacher curls on a Scott bench with EZ-bar. Dark backdrop, precise crimson red highlight on lower bicep brachii insertion, electric cyan vectors depicting lever mechanical force." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHVaeAMwDUaNNkMchVMUus1EOxqXMR3u6fgJSR-zqfqRT4RblHWFStsM5glCpH26CO1sShSVuMh5bzy8utTr40B-wlhzMC8SW3QvlS-HqAR3GLN1jQWOq-5Pwp5lh1hFaYqne4-mEO-0zMeKJ-pUFb7dZ0b_XOAimIIWDSF39dEotaLsGMglFjx28O6Bu0OvHyEENn3fbCcEi7PkeEmzkZinBf2tuCH4FmSUqKzZ-p"/>
+<span class="absolute bottom-1 right-1 bg-surface-container-lowest/90 text-on-surface font-label-sm text-[9px] px-1.5 py-0.5 rounded">6s</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5">
+<span class="bg-surface-container-highest text-secondary-fixed-dim font-label-sm text-[10px] px-1.5 py-0.2 rounded">Barra W</span>
+<span class="text-on-surface-variant font-label-sm text-[10px]">• Banco Scott</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Rosca Scott (Banco Preacher)</h4>
+<span class="font-body-sm text-[11px] text-outline truncate">Isolamento estrito da cabeça curta</span>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-container-high text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors" title="Adicionar ao Treino">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-2xl flex items-center gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Futuristic 3D wireframe and solid muscular render of hammer curls with dumbbells. Pronated hand position with glowing red highlighting on brachialis and brachioradialis muscles, studio lighting, black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbcI8OuC8PyLf32qZ6lwU2IY1l5wCAutjY65lRoA1KOqAMLIZzrhK_UZDr-ycMRCQEg5WacmSds_0hJwIqExeg2wW-fuz7UVpAR2Na7zC9N33xVDbLCmlq-VsTgrBr-NNTeycuDKPXsUexsN7fJO97DWNhnflDnlTONkQvYQIJaKlCcgc7PpW37T5876hfZSXKu0MQrA9fiHpY3B8xFbGQUexVhXXnyf8gV_B4d17p"/>
+<span class="absolute bottom-1 right-1 bg-surface-container-lowest/90 text-on-surface font-label-sm text-[9px] px-1.5 py-0.5 rounded">8s</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5">
+<span class="bg-surface-container-highest text-secondary-fixed-dim font-label-sm text-[10px] px-1.5 py-0.2 rounded">Halteres</span>
+<span class="text-on-surface-variant font-label-sm text-[10px]">• Pegada Neutra</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Rosca Martelo em Pé</h4>
+<span class="font-body-sm text-[11px] text-outline truncate">Hipertrofia de braquiorradial e braquial</span>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-container-high text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors" title="Adicionar ao Treino">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-2xl flex items-center gap-3 shadow-sm hover:bg-surface-container transition-colors">
+<div class="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Biomechanical 3D anatomical visualization of high cable curl between double pulleys. Neon red highlighting across both arms bicep peaks with vibrant electric cyan joint guides on a dark void background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeIQGS9jLz58PUlz2n9oAYnFJahe8sCJQhXGg0qhjdaneyHwIdQlT7JMLHw9JxFoH7Y4AViWgaSUvcjM-TnmP-sIqY0nHMvB-Fik95XVp29B9zINVkfORGs6MWVCychGMfS80uGjtE48oJ1efvTCxSzM_YdCZILiGA6WPLyt0avFF8aG_PCwD4vjrdCzsMkwoFYdKFEqyh9m72OFo3adYFkMmA-IYR0otrQk72TvE8"/>
+<span class="absolute bottom-1 right-1 bg-surface-container-lowest/90 text-on-surface font-label-sm text-[9px] px-1.5 py-0.5 rounded">5s</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5">
+<span class="bg-surface-container-highest text-secondary-fixed-dim font-label-sm text-[10px] px-1.5 py-0.2 rounded">Polia Dupla</span>
+<span class="text-on-surface-variant font-label-sm text-[10px]">• Cabo Alto</span>
+</div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Rosca Dupla na Polia Alta</h4>
+<span class="font-body-sm text-[11px] text-outline truncate">Pico de contração em abdução</span>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-container-high text-primary-container flex items-center justify-center hover:bg-primary-container hover:text-on-primary-container transition-colors" title="Adicionar ao Treino">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="px-margin pt-space-lg">
+<div class="bg-gradient-to-r from-surface-container-low to-surface-container p-4 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">download_for_offline</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface font-bold block">Modelos 3D Offline</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">104 clipes sincronizados no seu dispositivo</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const playBtn = document.getElementById('play-toggle');
+    const speedHalf = document.getElementById('btn-speed-half');
+    const speedNormal = document.getElementById('btn-speed-normal');
+    
+    let isPlaying = true;
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        isPlaying = !isPlaying;
+        const icon = playBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = isPlaying ? 'pause' : 'play_arrow';
+        }
+      });
+    }
+
+    if (speedHalf && speedNormal) {
+      speedHalf.addEventListener('click', function() {
+        speedHalf.className = 'bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded-lg font-bold';
+        speedNormal.className = 'bg-surface-container-highest/80 backdrop-blur-md text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-lg transition-colors hover:text-primary-container';
+      });
+
+      speedNormal.addEventListener('click', function() {
+        speedNormal.className = 'bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded-lg font-bold';
+        speedHalf.className = 'bg-surface-container-highest/80 backdrop-blur-md text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-lg transition-colors hover:text-primary-container';
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.4)]" data-active-classes="text-primary-container drop-shadow-[0_0_8px_rgba(0,210,255,0.4)]"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="treino" href="#"><span class="material-symbols-outlined text-[24px]">fitness_center</span><span class="font-label-sm text-label-sm mt-1">Treino</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 transition-colors relative text-primary-container drop-shadow-[0_0_8px_rgba(0,210,255,0.4)]" data-path="biblioteca" href="#"><span class="material-symbols-outlined text-[24px]">video_library</span><span class="font-label-sm text-label-sm mt-1">Biblioteca</span><span class="absolute top-1 right-2 bg-surface-container-highest text-primary-container font-label-sm text-[9px] px-1 rounded-full leading-tight">104</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="coach-ia" href="#"><span class="material-symbols-outlined text-[24px]">smart_toy</span><span class="font-label-sm text-label-sm mt-1">Coach IA</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="nutricao" href="#"><span class="material-symbols-outlined text-[24px]">nutrition</span><span class="font-label-sm text-label-sm mt-1">Nutrição</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="perfil" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-sm text-label-sm mt-1">Perfil</span></a></div></nav></body></html>

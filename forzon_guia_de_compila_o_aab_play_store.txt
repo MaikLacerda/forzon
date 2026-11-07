@@ -1,0 +1,146 @@
+# 🚀 FORZON — Guia Oficial de Compilação Android App Bundle (.aab) para a Google Play Store
+
+Este guia fornece o passo a passo técnico para compilar o **FORZON** no formato **Android App Bundle (.aab)** através do padrão oficial do Google: **Trusted Web Activity (TWA)**, pronto para envio no **Google Play Console**.
+
+---
+
+## 📋 1. Ficha Técnica Cadastral no Google Play Console
+
+| Parâmetro | Valor Configurado |
+| :--- | :--- |
+| **Nome Completo do App (Play Store)** | `FORZON — More Than Fitness. A Way of Life.` |
+| **Nome Curto (Launcher / Ícone no Celular)** | `FORZON` |
+| **Package ID / Application ID** | `com.forzon.fitness.app` |
+| **Versão Inicial do Código (`versionCode`)** | `1` (ou incremental nas atualizações: 2, 3...) |
+| **Versão Exibida (`versionName`)** | `1.0.0` |
+| **Slogan Oficial** | *MORE THAN FITNESS. A WAY OF LIFE.* |
+| **Pilares Oficiais** | *TRAIN · NUTRITION · COMMUNITY* |
+| **Categoria na Play Store** | *Saúde e Fitness (Health & Fitness)* |
+| **Classificação Indicativa** | *Livre (ou classificação baseada no questionário IARC do Console)* |
+| **Cor Primária / Acento** | Cyan Elétrico (`#00d2ff`) |
+| **Theme Color (Barra de Status Android)** | `#090d16` (Obsidian Dark) |
+| **Display Mode** | `standalone` (tela cheia nativa sem barra do navegador) |
+| **Orientação Padrão** | `portrait-primary` (vertical) |
+
+---
+
+## 🛠️ 2. Método 1: Compilação via Bubblewrap CLI (Oficial do Google Chrome Team)
+
+O **Bubblewrap** é a ferramenta oficial recomendada pela equipe do Google para converter Progressive Web Apps (PWAs) em projetos Android nativos e gerar pacotes `.aab` de produção.
+
+### Passo 2.1 — Pré-requisitos
+Certifique-se de que sua máquina tenha:
+1. **Node.js** v18+ instalado (`node -v`).
+2. **Java Development Kit (JDK 17 ou 21)** instalado e configurado no `PATH` (`java -version`).
+3. **Android SDK / Command-line Tools** (o Bubblewrap pode baixar e configurar automaticamente na primeira execução se você não tiver o Android Studio).
+
+### Passo 2.2 — Instalação da CLI
+Abra o seu terminal (Git Bash, Terminal macOS ou PowerShell) e instale o Bubblewrap globalmente:
+```bash
+npm install -g @bubblewrap/cli
+```
+
+### Passo 2.3 — Inicialização do Projeto Android
+Crie uma pasta dedicada para o build nativo e aponte para o manifesto de produção do seu FORZON publicado na web (ex: Vercel):
+
+```bash
+mkdir forzon-android
+cd forzon-android
+bubblewrap init --manifest=https://forzon.vercel.app/manifest.webmanifest
+```
+
+O Bubblewrap fará algumas perguntas interativas. Responda conforme abaixo:
+- **Application name:** `FORZON`
+- **Short name:** `FORZON`
+- **Application ID:** `com.forzon.fitness.app`
+- **Starting URL:** `/`
+- **Theme color:** `#090d16`
+- **Navigation color:** `#090d16`
+- **Status bar color:** `#090d16`
+- **Display mode:** `standalone`
+- **Orientation:** `portrait`
+- **Include Splash Screen:** `Yes`
+- **Icon path:** Pressione Enter (ele baixará automaticamente os ícones de 512x512 e maskable definidos no `manifest.webmanifest`).
+
+### Passo 2.4 — Criação da Chave de Assinatura (Keystore)
+Caso você ainda não tenha uma chave Keystore de produção, o próprio Bubblewrap perguntará se deseja criar uma:
+- **Key store location:** `android.keystore`
+- **Key name:** `forzon-key`
+- **Senha:** Escolha uma senha segura e **guarde em local seguro**.
+- **Informações do Certificado:** Preencha seu nome/organização e país (`BR`).
+
+> ⚠️ **IMPORTANTE:** Nunca perca o arquivo `android.keystore` nem a senha. O Google Play exige a mesma chave para todas as atualizações futuras do app.
+
+### Passo 2.5 — Compilação do Pacote Final (.aab)
+Execute o comando de compilação em modo de produção:
+```bash
+bubblewrap build
+```
+
+Ao finalizar, a ferramenta gerará o arquivo:
+📁 **`app-release-bundle.aab`**
+
+Este é o arquivo exato que você fará o upload no Google Play Console!
+
+---
+
+## 🌐 3. Método 2: Compilação Visual via PWABuilder (Sem Instalações Locais)
+
+Se você preferir compilar sem precisar instalar o JDK ou Android SDK na sua máquina:
+
+1. Acesse o portal oficial da Microsoft & Google: **[https://www.pwabuilder.com](https://www.pwabuilder.com)**.
+2. No campo de URL, insira o endereço do seu app: `https://forzon.vercel.app`.
+3. Clique em **Start**. O PWABuilder validará o manifesto, Service Worker e ícones do FORZON.
+4. Clique em **Package For Stores** e selecione **Android**.
+5. No modal de configuração:
+   - **Package ID:** `com.forzon.fitness.app`
+   - **App Name:** `FORZON`
+   - **Launcher Name:** `FORZON`
+   - **Theme & Background Color:** `#090d16`
+   - **Signing Key:** Selecione "Create new" (ou suba sua keystore existente).
+6. Clique em **Download Package**.
+7. Extraia o arquivo ZIP baixado. Dentro da pasta estará o seu arquivo **`.aab`** assinado e pronto para envio!
+
+---
+
+## 🔗 4. Vinculação Digital Asset Links (Eliminar a Barra de Navegador)
+
+Para que o Android reconheça o app como nativo e **não exiba a barra de endereço da URL**, você deve configurar o arquivo `assetlinks.json`.
+
+1. Após fazer o primeiro upload do `.aab` no Google Play Console, vá em:
+   **Configuração (Setup)** ➔ **Integridade do App (App Integrity)** ➔ **Assinatura de Apps do Google Play (Play App Signing)**.
+2. Copie a **Impressão digital do certificado SHA-256** fornecida pelo Google.
+3. No seu repositório FORZON, abra o arquivo `public/.well-known/assetlinks.json`:
+```json
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.forzon.fitness.app",
+      "sha256_cert_fingerprints": [
+        "COLE_AQUI_A_SUA_IMPRESSAO_DIGITAL_SHA256_DO_PLAY_CONSOLE"
+      ]
+    }
+  }
+]
+```
+4. Faça o deploy da alteração na Vercel (`git push origin main`).
+5. Valide se a URL pública responde corretamente em:
+   `https://forzon.vercel.app/.well-known/assetlinks.json`
+
+---
+
+## 📱 5. Checklist de Envio no Google Play Console
+
+Antes de enviar para a faixa de Produção ou Teste Fechado:
+- [x] **Pacote `.aab`** compilado e assinado.
+- [x] **Ícone de Alta Resolução:** 512 x 512 px (PNG 32 bits com fundo transparente ou squircle).
+- [x] **Gráfico de Recursos (Feature Graphic):** 1024 x 500 px (banner com a marca FORZON e slogan).
+- [x] **Capturas de Tela (Screenshots):** Pelo menos 4 prints verticais (1080 x 1920 ou superior) das telas:
+  - Painel de Treinos Otimizado
+  - Execução de Treino ao Vivo (com timer ATP-CP e numpad)
+  - Desempenho & Biofeedback (prontidão 84/100 e GPS)
+  - Diário Nutricional & Macros
+- [x] **URL da Política de Privacidade:** Obrigatório no Console (ex: `https://forzon.vercel.app/privacidade` ou página padrão).
+- [x] **Declaração de Acesso Especial:** Informar que o app usa geolocalização em primeiro plano para rastreamento de corrida/GPS outdoor e câmera para leitura de códigos de barra nutricionais.

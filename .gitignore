@@ -13,3 +13,7 @@ tools/exercise-renderer/output/
 __pycache__/
 *.py[cod]
 forzon-*.zip
+tools/blender*
+*.zip
+dist
+node_modules

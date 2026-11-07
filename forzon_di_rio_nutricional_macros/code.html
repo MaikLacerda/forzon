@@ -1,0 +1,336 @@
+<!DOCTYPE html><html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed-variant": "#003ea8", "surface-dim": "#0f131c", "on-background": "#dfe2ef", "outline": "#859399", "primary-fixed": "#b6ebff", "surface-tint": "#47d6ff", "tertiary-fixed": "#c3f400", "tertiary": "#beee00", "surface": "#0f131c", "on-error": "#690005", "on-surface-variant": "#bbc9cf", "error-container": "#93000a", "error": "#ffb4ab", "on-secondary": "#002a78", "on-primary-fixed": "#001f28", "on-secondary-fixed": "#00174b", "inverse-on-surface": "#2c303a", "on-primary": "#003543", "surface-container-low": "#181b25", "secondary-fixed": "#dbe1ff", "on-tertiary": "#283500", "inverse-surface": "#dfe2ef", "primary-fixed-dim": "#47d6ff", "surface-container": "#1c1f29", "inverse-primary": "#00677f", "on-primary-container": "#00566a", "outline-variant": "#3c494e", "on-tertiary-fixed-variant": "#3c4d00", "on-error-container": "#ffdad6", "secondary": "#b4c5ff", "surface-container-lowest": "#0a0e17", "on-primary-fixed-variant": "#004e60", "surface-container-highest": "#31353f", "surface-container-high": "#262a34", "on-tertiary-container": "#435500", "secondary-fixed-dim": "#b4c5ff", "surface-bright": "#353943", "secondary-container": "#0053db", "primary": "#a5e7ff", "tertiary-fixed-dim": "#abd600", "tertiary-container": "#a6d000", "primary-container": "#00d2ff", "background": "#0f131c", "on-surface": "#dfe2ef", "on-secondary-container": "#cdd7ff", "on-tertiary-fixed": "#161e00", "surface-variant": "#31353f" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin-tablet": "2rem", "gutter": "1rem", "margin": "1rem", "space-xl": "2.5rem", "space-md": "1rem" }, fontFamily: { "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"] }, fontSize: { "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "32px", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "600" }], "label-sm": ["10px", { lineHeight: "14px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "display-hero": ["48px", { lineHeight: "54px", fontWeight: "800" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "18px", fontWeight: "600" }], "display-hero-mobile": ["36px", { lineHeight: "42px", fontWeight: "800" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="flex items-center tracking-wider"><span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tighter">FOR</span><span class="font-headline-md text-headline-md font-extrabold text-primary-container tracking-tighter drop-shadow-[0_0_8px_rgba(0,210,255,0.6)]">Z</span><span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tighter">ON</span></div><div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-full border border-outline-variant/30"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider font-bold">FIREBASE SYNC</span></div></div><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-full bg-surface-container-high border border-primary-container/40 p-0.5 flex items-center justify-center"><div class="w-full h-full rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container"><span class="material-symbols-outlined text-[20px]">person</span></div></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Day Selector Bar -->
+<div class="px-margin pt-4 pb-2">
+<div class="bg-surface-container-low rounded-xl p-1.5 flex items-center justify-between shadow-md">
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" id="btn-prev-day">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+</div>
+<div class="text-center">
+<div class="flex items-center gap-1.5 justify-center">
+<span class="font-headline-sm text-headline-sm text-on-surface font-extrabold tracking-tight">Hoje</span>
+<span class="bg-primary-container/20 text-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded-full">AO VIVO</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Quarta-feira, 23 Out</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" id="btn-next-day">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Hero Caloric Telemetry Card -->
+<div class="px-margin pt-2 pb-3">
+<div class="bg-surface-container-low rounded-xl p-4 shadow-xl relative overflow-hidden">
+<!-- Glow ambient light behind telemetry -->
+<div class="absolute -right-10 -top-10 w-36 h-36 rounded-full bg-primary-container/10 blur-2xl pointer-events-none"></div>
+<div class="absolute -left-10 -bottom-10 w-36 h-36 rounded-full bg-tertiary/10 blur-2xl pointer-events-none"></div>
+<!-- Card Header -->
+<div class="flex items-center justify-between mb-3 relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">bolt</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Balanço Energético Prescrito</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-2.5 py-1 rounded-full border border-primary-container/20"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-tertiary font-bold tracking-wide">Plano do Coach IA Ativo • Treino Noite (18h) • Janela Anabólica Sincronizada</span></div>
+</div>
+<!-- Calorie Circular Ring & Breakdown -->
+<div class="flex items-center justify-between gap-4 mb-4 relative z-10">
+<!-- SVG Radial Ring Meter -->
+<div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center"><svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120"><circle class="text-surface-variant" cx="60" cy="60" fill="none" opacity="0.3" r="50" stroke="currentColor" stroke-width="9"></circle><circle class="text-primary-container drop-shadow-[0_0_8px_rgba(0,210,255,0.7)] transition-all duration-1000" cx="60" cy="60" fill="none" r="50" stroke="currentColor" stroke-dasharray="314.16" stroke-dashoffset="96.1" stroke-linecap="round" stroke-width="9"></circle></svg><div class="absolute inset-0 flex flex-col items-center justify-center text-center"><span class="font-display-hero-mobile text-headline-lg font-extrabold text-on-surface leading-none tracking-tight">810</span><span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-widest mt-0.5">kcal restam</span></div></div>
+<!-- Metric Details Column -->
+<div class="flex-1 flex flex-col justify-center gap-2.5"><div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_6px_rgba(0,210,255,0.8)]"></div><span class="font-body-sm text-body-sm text-on-surface-variant">Consumidas</span></div><span class="font-headline-sm text-headline-sm font-bold text-on-surface tabular-nums">1.840 <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">kcal</span></span></div><div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-surface-variant"></div><span class="font-body-sm text-body-sm text-on-surface-variant">Alvo Diário</span></div><span class="font-headline-sm text-headline-sm font-bold text-on-surface-variant tabular-nums">2.650 <span class="font-label-sm text-label-sm font-normal">kcal</span></span></div><div class="bg-surface-container rounded-lg px-2.5 py-1.5 flex items-center justify-between"><div class="flex items-center gap-1 text-tertiary"><span class="material-symbols-outlined text-[16px]">schedule</span><span class="font-label-sm text-label-sm font-bold">Pico Circadiano</span></div><span class="font-label-sm text-label-sm font-extrabold text-tertiary tracking-wide">18:00 SINCRONIZADO</span></div></div>
+</div>
+<!-- Macro Multi-Grip Bar -->
+<div class="space-y-1.5 relative z-10 pt-1"><div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm"><span class="">Distribuição de Macronutrientes</span><span class="text-on-surface font-semibold">180P • 310C • 75G (Pico Pré/Pós 18h)</span></div><div class="w-full h-3 bg-surface-container rounded-full overflow-hidden flex gap-0.5 p-0.5"><div class="h-full bg-primary-container rounded-l-full transition-all duration-700" style="width: 32%;" title="Proteína 180g"></div><div class="h-full bg-secondary transition-all duration-700" style="width: 55%;" title="Carboidrato 310g"></div><div class="h-full bg-tertiary rounded-r-full transition-all duration-700" style="width: 13%;" title="Gorduras 75g"></div></div></div>
+</div>
+</div>
+<!-- Detailed Macros Grid (Proteínas, Carbos, Gorduras, Fibras) -->
+<div class="px-margin py-2 grid grid-cols-2 gap-2.5">
+<!-- Proteínas Card (Hero Macro com Destaque Leucina) -->
+<div class="col-span-2 bg-surface-container-low rounded-xl p-3.5 shadow-md relative overflow-hidden"><div class="absolute right-0 top-0 bottom-0 w-1 bg-primary-container"></div><div class="flex items-start justify-between mb-2"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container"><span class="material-symbols-outlined text-[18px]">egg_alt</span></div><div><h4 class="font-headline-sm text-body-lg font-bold text-on-surface">Proteínas</h4><span class="font-label-sm text-label-sm text-primary-container font-bold">Meta Diária: 180g • 75% concluído</span></div></div><div class="text-right"><div class="font-headline-sm text-headline-sm font-extrabold text-primary-container tabular-nums">135<span class="text-on-surface-variant font-normal text-body-sm"> / 180g</span></div><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Restam 45g</span></div></div><div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-2.5"><div class="h-full bg-primary-container rounded-full transition-all duration-1000 shadow-[0_0_8px_rgba(0,210,255,0.8)]" style="width: 75%;"></div></div><div class="bg-surface-container rounded-lg px-2.5 py-1.5 flex items-center justify-between"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary-container text-[16px]">biotech</span><span class="font-label-sm text-label-sm text-on-surface-variant">Pool de Aminoácidos Pré-Treino</span></div><div class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-extrabold"><span class="">Otimizado</span><span class="">✓ MPS Noturna Garantida</span></div></div></div>
+<!-- Carboidratos Card -->
+<div class="bg-surface-container-low rounded-xl p-3 shadow-md flex flex-col justify-between"><div><div class="flex items-center justify-between mb-1.5"><div class="flex items-center gap-1.5"><div class="w-6 h-6 rounded-md bg-secondary/20 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[16px]">grain</span></div><span class="font-label-lg text-label-lg font-bold text-on-surface">Carboidratos</span></div><span class="font-label-sm text-label-sm text-secondary font-bold">68%</span></div><div class="font-headline-sm text-headline-sm font-extrabold text-on-surface tabular-nums">210<span class="font-body-sm text-body-sm text-on-surface-variant font-normal"> / 310g</span></div><p class="font-label-sm text-label-sm text-primary font-medium mt-0.5">Pico circadiano 18h • Restam 100g</p></div><div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden mt-3"><div class="h-full bg-secondary rounded-full shadow-[0_0_6px_rgba(180,197,255,0.6)]" style="width: 67.7%;"></div></div></div>
+<!-- Gorduras / Lipídios Card -->
+<div class="bg-surface-container-low rounded-xl p-3 shadow-md flex flex-col justify-between"><div><div class="flex items-center justify-between mb-1.5"><div class="flex items-center gap-1.5"><div class="w-6 h-6 rounded-md bg-tertiary/20 flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[16px]">water_drop</span></div><span class="font-label-lg text-label-lg font-bold text-on-surface">Lipídios</span></div><span class="font-label-sm text-label-sm text-tertiary font-bold">69%</span></div><div class="font-headline-sm text-headline-sm font-extrabold text-on-surface tabular-nums">52<span class="font-body-sm text-body-sm text-on-surface-variant font-normal"> / 75g</span></div><p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Restam 23g • Síntese Endócrina</p></div><div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden mt-3"><div class="h-full bg-tertiary rounded-full shadow-[0_0_6px_rgba(190,238,0,0.6)]" style="width: 69.3%;"></div></div></div>
+<!-- Fibras Card Full Width Strip -->
+<div class="col-span-2 bg-surface-container-low rounded-xl px-3.5 py-2.5 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">spa</span>
+<div>
+<span class="font-label-md text-label-md font-bold text-on-surface">Fibras Dietéticas</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-2">26g de 35g (Digestão &amp; Microbioma)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">74%</span>
+<div class="w-16 h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 74.2%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bio-Card: Gasto do Treino Compensado -->
+<div class="px-margin py-2">
+<div class="bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low rounded-xl p-3.5 shadow-lg relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-11 h-11 rounded-xl bg-primary-container/20 flex-shrink-0 flex items-center justify-center text-primary-container shadow-[0_0_12px_rgba(0,210,255,0.4)]">
+<span class="material-symbols-outlined text-[24px]">exercise</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Treino Compensado</span>
+<span class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-extrabold">+580 kcal</span>
+</div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface mt-0.5">Sessão Força &amp; Acondicionamento</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+<strong class="text-on-surface font-semibold">8.420 kg levantados</strong> + 20 min Stairmaster integrados em tempo real ao balanço calórico.
+          </p>
+</div>
+</div>
+<div class="mt-2.5 pt-2 flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">sync</span> Sincronizado via Wearable Telemetry
+        </span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">Janela Anabólica: Ativa</span>
+</div>
+</div>
+</div>
+<!-- Smart Hydration Tracker -->
+<div class="px-margin py-2">
+<div class="bg-surface-container-low rounded-xl p-4 shadow-md">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">humidity_mid</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-body-lg font-bold text-on-surface">Hidratação Eletrolítica</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Volume celular e condutividade</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm font-extrabold text-primary-container tabular-nums" id="water-current-val">2.250 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 3.200 ml</span></div>
+<span class="font-label-sm text-label-sm text-tertiary font-bold" id="water-pct-label">70% da meta</span>
+</div>
+</div>
+<!-- Water Progress Bar -->
+<div class="w-full h-3 bg-surface-container rounded-full overflow-hidden mb-3 relative">
+<div class="h-full bg-gradient-to-r from-primary via-primary-container to-surface-tint rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(0,210,255,0.5)]" id="water-progress-fill" style="width: 70.3%;"></div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-lg bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1.5 text-primary-container font-label-md text-label-md" id="btn-add-water-250">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="">+250 ml (Água Pura)</span>
+</button>
+<button class="h-11 rounded-lg bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-1.5 text-primary-container font-label-md text-label-md" id="btn-add-water-500">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="">+500 ml (Eletrolítica)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Meals Timeline Section -->
+<div class="px-margin pt-4 pb-2">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[22px]">restaurant</span>
+<h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Linha do Tempo Nutricional</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">3 de 5 concluídas</span>
+</div>
+<div class="space-y-3">
+<!-- Meal 1: Café da Manhã Anabólico -->
+<div class="bg-surface-container-low rounded-xl p-3.5 shadow-md transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High protein healthy fitness breakfast with four scrambled golden eggs, traditional Brazilian couscous, sliced fresh banana and a steaming cup of dark black espresso on dark athletic stone table, dramatic cinematic lighting, cyan accent glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfJnIiGa_5m7v1QWAHZuo4xzIbDsoErt-TuWXfEZ4jow34NtFqO0gucKFh8Y27JZ0sNl7IFI8x6suGZIXOGujIq_-98pzI_1gpPYaKgObsi2DwnUi2VyQKQky2uKIxx_UxfnAzhm-rmQu_kXA4KplEV9wtUtYcHMw9_tjuHk7cQFGNde-Q3qk7WiM_WL4BwWT0mxpH6eWC9sbcGMbmLEuzfURKQYOEOSZwSw8wpxFd">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold">08:00 • REFEIÇÃO 1</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold">Registrado</span>
+</div>
+</div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate mt-0.5">Café da Manhã Anabólico</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">4 Ovos mexidos, cuscuz com banana, café preto</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-sm text-label-sm font-extrabold text-on-surface bg-surface-container px-1.5 py-0.5 rounded">550 kcal</span>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">38g P</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">60g C</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">16g G</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Meal 2: Almoço Alta Densidade -->
+<div class="bg-surface-container-low rounded-xl p-3.5 shadow-md transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Balanced athletic bodybuilding high density lunch plate with 180g grilled juicy chicken breast, white fluffy rice, Brazilian pinto beans and dark green leafy salad dressed with olive oil, high-contrast sports performance style, electric cyan reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPaKKd5PqalfktX8b61fzw0GOt20eYEdxxGaqK6xw9iikh5Jn6FG8cAiKmsgBXpzMoxSQ_Zkpq_rHnT3nqRBgWecP_YxT192Lh7FwnU8WXnHC4FjRKwGBqGEPrbkPxFwd5ag1HXK8P1xQtJHCKWFN_lMBcedfjB67ApnC9hxsk1IpleNE2t6QvdMo_b0zRCS2zgX9C2P4emijxk-3N0QnhQtW7ZRK-RtlIqKg1EqcL">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold">12:30 • REFEIÇÃO 2</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold">Registrado</span>
+</div>
+</div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate mt-0.5">Almoço Alta Densidade</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">180g Frango grelhado, 150g arroz, 100g feijão, salada com azeite</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-sm text-label-sm font-extrabold text-on-surface bg-surface-container px-1.5 py-0.5 rounded">620 kcal</span>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">46g P</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">68g C</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">14g G</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Meal 3: Pré-Treino de Absorção Média -->
+<div class="bg-surface-container-low rounded-xl p-3.5 shadow-md border border-primary-container/30 transition-all relative overflow-hidden"><div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div><div class="flex items-start justify-between gap-3"><div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container"><img class="w-full h-full object-cover" data-alt="Pre-workout energy bowl of thick natural lactose-free greek yogurt topped with rolled gluten-free oats and amber wild honey drizzle in a modern matte obsidian bowl, athletic dark moody lighting with neon cyan aura" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9M8AvZOB7BkhQdJLG7dJmMwVkDPWCmYeeHW3doUQ_MCx7jnJ5ROc0MMFF73I_uVuglNO_0OWD_ZqQObp9LhSlQx5U7ppYSPvab-AvbokpyDlAc6iUrB2agn2v8XUYMViCdU9R2UX60-_VjE3dEcyVffamyoNFPa5XsCXrvEpv0n2Yf1JlwumMeRQvibN7ru_UtwAH56LJtfWpz10Op375CfJvtntC8Oc1tQeHDMQt"></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-primary-container font-extrabold">17:00 • PRÉ-TREINO (APORTE GLICOLÍTICO)</span><div class="flex items-center gap-1 text-tertiary"><span class="material-symbols-outlined text-[18px]">bolt</span><span class="font-label-sm text-label-sm font-bold">Treino 18:00</span></div></div><h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate mt-0.5">Pré-Treino Circadiano Digestão Ágil</h4><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Iogurte sem lactose, aveia sem glúten, mel e canela (Zero Glúten/Lactose)</p><div class="flex items-center gap-2 mt-2"><span class="font-label-sm text-label-sm font-extrabold text-on-surface bg-surface-container px-1.5 py-0.5 rounded">310 kcal</span><span class="font-label-sm text-label-sm text-primary-container font-semibold">22g P</span><span class="font-label-sm text-label-sm text-secondary font-semibold">52g C</span><span class="font-label-sm text-label-sm text-tertiary font-semibold">3g G</span></div></div></div><div class="mt-2.5 pt-2 border-t border-outline-variant/30 flex items-center justify-between"><span class="font-label-sm text-label-sm text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span>Perfil Intake: Sem Lactose • Sem Glúten</span><span class="font-label-sm text-label-sm text-primary-container font-bold">Glicogênio saturado para 18h</span></div></div>
+<!-- Meal 4: Pós-Treino Bio-Engine (Sugerido pelo Coach IA) -->
+<div class="bg-surface-container-low rounded-xl p-4 shadow-xl relative overflow-hidden">
+<!-- Glow highlight indicating special IA recommendation -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary-container/20 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[18px]">smart_toy</span>
+<span class="font-label-sm text-label-sm text-primary-container uppercase font-extrabold tracking-wide">19:30 • REFEIÇÃO 4 (PÓS-TREINO)</span>
+</div>
+<span class="bg-primary-container/20 text-primary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">Sugerida pela IA</span>
+</div>
+<div class="flex items-start gap-3 my-2">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Gourmet athletic acai superfood recovery bowl blended with premium whey protein isolate, sliced fresh banana and chia seeds in a sleek dark bowl on gym telemetry table, energetic neon blue highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFFtsZGRXjh_TLpQtc9A5aDKRf4miQG47yymMyEWykaRscfcHQCaycKkt1A8BA4A1X2a2hPWKI2pE26X5uGY2FnddIrOL6kiyGUsNe2yOCkpFIIAjsk14kOJIRIIE2Q8UXfmK2ZGMgBXeMJxuts7Rtq_ZTOpaAJxYhebwWYGIAEUrflMRB3L38bTlXRmsYjDQL-QQByjsV0bVB2j53XzOvPVIzHLTpY-ZcjoTDlCyk">
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface">Açaí Turbo com Whey Isolado &amp; Banana</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-0.5">Otimizado pelo Coach IA para repor glicogênio pós 8.420kg e induzir pico de síntese proteica.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-sm text-label-sm font-extrabold text-on-surface bg-surface-container px-1.5 py-0.5 rounded">580 kcal</span>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">42g P</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">74g C</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">12g G</span>
+</div>
+</div>
+</div>
+<div class="mt-3 pt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Absorção Rápida • 42g Proteína Bioativa</span>
+<button class="h-9 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-extrabold shadow-[0_0_12px_rgba(0,210,255,0.4)] active:scale-95 transition-all flex items-center gap-1.5" id="btn-quick-log-postworkout">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+<span class="">Registrar Agora</span>
+</button>
+</div>
+</div>
+<!-- Meal 5: Jantar de Síntese Noturna (Pendente) -->
+<div class="bg-surface-container-low rounded-xl p-3.5 shadow-md opacity-90 transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="Clean nighttime athlete recovery dinner with lean ground beef patinho, cassava puree and steamed vibrant green broccoli in dark ceramic dish, athletic lifestyle setting with cinematic cyan lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM2AeZvOUWvlNi2vYESHpBHIKBDW3CC95oC0MRlxjFu6-Lp0HPsARsDsFa794SV1oPhNoAQ4Z8OPHWpx399piGhYxs9G3pFYgyYSe43CYOI3H1yWiwXSQicHvTgCSHt2vTLgQcqkJO12E-_AwhAM8K7PetdHuyNwCJ6f-LUTXekbJj-8naOi_DQz9PtZr7E8p3UAVY4mbeSfIJ59PrVgzjMd_XRa7t6CI_EBvl0ytz">
+<div class="absolute inset-0 bg-surface-container-lowest/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface text-[20px]">schedule</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">21:30 • REFEIÇÃO 5</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">Pendente</span>
+</div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate mt-0.5">Jantar de Síntese Noturna</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Patinho moído, purê de mandioca e brócolis ao vapor</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-sm text-label-sm font-extrabold text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">~450 kcal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">35g P</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">45g C</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">11g G</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary CTAs & Coach Assistant -->
+<div class="px-margin pt-4 pb-2 space-y-3">
+<!-- Big Action Add Food Button -->
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary font-headline-sm text-headline-sm font-extrabold flex items-center justify-center gap-2.5 shadow-[0_0_20px_rgba(0,210,255,0.45)] hover:shadow-[0_0_28px_rgba(0,210,255,0.6)] active:scale-98 transition-all" id="btn-add-food">
+<span class="material-symbols-outlined text-[26px]">barcode_scanner</span>
+<span class="">Adicionar Alimento / Escanear Barcode</span>
+</button>
+<!-- Adjust with IA Button -->
+<button class="w-full h-12 rounded-xl bg-surface-container hover:bg-surface-container-high active:scale-98 transition-all flex items-center justify-center gap-2 text-primary font-label-lg text-label-lg" id="btn-coach-adjust">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="">Ajustar Metas com Coach IA</span>
+</button>
+</div>
+<!-- Realtime Telemetry Sync Status Footer -->
+<div class="px-margin pt-2 text-center">
+<div class="inline-flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Cloud Firestore: Sincronizado às 19:42 • Baixa Latência</span>
+</div>
+</div>
+</div>
+<!-- Interactive Micro-interactions Script -->
+<script>
+  (function() {
+    let waterCurrent = 2250;
+    const waterMax = 3200;
+
+    const waterValEl = document.getElementById('water-current-val');
+    const waterPctEl = document.getElementById('water-pct-label');
+    const waterFillEl = document.getElementById('water-progress-fill');
+
+    function updateWater(amount) {
+      waterCurrent = Math.min(waterMax, waterCurrent + amount);
+      const pct = Math.round((waterCurrent / waterMax) * 100);
+      if (waterValEl) {
+        waterValEl.innerHTML = `${waterCurrent.toLocaleString('pt-BR')} <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 3.200 ml</span>`;
+      }
+      if (waterPctEl) {
+        waterPctEl.innerText = `${pct}% da meta`;
+      }
+      if (waterFillEl) {
+        waterFillEl.style.width = `${Math.min(100, pct)}%`;
+      }
+    }
+
+    const btn250 = document.getElementById('btn-add-water-250');
+    if (btn250) {
+      btn250.addEventListener('click', function() {
+        updateWater(250);
+      });
+    }
+
+    const btn500 = document.getElementById('btn-add-water-500');
+    if (btn500) {
+      btn500.addEventListener('click', function() {
+        updateWater(500);
+      });
+    }
+
+    const btnQuickLog = document.getElementById('btn-quick-log-postworkout');
+    if (btnQuickLog) {
+      btnQuickLog.addEventListener('click', function() {
+        this.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Registrado!';
+        this.classList.remove('bg-primary-container', 'text-on-primary');
+        this.classList.add('bg-tertiary', 'text-on-tertiary');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.4)]" data-active-classes="text-primary-container drop-shadow-[0_0_8px_rgba(0,210,255,0.4)]"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface relative" data-path="treino" href="#"><span class="material-symbols-outlined text-[24px]">fitness_center</span><span class="font-label-sm text-label-sm mt-1">Treino</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface relative" data-path="biblioteca" href="#"><span class="material-symbols-outlined text-[24px]">video_library</span><span class="font-label-sm text-label-sm mt-1">Biblioteca</span><span class="absolute top-1 right-2 bg-surface-container-highest text-primary-container font-label-sm text-[9px] px-1 rounded-full leading-tight">104</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="coach-ia" href="#"><span class="material-symbols-outlined text-[24px]">smart_toy</span><span class="font-label-sm text-label-sm mt-1">Coach IA</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="nutricao" href="#"><span class="material-symbols-outlined text-[24px]">nutrition</span><span class="font-label-sm text-label-sm mt-1">Nutrição</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] py-1 text-on-surface-variant transition-colors hover:text-on-surface" data-path="perfil" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-sm text-label-sm mt-1">Perfil</span></a></div></nav>
+
+</body></html>
