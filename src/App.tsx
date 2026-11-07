@@ -8,8 +8,7 @@ import {
   Maximize2,
   Compass,
   Dumbbell,
-  Check,
-  Activity
+  Check
 } from 'lucide-react';
 
 // Componentes de Layout Persistente
@@ -18,7 +17,7 @@ import { BottomNavigation } from './components/layout/BottomNavigation';
 
 // Modais Centrais & Telas Especializadas
 import { LiveWorkoutRunnerModal, WorkoutExerciseItem } from './components/workout/LiveWorkoutRunnerModal';
-import { ExerciseLibraryModal, CatalogExercise } from './components/workout/ExerciseLibraryModal';
+import { ExerciseLibraryModal } from './components/workout/ExerciseLibraryModal';
 import { CreateChallengeModal } from './components/social/CreateChallengeModal';
 import { CommunityFeedView } from './components/social/CommunityFeedView';
 import { ProfileView } from './components/profile/ProfileView';
@@ -32,16 +31,9 @@ import { BiofeedbackReadinessCard } from './components/biofeedback/BiofeedbackRe
 export default function App() {
   const [activeTab, setActiveTab] = useState<'workout' | 'nutrition' | 'bio' | 'community' | 'profile'>('workout');
 
-  // Perfil do Atleta e Avatar Global Persistente
+  // Perfil do Atleta
   const [userName, setUserName] = useState('Maikon Lacerda');
   const [userHandle, setUserHandle] = useState('@maiklacerda');
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem('forzon_athlete_avatar') || null;
-    } catch {
-      return null;
-    }
-  });
 
   // Modais de Controle
   const [showLiveWorkout, setShowLiveWorkout] = useState(false);
@@ -49,7 +41,6 @@ export default function App() {
   const [workoutElapsedSeconds, setWorkoutElapsedSeconds] = useState(0);
 
   const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
-  const [swapTargetExercise, setSwapTargetExercise] = useState<WorkoutExerciseItem | null>(null);
   const [showCreateChallenge, setShowCreateChallenge] = useState(false);
   const [showGPSModal, setShowGPSModal] = useState(false);
   const [showIntakeModal, setShowIntakeModal] = useState(false);
@@ -57,9 +48,6 @@ export default function App() {
   const [showSwapModal, setShowSwapModal] = useState(false);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [swapTargetFood, setSwapTargetFood] = useState<FoodItemData | null>(null);
-
-  // Seletor de Volume: 3 séries vs 4 séries por exercício
-  const [seriesPerExercise, setSeriesPerExercise] = useState<3 | 4>(4);
 
   // Timer Persistente do Treino ao Vivo
   useEffect(() => {
@@ -78,76 +66,66 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Base de Exercícios do Treino A
-  const baseWorkoutData = useMemo(() => [
-    { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', defaultWeight: 32.5, reps: 10 },
-    { id: 2, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até a linha dos mamilos mantendo arco firme.', defaultWeight: 80.0, reps: 10 },
-    { id: 3, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de contração de 2s.', defaultWeight: 17.5, reps: 12 },
-    { id: 4, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor de subida.', defaultWeight: 14.0, reps: 15 },
-    { id: 5, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical controlando a descida.', defaultWeight: 24.0, reps: 10 },
-    { id: 6, name: 'Tríceps Testa com Barra W no Banco Reto', targetMuscle: 'Tríceps (Cabeça Medial/Lateral)', cue: 'Cotovelos fechados, descida controlada até a testa.', defaultWeight: 25.0, reps: 12 },
-    { id: 7, name: 'Tríceps Francês Unilateral com Halter', targetMuscle: 'Tríceps (Cabeça Longa)', cue: 'Alongamento profundo com tronco reto sem abrir cotovelos.', defaultWeight: 12.5, reps: 10 },
-    { id: 8, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão Completa)', cue: 'Abra as pontas da corda com contração isométrica no final.', defaultWeight: 25.0, reps: 15 },
-    { id: 9, name: 'Abdominal na Polia Alta Ajoelhado (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve mantendo o quadril travado.', defaultWeight: 35.0, reps: 15 },
-  ], []);
-
-  // Exercícios da Sessão com suporte a alternar 3 ou 4 séries
-  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() => {
-    return baseWorkoutData.map((ex) => ({
-      id: ex.id,
-      name: ex.name,
-      targetMuscle: ex.targetMuscle,
-      cue: ex.cue,
-      sets: Array.from({ length: 4 }, (_, idx) => ({
-        setNumber: idx + 1,
-        weightKg: ex.defaultWeight,
-        reps: ex.reps,
-        completed: idx === 0,
-      })),
-    }));
-  });
-
-  // Alternar número de séries (3 vs 4) para todos os exercícios
-  const handleToggleSeriesCount = (count: 3 | 4) => {
-    setSeriesPerExercise(count);
-    setActiveWorkoutExercises((prev) =>
-      prev.map((ex) => {
-        const currentSets = ex.sets;
-        let newSets = [...currentSets];
-        if (count === 3 && currentSets.length > 3) {
-          newSets = currentSets.slice(0, 3);
-        } else if (count === 4 && currentSets.length < 4) {
-          const lastSet = currentSets[currentSets.length - 1] || { weightKg: 20, reps: 10 };
-          newSets.push({
-            setNumber: 4,
-            weightKg: lastSet.weightKg,
-            reps: Math.max(6, lastSet.reps - 2),
-            completed: false,
-          });
-        }
-        return { ...ex, sets: newSets };
-      })
-    );
-  };
-
-  // Substituição de exercício vindo da Biblioteca ou Swap
-  const handleSwapExercise = (replacement: CatalogExercise) => {
-    if (!swapTargetExercise) return;
-    setActiveWorkoutExercises((prev) =>
-      prev.map((ex) => {
-        if (ex.id === swapTargetExercise.id) {
-          return {
-            ...ex,
-            name: replacement.name,
-            targetMuscle: replacement.group,
-            cue: replacement.cue,
-          };
-        }
-        return ex;
-      })
-    );
-    setSwapTargetExercise(null);
-  };
+  // Exercícios da Sessão de Treino Ativa (com suporte a decimais float)
+  const [activeWorkoutExercises] = useState<WorkoutExerciseItem[]>([
+    {
+      id: 1,
+      name: 'Supino Inclinado com Halteres',
+      targetMuscle: 'Peitoral Superior',
+      cue: 'Pegada neutra a 30° com retração escapular ativa.',
+      sets: [
+        { setNumber: 1, weightKg: 32.5, reps: 10, completed: true },
+        { setNumber: 2, weightKg: 32.5, reps: 8, completed: false },
+        { setNumber: 3, weightKg: 34.0, reps: 8, completed: false },
+        { setNumber: 4, weightKg: 36.5, reps: 6, completed: false },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Crucifixo no Crossover (Polia Média)',
+      targetMuscle: 'Peitoral Médio',
+      cue: 'Tensão constante em todo o arco sem hiperestender cotovelos.',
+      sets: [
+        { setNumber: 1, weightKg: 17.5, reps: 12, completed: false },
+        { setNumber: 2, weightKg: 17.5, reps: 12, completed: false },
+        { setNumber: 3, weightKg: 20.0, reps: 10, completed: false },
+        { setNumber: 4, weightKg: 20.0, reps: 10, completed: false },
+      ],
+    },
+    {
+      id: 3,
+      name: 'Elevação Lateral com Halteres',
+      targetMuscle: 'Deltóide Lateral',
+      cue: 'Plano escapular com cotovelos liderando o vetor de subida.',
+      sets: [
+        { setNumber: 1, weightKg: 14.0, reps: 15, completed: false },
+        { setNumber: 2, weightKg: 14.0, reps: 12, completed: false },
+        { setNumber: 3, weightKg: 16.0, reps: 10, completed: false },
+      ],
+    },
+    {
+      id: 4,
+      name: 'Tríceps Francês Unilateral com Halter',
+      targetMuscle: 'Tríceps (Cabeça Longa)',
+      cue: 'Alongamento profundo com tronco reto sem abrir os cotovelos.',
+      sets: [
+        { setNumber: 1, weightKg: 12.5, reps: 12, completed: false },
+        { setNumber: 2, weightKg: 12.5, reps: 10, completed: false },
+        { setNumber: 3, weightKg: 15.0, reps: 8, completed: false },
+      ],
+    },
+    {
+      id: 5,
+      name: 'Abdominal na Polia Alta Ajoelhado (Cable Crunch)',
+      targetMuscle: 'Abdômen Dinâmico',
+      cue: 'Aproxime as costelas da pelve mantendo o quadril travado.',
+      sets: [
+        { setNumber: 1, weightKg: 35.0, reps: 15, completed: false },
+        { setNumber: 2, weightKg: 40.0, reps: 12, completed: false },
+        { setNumber: 3, weightKg: 45.0, reps: 10, completed: false },
+      ],
+    },
+  ]);
 
   // Refeições do Diário com Checkbox de Concluída (completed: boolean)
   const [dietMeals, setDietMeals] = useState([
@@ -202,12 +180,14 @@ export default function App() {
     }
   ]);
 
+  // Alternar Checkbox de Refeição Realizada
   const toggleMealCompleted = (mealId: string) => {
     setDietMeals((prev) =>
       prev.map((meal) => (meal.id === mealId ? { ...meal, completed: !meal.completed } : meal))
     );
   };
 
+  // Cálculo Dinâmico dos Macros Consumidos a partir das Refeições Marcadas
   const consumedTotals = useMemo(() => {
     let calories = 0;
     let protein = 0;
@@ -242,6 +222,7 @@ export default function App() {
 
   const calPercentage = Math.min(100, Math.round((consumedTotals.calories / targetTotals.calories) * 100));
 
+  // Handler de Swap
   const handleSwapFood = (newFood: FoodItemData) => {
     if (!swapTargetFood) return;
     setDietMeals((prev) =>
@@ -253,6 +234,7 @@ export default function App() {
     setSwapTargetFood(null);
   };
 
+  // Handler de Scanner
   const handleAddScannedFood = (scanned: ScannedFoodResult) => {
     const newFoodItem = {
       id: `scanned-${Date.now()}`,
@@ -281,11 +263,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col justify-between selection:bg-cyan-500 selection:text-neutral-950 font-sans pb-24">
       
-      {/* Top Header Oficial com Avatar Sincronizado */}
+      {/* Top Header Oficial */}
       <Header
         streakDays={14}
         userName={userName}
-        userAvatar={avatarUrl}
         onOpenCoach={() => setShowIntakeModal(true)}
       />
 
@@ -295,58 +276,23 @@ export default function App() {
         {/* ================= ABA 1: TREINO ================= */}
         {activeTab === 'workout' && (
           <div className="space-y-4 animate-in fade-in">
-            {/* Card Principal da Divisão Ativa com Seletor de 3 ou 4 Séries */}
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.1)]">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
-                    DIVISÃO ATIVA: ABCD CLÁSSICO PESADO
-                  </span>
-                  <h2 className="text-base font-black text-white">Treino A — Peitorais, Deltóide & 3x Tríceps</h2>
-                  <p className="text-[11px] text-slate-400">
-                    {seriesPerExercise} Séries / ex • {activeWorkoutExercises.length} Exercícios + Cardio • ~{seriesPerExercise === 3 ? '52' : '70'} min
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setShowExerciseLibrary(true)}
-                  className="px-3 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"
-                >
-                  104 Vídeos
-                </button>
+            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_20px_rgba(0,210,255,0.1)]">
+              <div>
+                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
+                  DIVISÃO ATIVA: ABCD CLÁSSICO
+                </span>
+                <h2 className="text-base font-black text-white">Treino A — Peitorais, Deltóide & Tríceps</h2>
+                <p className="text-[11px] text-slate-400">4 Séries • 5 Exercícios • Cargas Decimais Prontas</p>
               </div>
-
-              {/* Seletor Rápido de Séries por Exercício (3 Séries vs 4 Séries) */}
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
-                <span className="text-slate-400 font-bold text-[11px]">Volume da Sessão:</span>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleToggleSeriesCount(3)}
-                    className={`px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      seriesPerExercise === 3
-                        ? 'bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    3 Séries / ex (~52 min)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleToggleSeriesCount(4)}
-                    className={`px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      seriesPerExercise === 4
-                        ? 'bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    4 Séries / ex (~70 min)
-                  </button>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={() => setShowExerciseLibrary(true)}
+                className="px-3 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"
+              >
+                104 Vídeos
+              </button>
             </div>
 
-            {/* Botão de Iniciar Treino ao Vivo */}
             <button
               type="button"
               onClick={() => {
@@ -359,21 +305,17 @@ export default function App() {
               {isWorkoutMinimized ? 'Continuar Treino em Andamento' : 'Iniciar Treino ao Vivo Agora'}
             </button>
 
-            {/* Sequência Principal de Exercícios com Opção de Trocar */}
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  Sequência Principal ({activeWorkoutExercises.length} Movimentos)
+                  Sequência da Sessão ({activeWorkoutExercises.length})
                 </span>
                 <button
                   type="button"
-                  onClick={() => {
-                    setSwapTargetExercise(activeWorkoutExercises[0]);
-                    setShowExerciseLibrary(true);
-                  }}
+                  onClick={() => setShowIntakeModal(true)}
                   className="text-[11px] font-bold text-[#00d2ff] flex items-center gap-1 hover:underline cursor-pointer"
                 >
-                  <ArrowLeftRight className="w-3.5 h-3.5" /> Trocar Exercício
+                  <Sparkles className="w-3.5 h-3.5" /> Reavaliar Anamnese
                 </button>
               </div>
 
@@ -387,20 +329,7 @@ export default function App() {
                       0{idx + 1}
                     </span>
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-xs font-bold text-white">{ex.name}</h4>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSwapTargetExercise(ex);
-                            setShowExerciseLibrary(true);
-                          }}
-                          className="text-[10px] text-slate-500 hover:text-[#00d2ff] flex items-center gap-0.5 cursor-pointer"
-                          title="Substituir este exercício"
-                        >
-                          <ArrowLeftRight className="w-3 h-3" />
-                        </button>
-                      </div>
+                      <h4 className="text-xs font-bold text-white">{ex.name}</h4>
                       <span className="text-[10px] text-slate-400 font-mono">
                         {ex.sets.length} séries • {ex.cue}
                       </span>
@@ -416,32 +345,6 @@ export default function App() {
               ))}
             </div>
 
-            {/* Bloco de Cardio Pós-Treino Prescrito (100% Restaurado) */}
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_15px_rgba(0,210,255,0.08)]">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">
-                      CARDIO PÓS-TREINO INTEGRADO
-                    </span>
-                    <span className="px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[9px] font-bold">
-                      Zona 2
-                    </span>
-                  </div>
-                  <h4 className="text-xs font-black text-white">Simulador de Escadas (Stairmaster)</h4>
-                  <p className="text-[10px] text-slate-400">20 min contínuos • Nível 7 a 9 sem apoiar os braços</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="text-xs font-mono font-bold text-[#00d2ff] block">20 min</span>
-                <span className="text-[9px] text-emerald-400 font-bold">~200 kcal</span>
-              </div>
-            </div>
-
-            {/* Atalhos para GPS Outdoor e Biblioteca 3D */}
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
                 type="button"
@@ -470,9 +373,10 @@ export default function App() {
           </div>
         )}
 
-        {/* ================= ABA 2: NUTRIÇÃO ================= */}
+        {/* ================= ABA 2: NUTRIÇÃO COM CHECKBOXES & MACROS DINÂMICOS ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
+            {/* Header com Scanner e Lista */}
             <div className="flex items-center justify-between pb-1">
               <div>
                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -500,6 +404,7 @@ export default function App() {
               </div>
             </div>
 
+            {/* Aviso de Respeito às Frutas Selecionadas */}
             <div className="p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex items-center gap-2.5 text-xs text-slate-200">
               <Sparkles className="w-4 h-4 text-[#00d2ff] shrink-0" />
               <span>
@@ -522,6 +427,7 @@ export default function App() {
                 />
               </div>
 
+              {/* 3 Barras de Macros Dinâmicas */}
               <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center text-xs">
                 <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800">
                   <span className="text-[10px] text-slate-400 block font-bold">Proteínas</span>
@@ -590,6 +496,7 @@ export default function App() {
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2.5">
+                      {/* Caixa de Seleção / Checkbox */}
                       <button
                         type="button"
                         onClick={() => toggleMealCompleted(meal.id)}
@@ -673,10 +580,9 @@ export default function App() {
             <ProfileView
               userName={userName}
               userHandle={userHandle}
-              onUpdateProfile={(name, handle, newAvatar) => {
+              onUpdateProfile={(name, handle) => {
                 setUserName(name);
                 setUserHandle(handle);
-                if (newAvatar) setAvatarUrl(newAvatar);
               }}
             />
           </div>
@@ -693,7 +599,7 @@ export default function App() {
               <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">
                 TREINO EM ANDAMENTO (MINIMIZADO)
               </span>
-              <h4 className="text-xs font-black text-white">Treino A — Peitorais, Deltóide & 3x Tríceps</h4>
+              <h4 className="text-xs font-black text-white">Treino A — Peitorais, Deltóide & Tríceps</h4>
             </div>
           </div>
 
@@ -719,8 +625,8 @@ export default function App() {
       {/* ================= MODAIS ================= */}
       {showLiveWorkout && (
         <LiveWorkoutRunnerModal
-          workoutTitle="Treino A — Peitorais, Deltóide & 3x Tríceps"
-          splitName="ABCD CLÁSSICO PESADO"
+          workoutTitle="Treino A — Peitorais, Deltóide & Tríceps"
+          splitName="ABCD CLÁSSICO"
           exercises={activeWorkoutExercises}
           elapsedSeconds={workoutElapsedSeconds}
           onClose={() => setShowLiveWorkout(false)}
@@ -737,13 +643,7 @@ export default function App() {
       )}
 
       {showExerciseLibrary && (
-        <ExerciseLibraryModal
-          onClose={() => {
-            setShowExerciseLibrary(false);
-            setSwapTargetExercise(null);
-          }}
-          onSelectExercise={handleSwapExercise}
-        />
+        <ExerciseLibraryModal onClose={() => setShowExerciseLibrary(false)} />
       )}
 
       {showCreateChallenge && (
@@ -760,13 +660,7 @@ export default function App() {
       )}
 
       {showIntakeModal && (
-        <ComprehensiveMedicalIntakeModal
-          onClose={() => setShowIntakeModal(false)}
-          onApplyIntake={(data) => {
-            setShowIntakeModal(false);
-            setActiveTab('workout');
-          }}
-        />
+        <ComprehensiveMedicalIntakeModal onClose={() => setShowIntakeModal(false)} />
       )}
 
       {showScannerModal && (
@@ -795,6 +689,7 @@ export default function App() {
       <BottomNavigation
         activeTab={activeTab}
         onTabChange={(tab) => {
+          // Fecha qualquer janela/modal aberta imediatamente ao mudar de aba
           setShowExerciseLibrary(false);
           setShowCreateChallenge(false);
           setShowGPSModal(false);
@@ -803,6 +698,7 @@ export default function App() {
           setShowSwapModal(false);
           setShowGroceryList(false);
           
+          // Se o treino ao vivo estiver ativo, minimiza para a barra flutuante sem perder os dados
           if (showLiveWorkout) {
             setShowLiveWorkout(false);
             setIsWorkoutMinimized(true);
