@@ -686,7 +686,27 @@ export default function App() {
       )}
 
       {/* Barra de Navegação Inferior Fixa */}
-      <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNavigation
+        activeTab={activeTab}
+        onTabChange={(tab) => {
+          // Fecha qualquer janela/modal aberta imediatamente ao mudar de aba
+          setShowExerciseLibrary(false);
+          setShowCreateChallenge(false);
+          setShowGPSModal(false);
+          setShowIntakeModal(false);
+          setShowScannerModal(false);
+          setShowSwapModal(false);
+          setShowGroceryList(false);
+          
+          // Se o treino ao vivo estiver ativo, minimiza para a barra flutuante sem perder os dados
+          if (showLiveWorkout) {
+            setShowLiveWorkout(false);
+            setIsWorkoutMinimized(true);
+          }
+
+          setActiveTab(tab);
+        }}
+      />
 
     </div>
   );
