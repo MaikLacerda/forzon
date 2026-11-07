@@ -1,12 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
   Search,
   X,
   Dumbbell,
   ChevronRight,
-  Eye
+  Video
 } from 'lucide-react';
-import { AnatomicalExerciseIllustration } from './AnatomicalExerciseIllustration';
 
 export interface CatalogExercise {
   id: string;
@@ -19,6 +18,37 @@ export interface CatalogExercise {
 interface ExerciseLibraryModalProps {
   onClose: () => void;
   onSelectExercise?: (exercise: CatalogExercise) => void;
+}
+
+// Mapeamento dos vídeos MP4
+function getCatalogVideoPath(exerciseName: string): string[] {
+  const clean = (exerciseName || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  if (clean.includes('inclinado') && clean.includes('halter')) {
+    return ['/assets/exercise-videos/incline-dumbbell-bench-press.mp4', '/assets/exercise-videos/bench-press.mp4'];
+  }
+  if (clean.includes('supino') || clean.includes('peito')) {
+    return ['/assets/exercise-videos/bench-press.mp4', '/assets/exercise-videos/dumbbell-chest-fly.mp4'];
+  }
+  if (clean.includes('crucifixo') || clean.includes('crossover') || clean.includes('peck') || clean.includes('voador')) {
+    return ['/assets/exercise-videos/dumbbell-chest-fly.mp4', '/assets/exercise-videos/bench-press.mp4'];
+  }
+  if (clean.includes('martelo')) {
+    return ['/assets/exercise-videos/hammer-curl.mp4', '/assets/exercise-videos/barbell-curl.mp4'];
+  }
+  if (clean.includes('alternad')) {
+    return ['/assets/exercise-videos/alternating-curl.mp4', '/assets/exercise-videos/barbell-curl.mp4'];
+  }
+  if (clean.includes('rosca') || clean.includes('biceps')) {
+    return ['/assets/exercise-videos/barbell-curl.mp4', '/assets/exercise-videos/hammer-curl.mp4'];
+  }
+  if (clean.includes('barra fixa') || clean.includes('puxad') || clean.includes('costas') || clean.includes('pull')) {
+    return ['/assets/exercise-videos/pull-ups.mp4', '/assets/exercise-videos/bench-press.mp4'];
+  }
+  return ['/assets/exercise-videos/bench-press.mp4'];
 }
 
 export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
@@ -126,7 +156,7 @@ export const ALL_104_FORZON_EXERCISES: CatalogExercise[] = [
   { id: 'ex-prancha-lateral-estatica', name: 'Elevação de Pernas na Barra Fixa', group: 'Abdômen', equipment: 'Barra Fixa', cue: 'Eleve os joelhos até a linha do peito sem balanço.' },
   { id: 'ex-crunch-declinado', name: 'Crunch no Banco Declinado com Anilha', group: 'Abdômen', equipment: 'Banco Declinado', cue: 'Sobrecarga de flexão espinhal com torque máximo.' },
 
-  // 9. CARDIO & CONDICIONAMENTO (16)
+  // 9. CARDIO & CONDICIONAMENTO (3)
   { id: 'ex-corrida-ao-ar-livre', name: 'Simulador de Escadas (Stairmaster)', group: 'Cardio', equipment: 'Stairmaster', cue: 'Nível 7 a 9 sem apoiar o peso do corpo nos braços.' },
   { id: 'ex-esteira-inclinada-12', name: 'Esteira Inclinada (Incline Treadmill Walk)', group: 'Cardio', equipment: 'Esteira', cue: 'Inclinação de 10% a 12% a 5.4 km/h sem impacto.' },
   { id: 'ex-bicicleta-ergometrica-spinning', name: 'Bicicleta Ergométrica Regenerativa', group: 'Cardio', equipment: 'Bicicleta Ergométrica', cue: 'Cadência de 85 a 95 RPM para flush de lactato.' },
@@ -139,6 +169,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<string>('Todos');
   const [previewExercise, setPreviewExercise] = useState<CatalogExercise | null>(null);
+  const previewVideoRef = useRef<HTMLVideoElement>(null);
 
   const groups = ['Todos', 'Peitoral', 'Costas', 'Ombros', 'Bíceps', 'Tríceps', 'Pernas', 'Glúteos', 'Panturrilhas', 'Abdômen', 'Cardio'];
 
@@ -154,6 +185,16 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
       return matchesSearch && matchesGroup;
     });
   }, [searchTerm, selectedGroup]);
+
+  // Autoplay ao abrir a prévia do exercício
+  useEffect(() => {
+    if (previewExercise && previewVideoRef.current) {
+      previewVideoRef.current.currentTime = 0;
+      previewVideoRef.current.play().catch(() => {});
+    }
+  }, [previewExercise]);
+
+  const previewSources = previewExercise ? getCatalogVideoPath(previewExercise.name) : [];
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 animate-in fade-in">
@@ -234,7 +275,7 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
 
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-cyan-950/60 border border-cyan-500/20 flex items-center justify-center text-[#00d2ff]">
-                  <Eye className="w-3.5 h-3.5" />
+                  <Video className="w-3.5 h-3.5" />
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors" />
               </div>
@@ -242,10 +283,10 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
           ))}
         </div>
 
-        {/* Modal de Prévia com Demonstração Anatômica Real */}
+        {/* Modal de Prévia com Player de Vídeo MP4 Real */}
         {previewExercise && (
           <div className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="bg-[#0a0e17] border border-cyan-500/50 rounded-3xl max-w-sm w-full p-4 space-y-3 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
+            <div className="bg-[#0a0e17] border border-cyan-500/50 rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                 <h4 className="text-xs font-bold text-white truncate max-w-[210px]">
                   {previewExercise.name}
@@ -255,17 +296,25 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
                 </button>
               </div>
 
-              {/* Card de Ilustração Anatômica */}
-              <div className="w-full rounded-2xl overflow-hidden bg-white border border-slate-200">
-                <AnatomicalExerciseIllustration
-                  exercise={{
-                    id: previewExercise.id,
-                    name: previewExercise.name,
-                    primaryMuscle: previewExercise.group,
-                    equipment: previewExercise.equipment,
-                  } as any}
-                  size="compact"
-                />
+              {/* Player do Vídeo */}
+              <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden bg-black border border-cyan-500/40 relative flex items-center justify-center">
+                <video
+                  ref={previewVideoRef}
+                  key={`preview-${previewExercise.name}`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  webkit-playsinline="true"
+                  preload="auto"
+                  className="w-full h-full object-cover"
+                >
+                  {previewSources.map((srcUrl) => (
+                    <source key={srcUrl} src={srcUrl} type="video/mp4" />
+                  ))}
+                  Vídeo indisponível.
+                </video>
               </div>
 
               {/* Ficha Biomecânica */}

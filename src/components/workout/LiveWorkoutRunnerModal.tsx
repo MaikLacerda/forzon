@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   X,
   Minimize2,
   ChevronRight,
   ChevronLeft,
-  Check
+  Check,
+  RotateCcw,
+  Video
 } from 'lucide-react';
-import { AnatomicalExerciseIllustration } from './AnatomicalExerciseIllustration';
 
 export interface WorkoutSetItem {
   setNumber: number;
@@ -34,6 +35,62 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
+// Mapeador resiliente dos arquivos de vídeo MP4 do FORZON
+function resolveExerciseVideoUrl(exerciseName: string): string[] {
+  const clean = (exerciseName || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+
+  // Mapeamentos diretos
+  if (clean.includes('inclinado') && clean.includes('halter')) {
+    return [
+      '/assets/exercise-videos/incline-dumbbell-bench-press.mp4',
+      '/assets/exercise-videos/bench-press.mp4'
+    ];
+  }
+  if (clean.includes('supino') || clean.includes('peito') || clean.includes('peitoral')) {
+    return [
+      '/assets/exercise-videos/bench-press.mp4',
+      '/assets/exercise-videos/dumbbell-chest-fly.mp4'
+    ];
+  }
+  if (clean.includes('crucifixo') || clean.includes('crossover') || clean.includes('voador') || clean.includes('peck')) {
+    return [
+      '/assets/exercise-videos/dumbbell-chest-fly.mp4',
+      '/assets/exercise-videos/bench-press.mp4'
+    ];
+  }
+  if (clean.includes('martelo')) {
+    return [
+      '/assets/exercise-videos/hammer-curl.mp4',
+      '/assets/exercise-videos/barbell-curl.mp4'
+    ];
+  }
+  if (clean.includes('alternad')) {
+    return [
+      '/assets/exercise-videos/alternating-curl.mp4',
+      '/assets/exercise-videos/barbell-curl.mp4'
+    ];
+  }
+  if (clean.includes('rosca') || clean.includes('biceps')) {
+    return [
+      '/assets/exercise-videos/barbell-curl.mp4',
+      '/assets/exercise-videos/hammer-curl.mp4'
+    ];
+  }
+  if (clean.includes('barra fixa') || clean.includes('pull') || clean.includes('puxad') || clean.includes('costas') || clean.includes('dorsal')) {
+    return [
+      '/assets/exercise-videos/pull-ups.mp4',
+      '/assets/exercise-videos/bench-press.mp4'
+    ];
+  }
+
+  // Fallback seguro padrão
+  return ['/assets/exercise-videos/bench-press.mp4'];
+}
+
 export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   workoutTitle,
   splitName,
@@ -47,10 +104,25 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const [currentExIndex, setCurrentExIndex] = useState(0);
   const [restSecondsRemaining, setRestSecondsRemaining] = useState<number>(90);
   const [isResting, setIsResting] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
+  const videoSources = resolveExerciseVideoUrl(currentExercise.name);
 
-  // Alternar conclusão da série com disparo de descanso
+  // Forçar autoplay no carregamento e ao trocar de exercício
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay silenciado geralmente é permitido em todos os navegadores
+        });
+      }
+    }
+  }, [currentExIndex, currentExercise.name]);
+
+  // Alternar conclusão da série
   const toggleSetComplete = (setIndex: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -69,7 +141,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Carga (Float com decimais livres)
+  // Ajustar Carga (Float)
   const handleWeightChange = (setIndex: number, newWeight: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -82,7 +154,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Repetições Feitas (editável na hora se falhar)
+  // Ajustar Repetições Feitas
   const handleRepsChange = (setIndex: number, newReps: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -112,14 +184,6 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     const mins = Math.floor(total / 60);
     const secs = total % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  // Objeto compatível com a prop exercise de AnatomicalExerciseIllustration
-  const exerciseIllustrationObj: any = {
-    id: String(currentExercise.id || currentExercise.name.toLowerCase().replace(/[^a-z0-9]/g, '-')),
-    name: currentExercise.name,
-    primaryMuscle: currentExercise.targetMuscle,
-    equipment: currentExercise.equipment || 'Livre / Aparelho',
   };
 
   return (
@@ -190,7 +254,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* ÁREA DA DEMONSTRAÇÃO ANATÔMICA REAL */}
+      {/* PLAYER DE VÍDEO DO EXERCÍCIO */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -201,13 +265,31 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Componente Anatômico Real que já existe no seu projeto */}
-        <div className="w-full rounded-3xl overflow-hidden border border-cyan-500/40 bg-white shadow-xl flex items-center justify-center">
-          <AnatomicalExerciseIllustration
-            exercise={exerciseIllustrationObj}
-            size="full"
-            className="w-full"
-          />
+        {/* Box do Vídeo */}
+        <div className="w-full aspect-[16/10] max-h-[260px] rounded-3xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative shadow-2xl flex items-center justify-center">
+          <video
+            ref={videoRef}
+            key={`video-${currentExercise.name}-${currentExIndex}`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls
+            webkit-playsinline="true"
+            preload="auto"
+            className="w-full h-full object-cover"
+          >
+            {videoSources.map((srcUrl) => (
+              <source key={srcUrl} src={srcUrl} type="video/mp4" />
+            ))}
+            Seu navegador não suporta a tag de vídeo.
+          </video>
+
+          {/* Badge de vídeo ativo */}
+          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold pointer-events-none flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-ping" />
+            Vídeo 3D Loop
+          </div>
         </div>
 
         {/* Ponto Crítico de Execução */}
