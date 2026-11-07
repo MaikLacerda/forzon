@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import {
   Trophy,
+  Flame,
+  Dumbbell,
   Heart,
   MessageCircle,
   Share2,
   Trash2,
   Send,
+  Plus,
   X,
   Copy,
-  Check
+  Check,
+  Search,
+  UserPlus,
+  UserCheck,
+  Sparkles,
+  Users
 } from 'lucide-react';
 
-export interface PostItem {
+interface PostItem {
   id: string;
   authorName: string;
   authorHandle: string;
@@ -23,6 +31,16 @@ export interface PostItem {
   commentsCount: number;
   isLiked: boolean;
   isOwner?: boolean;
+}
+
+interface SuggestedAthlete {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  streakDays: number;
+  badge: string;
+  isFollowing: boolean;
 }
 
 interface CommunityFeedViewProps {
@@ -40,6 +58,61 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
   const [shareModalPost, setShareModalPost] = useState<PostItem | null>(null);
 
+  // Busca e atletas recomendados da plataforma
+  const [searchFriend, setSearchFriend] = useState('');
+  const [showFindFriendsModal, setShowFindFriendsModal] = useState(false);
+
+  const [suggestedAthletes, setSuggestedAthletes] = useState<SuggestedAthlete[]>([
+    {
+      id: 'ath-1',
+      name: 'Rodrigo Ferraz',
+      handle: '@rodrigoferraz',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+      streakDays: 28,
+      badge: 'Top 5% Volume',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-2',
+      name: 'Camila Santos',
+      handle: '@camilafit',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
+      streakDays: 45,
+      badge: 'Stairmaster Queen',
+      isFollowing: true,
+    },
+    {
+      id: 'ath-3',
+      name: 'Felipe Rocha',
+      handle: '@feliperocha',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
+      streakDays: 14,
+      badge: 'Jiu-Jitsu & Força',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-4',
+      name: 'Larissa Lima',
+      handle: '@larissafit',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      streakDays: 32,
+      badge: 'Maratonista GPS',
+      isFollowing: false,
+    },
+  ]);
+
+  const toggleFollow = (id: string) => {
+    setSuggestedAthletes((prev) =>
+      prev.map((ath) => (ath.id === id ? { ...ath, isFollowing: !ath.isFollowing } : ath))
+    );
+  };
+
+  const filteredAthletes = suggestedAthletes.filter(
+    (a) =>
+      a.name.toLowerCase().includes(searchFriend.toLowerCase()) ||
+      a.handle.toLowerCase().includes(searchFriend.toLowerCase())
+  );
+
   const [posts, setPosts] = useState<PostItem[]>([
     {
       id: 'post-1',
@@ -47,7 +120,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       authorHandle: userHandle || '@maiklacerda',
       authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       timeAgo: 'Agora mesmo',
-      tag: 'Treino A • Peitorais, Deltóide & Tríceps',
+      tag: 'Treino A • Peitorais, Deltóide & 3x Tríceps',
       content: 'Finalizei a sessão de peito e ombros! O biofeedback em 88% deu sinal verde para sobrecarga progressiva no Supino Inclinado com Halteres. Cargas registradas com precisão!',
       likes: 12,
       commentsCount: 2,
@@ -122,7 +195,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in select-none">
-      
       {/* Cabeçalho da Comunidade com Botão de Criar Desafio */}
       <div className="flex items-center justify-between pb-1">
         <div>
@@ -131,14 +203,25 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </span>
           <h2 className="text-xl font-black text-white">Feed dos Atletas</h2>
         </div>
-        <button
-          type="button"
-          onClick={onCreateChallengeClick}
-          className="px-3 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-[#00d2ff] text-xs font-bold flex items-center gap-1.5 hover:bg-cyan-900 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,210,255,0.2)]"
-        >
-          <Trophy className="w-3.5 h-3.5" />
-          <span>Criar Desafio</span>
-        </button>
+        <div className="flex gap-1.5">
+          <button
+            type="button"
+            onClick={() => setShowFindFriendsModal(true)}
+            className="p-2 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
+            title="Encontrar Amigos"
+          >
+            <UserPlus className="w-4 h-4" />
+            <span className="hidden sm:inline">Amigos</span>
+          </button>
+          <button
+            type="button"
+            onClick={onCreateChallengeClick}
+            className="px-3 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-[#00d2ff] text-xs font-bold flex items-center gap-1.5 hover:bg-cyan-900 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,210,255,0.2)]"
+          >
+            <Trophy className="w-3.5 h-3.5" />
+            <span>Criar Desafio</span>
+          </button>
+        </div>
       </div>
 
       {/* Caixa de Publicação de Novo Post */}
@@ -165,6 +248,85 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </button>
         </div>
       </form>
+
+      {/* SEÇÃO INTEGRADA: ENCONTRAR AMIGOS & INDICADOS DA PLATAFORMA */}
+      <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-[#00d2ff]" />
+            <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              Encontrar Atletas & Amigos
+            </h3>
+          </div>
+          <span className="text-[10px] font-bold text-[#00d2ff] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30">
+            {suggestedAthletes.filter((a) => a.isFollowing).length} Seguidos
+          </span>
+        </div>
+
+        {/* Barra de Pesquisa de Amigos */}
+        <div className="relative">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={searchFriend}
+            onChange={(e) => setSearchFriend(e.target.value)}
+            placeholder="Buscar por @username ou nome do atleta..."
+            className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
+          />
+        </div>
+
+        {/* Carrossel / Lista de Atletas Indicados */}
+        <div className="space-y-2 pt-1">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-1">
+            Recomendados pela Comunidade FORZON:
+          </span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {filteredAthletes.map((ath) => (
+              <div
+                key={ath.id}
+                className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="relative">
+                    <img
+                      src={ath.avatar}
+                      alt={ath.name}
+                      className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
+                    />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#07090e]" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-white leading-tight">{ath.name}</h4>
+                    <span className="text-[10px] font-mono text-[#00d2ff] block">{ath.handle}</span>
+                    <span className="text-[9px] text-slate-400">{ath.badge}</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => toggleFollow(ath.id)}
+                  className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    ath.isFollowing
+                      ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/40'
+                      : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
+                  }`}
+                >
+                  {ath.isFollowing ? (
+                    <>
+                      <UserCheck className="w-3.5 h-3.5" /> Seguido
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus className="w-3.5 h-3.5" /> Seguir
+                    </>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Lista de Postagens da Comunidade */}
       <div className="space-y-3">
@@ -276,7 +438,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
                 )}`}
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold flex flex-col items-center gap-1.5 hover:bg-emerald-900 cursor-pointer text-center"
+                className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold flex flex-col items-center gap-1.5 hover:bg-emerald-900"
               >
                 <Share2 className="w-5 h-5" />
                 <span>WhatsApp</span>
@@ -285,7 +447,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </div>
         </div>
       )}
-
     </div>
   );
 };
