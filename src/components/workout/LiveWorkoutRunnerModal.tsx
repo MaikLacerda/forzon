@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   X,
   Minimize2,
@@ -7,7 +7,10 @@ import {
   Check,
   Dumbbell,
   Play,
-  RotateCcw
+  RotateCcw,
+  Sparkles,
+  VolumeX,
+  RefreshCw
 } from 'lucide-react';
 
 export interface WorkoutSetItem {
@@ -22,7 +25,7 @@ export interface WorkoutExerciseItem {
   name: string;
   targetMuscle: string;
   cue: string;
-  videoSlug?: string;
+  videoUrl?: string;
   sets: WorkoutSetItem[];
 }
 
@@ -36,6 +39,38 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
+// Mapeamento real dos vídeos disponíveis no FORZON
+const EXERCISE_VIDEO_MAP: Record<string, string[]> = {
+  'supino inclinado com halteres': [
+    '/assets/exercise-videos/bench-press.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-man-working-out-with-dumbbells-in-a-gym-44337-large.mp4'
+  ],
+  'supino reto com barra': [
+    '/assets/exercise-videos/bench-press.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-a-barbell-in-a-gym-44339-large.mp4'
+  ],
+  'crucifixo no crossover': [
+    '/assets/exercise-videos/dumbbell-chest-fly.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-man-doing-chest-fly-workout-at-the-gym-44342-large.mp4'
+  ],
+  'elevacao lateral com halteres': [
+    '/assets/exercise-videos/lateral-raise.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-young-man-exercising-arms-with-dumbbells-44340-large.mp4'
+  ],
+  'triceps frances unilateral com halter': [
+    '/assets/exercise-videos/triceps-extension.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-man-exercising-arms-with-weights-at-gym-44341-large.mp4'
+  ],
+  'rosca direta com barra reta': [
+    '/assets/exercise-videos/barbell-curl.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-man-exercising-biceps-with-a-barbell-at-the-gym-44344-large.mp4'
+  ],
+  'rosca martelo com halteres': [
+    '/assets/exercise-videos/hammer-curl.mp4',
+    'https://assets.mixkit.co/videos/preview/mixkit-man-working-out-with-dumbbells-in-a-gym-44337-large.mp4'
+  ]
+};
+
 export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   workoutTitle,
   splitName,
@@ -47,11 +82,38 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 }) => {
   const [exercises, setExercises] = useState<WorkoutExerciseItem[]>(initialExercises);
   const [currentExIndex, setCurrentExIndex] = useState(0);
-  const [videoError, setVideoError] = useState(false);
+  const [videoIndex, setVideoIndex] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [hasVideoError, setHasVideoError] = useState(false);
   const [restSecondsRemaining, setRestSecondsRemaining] = useState<number>(90);
   const [isResting, setIsResting] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
+
+  // Identifica a lista de fontes de vídeo para o exercício atual
+  const currentKey = Object.keys(EXERCISE_VIDEO_MAP).find(k =>
+    (currentExercise.name || '').toLowerCase().includes(k)
+  );
+  const candidateVideos = currentKey
+    ? EXERCISE_VIDEO_MAP[currentKey]
+    : [
+        `/assets/exercise-videos/bench-press.mp4`,
+        'https://assets.mixkit.co/videos/preview/mixkit-man-working-out-with-dumbbells-in-a-gym-44337-large.mp4'
+      ];
+
+  const currentVideoSource = candidateVideos[videoIndex] || candidateVideos[0];
+
+  // Reset de vídeo ao trocar de exercício
+  useEffect(() => {
+    setVideoIndex(0);
+    setVideoLoaded(false);
+    setHasVideoError(false);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [currentExIndex]);
 
   // Alternar conclusão da série
   const toggleSetComplete = (setIndex: number) => {
@@ -85,7 +147,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     );
   };
 
-  // Ajustar Repetições Feitas (Permite mudar caso falhe antes da meta)
+  // Ajustar Repetições Feitas (editável se falhar antes da meta)
   const handleRepsChange = (setIndex: number, newReps: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -117,13 +179,14 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Mapeamento dinâmico de vídeos locais
-  const exerciseVideoSrc = `/assets/exercise-videos/${(currentExercise.name || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')}.mp4`;
+  // Tenta próxima fonte de vídeo se a primeira falhar
+  const handleVideoError = () => {
+    if (videoIndex + 1 < candidateVideos.length) {
+      setVideoIndex((prev) => prev + 1);
+    } else {
+      setHasVideoError(true);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-[#07090e] flex flex-col justify-between p-4 overflow-y-auto animate-in fade-in select-none">
@@ -193,7 +256,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* ÁREA DE VÍDEO E DEMONSTRAÇÃO VISUAL */}
+      {/* ÁREA DE DEMONSTRAÇÃO VISUAL / VÍDEO DO EXERCÍCIO */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -204,23 +267,27 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <h3 className="text-lg font-black text-white">{currentExercise.name}</h3>
 
-        {/* Player de Vídeo com Fallback Biomecânico Ativo */}
-        <div className="w-full h-56 rounded-2xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative flex flex-col items-center justify-center p-4 shadow-inner">
-          {!videoError ? (
+        {/* Player de Vídeo Blindado com Autoplay e Multi-Origem */}
+        <div className="w-full h-56 rounded-2xl bg-[#0a0e17] border border-cyan-500/40 overflow-hidden relative flex flex-col items-center justify-center shadow-inner group">
+          {!hasVideoError ? (
             <video
-              key={currentExercise.name}
-              src={exerciseVideoSrc}
+              ref={videoRef}
+              key={currentVideoSource}
+              src={currentVideoSource}
               autoPlay
               loop
               muted
               playsInline
+              webkit-playsinline="true"
+              disablePictureInPicture
               controls
-              onError={() => setVideoError(true)}
+              onLoadedData={() => setVideoLoaded(true)}
+              onError={handleVideoError}
               className="w-full h-full object-cover rounded-xl"
             />
           ) : (
-            /* Guia Biomecânico Animado (Fiel às Imagens 5 e 6) */
-            <div className="text-center space-y-2.5 animate-in fade-in">
+            /* Demonstração Biomecânica Tática Interativa (Caso falte MP4) */
+            <div className="text-center p-4 space-y-2.5 animate-in fade-in">
               <div className="relative w-16 h-16 mx-auto rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_25px_rgba(0,210,255,0.35)]">
                 <Dumbbell className="w-8 h-8 animate-pulse text-[#00d2ff]" />
                 <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
@@ -228,7 +295,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
               <div>
                 <span className="text-[10px] font-mono text-[#00d2ff] font-bold uppercase tracking-wider block">
-                  GUIA BIOMECÂNICO & EXECUÇÃO TÉCNICA
+                  DEMONSTRAÇÃO BIOMECÂNICA EM LOOP
                 </span>
                 <h4 className="text-sm font-black text-white mt-0.5">{currentExercise.name}</h4>
                 <p className="text-xs text-slate-300 mt-0.5">
@@ -240,6 +307,12 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
               </div>
             </div>
           )}
+
+          {/* Badge tático de reprodução */}
+          <div className="absolute top-2 right-2 px-2 py-0.5 rounded-lg bg-black/70 backdrop-blur-sm border border-cyan-500/30 text-[9px] font-mono text-cyan-300 flex items-center gap-1">
+            <VolumeX className="w-3 h-3 text-[#00d2ff]" />
+            <span>Demonstração 3D</span>
+          </div>
         </div>
       </div>
 
@@ -276,7 +349,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
               />
             </div>
 
-            {/* Input de Repetições Editáveis (Se falhar, o atleta altera aqui na hora) */}
+            {/* Input de Repetições Editáveis (Muda se falhar antes) */}
             <div className="w-1/4 flex justify-center">
               <input
                 type="number"
@@ -311,7 +384,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
             type="button"
             disabled={currentExIndex === 0}
             onClick={() => {
-              setVideoError(false);
+              setHasVideoError(false);
               setCurrentExIndex((prev) => Math.max(0, prev - 1));
             }}
             className="flex-1 py-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
@@ -323,7 +396,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
             type="button"
             disabled={currentExIndex === exercises.length - 1}
             onClick={() => {
-              setVideoError(false);
+              setHasVideoError(false);
               setCurrentExIndex((prev) => Math.min(exercises.length - 1, prev + 1));
             }}
             className="flex-1 py-3 rounded-xl bg-cyan-950 border border-cyan-500/40 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"

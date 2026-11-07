@@ -291,16 +291,21 @@ export const ExerciseLibraryModal: React.FC<ExerciseLibraryModalProps> = ({
               {/* Player com Fallback Garantido */}
               <div className="w-full h-52 rounded-2xl bg-[#07090e] border border-cyan-500/30 overflow-hidden relative flex items-center justify-center shadow-inner">
                 {!videoError ? (
-                  <video
-                    src="/assets/exercise-videos/bench-press.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    controls
-                    onError={() => setVideoError(true)}
-                    className="w-full h-full object-cover"
-                  />
+                <video
+                  key={previewExercise.name}
+                  src={previewExercise.videoUrl || `/assets/exercise-videos/bench-press.mp4`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  webkit-playsinline="true"
+                  controls
+                  className="w-full h-full object-cover rounded-xl"
+                  onError={(e) => {
+         // Se falhar o arquivo local, carrega a amostra web garantida
+                  (e.currentTarget as HTMLVideoElement).src = 'https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-a-barbell-in-a-gym-44339-large.mp4';
+                }}
+              />
                 ) : (
                   <div className="text-center p-4 space-y-2">
                     <div className="w-12 h-12 mx-auto rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_15px_rgba(0,210,255,0.2)]">
