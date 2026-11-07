@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Play,
   Sparkles,
@@ -7,7 +7,8 @@ import {
   Scan,
   Maximize2,
   Compass,
-  Dumbbell
+  Dumbbell,
+  Check
 } from 'lucide-react';
 
 // Componentes de Layout Persistente
@@ -48,7 +49,7 @@ export default function App() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [swapTargetFood, setSwapTargetFood] = useState<FoodItemData | null>(null);
 
-  // Timer Persistente do Treino ao Vivo (continua rodando mesmo minimizado)
+  // Timer Persistente do Treino ao Vivo
   useEffect(() => {
     let interval: any = null;
     if (showLiveWorkout || isWorkoutMinimized) {
@@ -126,13 +127,14 @@ export default function App() {
     },
   ]);
 
-  // Alimentos Prescritos no Diário Nutricional (Mamão, Uva e Abacaxi; exclusão de Banana)
+  // Refeições do Diário com Checkbox de Concluída (completed: boolean)
   const [dietMeals, setDietMeals] = useState([
     {
       id: 'm-1',
       title: 'Café da Manhã Anabólico',
       time: '08:00',
       calories: 540,
+      completed: true,
       foods: [
         { id: 'f-1', name: '4 Ovos Caipiras Mexidos com Cúrcuma', quantity: '4 unidades', calories: 280, proteinG: 26, carbsG: 2, fatG: 20, category: 'proteina' as const },
         { id: 'f-2', name: 'Mamão Papaia Fresco em Cubos', quantity: '150g (1/2 unid)', calories: 60, proteinG: 1, carbsG: 15, fatG: 0.2, category: 'fruta' as const },
@@ -144,6 +146,7 @@ export default function App() {
       title: 'Almoço — Recuperação Miofibrilar',
       time: '12:30',
       calories: 680,
+      completed: true,
       foods: [
         { id: 'f-4', name: 'Filé de Peito de Frango Grelhado', quantity: '180g', calories: 290, proteinG: 55, carbsG: 0, fatG: 5.5, category: 'proteina' as const },
         { id: 'f-5', name: 'Mandioca Cozida no Vapor', quantity: '180g', calories: 240, proteinG: 2, carbsG: 58, fatG: 0.4, category: 'carboidrato' as const },
@@ -156,21 +159,76 @@ export default function App() {
       title: 'Lanche da Tarde — Pré-Treino',
       time: '16:30',
       calories: 420,
+      completed: false,
       foods: [
         { id: 'f-8', name: 'Whey Protein Isolado Baunilha', quantity: '35g (1 scoop)', calories: 140, proteinG: 29, carbsG: 2, fatG: 1.5, category: 'proteina' as const },
         { id: 'f-9', name: 'Abacaxi Pérola em Fatias', quantity: '150g (2 fatias)', calories: 75, proteinG: 0.8, carbsG: 19, fatG: 0.2, category: 'fruta' as const },
         { id: 'f-10', name: 'Castanha-do-Pará Selecionada', quantity: '20g (4 unid)', calories: 130, proteinG: 3, carbsG: 2.5, fatG: 13, category: 'gordura' as const },
       ]
+    },
+    {
+      id: 'm-4',
+      title: 'Jantar — Reposição Noturna',
+      time: '20:30',
+      calories: 520,
+      completed: false,
+      foods: [
+        { id: 'f-11', name: 'Patinho Moído Magro com Ervas', quantity: '160g', calories: 260, proteinG: 45, carbsG: 0, fatG: 8, category: 'proteina' as const },
+        { id: 'f-12', name: 'Arroz Branco ou Batata Inglesa', quantity: '160g', calories: 200, proteinG: 4, carbsG: 44, fatG: 0.5, category: 'carboidrato' as const },
+        { id: 'f-13', name: 'Mix de Folhas e Brócolis', quantity: '100g', calories: 60, proteinG: 2, carbsG: 6, fatG: 0.5, category: 'carboidrato' as const },
+      ]
     }
   ]);
+
+  // Alternar Checkbox de Refeição Realizada
+  const toggleMealCompleted = (mealId: string) => {
+    setDietMeals((prev) =>
+      prev.map((meal) => (meal.id === mealId ? { ...meal, completed: !meal.completed } : meal))
+    );
+  };
+
+  // Cálculo Dinâmico dos Macros Consumidos a partir das Refeições Marcadas
+  const consumedTotals = useMemo(() => {
+    let calories = 0;
+    let protein = 0;
+    let carbs = 0;
+    let fat = 0;
+
+    dietMeals.forEach((meal) => {
+      if (meal.completed) {
+        meal.foods.forEach((f) => {
+          calories += f.calories || 0;
+          protein += f.proteinG || 0;
+          carbs += f.carbsG || 0;
+          fat += f.fatG || 0;
+        });
+      }
+    });
+
+    return {
+      calories,
+      protein: Math.round(protein),
+      carbs: Math.round(carbs),
+      fat: Math.round(fat),
+    };
+  }, [dietMeals]);
+
+  const targetTotals = {
+    calories: 2500,
+    protein: 170,
+    carbs: 280,
+    fat: 70,
+  };
+
+  const calPercentage = Math.min(100, Math.round((consumedTotals.calories / targetTotals.calories) * 100));
 
   // Handler de Swap
   const handleSwapFood = (newFood: FoodItemData) => {
     if (!swapTargetFood) return;
-    setDietMeals(prev =>
-      prev.map(meal => ({
+    setDietMeals((prev) =>
+      prev.map((meal) => ({
         ...meal,
-        foods: meal.foods.map(f => (f.id === swapTargetFood.id ? { ...newFood, id: f.id } : f))
+        foods: meal.foods.map((f) => (f.id === swapTargetFood.id ? { ...newFood, id: f.id } : f))
       }))
     );
     setSwapTargetFood(null);
@@ -189,13 +247,14 @@ export default function App() {
       category: 'proteina' as const,
     };
 
-    setDietMeals(prev => [
+    setDietMeals((prev) => [
       ...prev,
       {
         id: `meal-scanned-${Date.now()}`,
         title: 'Alimento Escaneado via OCR/IA',
         time: 'Agora',
         calories: scanned.calories,
+        completed: true,
         foods: [newFoodItem]
       }
     ]);
@@ -314,9 +373,10 @@ export default function App() {
           </div>
         )}
 
-        {/* ================= ABA 2: NUTRIÇÃO ================= */}
+        {/* ================= ABA 2: NUTRIÇÃO COM CHECKBOXES & MACROS DINÂMICOS ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
+            {/* Header com Scanner e Lista */}
             <div className="flex items-center justify-between pb-1">
               <div>
                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -344,6 +404,7 @@ export default function App() {
               </div>
             </div>
 
+            {/* Aviso de Respeito às Frutas Selecionadas */}
             <div className="p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex items-center gap-2.5 text-xs text-slate-200">
               <Sparkles className="w-4 h-4 text-[#00d2ff] shrink-0" />
               <span>
@@ -351,34 +412,69 @@ export default function App() {
               </span>
             </div>
 
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2.5">
+            {/* Balanço Calórico Dinâmico */}
+            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_25px_rgba(0,210,255,0.1)]">
               <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-400 font-bold">Balanço Calórico</span>
-                <span className="font-mono text-[#00d2ff] font-bold">1.640 / 2.500 kcal</span>
+                <span className="text-slate-300 font-bold">Balanço Calórico Consumido</span>
+                <span className="font-mono text-[#00d2ff] font-bold">
+                  {consumedTotals.calories.toLocaleString('pt-BR')} / {targetTotals.calories.toLocaleString('pt-BR')} kcal ({calPercentage}%)
+                </span>
               </div>
-              <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
-                <div className="h-full bg-[#00d2ff] rounded-full shadow-[0_0_8px_#00d2ff]" style={{ width: '65%' }} />
+              <div className="w-full h-2.5 rounded-full bg-slate-900 overflow-hidden">
+                <div
+                  className="h-full bg-[#00d2ff] rounded-full transition-all duration-300 shadow-[0_0_8px_#00d2ff]"
+                  style={{ width: `${calPercentage}%` }}
+                />
               </div>
+
+              {/* 3 Barras de Macros Dinâmicas */}
               <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center text-xs">
-                <div>
-                  <span className="text-[10px] text-slate-500 block">Proteínas</span>
-                  <strong className="text-emerald-400 font-mono">145g / 170g</strong>
+                <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block font-bold">Proteínas</span>
+                  <strong className="text-emerald-400 font-mono text-sm block">
+                    {consumedTotals.protein}g / {targetTotals.protein}g
+                  </strong>
+                  <div className="w-full h-1 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div
+                      className="h-full bg-emerald-400"
+                      style={{ width: `${Math.min(100, (consumedTotals.protein / targetTotals.protein) * 100)}%` }}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[10px] text-slate-500 block">Carboidratos</span>
-                  <strong className="text-cyan-400 font-mono">180g / 280g</strong>
+
+                <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block font-bold">Carboidratos</span>
+                  <strong className="text-cyan-400 font-mono text-sm block">
+                    {consumedTotals.carbs}g / {targetTotals.carbs}g
+                  </strong>
+                  <div className="w-full h-1 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div
+                      className="h-full bg-cyan-400"
+                      style={{ width: `${Math.min(100, (consumedTotals.carbs / targetTotals.carbs) * 100)}%` }}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <span className="text-[10px] text-slate-500 block">Gorduras</span>
-                  <strong className="text-amber-400 font-mono">48g / 70g</strong>
+
+                <div className="p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block font-bold">Gorduras</span>
+                  <strong className="text-amber-400 font-mono text-sm block">
+                    {consumedTotals.fat}g / {targetTotals.fat}g
+                  </strong>
+                  <div className="w-full h-1 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div
+                      className="h-full bg-amber-400"
+                      style={{ width: `${Math.min(100, (consumedTotals.fat / targetTotals.fat) * 100)}%` }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
+            {/* Refeições com Checkbox Ativo */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  Refeições Prescritas ({dietMeals.length})
+                  Refeições do Dia ({dietMeals.filter((m) => m.completed).length} de {dietMeals.length} Realizadas)
                 </span>
                 <button
                   type="button"
@@ -390,20 +486,53 @@ export default function App() {
               </div>
 
               {dietMeals.map((meal) => (
-                <div key={meal.id} className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 space-y-2">
+                <div
+                  key={meal.id}
+                  className={`p-3.5 rounded-2xl border transition-all space-y-2 ${
+                    meal.completed
+                      ? 'bg-[#0f131c]/90 border-cyan-500/40 shadow-[0_0_15px_rgba(0,210,255,0.08)]'
+                      : 'bg-[#0f131c] border-slate-800 opacity-80'
+                  }`}
+                >
                   <div className="flex justify-between items-center">
-                    <div>
-                      <h4 className="text-xs font-black text-white">{meal.title}</h4>
-                      <span className="text-[10px] text-slate-400 font-mono">{meal.time}</span>
+                    <div className="flex items-center gap-2.5">
+                      {/* Caixa de Seleção / Checkbox */}
+                      <button
+                        type="button"
+                        onClick={() => toggleMealCompleted(meal.id)}
+                        className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
+                          meal.completed
+                            ? 'bg-[#00d2ff] border-[#00d2ff] text-neutral-950 shadow-[0_0_10px_#00d2ff]'
+                            : 'border-slate-700 bg-slate-900 hover:border-cyan-400'
+                        }`}
+                        title="Marcar refeição como consumida"
+                      >
+                        {meal.completed && <Check className="w-4 h-4 stroke-[3]" />}
+                      </button>
+
+                      <div>
+                        <h4 className={`text-xs font-black ${meal.completed ? 'text-white' : 'text-slate-300'}`}>
+                          {meal.title}
+                        </h4>
+                        <span className="text-[10px] text-slate-400 font-mono">{meal.time}</span>
+                      </div>
                     </div>
-                    <span className="text-xs font-mono font-bold text-[#00d2ff]">{meal.calories} kcal</span>
+
+                    <div className="text-right">
+                      <span className="text-xs font-mono font-bold text-[#00d2ff] block">{meal.calories} kcal</span>
+                      <span className={`text-[9px] font-bold ${meal.completed ? 'text-emerald-400' : 'text-slate-500'}`}>
+                        {meal.completed ? 'Consumida' : 'Pendente'}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="space-y-1.5 pt-1 border-t border-slate-800/80">
+                  <div className="space-y-1.5 pt-1.5 border-t border-slate-800/80">
                     {meal.foods.map((food) => (
                       <div key={food.id} className="flex justify-between items-center text-xs py-1">
                         <div>
-                          <span className="font-bold text-slate-200 block">{food.name}</span>
+                          <span className={`font-bold block ${meal.completed ? 'text-slate-200' : 'text-slate-400'}`}>
+                            {food.name}
+                          </span>
                           <span className="text-[10px] text-slate-400 font-mono">
                             {food.quantity} • P: {food.proteinG}g | C: {food.carbsG}g
                           </span>
@@ -461,7 +590,7 @@ export default function App() {
 
       </main>
 
-      {/* ================= FLOATING MINI-PLAYER PERSISTENTE DE TREINO ================= */}
+      {/* ================= FLOATING MINI-PLAYER ================= */}
       {isWorkoutMinimized && (
         <div className="fixed bottom-20 left-4 right-4 z-40 bg-[#0a0e17]/95 border border-cyan-500/50 backdrop-blur-xl rounded-2xl p-3 flex items-center justify-between shadow-[0_0_25px_rgba(0,210,255,0.3)] animate-in slide-in-from-bottom">
           <div className="flex items-center gap-3">
@@ -493,8 +622,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ================= MODAIS ESPECÍFICOS ================= */}
-      
+      {/* ================= MODAIS ================= */}
       {showLiveWorkout && (
         <LiveWorkoutRunnerModal
           workoutTitle="Treino A — Peitorais, Deltóide & Tríceps"
