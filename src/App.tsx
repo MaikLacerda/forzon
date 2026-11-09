@@ -12,7 +12,9 @@ import {
   Activity,
   RotateCcw,
   Sliders,
-  ChevronRight
+  ChevronRight,
+  Droplets,
+  Plus
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -58,6 +60,36 @@ export default function App() {
   const [activeSplitName, setActiveSplitName] = useState('ABCD CLÁSSICO PESADO');
   const [activeWorkoutTitle, setActiveWorkoutTitle] = useState('Treino A — Peitorais, Deltóide & 3x Tríceps');
   const [seriesPerExercise, setSeriesPerExercise] = useState(4);
+
+  // 💧 HIDRATAÇÃO DIÁRIA (PERSISTENTE EM LOCALSTORAGE)
+  const [waterGoalMl, setWaterGoalMl] = useState<number>(3200);
+  const [waterIntakeMl, setWaterIntakeMl] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('forzon_water_intake');
+      return saved ? parseInt(saved, 10) : 2400;
+    } catch {
+      return 2400;
+    }
+  });
+
+  const handleAddWater = (amountMl: number = 250) => {
+    setWaterIntakeMl((prev) => {
+      const next = prev + amountMl;
+      try {
+        localStorage.setItem('forzon_water_intake', next.toString());
+      } catch (err) {
+        console.warn('Erro ao salvar hidratação:', err);
+      }
+      return next;
+    });
+  };
+
+  const handleResetWater = () => {
+    setWaterIntakeMl(0);
+    try {
+      localStorage.setItem('forzon_water_intake', '0');
+    } catch {}
+  };
 
   useEffect(() => {
     let interval: any = null;
@@ -121,6 +153,9 @@ export default function App() {
   const handleApplyMedicalIntake = (data: MedicalIntakeData) => {
     const split = data.splitPreference || 'ABCD Clássico';
     const series = (data.exactSessionMinutes && data.exactSessionMinutes <= 50) ? 3 : 4;
+    if (data.waterLiters) {
+      setWaterGoalMl(Math.round(data.waterLiters * 1000));
+    }
     setActiveSplitName(split.toUpperCase());
     setSeriesPerExercise(series);
     if (split.includes('Upper') || split.includes('Lower')) {
@@ -216,6 +251,7 @@ export default function App() {
 
   const targetTotals = { calories: 2500, protein: 170, carbs: 280, fat: 70 };
   const calPercentage = Math.min(100, Math.round((consumedTotals.calories / targetTotals.calories) * 100));
+  const waterPercentage = Math.min(100, Math.round((waterIntakeMl / waterGoalMl) * 100));
 
   const handleSwapFood = (newFood: FoodItemData) => {
     if (!swapTargetFood) return;
@@ -365,6 +401,7 @@ export default function App() {
           </div>
         )}
 
+        {/* ================= ABA 2: NUTRIÇÃO COM HIDRATAÇÃO RESTAURADA ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between pb-1">
@@ -373,8 +410,8 @@ export default function App() {
                 <h2 className="text-xl font-black text-white">Diário Nutricional</h2>
               </div>
               <div className="flex gap-1.5">
-                <button type="button" onClick={() => setShowScannerModal(true)} className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"><Scan className="w-4 h-4" /></button>
-                <button type="button" onClick={() => setShowGroceryList(true)} className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer"><ShoppingBag className="w-4 h-4" /></button>
+                <button type="button" onClick={() => setShowScannerModal(true)} className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer" title="Escanear Tabela Nutricional"><Scan className="w-4 h-4" /></button>
+                <button type="button" onClick={() => setShowGroceryList(true)} className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer" title="Lista de Compras"><ShoppingBag className="w-4 h-4" /></button>
               </div>
             </div>
 
@@ -383,6 +420,7 @@ export default function App() {
               <span>Ficha Nutricional: <strong>Mamão, Uva e Abacaxi</strong> priorizados; <strong>Banana banida</strong>.</span>
             </div>
 
+            {/* Balanço Calórico Consumido */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_25px_rgba(0,210,255,0.1)]">
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-300 font-bold">Balanço Calórico Consumido</span>
@@ -398,6 +436,75 @@ export default function App() {
               </div>
             </div>
 
+            {/* 💧 CARD OFICIAL DE HIDRATAÇÃO & META HÍDRICA DIÁRIA */}
+            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
+                    <Droplets className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-black text-white">Meta Hídrica Diária</h3>
+                    <span className="text-[10px] text-slate-400">Hidratação celular & equilíbrio osmótico</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => handleAddWater(250)}
+                    className="px-3 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500/40 hover:bg-cyan-900 text-[#00d2ff] font-bold text-xs flex items-center gap-1 transition-all cursor-pointer shadow-[0_0_10px_rgba(0,210,255,0.2)]"
+                    title="Adicionar 250ml de água"
+                  >
+                    <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                    <span>+250 ml</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleAddWater(500)}
+                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-white font-mono text-xs font-bold transition-all cursor-pointer"
+                    title="Adicionar 500ml de água"
+                  >
+                    +500ml
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-baseline pt-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-mono text-xl font-black text-[#00d2ff]">
+                    {waterIntakeMl.toLocaleString('pt-BR')} ml
+                  </span>
+                  <span className="text-xs font-mono text-slate-400 font-semibold">
+                    / {waterGoalMl.toLocaleString('pt-BR')} ml
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-emerald-400 font-mono">
+                    {waterPercentage}%
+                  </span>
+                  {waterIntakeMl > 0 && (
+                    <button
+                      type="button"
+                      onClick={handleResetWater}
+                      className="text-[10px] text-slate-500 hover:text-rose-400 transition-colors cursor-pointer"
+                      title="Zerar hidratação de hoje"
+                    >
+                      Zerar
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-cyan-500 to-[#00d2ff] rounded-full transition-all duration-300 shadow-[0_0_8px_#00d2ff]"
+                  style={{ width: `${waterPercentage}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Refeições do Dia com Checkbox */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Refeições do Dia ({dietMeals.filter((m) => m.completed).length} de {dietMeals.length} Realizadas)</span>
