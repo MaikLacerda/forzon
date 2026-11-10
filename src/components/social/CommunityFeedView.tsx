@@ -20,8 +20,10 @@ import {
   Loader2
 } from 'lucide-react';
 
-// ✅ IMPORTAÇÃO EXATA CONFORME SEU 'firebase.ts'
-import { firebaseDatabase, firebaseAuth } from '../../firebase'; // ou '../firebase' dependendo da pasta
+// Se o seu firebase.ts estiver em src/services/firebase, use '../../services/firebase'
+// Se estiver em src/firebase, use '../../firebase'
+// Se estiver em src/lib/firebase, use '../../lib/firebase'
+import { firebaseDatabase, firebaseAuth } from '../../services/firebase'; // <- AJUSTE ESTE CAMINHO CONFORME A PASTA DO SEU firebase.ts
 import {
   collection,
   query,
@@ -93,7 +95,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
   const [firebaseAthletes, setFirebaseAthletes] = useState<SuggestedAthlete[]>([]);
   const [followingMap, setFollowingMap] = useState<Record<string, boolean>>({});
 
-  // 1. Carregar lista inicial de atletas da coleção 'accounts' ou 'users' do Firestore
+  // 1. Carregar lista de atletas (consulta Firestore com fallback gracioso)
   useEffect(() => {
     let isMounted = true;
 
@@ -102,7 +104,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         if (!firebaseDatabase) return;
         setIsSearchingFirebase(true);
 
-        // Busca usuários cadastrados no seu Firestore
+        // Busca na coleção 'users' ou 'accounts'
         const usersRef = collection(firebaseDatabase, 'users');
         const q = query(usersRef, limit(15));
         const querySnapshot = await getDocs(q);
@@ -110,7 +112,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         const list: SuggestedAthlete[] = [];
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
-          if (docSnap.id === currentUserId) return; // Não exibe o próprio usuário
+          if (docSnap.id === currentUserId) return;
 
           const rawName = data.name || data.displayName || 'Atleta FORZON';
           list.push({
@@ -128,7 +130,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           setFirebaseAthletes(list);
         }
       } catch (err) {
-        console.warn('Coleção users ainda não populada ou regras de leitura restritas no Firestore:', err);
+        console.warn('Coleção users ainda não populada ou sem permissão pública de leitura:', err);
       } finally {
         if (isMounted) setIsSearchingFirebase(false);
       }
@@ -141,7 +143,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
     };
   }, [currentUserId]);
 
-  // 2. Busca dinâmica por nome ou @handle no Firestore com Debounce
+  // 2. Busca dinâmica por nome ou @handle com debounce
   useEffect(() => {
     const cleanQuery = searchFriend.replace('@', '').trim().toLowerCase();
     if (!cleanQuery) return;
@@ -164,7 +166,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           const athleteName = (data.name || data.displayName || '').toLowerCase();
           const athleteHandle = (data.handle || data.username || '').toLowerCase();
 
-          // Encontra se bate com nome, sobrenome ou @handle
           if (athleteName.includes(cleanQuery) || athleteHandle.includes(cleanQuery)) {
             const rawName = data.name || data.displayName || 'Atleta FORZON';
             found.push({
@@ -195,7 +196,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
     };
   }, [searchFriend, currentUserId, followingMap]);
 
-  // 3. Seguir / Deixar de Seguir persistindo no Firestore
+  // 3. Seguir atleta
   const toggleFollow = async (athleteId: string) => {
     const isNowFollowing = !followingMap[athleteId];
 
@@ -221,7 +222,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
     }
   };
 
-  // 4. Feed de Postagens
+  // 4. Feed de posts
   const [posts, setPosts] = useState<PostItem[]>([
     {
       id: 'post-1',
@@ -323,7 +324,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in select-none">
-      {/* Cabeçalho */}
       <div className="flex items-center justify-between pb-1">
         <div>
           <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -343,7 +343,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         </div>
       </div>
 
-      {/* Publicar Novo Post */}
       <form onSubmit={handleCreatePost} className="p-3.5 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2.5">
         <div className="flex gap-2.5 items-center">
           <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs text-[#00d2ff]">
@@ -368,7 +367,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         </div>
       </form>
 
-      {/* SEÇÃO INTEGRADA: BUSCA REAL NO FIRESTORE */}
       <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -382,7 +380,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </span>
         </div>
 
-        {/* Campo de Busca conectado ao Firestore */}
         <div className="relative">
           {isSearchingFirebase ? (
             <Loader2 className="w-4 h-4 text-[#00d2ff] animate-spin absolute left-3 top-1/2 -translate-y-1/2" />
@@ -409,7 +406,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           )}
         </div>
 
-        {/* Lista de Usuários do Firestore */}
         <div className="space-y-2 pt-1">
           <div className="flex justify-between items-center px-1">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
@@ -486,7 +482,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
                   : `Nenhum atleta cadastrado com "${searchFriend}"`}
               </p>
               <p className="text-[10px] text-slate-500">
-                Verifique se o usuário já salvou o perfil na coleção &quot;users&quot; do seu Firebase.
+                Verifique se o usuário já salvou o perfil na coleção "users" do seu Firebase.
               </p>
             </div>
           )}
