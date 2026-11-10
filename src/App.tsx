@@ -14,7 +14,8 @@ import {
   Sliders,
   ChevronRight,
   Droplets,
-  Plus
+  Plus,
+  Minus
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -61,22 +62,25 @@ export default function App() {
   const [activeWorkoutTitle, setActiveWorkoutTitle] = useState('Treino A — Peitorais, Deltóide & 3x Tríceps');
   const [seriesPerExercise, setSeriesPerExercise] = useState(4);
 
-  // 💧 HIDRATAÇÃO DIÁRIA (PERSISTENTE EM LOCALSTORAGE)
+  // 💧 HIDRATAÇÃO DIÁRIA INTELIGENTE (Zera automaticamente com a virada da data + localStorage)
+  const getTodayKey = () => `forzon_water_intake_${new Date().toISOString().split('T')[0]}`;
+
   const [waterGoalMl, setWaterGoalMl] = useState<number>(3200);
   const [waterIntakeMl, setWaterIntakeMl] = useState<number>(() => {
     try {
-      const saved = localStorage.getItem('forzon_water_intake');
-      return saved ? parseInt(saved, 10) : 2400;
+      const todayKey = `forzon_water_intake_${new Date().toISOString().split('T')[0]}`;
+      const saved = localStorage.getItem(todayKey);
+      return saved ? parseInt(saved, 10) : 0;
     } catch {
-      return 2400;
+      return 0;
     }
   });
 
   const handleAddWater = (amountMl: number = 250) => {
     setWaterIntakeMl((prev) => {
-      const next = prev + amountMl;
+      const next = Math.max(0, prev + amountMl);
       try {
-        localStorage.setItem('forzon_water_intake', next.toString());
+        localStorage.setItem(getTodayKey(), next.toString());
       } catch (err) {
         console.warn('Erro ao salvar hidratação:', err);
       }
@@ -87,7 +91,7 @@ export default function App() {
   const handleResetWater = () => {
     setWaterIntakeMl(0);
     try {
-      localStorage.setItem('forzon_water_intake', '0');
+      localStorage.setItem(getTodayKey(), '0');
     } catch {}
   };
 
@@ -110,7 +114,7 @@ export default function App() {
   const generateExercisesForSplit = (split: string, seriesCount: number): WorkoutExerciseItem[] => {
     if (split.includes('Upper') || split.includes('Lower')) {
       return [
-        { id: 1, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior', cue: 'Descida controlada até a linha dos mamilos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 8, completed: i === 0 })) },
+        { id: 1, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior', cue: 'Descida controlada até a linha dos mamilos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 8, completed: false })) },
         { id: 2, name: 'Puxada Frontal na Polia Alta', targetMuscle: 'Latíssimo do Dorso', cue: 'Puxe direcionando cotovelos para os bolsos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: false })) },
         { id: 3, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
         { id: 4, name: 'Remada Curvada com Barra', targetMuscle: 'Costas', cue: 'Tronco a 45° com curvatura anatômica.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 60.0, reps: 10, completed: false })) },
@@ -120,7 +124,7 @@ export default function App() {
       ];
     }
     return [
-      { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: i === 0 })) },
+      { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: false })) },
       { id: 2, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
       { id: 3, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
       { id: 4, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
@@ -178,13 +182,14 @@ export default function App() {
     setSwapTargetExercise(null);
   };
 
+  // 🍽️ REFEIÇÕES DO DIA INICIAM DESMARCADAS (completed: false)
   const [dietMeals, setDietMeals] = useState([
     {
       id: 'm-1',
       title: 'Café da Manhã Anabólico',
       time: '08:00',
       calories: 540,
-      completed: true,
+      completed: false,
       foods: [
         { id: 'f-1', name: '4 Ovos Caipiras Mexidos com Cúrcuma', quantity: '4 unidades', calories: 280, proteinG: 26, carbsG: 2, fatG: 20, category: 'proteina' as const },
         { id: 'f-2', name: 'Mamão Papaia Fresco em Cubos', quantity: '150g (1/2 unid)', calories: 60, proteinG: 1, carbsG: 15, fatG: 0.2, category: 'fruta' as const },
@@ -196,7 +201,7 @@ export default function App() {
       title: 'Almoço — Recuperação Miofibrilar',
       time: '12:30',
       calories: 680,
-      completed: true,
+      completed: false,
       foods: [
         { id: 'f-4', name: 'Filé de Peito de Frango Grelhado', quantity: '180g', calories: 290, proteinG: 55, carbsG: 0, fatG: 5.5, category: 'proteina' as const },
         { id: 'f-5', name: 'Mandioca Cozida no Vapor', quantity: '180g', calories: 240, proteinG: 2, carbsG: 58, fatG: 0.4, category: 'carboidrato' as const },
@@ -401,7 +406,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ================= ABA 2: NUTRIÇÃO COM HIDRATAÇÃO RESTAURADA ================= */}
+        {/* ================= ABA 2: DIÁRIO NUTRICIONAL COM HIDRATAÇÃO CORRIGIDA ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between pb-1">
@@ -420,7 +425,7 @@ export default function App() {
               <span>Ficha Nutricional: <strong>Mamão, Uva e Abacaxi</strong> priorizados; <strong>Banana banida</strong>.</span>
             </div>
 
-            {/* Balanço Calórico Consumido */}
+            {/* Balanço Calórico Consumido (Inicia em 0% e soma com as refeições) */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_25px_rgba(0,210,255,0.1)]">
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-300 font-bold">Balanço Calórico Consumido</span>
@@ -436,7 +441,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 💧 CARD OFICIAL DE HIDRATAÇÃO & META HÍDRICA DIÁRIA */}
+            {/* 💧 CARD OFICIAL DE HIDRATAÇÃO COM BOTÃO -250ml E ZERADO NO INÍCIO */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -450,6 +455,15 @@ export default function App() {
                 </div>
 
                 <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => handleAddWater(-250)}
+                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-white font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-0.5"
+                    title="Diminuir 250ml"
+                  >
+                    <Minus className="w-3 h-3" />
+                    <span>250ml</span>
+                  </button>
                   <button
                     type="button"
                     onClick={() => handleAddWater(250)}
@@ -504,7 +518,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Refeições do Dia com Checkbox */}
+            {/* Refeições do Dia com Checkbox (Iniciam Pendentes) */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Refeições do Dia ({dietMeals.filter((m) => m.completed).length} de {dietMeals.length} Realizadas)</span>
