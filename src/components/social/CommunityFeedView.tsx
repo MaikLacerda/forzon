@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Trophy,
   Flame,
@@ -16,8 +16,21 @@ import {
   UserPlus,
   UserCheck,
   Sparkles,
-  Users
+  Users,
+  Loader2
 } from 'lucide-react';
+
+// ✅ IMPORTAÇÃO EXATA CONFORME SEU 'firebase.ts'
+import { firebaseDatabase, firebaseAuth } from '../../firebase'; // ou '../firebase' dependendo da pasta
+import {
+  collection,
+  query,
+  getDocs,
+  limit,
+  doc,
+  setDoc,
+  deleteDoc
+} from 'firebase/firestore';
 
 interface CommentItem {
   id: string;
@@ -48,8 +61,8 @@ interface SuggestedAthlete {
   name: string;
   handle: string;
   avatar: string;
-  streakDays: number;
-  badge: string;
+  streakDays?: number;
+  badge?: string;
   isFollowing: boolean;
 }
 
@@ -64,101 +77,151 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
   userHandle,
   onCreateChallengeClick,
 }) => {
+  const currentUserId = firebaseAuth?.currentUser?.uid || 'local-user';
+
   const [newPostText, setNewPostText] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
   const [shareModalPost, setShareModalPost] = useState<PostItem | null>(null);
 
-  // Modal de Comentários Interativo
+  // Modal de Comentários
   const [activeCommentsPost, setActiveCommentsPost] = useState<PostItem | null>(null);
   const [newCommentText, setNewCommentText] = useState('');
 
-  // Busca e atletas recomendados da plataforma
+  // Busca de Amigos no Firestore real
   const [searchFriend, setSearchFriend] = useState('');
-  const [showFindFriendsModal, setShowFindFriendsModal] = useState(false);
+  const [isSearchingFirebase, setIsSearchingFirebase] = useState(false);
+  const [firebaseAthletes, setFirebaseAthletes] = useState<SuggestedAthlete[]>([]);
+  const [followingMap, setFollowingMap] = useState<Record<string, boolean>>({});
 
-  // Base completa de atletas da comunidade (incluindo Aline Novak)
-  const [suggestedAthletes, setSuggestedAthletes] = useState<SuggestedAthlete[]>([
-    {
-      id: 'ath-1',
-      name: 'Aline Novak',
-      handle: '@alinenovak',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
-      streakDays: 21,
-      badge: 'Atleta Híbrida • Força & Corrida',
-      isFollowing: false,
-    },
-    {
-      id: 'ath-2',
-      name: 'Rodrigo Ferraz',
-      handle: '@rodrigoferraz',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-      streakDays: 28,
-      badge: 'Top 5% Volume Global',
-      isFollowing: false,
-    },
-    {
-      id: 'ath-3',
-      name: 'Camila Santos',
-      handle: '@camilafit',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-      streakDays: 45,
-      badge: 'Stairmaster Queen',
-      isFollowing: true,
-    },
-    {
-      id: 'ath-4',
-      name: 'Felipe Rocha',
-      handle: '@feliperocha',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
-      streakDays: 14,
-      badge: 'Jiu-Jitsu & Força',
-      isFollowing: false,
-    },
-    {
-      id: 'ath-5',
-      name: 'Larissa Lima',
-      handle: '@larissafit',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-      streakDays: 32,
-      badge: 'Maratonista GPS',
-      isFollowing: false,
-    },
-    {
-      id: 'ath-6',
-      name: 'Lucas Mendonça',
-      handle: '@lucasmendonca',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80',
-      streakDays: 19,
-      badge: 'Powerlifter Sub-90kg',
-      isFollowing: false,
-    },
-  ]);
+  // 1. Carregar lista inicial de atletas da coleção 'accounts' ou 'users' do Firestore
+  useEffect(() => {
+    let isMounted = true;
 
-  const toggleFollow = (id: string) => {
-    setSuggestedAthletes((prev) =>
-      prev.map((ath) => (ath.id === id ? { ...ath, isFollowing: !ath.isFollowing } : ath))
+    const fetchInitialAthletes = async () => {
+      try {
+        if (!firebaseDatabase) return;
+        setIsSearchingFirebase(true);
+
+        // Busca usuários cadastrados no seu Firestore
+        const usersRef = collection(firebaseDatabase, 'users');
+        const q = query(usersRef, limit(15));
+        const querySnapshot = await getDocs(q);
+
+        const list: SuggestedAthlete[] = [];
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          if (docSnap.id === currentUserId) return; // Não exibe o próprio usuário
+
+          const rawName = data.name || data.displayName || 'Atleta FORZON';
+          list.push({
+            id: docSnap.id,
+            name: rawName,
+            handle: data.handle || data.username || `@${rawName.toLowerCase().replace(/\s+/g, '')}`,
+            avatar: data.avatarUrl || data.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            streakDays: data.streakDays || data.streak || 0,
+            badge: data.badge || data.mainGoal || 'Atleta da Comunidade',
+            isFollowing: !!followingMap[docSnap.id],
+          });
+        });
+
+        if (isMounted) {
+          setFirebaseAthletes(list);
+        }
+      } catch (err) {
+        console.warn('Coleção users ainda não populada ou regras de leitura restritas no Firestore:', err);
+      } finally {
+        if (isMounted) setIsSearchingFirebase(false);
+      }
+    };
+
+    fetchInitialAthletes();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentUserId]);
+
+  // 2. Busca dinâmica por nome ou @handle no Firestore com Debounce
+  useEffect(() => {
+    const cleanQuery = searchFriend.replace('@', '').trim().toLowerCase();
+    if (!cleanQuery) return;
+
+    let isMounted = true;
+    const timer = setTimeout(async () => {
+      try {
+        if (!firebaseDatabase) return;
+        setIsSearchingFirebase(true);
+
+        const usersRef = collection(firebaseDatabase, 'users');
+        const q = query(usersRef, limit(30));
+        const querySnapshot = await getDocs(q);
+
+        const found: SuggestedAthlete[] = [];
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          if (docSnap.id === currentUserId) return;
+
+          const athleteName = (data.name || data.displayName || '').toLowerCase();
+          const athleteHandle = (data.handle || data.username || '').toLowerCase();
+
+          // Encontra se bate com nome, sobrenome ou @handle
+          if (athleteName.includes(cleanQuery) || athleteHandle.includes(cleanQuery)) {
+            const rawName = data.name || data.displayName || 'Atleta FORZON';
+            found.push({
+              id: docSnap.id,
+              name: rawName,
+              handle: data.handle || data.username || `@${rawName.toLowerCase().replace(/\s+/g, '')}`,
+              avatar: data.avatarUrl || data.photoURL || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
+              streakDays: data.streakDays || 0,
+              badge: data.badge || data.mainGoal || 'Atleta da Comunidade',
+              isFollowing: !!followingMap[docSnap.id],
+            });
+          }
+        });
+
+        if (isMounted) {
+          setFirebaseAthletes(found);
+        }
+      } catch (error) {
+        console.error('Erro na consulta do Firestore:', error);
+      } finally {
+        if (isMounted) setIsSearchingFirebase(false);
+      }
+    }, 350);
+
+    return () => {
+      clearTimeout(timer);
+      isMounted = false;
+    };
+  }, [searchFriend, currentUserId, followingMap]);
+
+  // 3. Seguir / Deixar de Seguir persistindo no Firestore
+  const toggleFollow = async (athleteId: string) => {
+    const isNowFollowing = !followingMap[athleteId];
+
+    setFollowingMap((prev) => ({ ...prev, [athleteId]: isNowFollowing }));
+    setFirebaseAthletes((prev) =>
+      prev.map((ath) => (ath.id === athleteId ? { ...ath, isFollowing: isNowFollowing } : ath))
     );
+
+    try {
+      if (!firebaseDatabase || !currentUserId || currentUserId === 'local-user') return;
+      const followDocRef = doc(firebaseDatabase, 'users', currentUserId, 'following', athleteId);
+
+      if (isNowFollowing) {
+        await setDoc(followDocRef, {
+          athleteId,
+          followedAt: new Date().toISOString(),
+        });
+      } else {
+        await deleteDoc(followDocRef);
+      }
+    } catch (err) {
+      console.warn('Erro ao salvar relação de seguidor no Firestore:', err);
+    }
   };
 
-  // Normalização de texto (remove acentos, @ e espaços extras para busca infalível)
-  const normalizeText = (text: string) =>
-    text
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace('@', '')
-      .trim();
-
-  const queryClean = normalizeText(searchFriend);
-
-  const filteredAthletes = suggestedAthletes.filter((a) => {
-    if (!queryClean) return true;
-    const nameNorm = normalizeText(a.name);
-    const handleNorm = normalizeText(a.handle);
-    const badgeNorm = normalizeText(a.badge || '');
-    return nameNorm.includes(queryClean) || handleNorm.includes(queryClean) || badgeNorm.includes(queryClean);
-  });
-
+  // 4. Feed de Postagens
   const [posts, setPosts] = useState<PostItem[]>([
     {
       id: 'post-1',
@@ -180,52 +243,9 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
           content: 'Volume monstro! Qual carga você usou no inclinado?',
           timeAgo: 'Há 10 min'
-        },
-        {
-          id: 'c-2',
-          authorName: 'Camila Santos',
-          authorHandle: '@camilafit',
-          authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-          content: 'A consistência tá absurda! Parabéns!',
-          timeAgo: 'Há 5 min'
         }
       ]
-    },
-    {
-      id: 'post-2',
-      authorName: 'Rodrigo Ferraz',
-      authorHandle: '@rodrigoferraz',
-      authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-      timeAgo: 'Há 45 min',
-      tag: 'Rotina Hipertrofia A • Peito & Tríceps',
-      content: 'Bati PR no Supino Inclinado com 36kg hoje! O descanso ATP-CP de 90 segundos com +30s na última série fez toda a diferença na recuperação neural.',
-      likes: 24,
-      commentsCount: 1,
-      isLiked: false,
-      commentsList: [
-        {
-          id: 'c-3',
-          authorName: userName || 'Maikon Lacerda',
-          authorHandle: userHandle || '@maiklacerda',
-          authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-          content: 'Descanso ATP-CP salva vidas no supino!',
-          timeAgo: 'Há 20 min'
-        }
-      ]
-    },
-    {
-      id: 'post-3',
-      authorName: 'Camila Santos',
-      authorHandle: '@camilafit',
-      authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-      timeAgo: 'Há 2 horas',
-      tag: 'Stairmaster Pós-Treino • Zona 2',
-      content: '20 min de Simulador de Escadas após o treino de pernas. 210 kcal pagas e sincronizadas direto com o Strava!',
-      likes: 42,
-      commentsCount: 0,
-      isLiked: true,
-      commentsList: []
-    },
+    }
   ]);
 
   const handleLike = (id: string) => {
@@ -303,7 +323,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
 
   return (
     <div className="space-y-4 animate-in fade-in select-none">
-      {/* Cabeçalho da Comunidade com Botão de Criar Desafio */}
+      {/* Cabeçalho */}
       <div className="flex items-center justify-between pb-1">
         <div>
           <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -312,15 +332,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           <h2 className="text-xl font-black text-white">Feed dos Atletas</h2>
         </div>
         <div className="flex gap-1.5">
-          <button
-            type="button"
-            onClick={() => setShowFindFriendsModal(true)}
-            className="p-2 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
-            title="Encontrar Amigos"
-          >
-            <UserPlus className="w-4 h-4" />
-            <span className="hidden sm:inline">Amigos</span>
-          </button>
           <button
             type="button"
             onClick={onCreateChallengeClick}
@@ -332,7 +343,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         </div>
       </div>
 
-      {/* Caixa de Publicação de Novo Post */}
+      {/* Publicar Novo Post */}
       <form onSubmit={handleCreatePost} className="p-3.5 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2.5">
         <div className="flex gap-2.5 items-center">
           <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs text-[#00d2ff]">
@@ -357,7 +368,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         </div>
       </form>
 
-      {/* SEÇÃO INTEGRADA: ENCONTRAR AMIGOS & INDICADOS DA PLATAFORMA */}
+      {/* SEÇÃO INTEGRADA: BUSCA REAL NO FIRESTORE */}
       <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -367,77 +378,87 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
             </h3>
           </div>
           <span className="text-[10px] font-bold text-[#00d2ff] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30">
-            {suggestedAthletes.filter((a) => a.isFollowing).length} Seguidos
+            {firebaseAthletes.filter((a) => a.isFollowing).length} Seguidos
           </span>
         </div>
 
-        {/* Barra de Pesquisa de Amigos com botão de limpar */}
+        {/* Campo de Busca conectado ao Firestore */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          {isSearchingFirebase ? (
+            <Loader2 className="w-4 h-4 text-[#00d2ff] animate-spin absolute left-3 top-1/2 -translate-y-1/2" />
+          ) : (
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          )}
+
           <input
             type="text"
             value={searchFriend}
             onChange={(e) => setSearchFriend(e.target.value)}
-            placeholder="Buscar por @username ou nome do atleta..."
+            placeholder="Buscar por nome ou @handle no Firebase..."
             className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-9 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
           />
+
           {searchFriend && (
             <button
               type="button"
               onClick={() => setSearchFriend('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Carrossel / Lista de Atletas Indicados */}
+        {/* Lista de Usuários do Firestore */}
         <div className="space-y-2 pt-1">
           <div className="flex justify-between items-center px-1">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
               {searchFriend.trim()
-                ? `Resultados para "${searchFriend}" (${filteredAthletes.length})`
-                : 'Recomendados pela Comunidade FORZON:'}
+                ? `Usuários no Firebase para "${searchFriend}" (${firebaseAthletes.length})`
+                : 'Atletas Cadastrados no FORZON:'}
             </span>
             {searchFriend.trim() && (
               <button
                 type="button"
                 onClick={() => setSearchFriend('')}
-                className="text-[10px] text-[#00d2ff] hover:underline"
+                className="text-[10px] text-[#00d2ff] hover:underline cursor-pointer"
               >
                 Limpar busca
               </button>
             )}
           </div>
 
-          {filteredAthletes.length > 0 ? (
+          {firebaseAthletes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {filteredAthletes.map((ath) => (
+              {firebaseAthletes.map((ath) => (
                 <div
                   key={ath.id}
                   className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="relative">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="relative shrink-0">
                       <img
                         src={ath.avatar}
                         alt={ath.name}
                         className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src =
+                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+                        }}
                       />
                       <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#07090e]" />
                     </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-white leading-tight">{ath.name}</h4>
-                      <span className="text-[10px] font-mono text-[#00d2ff] block">{ath.handle}</span>
-                      <span className="text-[9px] text-slate-400">{ath.badge}</span>
+                    <div className="min-w-0 pr-2">
+                      <h4 className="text-xs font-bold text-white leading-tight truncate">{ath.name}</h4>
+                      <span className="text-[10px] font-mono text-[#00d2ff] block truncate">{ath.handle}</span>
+                      <span className="text-[9px] text-slate-400 truncate block">{ath.badge}</span>
                     </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => toggleFollow(ath.id)}
-                    className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer shrink-0 ${
                       ath.isFollowing
                         ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/40'
                         : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
@@ -459,21 +480,26 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           ) : (
             <div className="p-4 rounded-2xl bg-[#07090e] border border-slate-800/80 text-center space-y-1">
               <Users className="w-6 h-6 text-slate-600 mx-auto mb-1" />
-              <p className="text-xs font-bold text-slate-300">Nenhum atleta encontrado com &quot;{searchFriend}&quot;</p>
-              <p className="text-[10px] text-slate-500">Tente buscar por &quot;Aline&quot;, &quot;Rodrigo&quot;, &quot;Camila&quot; ou pelo @handle.</p>
+              <p className="text-xs font-bold text-slate-300">
+                {isSearchingFirebase
+                  ? 'Consultando Firestore...'
+                  : `Nenhum atleta cadastrado com "${searchFriend}"`}
+              </p>
+              <p className="text-[10px] text-slate-500">
+                Verifique se o usuário já salvou o perfil na coleção &quot;users&quot; do seu Firebase.
+              </p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Lista de Postagens da Comunidade */}
+      {/* Lista de Posts */}
       <div className="space-y-3">
         {posts.map((post) => (
           <div
             key={post.id}
             className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 transition-all space-y-2.5"
           >
-            {/* Topo do Post */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
                 <img
@@ -491,7 +517,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
                 </div>
               </div>
 
-              {/* Tag de Treino ou Lixeira se for o dono */}
               <div className="flex items-center gap-1.5">
                 <span className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-cyan-950/80 border border-cyan-500/30 text-[#00d2ff] max-w-[170px] truncate">
                   {post.tag}
@@ -509,10 +534,8 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
               </div>
             </div>
 
-            {/* Conteúdo */}
             <p className="text-xs text-slate-300 leading-relaxed">{post.content}</p>
 
-            {/* Ações: Curtir, Comentar, Compartilhar */}
             <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs text-slate-400">
               <button
                 type="button"
@@ -552,11 +575,10 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         ))}
       </div>
 
-      {/* Modal de Comentários Interativo */}
+      {/* Modal de Comentários */}
       {activeCommentsPost && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in">
           <div className="bg-[#0a0e17] border-t sm:border border-cyan-500/40 rounded-t-3xl sm:rounded-3xl max-w-md w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)] max-h-[85vh] flex flex-col">
-            
             <div className="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
@@ -642,12 +664,11 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       )}
 
-      {/* Modal de Compartilhamento Social */}
+      {/* Modal de Compartilhamento */}
       {shareModalPost && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
           <div className="bg-[#0a0e17] border border-cyan-500/40 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
