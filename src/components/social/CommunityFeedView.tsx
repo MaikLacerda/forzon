@@ -76,18 +76,28 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
   const [searchFriend, setSearchFriend] = useState('');
   const [showFindFriendsModal, setShowFindFriendsModal] = useState(false);
 
+  // Base completa de atletas da comunidade (incluindo Aline Novak)
   const [suggestedAthletes, setSuggestedAthletes] = useState<SuggestedAthlete[]>([
     {
       id: 'ath-1',
-      name: 'Rodrigo Ferraz',
-      handle: '@rodrigoferraz',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-      streakDays: 28,
-      badge: 'Top 5% Volume',
+      name: 'Aline Novak',
+      handle: '@alinenovak',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
+      streakDays: 21,
+      badge: 'Atleta Híbrida • Força & Corrida',
       isFollowing: false,
     },
     {
       id: 'ath-2',
+      name: 'Rodrigo Ferraz',
+      handle: '@rodrigoferraz',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+      streakDays: 28,
+      badge: 'Top 5% Volume Global',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-3',
       name: 'Camila Santos',
       handle: '@camilafit',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
@@ -96,7 +106,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       isFollowing: true,
     },
     {
-      id: 'ath-3',
+      id: 'ath-4',
       name: 'Felipe Rocha',
       handle: '@feliperocha',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
@@ -105,12 +115,21 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       isFollowing: false,
     },
     {
-      id: 'ath-4',
+      id: 'ath-5',
       name: 'Larissa Lima',
       handle: '@larissafit',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       streakDays: 32,
       badge: 'Maratonista GPS',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-6',
+      name: 'Lucas Mendonça',
+      handle: '@lucasmendonca',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80',
+      streakDays: 19,
+      badge: 'Powerlifter Sub-90kg',
       isFollowing: false,
     },
   ]);
@@ -121,11 +140,24 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
     );
   };
 
-  const filteredAthletes = suggestedAthletes.filter(
-    (a) =>
-      a.name.toLowerCase().includes(searchFriend.toLowerCase()) ||
-      a.handle.toLowerCase().includes(searchFriend.toLowerCase())
-  );
+  // Normalização de texto (remove acentos, @ e espaços extras para busca infalível)
+  const normalizeText = (text: string) =>
+    text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace('@', '')
+      .trim();
+
+  const queryClean = normalizeText(searchFriend);
+
+  const filteredAthletes = suggestedAthletes.filter((a) => {
+    if (!queryClean) return true;
+    const nameNorm = normalizeText(a.name);
+    const handleNorm = normalizeText(a.handle);
+    const badgeNorm = normalizeText(a.badge || '');
+    return nameNorm.includes(queryClean) || handleNorm.includes(queryClean) || badgeNorm.includes(queryClean);
+  });
 
   const [posts, setPosts] = useState<PostItem[]>([
     {
@@ -237,7 +269,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
     setNewPostText('');
   };
 
-  // Enviar novo comentário no post aberto
   const handleAddComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeCommentsPost || !newCommentText.trim()) return;
@@ -340,7 +371,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </span>
         </div>
 
-        {/* Barra de Pesquisa de Amigos */}
+        {/* Barra de Pesquisa de Amigos com botão de limpar */}
         <div className="relative">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -348,60 +379,90 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
             value={searchFriend}
             onChange={(e) => setSearchFriend(e.target.value)}
             placeholder="Buscar por @username ou nome do atleta..."
-            className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
+            className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-9 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
           />
+          {searchFriend && (
+            <button
+              type="button"
+              onClick={() => setSearchFriend('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
         {/* Carrossel / Lista de Atletas Indicados */}
         <div className="space-y-2 pt-1">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-1">
-            Recomendados pela Comunidade FORZON:
-          </span>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {filteredAthletes.map((ath) => (
-              <div
-                key={ath.id}
-                className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
+          <div className="flex justify-between items-center px-1">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+              {searchFriend.trim()
+                ? `Resultados para "${searchFriend}" (${filteredAthletes.length})`
+                : 'Recomendados pela Comunidade FORZON:'}
+            </span>
+            {searchFriend.trim() && (
+              <button
+                type="button"
+                onClick={() => setSearchFriend('')}
+                className="text-[10px] text-[#00d2ff] hover:underline"
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="relative">
-                    <img
-                      src={ath.avatar}
-                      alt={ath.name}
-                      className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
-                    />
-                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#07090e]" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-white leading-tight">{ath.name}</h4>
-                    <span className="text-[10px] font-mono text-[#00d2ff] block">{ath.handle}</span>
-                    <span className="text-[9px] text-slate-400">{ath.badge}</span>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => toggleFollow(ath.id)}
-                  className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    ath.isFollowing
-                      ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/40'
-                      : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
-                  }`}
-                >
-                  {ath.isFollowing ? (
-                    <>
-                      <UserCheck className="w-3.5 h-3.5" /> Seguido
-                    </>
-                  ) : (
-                    <>
-                      <UserPlus className="w-3.5 h-3.5" /> Seguir
-                    </>
-                  )}
-                </button>
-              </div>
-            ))}
+                Limpar busca
+              </button>
+            )}
           </div>
+
+          {filteredAthletes.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {filteredAthletes.map((ath) => (
+                <div
+                  key={ath.id}
+                  className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative">
+                      <img
+                        src={ath.avatar}
+                        alt={ath.name}
+                        className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
+                      />
+                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#07090e]" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-white leading-tight">{ath.name}</h4>
+                      <span className="text-[10px] font-mono text-[#00d2ff] block">{ath.handle}</span>
+                      <span className="text-[9px] text-slate-400">{ath.badge}</span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleFollow(ath.id)}
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                      ath.isFollowing
+                        ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/40'
+                        : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
+                    }`}
+                  >
+                    {ath.isFollowing ? (
+                      <>
+                        <UserCheck className="w-3.5 h-3.5" /> Seguido
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus className="w-3.5 h-3.5" /> Seguir
+                      </>
+                    )}
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-4 rounded-2xl bg-[#07090e] border border-slate-800/80 text-center space-y-1">
+              <Users className="w-6 h-6 text-slate-600 mx-auto mb-1" />
+              <p className="text-xs font-bold text-slate-300">Nenhum atleta encontrado com &quot;{searchFriend}&quot;</p>
+              <p className="text-[10px] text-slate-500">Tente buscar por &quot;Aline&quot;, &quot;Rodrigo&quot;, &quot;Camila&quot; ou pelo @handle.</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -451,7 +512,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
             {/* Conteúdo */}
             <p className="text-xs text-slate-300 leading-relaxed">{post.content}</p>
 
-            {/* Ações: Curtir, Comentar (ABRE O MODAL INTERATIVO), Compartilhar */}
+            {/* Ações: Curtir, Comentar, Compartilhar */}
             <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs text-slate-400">
               <button
                 type="button"
@@ -491,12 +552,11 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         ))}
       </div>
 
-      {/* Modal de Comentários Interativo (NOVO & FUNCIONAL) */}
+      {/* Modal de Comentários Interativo */}
       {activeCommentsPost && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in">
           <div className="bg-[#0a0e17] border-t sm:border border-cyan-500/40 rounded-t-3xl sm:rounded-3xl max-w-md w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)] max-h-[85vh] flex flex-col">
             
-            {/* Topo do Modal de Comentários */}
             <div className="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
@@ -518,17 +578,15 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
               </button>
             </div>
 
-            {/* Resumo do Post Comentado */}
             <div className="p-3 rounded-2xl bg-[#0f131c] border border-slate-800/80 shrink-0 space-y-1">
               <span className="text-[9px] font-mono text-[#00d2ff] font-bold block truncate">
                 {activeCommentsPost.tag}
               </span>
               <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed">
-                "{activeCommentsPost.content}"
+                &quot;{activeCommentsPost.content}&quot;
               </p>
             </div>
 
-            {/* Lista Rolável de Comentários */}
             <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
               {activeCommentsPost.commentsList && activeCommentsPost.commentsList.length > 0 ? (
                 activeCommentsPost.commentsList.map((c) => (
@@ -566,7 +624,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
               )}
             </div>
 
-            {/* Caixa de Enviar Novo Comentário */}
             <form onSubmit={handleAddComment} className="pt-2 border-t border-slate-800 shrink-0">
               <div className="flex gap-2 items-center">
                 <input
