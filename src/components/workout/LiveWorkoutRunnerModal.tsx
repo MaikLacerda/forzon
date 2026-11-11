@@ -21,6 +21,10 @@ export interface WorkoutExerciseItem {
   cue?: string;
   sets: WorkoutSetItem[];
   equipment?: string;
+  videoUrl?: string;
+  posterUrl?: string;
+  animationUrl?: string;
+  imageUrl?: string;
 }
 
 interface LiveWorkoutRunnerModalProps {
@@ -33,8 +37,16 @@ interface LiveWorkoutRunnerModalProps {
   onFinishWorkout: () => void;
 }
 
-// Mapeador universal à prova de falhas: converte qualquer nome ou ID para o arquivo físico ex-*.mp4 real
-function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: string): { videoUrl: string; posterUrl: string } {
+// Mapeador universal à prova de falhas: prioriza correspondências específicas de costas, tríceps e pernas ANTES de palavras genéricas como "polia"
+function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: string, explicitVideoUrl?: string, explicitPosterUrl?: string): { videoUrl: string; posterUrl: string } {
+  // Se o próprio exercício já possuir URL definida
+  if (explicitVideoUrl) {
+    return {
+      videoUrl: explicitVideoUrl,
+      posterUrl: explicitPosterUrl || explicitVideoUrl.replace(/\.mp4$/i, '.png'),
+    };
+  }
+
   const rawId = String(exerciseId || '').toLowerCase().trim();
   const rawName = String(exerciseName || '')
     .toLowerCase()
@@ -42,7 +54,7 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     .replace(/[\u0300-\u036f]/g, '')
     .trim();
 
-  // Se o id já começar com ex- e for um ID válido
+  // Se o id já começar com ex- e for um ID de arquivo físico real
   if (rawId.startsWith('ex-') && rawId.length > 5 && !rawId.includes('norm') && !rawId.includes('sess')) {
     return {
       videoUrl: `/assets/exercise-videos/${rawId}.mp4`,
@@ -50,58 +62,24 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     };
   }
 
-  // Mapeamento semântico direto baseado no nome em português
   let fileSlug = 'ex-supino-reto-barra';
 
-  if (rawName.includes('inclinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
-    fileSlug = 'ex-supino-inclinado-halteres';
-  } else if (rawName.includes('inclinado') && rawName.includes('barra')) {
-    fileSlug = 'ex-supino-inclinado-barra';
-  } else if (rawName.includes('declinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
-    fileSlug = 'ex-supino-declinado-halteres';
-  } else if (rawName.includes('declinado') || rawName.includes('canadense')) {
-    fileSlug = 'ex-supino-declinado-barra';
-  } else if (rawName.includes('supino') && (rawName.includes('halter') || rawName.includes('halteres'))) {
-    fileSlug = 'ex-supino-reto-halteres';
-  } else if (rawName.includes('supino') && rawName.includes('maquina')) {
-    fileSlug = 'ex-supino-maquina-articulada';
-  } else if (rawName.includes('supino') && rawName.includes('fechad')) {
-    fileSlug = 'ex-supino-fechado-barra';
-  } else if (rawName.includes('supino') || rawName.includes('peito')) {
-    fileSlug = 'ex-supino-reto-barra';
-  } else if (rawName.includes('crucifixo') && rawName.includes('inclinado')) {
-    fileSlug = 'ex-crucifixo-inclinado-halteres';
-  } else if (rawName.includes('crucifixo') && (rawName.includes('halter') || rawName.includes('halteres'))) {
-    fileSlug = 'ex-crucifixo-reto-halteres';
-  } else if (rawName.includes('crucifixo') && rawName.includes('invertido') && rawName.includes('peck')) {
-    fileSlug = 'ex-crucifixo-invertido-peck-deck';
-  } else if (rawName.includes('crucifixo') && rawName.includes('invertido')) {
-    fileSlug = 'ex-crucifixo-invertido-halteres';
-  } else if (rawName.includes('peck') || rawName.includes('voador')) {
-    fileSlug = 'ex-peck-deck-voador';
-  } else if (rawName.includes('crossover') && rawName.includes('alta')) {
-    fileSlug = 'ex-crossover-polia-alta';
-  } else if (rawName.includes('crossover') && rawName.includes('baixa')) {
-    fileSlug = 'ex-crossover-polia-baixa';
-  } else if (rawName.includes('crossover') || rawName.includes('polia')) {
-    fileSlug = 'ex-crossover-polia-media';
-  } else if (rawName.includes('mergulho') || rawName.includes('paralela')) {
-    fileSlug = 'ex-mergulho-paralelas-peito';
-  } else if (rawName.includes('pullover')) {
-    fileSlug = 'ex-pullover-halter';
+  // 1. DORSAL / COSTAS (PRIORIDADE ABSOLUTA - ANTES DE QUALQUER CHECAGEM DE "POLIA")
+  if (rawName.includes('puxada') && (rawName.includes('triangulo') || rawName.includes('fechada'))) {
+    fileSlug = 'ex-puxada-triangulo';
+  } else if (rawName.includes('puxada')) {
+    fileSlug = 'ex-puxada-frontal-polia';
+  } else if (rawName.includes('pulldown')) {
+    fileSlug = 'ex-pulldown-polia-alta';
   } else if (rawName.includes('barra fixa') && rawName.includes('supinad')) {
     fileSlug = 'ex-barra-fixa-supinada';
   } else if (rawName.includes('barra fixa') || rawName.includes('pull-up')) {
     fileSlug = 'ex-barra-fixa-pronada';
-  } else if (rawName.includes('puxada') && rawName.includes('triangulo')) {
-    fileSlug = 'ex-puxada-triangulo';
-  } else if (rawName.includes('puxada')) {
-    fileSlug = 'ex-puxada-frontal-polia';
   } else if (rawName.includes('remada') && rawName.includes('curvada')) {
     fileSlug = 'ex-remada-curvada-barra';
   } else if (rawName.includes('remada') && (rawName.includes('serrote') || rawName.includes('unilateral'))) {
     fileSlug = 'ex-remada-unilateral-serrote';
-  } else if (rawName.includes('remada') && (rawName.includes('cavalinho') || rawName.includes('t-bar'))) {
+  } else if (rawName.includes('remada') && (rawName.includes('cavalinho') || rawName.includes('t-bar') || rawName.includes('tbar'))) {
     fileSlug = 'ex-remada-cavalinho-tbar';
   } else if (rawName.includes('remada') && rawName.includes('baixa')) {
     fileSlug = 'ex-remada-baixa-triangulo';
@@ -109,18 +87,14 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     fileSlug = 'ex-remada-articulada-maquina';
   } else if (rawName.includes('remada') && rawName.includes('alta')) {
     fileSlug = 'ex-remada-alta-barra-w';
-  } else if (rawName.includes('pulldown')) {
-    fileSlug = 'ex-pulldown-polia-alta';
   } else if (rawName.includes('levantamento terra') || rawName.includes('terra')) {
     fileSlug = 'ex-levantamento-terra-convencional';
-  } else if (rawName.includes('desenvolvimento') && rawName.includes('arnold')) {
-    fileSlug = 'ex-desenvolvimento-arnold';
-  } else if (rawName.includes('desenvolvimento') && rawName.includes('militar')) {
-    fileSlug = 'ex-desenvolvimento-militar-barra';
-  } else if (rawName.includes('desenvolvimento') && rawName.includes('maquina')) {
-    fileSlug = 'ex-desenvolvimento-maquina';
-  } else if (rawName.includes('desenvolvimento')) {
-    fileSlug = 'ex-desenvolvimento-halteres';
+
+  // 2. DELTÓIDES / OMBROS & TRAPÉZIO
+  } else if (rawName.includes('face pull')) {
+    fileSlug = 'ex-face-pull-corda';
+  } else if (rawName.includes('crucifixo') && (rawName.includes('invertido') || rawName.includes('posterior'))) {
+    fileSlug = rawName.includes('peck') ? 'ex-crucifixo-invertido-peck-deck' : 'ex-crucifixo-invertido-halteres';
   } else if (rawName.includes('elevacao lateral') && rawName.includes('polia')) {
     fileSlug = 'ex-elevacao-lateral-polia';
   } else if (rawName.includes('elevacao lateral') && rawName.includes('inclinad')) {
@@ -131,12 +105,38 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     fileSlug = 'ex-elevacao-frontal-corda';
   } else if (rawName.includes('elevacao frontal')) {
     fileSlug = 'ex-elevacao-frontal-halteres';
-  } else if (rawName.includes('face pull')) {
-    fileSlug = 'ex-face-pull-corda';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('arnold')) {
+    fileSlug = 'ex-desenvolvimento-arnold';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('militar')) {
+    fileSlug = 'ex-desenvolvimento-militar-barra';
+  } else if (rawName.includes('desenvolvimento') && rawName.includes('maquina')) {
+    fileSlug = 'ex-desenvolvimento-maquina';
+  } else if (rawName.includes('desenvolvimento')) {
+    fileSlug = 'ex-desenvolvimento-halteres';
   } else if (rawName.includes('encolhimento') && rawName.includes('barra')) {
     fileSlug = 'ex-encolhimento-barra';
   } else if (rawName.includes('encolhimento')) {
     fileSlug = 'ex-encolhimento-halteres';
+
+  // 3. BRAÇOS: TRÍCEPS
+  } else if (rawName.includes('triceps') && rawName.includes('corda')) {
+    fileSlug = 'ex-triceps-corda-polia';
+  } else if (rawName.includes('triceps') && rawName.includes('barra v')) {
+    fileSlug = 'ex-triceps-pulley-barra-v';
+  } else if (rawName.includes('triceps') && (rawName.includes('pulley') || rawName.includes('barra reta'))) {
+    fileSlug = 'ex-triceps-pulley-barra-reta';
+  } else if (rawName.includes('testa') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-triceps-testa-halteres';
+  } else if (rawName.includes('testa') || rawName.includes('triceps testa')) {
+    fileSlug = 'ex-triceps-testa-barra-w';
+  } else if (rawName.includes('frances') && rawName.includes('polia')) {
+    fileSlug = 'ex-triceps-frances-polia-corda';
+  } else if (rawName.includes('frances') || rawName.includes('triceps frances')) {
+    fileSlug = 'ex-triceps-frances-unilateral';
+  } else if (rawName.includes('coice')) {
+    fileSlug = 'ex-triceps-coice-polia';
+
+  // 4. BRAÇOS: BÍCEPS & ANTEBRAÇO
   } else if (rawName.includes('rosca direta') && rawName.includes('barra w')) {
     fileSlug = 'ex-rosca-direta-barra-w';
   } else if (rawName.includes('rosca direta')) {
@@ -153,22 +153,42 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     fileSlug = 'ex-rosca-concentrada-halter';
   } else if (rawName.includes('aranha') || rawName.includes('spider')) {
     fileSlug = 'ex-rosca-aranha-spider-curl';
-  } else if (rawName.includes('triceps') && rawName.includes('corda')) {
-    fileSlug = 'ex-triceps-corda-polia';
-  } else if (rawName.includes('triceps') && rawName.includes('barra v')) {
-    fileSlug = 'ex-triceps-pulley-barra-v';
-  } else if (rawName.includes('triceps') && (rawName.includes('pulley') || rawName.includes('barra reta'))) {
-    fileSlug = 'ex-triceps-pulley-barra-reta';
-  } else if (rawName.includes('testa') && (rawName.includes('halter') || rawName.includes('halteres'))) {
-    fileSlug = 'ex-triceps-testa-halteres';
-  } else if (rawName.includes('testa')) {
-    fileSlug = 'ex-triceps-testa-barra-w';
-  } else if (rawName.includes('frances') && rawName.includes('polia')) {
-    fileSlug = 'ex-triceps-frances-polia-corda';
-  } else if (rawName.includes('frances')) {
-    fileSlug = 'ex-triceps-frances-unilateral';
-  } else if (rawName.includes('coice')) {
-    fileSlug = 'ex-triceps-coice-polia';
+
+  // 5. PEITORAIS & CROSSOVER
+  } else if (rawName.includes('crossover') && rawName.includes('alta')) {
+    fileSlug = 'ex-crossover-polia-alta';
+  } else if (rawName.includes('crossover') && rawName.includes('baixa')) {
+    fileSlug = 'ex-crossover-polia-baixa';
+  } else if (rawName.includes('crossover')) {
+    fileSlug = 'ex-crossover-polia-media';
+  } else if (rawName.includes('inclinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-inclinado-halteres';
+  } else if (rawName.includes('inclinado') && rawName.includes('barra')) {
+    fileSlug = 'ex-supino-inclinado-barra';
+  } else if (rawName.includes('declinado') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-declinado-halteres';
+  } else if (rawName.includes('declinado') || rawName.includes('canadense')) {
+    fileSlug = 'ex-supino-declinado-barra';
+  } else if (rawName.includes('supino') && (rawName.includes('halter') || rawName.includes('halteres'))) {
+    fileSlug = 'ex-supino-reto-halteres';
+  } else if (rawName.includes('supino') && rawName.includes('maquina')) {
+    fileSlug = 'ex-supino-maquina-articulada';
+  } else if (rawName.includes('supino') && rawName.includes('fechad')) {
+    fileSlug = 'ex-supino-fechado-barra';
+  } else if (rawName.includes('supino')) {
+    fileSlug = 'ex-supino-reto-barra';
+  } else if (rawName.includes('crucifixo') && rawName.includes('inclinado')) {
+    fileSlug = 'ex-crucifixo-inclinado-halteres';
+  } else if (rawName.includes('crucifixo')) {
+    fileSlug = 'ex-crucifixo-reto-halteres';
+  } else if (rawName.includes('peck') || rawName.includes('voador')) {
+    fileSlug = 'ex-peck-deck-voador';
+  } else if (rawName.includes('mergulho') || rawName.includes('paralela')) {
+    fileSlug = 'ex-mergulho-paralelas-peito';
+  } else if (rawName.includes('pullover')) {
+    fileSlug = 'ex-pullover-halter';
+
+  // 6. PERNAS & PANTURRILHAS
   } else if (rawName.includes('agachamento') && rawName.includes('frontal')) {
     fileSlug = 'ex-agachamento-frontal-barra';
   } else if (rawName.includes('agachamento') && rawName.includes('smith')) {
@@ -209,7 +229,9 @@ function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: s
     fileSlug = 'ex-panturrilha-unilateral-degrau';
   } else if (rawName.includes('panturrilha')) {
     fileSlug = 'ex-panturrilha-em-pe-maquina';
-  } else if (rawName.includes('cable crunch') || (rawName.includes('abdominal') && rawName.includes('polia'))) {
+
+  // 7. ABDÔMEN
+  } else if (rawName.includes('cable crunch') || (rawName.includes('abdominal') && (rawName.includes('polia') || rawName.includes('cabo')))) {
     fileSlug = 'ex-abdominal-polia-cable-crunch';
   } else if (rawName.includes('infra') || (rawName.includes('abdominal') && rawName.includes('paralela'))) {
     fileSlug = 'ex-abdominal-infra-paralela';
@@ -244,10 +266,21 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const [isResting, setIsResting] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const currentExercise = exercises[currentExIndex] || exercises[0];
-  const { videoUrl, posterUrl } = resolvePhysicalVideoPath(currentExercise.id, currentExercise.name);
+  // Sincroniza se a lista de exercícios mudar externamente
+  useEffect(() => {
+    setExercises(initialExercises);
+    setCurrentExIndex(0);
+  }, [initialExercises]);
 
-  // Forçar autoplay no início e ao trocar de exercício
+  const currentExercise = exercises[currentExIndex] || exercises[0];
+  const { videoUrl, posterUrl } = resolvePhysicalVideoPath(
+    currentExercise.id,
+    currentExercise.name,
+    currentExercise.videoUrl || currentExercise.animationUrl,
+    currentExercise.posterUrl || currentExercise.imageUrl
+  );
+
+  // Forçar reprodução ao iniciar ou trocar de exercício
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
@@ -258,7 +291,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     }
   }, [currentExIndex, videoUrl]);
 
-  // Alternar conclusão da série com disparo do descanso
+  // Alternar conclusão da série com disparo do descanso ATP-CP
   const toggleSetComplete = (setIndex: number) => {
     setExercises((prev) =>
       prev.map((ex, eIdx) => {
@@ -390,7 +423,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* PLAYER DE VÍDEO MP4 REAL RESOLVIDO */}
+      {/* PLAYER DE VÍDEO MP4 REAL CORRETAMENTE ASSOCIADO */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -420,7 +453,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
           <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold pointer-events-none flex items-center gap-1.5 shadow-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-ping" />
-            Vídeo 3D Loop
+            Demonstração 3D Loop
           </div>
         </div>
 
