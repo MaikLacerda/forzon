@@ -15,7 +15,8 @@ import {
   ChevronRight,
   Droplets,
   Plus,
-  Minus
+  Flame,
+  Calendar
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -31,6 +32,22 @@ import { NutritionScannerModal, ScannedFoodResult } from './components/nutrition
 import { FoodSwapModal, FoodItemData } from './components/nutrition/FoodSwapModal';
 import { GroceryListModal } from './components/nutrition/GroceryListModal';
 import { BiofeedbackReadinessCard } from './components/biofeedback/BiofeedbackReadinessCard';
+
+export type WorkoutDayKey = 'A' | 'B' | 'C' | 'D';
+
+interface WorkoutDayPlan {
+  key: WorkoutDayKey;
+  title: string;
+  focusTag: string;
+  estimatedMinutes: number;
+  cardio: {
+    title: string;
+    zone: string;
+    description: string;
+    durationMin: number;
+    caloriesKcal: number;
+  };
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'workout' | 'nutrition' | 'bio' | 'community' | 'profile'>('workout');
@@ -59,28 +76,25 @@ export default function App() {
   const [swapTargetFood, setSwapTargetFood] = useState<FoodItemData | null>(null);
 
   const [activeSplitName, setActiveSplitName] = useState('ABCD CLÁSSICO PESADO');
-  const [activeWorkoutTitle, setActiveWorkoutTitle] = useState('Treino A — Peitorais, Deltóide & 3x Tríceps');
+  const [selectedDayKey, setSelectedDayKey] = useState<WorkoutDayKey>('A');
   const [seriesPerExercise, setSeriesPerExercise] = useState(4);
 
-  // 💧 HIDRATAÇÃO DIÁRIA INTELIGENTE (Zera automaticamente com a virada da data + localStorage)
-  const getTodayKey = () => `forzon_water_intake_${new Date().toISOString().split('T')[0]}`;
-
+  // 💧 HIDRATAÇÃO DIÁRIA (PERSISTENTE EM LOCALSTORAGE)
   const [waterGoalMl, setWaterGoalMl] = useState<number>(3200);
   const [waterIntakeMl, setWaterIntakeMl] = useState<number>(() => {
     try {
-      const todayKey = `forzon_water_intake_${new Date().toISOString().split('T')[0]}`;
-      const saved = localStorage.getItem(todayKey);
-      return saved ? parseInt(saved, 10) : 0;
+      const saved = localStorage.getItem('forzon_water_intake');
+      return saved ? parseInt(saved, 10) : 2400;
     } catch {
-      return 0;
+      return 2400;
     }
   });
 
   const handleAddWater = (amountMl: number = 250) => {
     setWaterIntakeMl((prev) => {
-      const next = Math.max(0, prev + amountMl);
+      const next = prev + amountMl;
       try {
-        localStorage.setItem(getTodayKey(), next.toString());
+        localStorage.setItem('forzon_water_intake', next.toString());
       } catch (err) {
         console.warn('Erro ao salvar hidratação:', err);
       }
@@ -91,7 +105,7 @@ export default function App() {
   const handleResetWater = () => {
     setWaterIntakeMl(0);
     try {
-      localStorage.setItem(getTodayKey(), '0');
+      localStorage.setItem('forzon_water_intake', '0');
     } catch {}
   };
 
@@ -111,32 +125,128 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const generateExercisesForSplit = (split: string, seriesCount: number): WorkoutExerciseItem[] => {
-    if (split.includes('Upper') || split.includes('Lower')) {
-      return [
-        { id: 1, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior', cue: 'Descida controlada até a linha dos mamilos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 8, completed: false })) },
-        { id: 2, name: 'Puxada Frontal na Polia Alta', targetMuscle: 'Latíssimo do Dorso', cue: 'Puxe direcionando cotovelos para os bolsos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: false })) },
-        { id: 3, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
-        { id: 4, name: 'Remada Curvada com Barra', targetMuscle: 'Costas', cue: 'Tronco a 45° com curvatura anatômica.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 60.0, reps: 10, completed: false })) },
-        { id: 5, name: 'Tríceps Testa com Barra W', targetMuscle: 'Tríceps', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
-        { id: 6, name: 'Rosca Direta com Barra W', targetMuscle: 'Bíceps', cue: 'Flexão estrita sem balanço de tronco.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 10, completed: false })) },
-        { id: 7, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
-      ];
-    }
-    return [
-      { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: false })) },
-      { id: 2, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
-      { id: 3, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
-      { id: 4, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
-      { id: 5, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
-      { id: 6, name: 'Tríceps Testa com Barra W no Banco Reto', targetMuscle: 'Tríceps (Medial/Lateral)', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
-      { id: 7, name: 'Tríceps Francês Unilateral com Halter', targetMuscle: 'Tríceps (Cabeça Longa)', cue: 'Alongamento profundo com tronco reto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 10, completed: false })) },
-      { id: 8, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão)', cue: 'Abra as pontas da corda com pico isométrico.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 15, completed: false })) },
-      { id: 9, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
-    ];
+  // 📋 METADADOS DOS TREINOS A, B, C, D
+  const workoutPlans: Record<WorkoutDayKey, WorkoutDayPlan> = {
+    A: {
+      key: 'A',
+      title: 'Treino A — Peitorais, Deltóide & 3x Tríceps',
+      focusTag: 'Peitoral & Tríceps',
+      estimatedMinutes: seriesPerExercise === 3 ? 52 : 70,
+      cardio: {
+        title: 'Simulador de Escadas (Stairmaster)',
+        zone: 'Zona 2',
+        description: '20 min contínuos • Nível 7 a 9 sem apoiar os braços',
+        durationMin: 20,
+        caloriesKcal: 200,
+      },
+    },
+    B: {
+      key: 'B',
+      title: 'Treino B — Dorsais, Deltóide Posterior & Bíceps',
+      focusTag: 'Costas & Bíceps',
+      estimatedMinutes: seriesPerExercise === 3 ? 50 : 68,
+      cardio: {
+        title: 'Caminhada na Esteira Inclinada',
+        zone: 'Zona 2 Aeróbia',
+        description: '20 min • Inclinação 10% a 12% • Velocidade 5.5 km/h',
+        durationMin: 20,
+        caloriesKcal: 190,
+      },
+    },
+    C: {
+      key: 'C',
+      title: 'Treino C — Quadríceps, Posteriores & Panturrilhas',
+      focusTag: 'Pernas Completas',
+      estimatedMinutes: seriesPerExercise === 3 ? 55 : 75,
+      cardio: {
+        title: 'Bicicleta Ergométrica (Regenerativo)',
+        zone: 'Zona 1/2',
+        description: '15 min de desintoxicação miofibrilar e lavagem de lactato',
+        durationMin: 15,
+        caloriesKcal: 130,
+      },
+    },
+    D: {
+      key: 'D',
+      title: 'Treino D — Deltóides Completos, Braços & Core',
+      focusTag: 'Ombros & Braços',
+      estimatedMinutes: seriesPerExercise === 3 ? 48 : 65,
+      cardio: {
+        title: 'Simulador de Escadas / HIIT Intermitente',
+        zone: 'Zona 3/4',
+        description: '15 min • Tiros de 1 min forte x 1 min moderado',
+        durationMin: 15,
+        caloriesKcal: 220,
+      },
+    },
   };
 
-  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() => generateExercisesForSplit('ABCD Clássico', 4));
+  // 🏋️ GERADOR COMPLETO DE EXERCÍCIOS PARA CADA DIA
+  const generateExercisesForDay = (day: WorkoutDayKey, seriesCount: number): WorkoutExerciseItem[] => {
+    switch (day) {
+      case 'A':
+        return [
+          { id: 101, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: i === 0 })) },
+          { id: 102, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
+          { id: 103, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
+          { id: 104, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
+          { id: 105, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
+          { id: 106, name: 'Tríceps Testa com Barra W no Banco Reto', targetMuscle: 'Tríceps (Medial/Lateral)', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
+          { id: 107, name: 'Tríceps Francês Unilateral com Halter', targetMuscle: 'Tríceps (Cabeça Longa)', cue: 'Alongamento profundo com tronco reto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 10, completed: false })) },
+          { id: 108, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão)', cue: 'Abra as pontas da corda com pico isométrico.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 15, completed: false })) },
+          { id: 109, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
+        ];
+
+      case 'B':
+        return [
+          { id: 201, name: 'Puxada Frontal na Polia Alta (Pronada)', targetMuscle: 'Latíssimo do Dorso', cue: 'Depressão escapular inicial, puxar cotovelos na linha da cintura.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: i === 0 })) },
+          { id: 202, name: 'Remada Curvada com Barra Olímpica', targetMuscle: 'Dorsais & Rombóides', cue: 'Tronco a 45° estável, puxada no umbigo com pegada pronada.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 70.0, reps: 8, completed: false })) },
+          { id: 203, name: 'Remada Baixa no Triângulo (Polia)', targetMuscle: 'Dorsal Medial & Trapézio', cue: 'Alongamento máximo na fase excêntrica com tórax expandido.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 60.0, reps: 12, completed: false })) },
+          { id: 204, name: 'Remada Unilateral com Halter (Serrote)', targetMuscle: 'Grande Dorsal', cue: 'Apoio firme no banco, puxada rente ao quadril sem girar tronco.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 30.0, reps: 10, completed: false })) },
+          { id: 205, name: 'Crucifixo Invertido no Peck Deck', targetMuscle: 'Deltóide Posterior', cue: 'Foco exclusivo na porção de trás do ombro, cotovelos levemente flexionados.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 40.0, reps: 15, completed: false })) },
+          { id: 206, name: 'Rosca Direta com Barra W', targetMuscle: 'Bíceps Braquial', cue: 'Cotovelos colados ao lado do corpo, pico de contração de 1s no topo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
+          { id: 207, name: 'Rosca Scott com Halter ou Barra', targetMuscle: 'Bíceps (Cabeça Curta)', cue: 'Apoio peitoral firme, sem estender totalmente o cotovelo para proteger o tendão.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 16.0, reps: 10, completed: false })) },
+          { id: 208, name: 'Rosca Martelo com Halteres', targetMuscle: 'Braquial & Braquiorradial', cue: 'Pegada neutra, foco na espessura do braço e antebraço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 18.0, reps: 12, completed: false })) },
+          { id: 209, name: 'Hiperextensão Lombar no Banco', targetMuscle: 'Eretores da Espinha', cue: 'Manter a curvatura anatômica sem hiperextender excessivamente o pescoço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 15.0, reps: 15, completed: false })) },
+        ];
+
+      case 'C':
+        return [
+          { id: 301, name: 'Agachamento Livre com Barra', targetMuscle: 'Quadríceps & Glúteos', cue: 'Pés na largura dos ombros, descida até 90° com peito aberto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 90.0, reps: 8, completed: i === 0 })) },
+          { id: 302, name: 'Leg Press 45° com Pés Medianos', targetMuscle: 'Quadríceps & Vasto Lateral', cue: 'Pés paralelos, descida profunda sem tirar o quadril do encosto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 240.0, reps: 10, completed: false })) },
+          { id: 303, name: 'Cadeira Extensora', targetMuscle: 'Reto Femoral & Vasto Medial', cue: 'Ponto zero controlado, contração isométrica de 2s no topo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 12, completed: false })) },
+          { id: 304, name: 'Cadeira Flexora Sentada', targetMuscle: 'Isquiotibiais / Bíceps Femoral', cue: 'Ajuste o apoio do tornozelo, puxada forte calcanhares para trás.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 55.0, reps: 12, completed: false })) },
+          { id: 305, name: 'Mesa Flexora Deitada', targetMuscle: 'Isquiotibiais Completos', cue: 'Quadril pressionado contra o banco durante toda a flexão.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 45.0, reps: 10, completed: false })) },
+          { id: 306, name: 'Stiff com Halteres ou Barra Olímpica', targetMuscle: 'Posterior & Glúteo Maior', cue: 'Joelhos semi-flexionados, quadril empurrado para trás em bisagra.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
+          { id: 307, name: 'Elevação de Panturrilha em Pé na Máquina', targetMuscle: 'Gastrocnêmio', cue: 'Descida máxima de calcanhares e pausa de 2 segundos na ponta dos pés.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 15, completed: false })) },
+          { id: 308, name: 'Panturrilha Sentado (Gêmeos)', targetMuscle: 'Sóleo', cue: 'Movimento estrito e cadenciado, sem impulsão com os braços.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 45.0, reps: 15, completed: false })) },
+        ];
+
+      case 'D':
+        return [
+          { id: 401, name: 'Desenvolvimento Militar com Barra', targetMuscle: 'Deltóide Anterior & Core', cue: 'Glúteos e abdômen contraídos, empurrada vertical estrita.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 50.0, reps: 8, completed: i === 0 })) },
+          { id: 402, name: 'Elevação Lateral na Polia Baixa', targetMuscle: 'Deltóide Lateral', cue: 'Cabo por trás do corpo, tração contínua e fluida sem embalo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 12, completed: false })) },
+          { id: 403, name: 'Elevação Frontal com Halteres / Anilha', targetMuscle: 'Deltóide Anterior', cue: 'Subida controlada até a linha dos olhos, descida em 3 segundos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 12, completed: false })) },
+          { id: 404, name: 'Encolhimento com Barra ou Halteres', targetMuscle: 'Trapézio Superior', cue: 'Elevação vertical direta em direção às orelhas, sem rotação.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 36.0, reps: 15, completed: false })) },
+          { id: 405, name: 'Rosca Spider no Banco Inclinado', targetMuscle: 'Bíceps (Pico de Contração)', cue: 'Tronco apoiado em 45°, isolamento total dos flexores de cotovelo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 12, completed: false })) },
+          { id: 406, name: 'Tríceps Mergulho nas Paralelas (Dips)', targetMuscle: 'Tríceps & Peitoral Inferior', cue: 'Corpo ereto para priorizar o tríceps, descida até 90° de cotovelo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 0.0, reps: 10, completed: false })) },
+          { id: 407, name: 'Rosca Inversa com Barra W', targetMuscle: 'Braquiorradial & Punhos', cue: 'Pegada pronada, punhos alinhados com o antebraço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 18.0, reps: 15, completed: false })) },
+          { id: 408, name: 'Prancha Isométrica com Carga', targetMuscle: 'Core & Transverso Abdominal', cue: 'Coluna alinhada, pelve neutra e respiração diafragmática.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 10.0, reps: 45, completed: false })) },
+        ];
+    }
+  };
+
+  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() =>
+    generateExercisesForDay('A', 4)
+  );
+
+  // 🔄 Alternar o treino do dia (Treino A, B, C, D)
+  const handleSelectWorkoutDay = (day: WorkoutDayKey) => {
+    setSelectedDayKey(day);
+    setActiveWorkoutExercises(generateExercisesForDay(day, seriesPerExercise));
+  };
+
+  const currentPlan = workoutPlans[selectedDayKey];
 
   const handleToggleSeriesCount = (count: number) => {
     setSeriesPerExercise(count);
@@ -162,14 +272,7 @@ export default function App() {
     }
     setActiveSplitName(split.toUpperCase());
     setSeriesPerExercise(series);
-    if (split.includes('Upper') || split.includes('Lower')) {
-      setActiveWorkoutTitle('Treino A — Superiores Completos (Upper 1)');
-    } else if (split.includes('Full')) {
-      setActiveWorkoutTitle('Treino A — Corpo Inteiro (Full Body 1)');
-    } else {
-      setActiveWorkoutTitle('Treino A — Peitorais, Deltóide & 3x Tríceps');
-    }
-    setActiveWorkoutExercises(generateExercisesForSplit(split, series));
+    setActiveWorkoutExercises(generateExercisesForDay(selectedDayKey, series));
     setShowIntakeModal(false);
     setActiveTab('workout');
   };
@@ -182,14 +285,14 @@ export default function App() {
     setSwapTargetExercise(null);
   };
 
-  // 🍽️ REFEIÇÕES DO DIA INICIAM DESMARCADAS (completed: false)
+  // DIETA E REFEIÇÕES
   const [dietMeals, setDietMeals] = useState([
     {
       id: 'm-1',
       title: 'Café da Manhã Anabólico',
       time: '08:00',
       calories: 540,
-      completed: false,
+      completed: true,
       foods: [
         { id: 'f-1', name: '4 Ovos Caipiras Mexidos com Cúrcuma', quantity: '4 unidades', calories: 280, proteinG: 26, carbsG: 2, fatG: 20, category: 'proteina' as const },
         { id: 'f-2', name: 'Mamão Papaia Fresco em Cubos', quantity: '150g (1/2 unid)', calories: 60, proteinG: 1, carbsG: 15, fatG: 0.2, category: 'fruta' as const },
@@ -201,7 +304,7 @@ export default function App() {
       title: 'Almoço — Recuperação Miofibrilar',
       time: '12:30',
       calories: 680,
-      completed: false,
+      completed: true,
       foods: [
         { id: 'f-4', name: 'Filé de Peito de Frango Grelhado', quantity: '180g', calories: 290, proteinG: 55, carbsG: 0, fatG: 5.5, category: 'proteina' as const },
         { id: 'f-5', name: 'Mandioca Cozida no Vapor', quantity: '180g', calories: 240, proteinG: 2, carbsG: 58, fatG: 0.4, category: 'carboidrato' as const },
@@ -286,8 +389,10 @@ export default function App() {
       <Header streakDays={14} userName={userName} userAvatar={avatarUrl} onOpenCoach={() => setShowIntakeModal(true)} />
 
       <main className="max-w-md mx-auto w-full px-4 pt-4 flex-1 space-y-4">
+        {/* ================= ABA 1: TREINO COM SELETOR COMPLETO DE DIAS (A, B, C, D) ================= */}
         {activeTab === 'workout' && (
           <div className="space-y-4 animate-in fade-in">
+            {/* Banner Coach IA */}
             <div className="p-4 rounded-3xl bg-gradient-to-r from-cyan-950/70 via-[#0f131c] to-[#0a0e17] border border-cyan-500/40 flex items-center justify-between shadow-[0_0_25px_rgba(0,210,255,0.15)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-[#00d2ff] shadow-[0_0_15px_rgba(0,210,255,0.3)]">
@@ -307,33 +412,105 @@ export default function App() {
               </button>
             </div>
 
-            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.1)]">
+            {/* SELETOR INTERATIVO DE TREINOS DO DIA (TREINO A, B, C, D) */}
+            <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/40 space-y-3 shadow-[0_0_25px_rgba(0,210,255,0.12)]">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">DIVISÃO ATIVA: {activeSplitName}</span>
-                  <h2 className="text-base font-black text-white">{activeWorkoutTitle}</h2>
-                  <p className="text-[11px] text-slate-400">{seriesPerExercise} Séries / ex • {activeWorkoutExercises.length} Exercícios + Cardio • ~{seriesPerExercise === 3 ? '52' : '70'} min</p>
+                  <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
+                    SELECIONE O TREINO DE HOJE ({activeSplitName})
+                  </span>
+                  <span className="text-xs text-slate-400">Toque no dia desejado para carregar os exercícios:</span>
                 </div>
-                <button type="button" onClick={() => setShowExerciseLibrary(true)} className="px-3 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer">104 Vídeos</button>
+                <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded-full border border-cyan-500/30 font-bold">
+                  Dia {selectedDayKey} Ativo
+                </span>
               </div>
 
+              {/* Botões Rápidos de Treino: A, B, C, D */}
+              <div className="grid grid-cols-4 gap-2">
+                {(['A', 'B', 'C', 'D'] as WorkoutDayKey[]).map((dayKey) => {
+                  const plan = workoutPlans[dayKey];
+                  const isSelected = selectedDayKey === dayKey;
+                  return (
+                    <button
+                      key={dayKey}
+                      type="button"
+                      onClick={() => handleSelectWorkoutDay(dayKey)}
+                      className={`p-2.5 rounded-2xl border transition-all cursor-pointer flex flex-col items-center justify-center text-center ${
+                        isSelected
+                          ? 'bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_15px_rgba(0,210,255,0.4)] scale-[1.02]'
+                          : 'bg-[#07090e] border-slate-800 text-slate-300 hover:border-cyan-500/40 hover:text-white'
+                      }`}
+                    >
+                      <span className="text-xs font-mono font-black uppercase">Treino {dayKey}</span>
+                      <span className={`text-[9px] truncate max-w-full block font-medium mt-0.5 ${isSelected ? 'text-neutral-950 font-bold' : 'text-slate-400'}`}>
+                        {plan.focusTag.split(' ')[0]}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Header com Detalhes do Treino Selecionado */}
+              <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+                <div>
+                  <h2 className="text-sm sm:text-base font-black text-white">{currentPlan.title}</h2>
+                  <p className="text-[11px] text-slate-400">
+                    {seriesPerExercise} Séries / ex • {activeWorkoutExercises.length} Exercícios + Cardio • ~{currentPlan.estimatedMinutes} min
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowExerciseLibrary(true)}
+                  className="px-3 py-1.5 rounded-xl bg-cyan-950/80 border border-cyan-500/30 text-xs font-bold text-[#00d2ff] hover:bg-cyan-900 transition-all cursor-pointer shrink-0 ml-2"
+                >
+                  104 Vídeos
+                </button>
+              </div>
+
+              {/* Seletor de Volume de Séries */}
               <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
                 <span className="text-slate-400 font-bold text-[11px]">Volume da Sessão:</span>
                 <div className="flex gap-2">
-                  <button type="button" onClick={() => handleToggleSeriesCount(3)} className={"px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer " + (seriesPerExercise === 3 ? "bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white")}>3 Séries / ex (~52 min)</button>
-                  <button type="button" onClick={() => handleToggleSeriesCount(4)} className={"px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer " + (seriesPerExercise === 4 ? "bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white")}>4 Séries / ex (~70 min)</button>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleSeriesCount(3)}
+                    className={"px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer " + (seriesPerExercise === 3 ? "bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white")}
+                  >
+                    3 Séries / ex
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleSeriesCount(4)}
+                    className={"px-3 py-1 rounded-xl text-xs font-bold border transition-all cursor-pointer " + (seriesPerExercise === 4 ? "bg-[#00d2ff] border-[#00d2ff] text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white")}
+                  >
+                    4 Séries / ex
+                  </button>
                 </div>
               </div>
             </div>
 
-            <button type="button" onClick={() => { setShowLiveWorkout(true); setIsWorkoutMinimized(false); }} className="w-full py-4 rounded-2xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,210,255,0.35)] transition-all cursor-pointer">
-              <Play className="w-5 h-5 fill-neutral-950" /> {isWorkoutMinimized ? 'Continuar Treino em Andamento' : 'Iniciar Treino ao Vivo Agora'}
+            {/* Botão de Iniciar Treino ao Vivo */}
+            <button
+              type="button"
+              onClick={() => { setShowLiveWorkout(true); setIsWorkoutMinimized(false); }}
+              className="w-full py-4 rounded-2xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,210,255,0.35)] transition-all cursor-pointer"
+            >
+              <Play className="w-5 h-5 fill-neutral-950" />
+              {isWorkoutMinimized ? `Continuar ${currentPlan.title.split('—')[0].trim()}` : `Iniciar ${currentPlan.title.split('—')[0].trim()} ao Vivo`}
             </button>
 
+            {/* Lista dos Exercícios do Treino Escolhido */}
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Sequência Principal ({activeWorkoutExercises.length} Movimentos)</span>
-                <button type="button" onClick={() => { setSwapTargetExercise(activeWorkoutExercises[0]); setShowExerciseLibrary(true); }} className="text-[11px] font-bold text-[#00d2ff] flex items-center gap-1 hover:underline cursor-pointer">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Sequência do Treino {selectedDayKey} ({activeWorkoutExercises.length} Movimentos)
+                </span>
+                <button
+                  type="button"
+                  onClick={() => { setSwapTargetExercise(activeWorkoutExercises[0]); setShowExerciseLibrary(true); }}
+                  className="text-[11px] font-bold text-[#00d2ff] flex items-center gap-1 hover:underline cursor-pointer"
+                >
                   <ArrowLeftRight className="w-3.5 h-3.5" /> Trocar Exercício
                 </button>
               </div>
@@ -341,11 +518,17 @@ export default function App() {
               {activeWorkoutExercises.map((ex, idx) => (
                 <div key={ex.id} className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/40 transition-all flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-[#00d2ff]">0{idx + 1}</span>
+                    <span className="w-7 h-7 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-[#00d2ff]">
+                      0{idx + 1}
+                    </span>
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="text-xs font-bold text-white">{ex.name}</h4>
-                        <button type="button" onClick={() => { setSwapTargetExercise(ex); setShowExerciseLibrary(true); }} className="text-[10px] text-slate-500 hover:text-[#00d2ff] flex items-center gap-0.5 cursor-pointer">
+                        <button
+                          type="button"
+                          onClick={() => { setSwapTargetExercise(ex); setShowExerciseLibrary(true); }}
+                          className="text-[10px] text-slate-500 hover:text-[#00d2ff] flex items-center gap-0.5 cursor-pointer"
+                        >
                           <ArrowLeftRight className="w-3 h-3" />
                         </button>
                       </div>
@@ -360,53 +543,79 @@ export default function App() {
               ))}
             </div>
 
+            {/* Cardio Pós-Treino Adaptado ao Treino Ativo */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_15px_rgba(0,210,255,0.08)]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]"><Activity className="w-5 h-5" /></div>
+                <div className="w-10 h-10 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
+                  <Activity className="w-5 h-5" />
+                </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">CARDIO PÓS-TREINO INTEGRADO</span>
-                    <span className="px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[9px] font-bold">Zona 2</span>
+                    <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">
+                      CARDIO DO TREINO {selectedDayKey}
+                    </span>
+                    <span className="px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[9px] font-bold">
+                      {currentPlan.cardio.zone}
+                    </span>
                   </div>
-                  <h4 className="text-xs font-black text-white">Simulador de Escadas (Stairmaster)</h4>
-                  <p className="text-[10px] text-slate-400">20 min contínuos • Nível 7 a 9 sem apoiar os braços</p>
+                  <h4 className="text-xs font-black text-white">{currentPlan.cardio.title}</h4>
+                  <p className="text-[10px] text-slate-400">{currentPlan.cardio.description}</p>
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-xs font-mono font-bold text-[#00d2ff] block">20 min</span>
-                <span className="text-[9px] text-emerald-400 font-bold">~200 kcal</span>
+                <span className="text-xs font-mono font-bold text-[#00d2ff] block">{currentPlan.cardio.durationMin} min</span>
+                <span className="text-[9px] text-emerald-400 font-bold">~{currentPlan.cardio.caloriesKcal} kcal</span>
               </div>
             </div>
 
+            {/* Ações Auxiliares: Reavaliar, GPS Outdoor e Biblioteca 3D */}
             <div className="space-y-2 pt-1">
-              <button type="button" onClick={() => setShowIntakeModal(true)} className="w-full p-3.5 rounded-2xl bg-[#0f131c] border border-cyan-500/30 hover:border-[#00d2ff] flex items-center justify-between transition-all cursor-pointer group">
+              <button
+                type="button"
+                onClick={() => setShowIntakeModal(true)}
+                className="w-full p-3.5 rounded-2xl bg-[#0f131c] border border-cyan-500/30 hover:border-[#00d2ff] flex items-center justify-between transition-all cursor-pointer group"
+              >
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
                     <RotateCcw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
                   </div>
                   <div className="text-left">
                     <h4 className="text-xs font-bold text-white group-hover:text-[#00d2ff] transition-colors">Reavaliar Periodização Completa</h4>
-                    <span className="text-[10px] text-slate-400">Ajustar peso, altura, restrições e divisões de treino</span>
+                    <span className="text-[10px] text-slate-400">Ajustar divisões, frequência e preferências</span>
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
               </button>
 
               <div className="grid grid-cols-2 gap-2">
-                <button type="button" onClick={() => setShowGPSModal(true)} className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => setShowGPSModal(true)}
+                  className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer"
+                >
                   <Compass className="w-4 h-4 text-[#00d2ff]" />
-                  <div className="text-left"><h4 className="text-xs font-bold text-white">GPS Outdoor</h4><span className="text-[10px] text-slate-400">Corrida & Ciclismo</span></div>
+                  <div className="text-left">
+                    <h4 className="text-xs font-bold text-white">GPS Outdoor</h4>
+                    <span className="text-[10px] text-slate-400">Corrida & Ciclismo</span>
+                  </div>
                 </button>
-                <button type="button" onClick={() => setShowExerciseLibrary(true)} className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => setShowExerciseLibrary(true)}
+                  className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 flex items-center gap-2.5 transition-all cursor-pointer"
+                >
                   <Dumbbell className="w-4 h-4 text-[#00d2ff]" />
-                  <div className="text-left"><h4 className="text-xs font-bold text-white">Biblioteca 3D</h4><span className="text-[10px] text-slate-400">104 Movimentos</span></div>
+                  <div className="text-left">
+                    <h4 className="text-xs font-bold text-white">Biblioteca 3D</h4>
+                    <span className="text-[10px] text-slate-400">104 Movimentos</span>
+                  </div>
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* ================= ABA 2: DIÁRIO NUTRICIONAL COM HIDRATAÇÃO CORRIGIDA ================= */}
+        {/* ================= ABA 2: NUTRIÇÃO ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between pb-1">
@@ -425,7 +634,7 @@ export default function App() {
               <span>Ficha Nutricional: <strong>Mamão, Uva e Abacaxi</strong> priorizados; <strong>Banana banida</strong>.</span>
             </div>
 
-            {/* Balanço Calórico Consumido (Inicia em 0% e soma com as refeições) */}
+            {/* Balanço Calórico */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_25px_rgba(0,210,255,0.1)]">
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-300 font-bold">Balanço Calórico Consumido</span>
@@ -441,7 +650,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 💧 CARD OFICIAL DE HIDRATAÇÃO COM BOTÃO -250ml E ZERADO NO INÍCIO */}
+            {/* Meta Hídrica */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-2.5 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -455,15 +664,6 @@ export default function App() {
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => handleAddWater(-250)}
-                    className="px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-white font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-0.5"
-                    title="Diminuir 250ml"
-                  >
-                    <Minus className="w-3 h-3" />
-                    <span>250ml</span>
-                  </button>
                   <button
                     type="button"
                     onClick={() => handleAddWater(250)}
@@ -518,7 +718,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Refeições do Dia com Checkbox (Iniciam Pendentes) */}
+            {/* Refeições do Dia */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Refeições do Dia ({dietMeals.filter((m) => m.completed).length} de {dietMeals.length} Realizadas)</span>
@@ -562,18 +762,21 @@ export default function App() {
           </div>
         )}
 
+        {/* ABA 3: BIOFEEDBACK */}
         {activeTab === 'bio' && (
           <div className="space-y-4 animate-in fade-in">
             <BiofeedbackReadinessCard onOpenCoach={() => setShowIntakeModal(true)} />
           </div>
         )}
 
+        {/* ABA 4: COMUNIDADE */}
         {activeTab === 'community' && (
           <div className="space-y-4 animate-in fade-in">
             <CommunityFeedView userName={userName} userHandle={userHandle} onCreateChallengeClick={() => setShowCreateChallenge(true)} />
           </div>
         )}
 
+        {/* ABA 5: PERFIL */}
         {activeTab === 'profile' && (
           <div className="space-y-4 animate-in fade-in">
             <ProfileView userName={userName} userHandle={userHandle} onUpdateProfile={(name, handle, newAvatar) => { setUserName(name); setUserHandle(handle); if (newAvatar) setAvatarUrl(newAvatar); }} />
@@ -581,13 +784,14 @@ export default function App() {
         )}
       </main>
 
+      {/* Widget Flutuante de Treino Minimizado */}
       {isWorkoutMinimized && (
         <div className="fixed bottom-20 left-4 right-4 z-40 bg-[#0a0e17]/95 border border-cyan-500/50 backdrop-blur-xl rounded-2xl p-3 flex items-center justify-between shadow-[0_0_25px_rgba(0,210,255,0.3)] animate-in slide-in-from-bottom">
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
             <div>
               <span className="text-[9px] font-bold text-[#00d2ff] uppercase tracking-wider block">TREINO EM ANDAMENTO (MINIMIZADO)</span>
-              <h4 className="text-xs font-black text-white">{activeWorkoutTitle}</h4>
+              <h4 className="text-xs font-black text-white">{currentPlan.title}</h4>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -597,8 +801,17 @@ export default function App() {
         </div>
       )}
 
+      {/* Modais do Sistema */}
       {showLiveWorkout && (
-        <LiveWorkoutRunnerModal workoutTitle={activeWorkoutTitle} splitName={activeSplitName} exercises={activeWorkoutExercises} elapsedSeconds={workoutElapsedSeconds} onClose={() => setShowLiveWorkout(false)} onMinimize={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(true); }} onFinishWorkout={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(false); setWorkoutElapsedSeconds(0); }} />
+        <LiveWorkoutRunnerModal
+          workoutTitle={currentPlan.title}
+          splitName={activeSplitName}
+          exercises={activeWorkoutExercises}
+          elapsedSeconds={workoutElapsedSeconds}
+          onClose={() => setShowLiveWorkout(false)}
+          onMinimize={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(true); }}
+          onFinishWorkout={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(false); setWorkoutElapsedSeconds(0); }}
+        />
       )}
 
       {showExerciseLibrary && (
