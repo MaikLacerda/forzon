@@ -34,7 +34,8 @@ interface LiveWorkoutRunnerModalProps {
   elapsedSeconds: number;
   onClose: () => void;
   onMinimize: () => void;
-  onFinishWorkout: () => void;
+  onFinishWorkout: (exercises?: WorkoutExerciseItem[]) => void;
+  onUpdateExercises?: (exercises: WorkoutExerciseItem[]) => void;
 }
 
 // Mapeador universal à prova de falhas: prioriza correspondências específicas de costas, tríceps e pernas ANTES de palavras genéricas como "polia"
@@ -259,6 +260,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   onClose,
   onMinimize,
   onFinishWorkout,
+  onUpdateExercises,
 }) => {
   const [exercises, setExercises] = useState<WorkoutExerciseItem[]>(initialExercises);
   const [currentExIndex, setCurrentExIndex] = useState(0);
@@ -266,10 +268,9 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   const [isResting, setIsResting] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Sincroniza se a lista de exercícios mudar externamente
+  // Sincroniza se a lista mudar externamente
   useEffect(() => {
     setExercises(initialExercises);
-    setCurrentExIndex(0);
   }, [initialExercises]);
 
   const currentExercise = exercises[currentExIndex] || exercises[0];
@@ -280,7 +281,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     currentExercise.posterUrl || currentExercise.imageUrl
   );
 
-  // Forçar reprodução ao iniciar ou trocar de exercício
+  // Forçar autoplay no início e ao trocar de exercício
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
@@ -291,10 +292,10 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     }
   }, [currentExIndex, videoUrl]);
 
-  // Alternar conclusão da série com disparo do descanso ATP-CP
+  // Alternar conclusão da série com disparo do descanso ATP-CP e persistência
   const toggleSetComplete = (setIndex: number) => {
-    setExercises((prev) =>
-      prev.map((ex, eIdx) => {
+    setExercises((prev) => {
+      const updated = prev.map((ex, eIdx) => {
         if (eIdx !== currentExIndex) return ex;
         const newSets = ex.sets.map((s, sIdx) => {
           if (sIdx !== setIndex) return s;
@@ -306,34 +307,40 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
           return { ...s, completed: willComplete };
         });
         return { ...ex, sets: newSets };
-      })
-    );
+      });
+      if (onUpdateExercises) onUpdateExercises(updated);
+      return updated;
+    });
   };
 
   // Ajustar Carga Float
   const handleWeightChange = (setIndex: number, newWeight: number) => {
-    setExercises((prev) =>
-      prev.map((ex, eIdx) => {
+    setExercises((prev) => {
+      const updated = prev.map((ex, eIdx) => {
         if (eIdx !== currentExIndex) return ex;
         const newSets = ex.sets.map((s, sIdx) =>
           sIdx === setIndex ? { ...s, weightKg: newWeight } : s
         );
         return { ...ex, sets: newSets };
-      })
-    );
+      });
+      if (onUpdateExercises) onUpdateExercises(updated);
+      return updated;
+    });
   };
 
   // Ajustar Repetições Feitas
   const handleRepsChange = (setIndex: number, newReps: number) => {
-    setExercises((prev) =>
-      prev.map((ex, eIdx) => {
+    setExercises((prev) => {
+      const updated = prev.map((ex, eIdx) => {
         if (eIdx !== currentExIndex) return ex;
         const newSets = ex.sets.map((s, sIdx) =>
           sIdx === setIndex ? { ...s, reps: newReps } : s
         );
         return { ...ex, sets: newSets };
-      })
-    );
+      });
+      if (onUpdateExercises) onUpdateExercises(updated);
+      return updated;
+    });
   };
 
   // Timer de Descanso ATP-CP
@@ -358,7 +365,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-[#07090e] flex flex-col justify-between p-4 overflow-y-auto select-none">
       
-      {/* Topo do Treino ao Vivo */}
+      {/* Topo do Treino ao Vivo com Botão de Finalizar Visível o tempo todo */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
         <div>
           <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -368,6 +375,16 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* BOTÃO FINALIZAR DIRETO NO TOPO */}
+          <button
+            type="button"
+            onClick={() => onFinishWorkout(exercises)}
+            className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-black text-xs uppercase tracking-wider flex items-center gap-1 shadow-md shadow-emerald-500/20 cursor-pointer"
+          >
+            <Check className="w-3.5 h-3.5 stroke-[3]" />
+            <span>Finalizar</span>
+          </button>
+
           <button
             type="button"
             onClick={onMinimize}
@@ -423,7 +440,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         )}
       </div>
 
-      {/* PLAYER DE VÍDEO MP4 REAL CORRETAMENTE ASSOCIADO */}
+      {/* PLAYER DE VÍDEO MP4 REAL RESOLVIDO */}
       <div className="space-y-2 my-2">
         <div className="flex justify-between items-center px-1">
           <span className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider">
@@ -524,7 +541,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         ))}
       </div>
 
-      {/* Navegação entre Exercícios e Finalizar */}
+      {/* Navegação entre Exercícios e Botão de Finalizar */}
       <div className="space-y-2 pt-2 border-t border-slate-800">
         <div className="flex gap-2">
           <button
@@ -548,7 +565,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
 
         <button
           type="button"
-          onClick={onFinishWorkout}
+          onClick={() => onFinishWorkout(exercises)}
           className="w-full py-3.5 rounded-xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,210,255,0.35)] cursor-pointer"
         >
           Finalizar Sessão de Treino
