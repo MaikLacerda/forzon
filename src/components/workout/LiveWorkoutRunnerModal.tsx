@@ -39,7 +39,12 @@ interface LiveWorkoutRunnerModalProps {
 }
 
 // Mapeador universal à prova de falhas: prioriza correspondências específicas de costas, tríceps e pernas ANTES de palavras genéricas como "polia"
-function resolvePhysicalVideoPath(exerciseId?: string | number, exerciseName?: string, explicitVideoUrl?: string, explicitPosterUrl?: string): { videoUrl: string; posterUrl: string } {
+function resolvePhysicalVideoPath(
+  exerciseId?: string | number,
+  exerciseName?: string,
+  explicitVideoUrl?: string,
+  explicitPosterUrl?: string
+): { videoUrl: string; posterUrl: string } {
   // Se o próprio exercício já possuir URL definida
   if (explicitVideoUrl) {
     return {
@@ -313,14 +318,19 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     });
   };
 
-  // Ajustar Carga Float
-  const handleWeightChange = (setIndex: number, newWeight: number) => {
+  // Ajustar Carga Float permitindo campo vazio durante a digitação
+  const handleWeightChange = (setIndex: number, rawVal: string) => {
     setExercises((prev) => {
       const updated = prev.map((ex, eIdx) => {
         if (eIdx !== currentExIndex) return ex;
-        const newSets = ex.sets.map((s, sIdx) =>
-          sIdx === setIndex ? { ...s, weightKg: newWeight } : s
-        );
+        const newSets = ex.sets.map((s, sIdx) => {
+          if (sIdx !== setIndex) return s;
+          if (rawVal === '') {
+            return { ...s, weightKg: '' as any };
+          }
+          const parsed = parseFloat(rawVal);
+          return { ...s, weightKg: isNaN(parsed) ? ('' as any) : parsed };
+        });
         return { ...ex, sets: newSets };
       });
       if (onUpdateExercises) onUpdateExercises(updated);
@@ -328,14 +338,19 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     });
   };
 
-  // Ajustar Repetições Feitas
-  const handleRepsChange = (setIndex: number, newReps: number) => {
+  // Ajustar Repetições Feitas permitindo campo vazio durante a digitação
+  const handleRepsChange = (setIndex: number, rawVal: string) => {
     setExercises((prev) => {
       const updated = prev.map((ex, eIdx) => {
         if (eIdx !== currentExIndex) return ex;
-        const newSets = ex.sets.map((s, sIdx) =>
-          sIdx === setIndex ? { ...s, reps: newReps } : s
-        );
+        const newSets = ex.sets.map((s, sIdx) => {
+          if (sIdx !== setIndex) return s;
+          if (rawVal === '') {
+            return { ...s, reps: '' as any };
+          }
+          const parsed = parseInt(rawVal, 10);
+          return { ...s, reps: isNaN(parsed) ? ('' as any) : parsed };
+        });
         return { ...ex, sets: newSets };
       });
       if (onUpdateExercises) onUpdateExercises(updated);
@@ -480,7 +495,7 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
         </div>
       </div>
 
-      {/* Lista de Séries com Carga (kg) e Repetições (reps) Editáveis */}
+      {/* Lista de Séries com Carga (kg) e Repetições (reps) Editáveis & Auto-Select ao Tocar */}
       <div className="space-y-2 my-2">
         <div className="grid grid-cols-4 gap-2 text-[10px] font-bold text-slate-400 uppercase text-center px-2">
           <span>Série</span>
@@ -502,24 +517,36 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
               #{set.setNumber}
             </span>
 
-            {/* Input de Carga Float */}
+            {/* Input de Carga Float com Auto-Select e Limpeza ao Tocar */}
             <div className="w-1/4 flex justify-center">
               <input
                 type="number"
                 step="any"
-                value={set.weightKg}
-                onChange={(e) => handleWeightChange(sIdx, parseFloat(e.target.value) || 0)}
-                className="w-14 bg-slate-900 border border-slate-700 rounded-lg py-1 text-center font-mono font-bold text-xs text-[#00d2ff] outline-none focus:border-[#00d2ff]"
+                inputMode="decimal"
+                value={set.weightKg === 0 ? '' : set.weightKg}
+                placeholder="0"
+                onFocus={(e) => e.target.select()}
+                onChange={(e) => handleWeightChange(sIdx, e.target.value)}
+                onBlur={(e) => {
+                  if (e.target.value === '') handleWeightChange(sIdx, '0');
+                }}
+                className="w-14 bg-slate-900 border border-slate-700 rounded-lg py-1.5 text-center font-mono font-bold text-xs text-[#00d2ff] outline-none focus:border-[#00d2ff] focus:bg-slate-950 focus:ring-1 focus:ring-[#00d2ff]"
               />
             </div>
 
-            {/* Input de Repetições Editáveis */}
+            {/* Input de Repetições Editáveis com Auto-Select e Limpeza ao Tocar */}
             <div className="w-1/4 flex justify-center">
               <input
                 type="number"
-                value={set.reps}
-                onChange={(e) => handleRepsChange(sIdx, parseInt(e.target.value, 10) || 0)}
-                className="w-14 bg-slate-900 border border-slate-700 rounded-lg py-1 text-center font-mono font-bold text-xs text-white outline-none focus:border-cyan-400"
+                inputMode="numeric"
+                value={set.reps === 0 ? '' : set.reps}
+                placeholder="0"
+                onFocus={(e) => e.target.select()}
+                onChange={(e) => handleRepsChange(sIdx, e.target.value)}
+                onBlur={(e) => {
+                  if (e.target.value === '') handleRepsChange(sIdx, '0');
+                }}
+                className="w-14 bg-slate-900 border border-slate-700 rounded-lg py-1.5 text-center font-mono font-bold text-xs text-white outline-none focus:border-cyan-400 focus:bg-slate-950 focus:ring-1 focus:ring-cyan-400"
               />
             </div>
 
@@ -575,3 +602,5 @@ export const LiveWorkoutRunnerModal: React.FC<LiveWorkoutRunnerModalProps> = ({
     </div>
   );
 };
+
+
