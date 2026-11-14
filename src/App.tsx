@@ -16,7 +16,8 @@ import {
   Droplets,
   Plus,
   Flame,
-  Calendar
+  CheckCircle2,
+  Share2
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -32,6 +33,8 @@ import { NutritionScannerModal, ScannedFoodResult } from './components/nutrition
 import { FoodSwapModal, FoodItemData } from './components/nutrition/FoodSwapModal';
 import { GroceryListModal } from './components/nutrition/GroceryListModal';
 import { BiofeedbackReadinessCard } from './components/biofeedback/BiofeedbackReadinessCard';
+import { PostWorkoutShareModal } from './components/social/PostWorkoutShareModal';
+import { StoryShareModal, StoryData } from './components/social/StoryShareModal';
 
 export type WorkoutDayKey = 'A' | 'B' | 'C' | 'D';
 
@@ -65,6 +68,7 @@ export default function App() {
   const [isWorkoutMinimized, setIsWorkoutMinimized] = useState(false);
   const [workoutElapsedSeconds, setWorkoutElapsedSeconds] = useState(0);
 
+  // Modais de Treino e Social
   const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
   const [swapTargetExercise, setSwapTargetExercise] = useState<WorkoutExerciseItem | null>(null);
   const [showCreateChallenge, setShowCreateChallenge] = useState(false);
@@ -75,11 +79,17 @@ export default function App() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [swapTargetFood, setSwapTargetFood] = useState<FoodItemData | null>(null);
 
+  // Modal de Postagem Pós-Treino e Story 9:16
+  const [completedWorkoutRecord, setCompletedWorkoutRecord] = useState<any | null>(null);
+  const [showPostWorkoutModal, setShowPostWorkoutModal] = useState(false);
+  const [showStoryModal, setShowStoryModal] = useState(false);
+  const [storyData, setStoryData] = useState<StoryData | null>(null);
+
   const [activeSplitName, setActiveSplitName] = useState('ABCD CLÁSSICO PESADO');
   const [selectedDayKey, setSelectedDayKey] = useState<WorkoutDayKey>('A');
   const [seriesPerExercise, setSeriesPerExercise] = useState(4);
 
-  // 💧 HIDRATAÇÃO DIÁRIA (PERSISTENTE EM LOCALSTORAGE)
+  // Hidratação Diária
   const [waterGoalMl, setWaterGoalMl] = useState<number>(3200);
   const [waterIntakeMl, setWaterIntakeMl] = useState<number>(() => {
     try {
@@ -109,6 +119,7 @@ export default function App() {
     } catch {}
   };
 
+  // Cronômetro do Treino com Persistência
   useEffect(() => {
     let interval: any = null;
     if (showLiveWorkout || isWorkoutMinimized) {
@@ -125,7 +136,6 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // 📋 METADADOS DOS TREINOS A, B, C, D
   const workoutPlans: Record<WorkoutDayKey, WorkoutDayPlan> = {
     A: {
       key: 'A',
@@ -181,12 +191,11 @@ export default function App() {
     },
   };
 
-  // 🏋️ GERADOR COMPLETO DE EXERCÍCIOS PARA CADA DIA
   const generateExercisesForDay = (day: WorkoutDayKey, seriesCount: number): WorkoutExerciseItem[] => {
     switch (day) {
       case 'A':
         return [
-          { id: 101, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: i === 0 })) },
+          { id: 101, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: false })) },
           { id: 102, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
           { id: 103, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
           { id: 104, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
@@ -196,35 +205,32 @@ export default function App() {
           { id: 108, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão)', cue: 'Abra as pontas da corda com pico isométrico.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 15, completed: false })) },
           { id: 109, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
         ];
-
       case 'B':
         return [
-          { id: 201, name: 'Puxada Frontal na Polia Alta (Pronada)', targetMuscle: 'Latíssimo do Dorso', cue: 'Depressão escapular inicial, puxar cotovelos na linha da cintura.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: i === 0 })) },
+          { id: 201, name: 'Puxada Frontal na Polia Alta (Pronada)', targetMuscle: 'Latíssimo do Dorso', cue: 'Depressão escapular inicial, puxar cotovelos na linha da cintura.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: false })) },
           { id: 202, name: 'Remada Curvada com Barra Olímpica', targetMuscle: 'Dorsais & Rombóides', cue: 'Tronco a 45° estável, puxada no umbigo com pegada pronada.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 70.0, reps: 8, completed: false })) },
           { id: 203, name: 'Remada Baixa no Triângulo (Polia)', targetMuscle: 'Dorsal Medial & Trapézio', cue: 'Alongamento máximo na fase excêntrica com tórax expandido.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 60.0, reps: 12, completed: false })) },
           { id: 204, name: 'Remada Unilateral com Halter (Serrote)', targetMuscle: 'Grande Dorsal', cue: 'Apoio firme no banco, puxada rente ao quadril sem girar tronco.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 30.0, reps: 10, completed: false })) },
           { id: 205, name: 'Crucifixo Invertido no Peck Deck', targetMuscle: 'Deltóide Posterior', cue: 'Foco exclusivo na porção de trás do ombro, cotovelos levemente flexionados.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 40.0, reps: 15, completed: false })) },
           { id: 206, name: 'Rosca Direta com Barra W', targetMuscle: 'Bíceps Braquial', cue: 'Cotovelos colados ao lado do corpo, pico de contração de 1s no topo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
-          { id: 207, name: 'Rosca Scott com Halter ou Barra', targetMuscle: 'Bíceps (Cabeça Curta)', cue: 'Apoio peitoral firme, sem estender totalmente o cotovelo para proteger o tendão.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 16.0, reps: 10, completed: false })) },
+          { id: 207, name: 'Rosca Scott com Halter ou Barra', targetMuscle: 'Bíceps (Cabeça Curta)', cue: 'Apoio peitoral firme, sem estender totalmente o cotovelo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 16.0, reps: 10, completed: false })) },
           { id: 208, name: 'Rosca Martelo com Halteres', targetMuscle: 'Braquial & Braquiorradial', cue: 'Pegada neutra, foco na espessura do braço e antebraço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 18.0, reps: 12, completed: false })) },
-          { id: 209, name: 'Hiperextensão Lombar no Banco', targetMuscle: 'Eretores da Espinha', cue: 'Manter a curvatura anatômica sem hiperextender excessivamente o pescoço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 15.0, reps: 15, completed: false })) },
+          { id: 209, name: 'Hiperextensão Lombar no Banco', targetMuscle: 'Eretores da Espinha', cue: 'Manter a curvatura anatômica sem hiperextender pescoço.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 15.0, reps: 15, completed: false })) },
         ];
-
       case 'C':
         return [
-          { id: 301, name: 'Agachamento Livre com Barra', targetMuscle: 'Quadríceps & Glúteos', cue: 'Pés na largura dos ombros, descida até 90° com peito aberto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 90.0, reps: 8, completed: i === 0 })) },
+          { id: 301, name: 'Agachamento Livre com Barra', targetMuscle: 'Quadríceps & Glúteos', cue: 'Pés na largura dos ombros, descida até 90° com peito aberto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 90.0, reps: 8, completed: false })) },
           { id: 302, name: 'Leg Press 45° com Pés Medianos', targetMuscle: 'Quadríceps & Vasto Lateral', cue: 'Pés paralelos, descida profunda sem tirar o quadril do encosto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 240.0, reps: 10, completed: false })) },
           { id: 303, name: 'Cadeira Extensora', targetMuscle: 'Reto Femoral & Vasto Medial', cue: 'Ponto zero controlado, contração isométrica de 2s no topo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 12, completed: false })) },
-          { id: 304, name: 'Cadeira Flexora Sentada', targetMuscle: 'Isquiotibiais / Bíceps Femoral', cue: 'Ajuste o apoio do tornozelo, puxada forte calcanhares para trás.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 55.0, reps: 12, completed: false })) },
+          { id: 304, name: 'Cadeira Flexora Sentada', targetMuscle: 'Isquiotibiais / Bíceps Femoral', cue: 'Ajuste o apoio do tornozelo, puxada calcanhares para trás.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 55.0, reps: 12, completed: false })) },
           { id: 305, name: 'Mesa Flexora Deitada', targetMuscle: 'Isquiotibiais Completos', cue: 'Quadril pressionado contra o banco durante toda a flexão.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 45.0, reps: 10, completed: false })) },
-          { id: 306, name: 'Stiff com Halteres ou Barra Olímpica', targetMuscle: 'Posterior & Glúteo Maior', cue: 'Joelhos semi-flexionados, quadril empurrado para trás em bisagra.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
+          { id: 306, name: 'Stiff com Halteres ou Barra Olímpica', targetMuscle: 'Posterior & Glúteo Maior', cue: 'Joelhos semi-flexionados, quadril empurrado para trás.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
           { id: 307, name: 'Elevação de Panturrilha em Pé na Máquina', targetMuscle: 'Gastrocnêmio', cue: 'Descida máxima de calcanhares e pausa de 2 segundos na ponta dos pés.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 15, completed: false })) },
-          { id: 308, name: 'Panturrilha Sentado (Gêmeos)', targetMuscle: 'Sóleo', cue: 'Movimento estrito e cadenciado, sem impulsão com os braços.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 45.0, reps: 15, completed: false })) },
+          { id: 308, name: 'Panturrilha Sentado (Gêmeos)', targetMuscle: 'Sóleo', cue: 'Movimento estrito e cadenciado, sem impulsão com braços.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 45.0, reps: 15, completed: false })) },
         ];
-
       case 'D':
         return [
-          { id: 401, name: 'Desenvolvimento Militar com Barra', targetMuscle: 'Deltóide Anterior & Core', cue: 'Glúteos e abdômen contraídos, empurrada vertical estrita.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 50.0, reps: 8, completed: i === 0 })) },
+          { id: 401, name: 'Desenvolvimento Militar com Barra', targetMuscle: 'Deltóide Anterior & Core', cue: 'Glúteos e abdômen contraídos, empurrada vertical estrita.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 50.0, reps: 8, completed: false })) },
           { id: 402, name: 'Elevação Lateral na Polia Baixa', targetMuscle: 'Deltóide Lateral', cue: 'Cabo por trás do corpo, tração contínua e fluida sem embalo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 12, completed: false })) },
           { id: 403, name: 'Elevação Frontal com Halteres / Anilha', targetMuscle: 'Deltóide Anterior', cue: 'Subida controlada até a linha dos olhos, descida em 3 segundos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 12, completed: false })) },
           { id: 404, name: 'Encolhimento com Barra ou Halteres', targetMuscle: 'Trapézio Superior', cue: 'Elevação vertical direta em direção às orelhas, sem rotação.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 36.0, reps: 15, completed: false })) },
@@ -236,32 +242,44 @@ export default function App() {
     }
   };
 
-  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() =>
-    generateExercisesForDay('A', 4)
-  );
+  // Carrega exercícios salvos em cache ou padrão
+  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('forzon_active_workout_exercises');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return generateExercisesForDay('A', 4);
+  });
 
-  // 🔄 Alternar o treino do dia (Treino A, B, C, D)
+  // Salva no localStorage sempre que houver alteração de peso, série ou exercício
+  const handleUpdateExercises = (updated: WorkoutExerciseItem[]) => {
+    setActiveWorkoutExercises(updated);
+    try {
+      localStorage.setItem('forzon_active_workout_exercises', JSON.stringify(updated));
+    } catch {}
+  };
+
   const handleSelectWorkoutDay = (day: WorkoutDayKey) => {
     setSelectedDayKey(day);
-    setActiveWorkoutExercises(generateExercisesForDay(day, seriesPerExercise));
+    const newEx = generateExercisesForDay(day, seriesPerExercise);
+    handleUpdateExercises(newEx);
   };
 
   const currentPlan = workoutPlans[selectedDayKey];
 
   const handleToggleSeriesCount = (count: number) => {
     setSeriesPerExercise(count);
-    setActiveWorkoutExercises((prev) =>
-      prev.map((ex) => {
-        let newSets = [...ex.sets];
-        if (count === 3 && newSets.length > 3) {
-          newSets = newSets.slice(0, 3);
-        } else if (count === 4 && newSets.length < 4) {
-          const last = newSets[newSets.length - 1] || { weightKg: 20, reps: 10 };
-          newSets.push({ setNumber: 4, weightKg: last.weightKg, reps: Math.max(6, last.reps - 2), completed: false });
-        }
-        return { ...ex, sets: newSets };
-      })
-    );
+    const updated = activeWorkoutExercises.map((ex) => {
+      let newSets = [...ex.sets];
+      if (count === 3 && newSets.length > 3) {
+        newSets = newSets.slice(0, 3);
+      } else if (count === 4 && newSets.length < 4) {
+        const last = newSets[newSets.length - 1] || { weightKg: 20, reps: 10 };
+        newSets.push({ setNumber: 4, weightKg: last.weightKg, reps: Math.max(6, last.reps - 2), completed: false });
+      }
+      return { ...ex, sets: newSets };
+    });
+    handleUpdateExercises(updated);
   };
 
   const handleApplyMedicalIntake = (data: MedicalIntakeData) => {
@@ -272,20 +290,124 @@ export default function App() {
     }
     setActiveSplitName(split.toUpperCase());
     setSeriesPerExercise(series);
-    setActiveWorkoutExercises(generateExercisesForDay(selectedDayKey, series));
+    const newEx = generateExercisesForDay(selectedDayKey, series);
+    handleUpdateExercises(newEx);
     setShowIntakeModal(false);
     setActiveTab('workout');
   };
 
+  // Troca de Exercício preservando séries já feitas
   const handleSwapExercise = (replacement: CatalogExercise) => {
     if (!swapTargetExercise) return;
-    setActiveWorkoutExercises((prev) =>
-      prev.map((ex) => ex.id === swapTargetExercise.id ? { ...ex, name: replacement.name, targetMuscle: replacement.group, cue: replacement.cue } : ex)
+    const updated = activeWorkoutExercises.map((ex) =>
+      ex.id === swapTargetExercise.id
+        ? { ...ex, name: replacement.name, targetMuscle: replacement.group, cue: replacement.cue }
+        : ex
     );
+    handleUpdateExercises(updated);
     setSwapTargetExercise(null);
   };
 
-  // DIETA E REFEIÇÕES
+  // 🏆 FINALIZAR SESSÃO DE TREINO E DISPARAR MODAL SOCIAL DE TONELAGEM & FOTO/VÍDEO
+  const handleTriggerFinishWorkout = (finalExercisesList?: WorkoutExerciseItem[]) => {
+    const listToCalculate = finalExercisesList || activeWorkoutExercises;
+
+    let totalVolumeKg = 0;
+    let totalSets = 0;
+    let totalReps = 0;
+
+    listToCalculate.forEach((ex) => {
+      ex.sets.forEach((set) => {
+        if (set.completed) {
+          totalVolumeKg += (set.weightKg || 0) * (set.reps || 0);
+          totalSets += 1;
+          totalReps += (set.reps || 0);
+        }
+      });
+    });
+
+    // Se o atleta finalizou sem marcar nenhum check, computa todas as séries planejadas
+    if (totalVolumeKg === 0) {
+      listToCalculate.forEach((ex) => {
+        ex.sets.forEach((set) => {
+          totalVolumeKg += (set.weightKg || 0) * (set.reps || 0);
+          totalSets += 1;
+          totalReps += (set.reps || 0);
+        });
+      });
+    }
+
+    const record = {
+      id: `workout-${Date.now()}`,
+      title: currentPlan.title,
+      splitName: activeSplitName,
+      completedAt: new Date().toISOString(),
+      durationSeconds: Math.max(workoutElapsedSeconds, 1800), // Mínimo 30m ou tempo real
+      totalVolumeKg: Math.round(totalVolumeKg),
+      totalSets,
+      totalReps,
+      exercisesLogged: listToCalculate,
+      prsAchieved: [`${currentPlan.focusTag} Finalizado com Sucesso`],
+      perceivedEffortRpe: 8.5,
+      notes: '',
+    };
+
+    setCompletedWorkoutRecord(record);
+    setShowLiveWorkout(false);
+    setIsWorkoutMinimized(false);
+    setShowPostWorkoutModal(true);
+  };
+
+  // Publicar no feed da comunidade
+  const handlePublishPost = (post: any, _record: any) => {
+    setShowPostWorkoutModal(false);
+    setWorkoutElapsedSeconds(0);
+    try {
+      localStorage.removeItem('forzon_active_workout_exercises');
+    } catch {}
+    setActiveTab('community');
+  };
+
+  // Salvar apenas no histórico privado
+  const handleSavePrivateOnly = (_record: any) => {
+    setShowPostWorkoutModal(false);
+    setWorkoutElapsedSeconds(0);
+    try {
+      localStorage.removeItem('forzon_active_workout_exercises');
+    } catch {}
+  };
+
+  // Abrir Gerador de Story 9:16
+  const handleOpenStoryGenerator = () => {
+    if (!completedWorkoutRecord) return;
+    const durMins = Math.round(completedWorkoutRecord.durationSeconds / 60);
+
+    const data: StoryData = {
+      title: completedWorkoutRecord.title.split('—')[0].trim(),
+      subtitle: completedWorkoutRecord.title.split('—')[1]?.trim() || 'Superação de Limites',
+      badgeText: 'Treino Pago',
+      athleteName: userName,
+      dateStr: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).toUpperCase(),
+      metrics: [
+        { label: 'Carga Total', value: `${completedWorkoutRecord.totalVolumeKg.toLocaleString('pt-BR')} kg`, change: '+12% PR', isPositive: true },
+        { label: 'Tempo Total', value: `${durMins} min`, change: 'Alta Int.', isPositive: true },
+        { label: 'Séries Feitas', value: `${completedWorkoutRecord.totalSets} séries`, change: '100% Meta', isPositive: true },
+        { label: 'Exercícios', value: `${completedWorkoutRecord.exercisesLogged.length} movs`, change: 'Concluído', isPositive: true },
+      ],
+      highlights: [
+        `Tonelagem recorde de ${completedWorkoutRecord.totalVolumeKg.toLocaleString('pt-BR')} kg levantados`,
+        'Sobrecarga progressiva ativa e cadência excêntrica de 3s',
+      ],
+      quoteOrDiagnostic: 'Recuperação neuromuscular excelente. Inicie a janela pós-treino imediatamente.',
+      type: 'workout',
+    };
+
+    setStoryData(data);
+    setShowPostWorkoutModal(false);
+    setShowStoryModal(true);
+  };
+
+  // Dieta
   const [dietMeals, setDietMeals] = useState([
     {
       id: 'm-1',
@@ -389,7 +511,7 @@ export default function App() {
       <Header streakDays={14} userName={userName} userAvatar={avatarUrl} onOpenCoach={() => setShowIntakeModal(true)} />
 
       <main className="max-w-md mx-auto w-full px-4 pt-4 flex-1 space-y-4">
-        {/* ================= ABA 1: TREINO COM SELETOR COMPLETO DE DIAS (A, B, C, D) ================= */}
+        {/* ================= ABA 1: TREINO ================= */}
         {activeTab === 'workout' && (
           <div className="space-y-4 animate-in fade-in">
             {/* Banner Coach IA */}
@@ -412,7 +534,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* SELETOR INTERATIVO DE TREINOS DO DIA (TREINO A, B, C, D) */}
+            {/* SELETOR INTERATIVO DE TREINOS DO DIA (A, B, C, D) */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/40 space-y-3 shadow-[0_0_25px_rgba(0,210,255,0.12)]">
               <div className="flex items-center justify-between">
                 <div>
@@ -532,7 +654,9 @@ export default function App() {
                           <ArrowLeftRight className="w-3 h-3" />
                         </button>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono">{ex.sets.length} séries • {ex.cue}</span>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        {ex.sets.length} séries • {ex.cue}
+                      </span>
                     </div>
                   </div>
                   <div className="text-right">
@@ -543,7 +667,7 @@ export default function App() {
               ))}
             </div>
 
-            {/* Cardio Pós-Treino Adaptado ao Treino Ativo */}
+            {/* Cardio Pós-Treino Adaptado */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_15px_rgba(0,210,255,0.08)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
@@ -568,7 +692,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Ações Auxiliares: Reavaliar, GPS Outdoor e Biblioteca 3D */}
+            {/* Ações Auxiliares */}
             <div className="space-y-2 pt-1">
               <button
                 type="button"
@@ -796,7 +920,20 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-bold text-[#00d2ff] bg-cyan-950/80 px-2 py-1 rounded-lg border border-cyan-500/30">{formatTimer(workoutElapsedSeconds)}</span>
-            <button type="button" onClick={() => { setIsWorkoutMinimized(false); setShowLiveWorkout(true); }} className="p-2 rounded-xl bg-[#00d2ff] text-neutral-950 hover:bg-cyan-400 cursor-pointer shadow-[0_0_10px_#00d2ff]"><Maximize2 className="w-4 h-4 stroke-[3]" /></button>
+            <button
+              type="button"
+              onClick={() => handleTriggerFinishWorkout()}
+              className="px-2.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-black text-[11px] uppercase cursor-pointer"
+            >
+              Finalizar
+            </button>
+            <button
+              type="button"
+              onClick={() => { setIsWorkoutMinimized(false); setShowLiveWorkout(true); }}
+              className="p-2 rounded-xl bg-[#00d2ff] text-neutral-950 hover:bg-cyan-400 cursor-pointer shadow-[0_0_10px_#00d2ff]"
+            >
+              <Maximize2 className="w-4 h-4 stroke-[3]" />
+            </button>
           </div>
         </div>
       )}
@@ -808,9 +945,48 @@ export default function App() {
           splitName={activeSplitName}
           exercises={activeWorkoutExercises}
           elapsedSeconds={workoutElapsedSeconds}
-          onClose={() => setShowLiveWorkout(false)}
-          onMinimize={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(true); }}
-          onFinishWorkout={() => { setShowLiveWorkout(false); setIsWorkoutMinimized(false); setWorkoutElapsedSeconds(0); }}
+          onUpdateExercises={handleUpdateExercises}
+          onClose={() => {
+            setShowLiveWorkout(false);
+            setIsWorkoutMinimized(true);
+          }}
+          onMinimize={() => {
+            setShowLiveWorkout(false);
+            setIsWorkoutMinimized(true);
+          }}
+          onFinishWorkout={(finalExercises) => {
+            handleTriggerFinishWorkout(finalExercises);
+          }}
+        />
+      )}
+
+      {/* Modal Social de Publicar no Feed / Foto / Vídeo */}
+      {showPostWorkoutModal && completedWorkoutRecord && (
+        <PostWorkoutShareModal
+          isOpen={showPostWorkoutModal}
+          onClose={() => setShowPostWorkoutModal(false)}
+          record={completedWorkoutRecord}
+          profile={{
+            name: userName,
+            handle: userHandle,
+            avatarUrl: avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            weightKg: 78,
+            heightCm: 178,
+            mainGoal: 'Hipertrofia e Cargas',
+            dietaryPreference: 'Alta Proteína',
+          }}
+          onPublishPost={handlePublishPost}
+          onSavePrivateOnly={handleSavePrivateOnly}
+          onOpenStoryGenerator={handleOpenStoryGenerator}
+        />
+      )}
+
+      {/* Modal de Story 9:16 para Instagram & WhatsApp */}
+      {showStoryModal && storyData && (
+        <StoryShareModal
+          isOpen={showStoryModal}
+          onClose={() => setShowStoryModal(false)}
+          storyData={storyData}
         />
       )}
 
@@ -859,3 +1035,44 @@ export default function App() {
     </div>
   );
 }
+💻 E no arquivo src/components/workout/LiveWorkoutRunnerModal.tsx:
+Certifique-se de que o topo do componente receba onUpdateExercises e passe para o onFinishWorkout:
+
+interface LiveWorkoutRunnerModalProps {
+  workoutTitle: string;
+  splitName: string;
+  exercises: WorkoutExerciseItem[];
+  elapsedSeconds: number;
+  onClose: () => void;
+  onMinimize: () => void;
+  onFinishWorkout: (exercises: WorkoutExerciseItem[]) => void;
+  onUpdateExercises?: (exercises: WorkoutExerciseItem[]) => void;
+}
+E no cabeçalho do LiveWorkoutRunnerModal, ao lado dos botões de minimizar e fechar, adicione o botão de finalização rápida visível o tempo todo:
+
+<div className="flex items-center gap-2">
+  <button
+    type="button"
+    onClick={() => onFinishWorkout(exercises)}
+    className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-black text-xs uppercase tracking-wider flex items-center gap-1 shadow-md shadow-emerald-500/20 cursor-pointer"
+  >
+    <Check className="w-3.5 h-3.5 stroke-[3]" />
+    <span>Finalizar</span>
+  </button>
+  <button
+    type="button"
+    onClick={onMinimize}
+    className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer"
+    title="Minimizar treino"
+  >
+    <Minimize2 className="w-4 h-4" />
+  </button>
+  <button
+    type="button"
+    onClick={onClose}
+    className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white cursor-pointer"
+    title="Fechar"
+  >
+    <X className="w-4 h-4" />
+  </button>
+</div>
