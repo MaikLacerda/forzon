@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Trophy,
   Flame,
@@ -17,24 +17,11 @@ import {
   UserCheck,
   Sparkles,
   Users,
-  Loader2
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react';
 
-// Se o seu firebase.ts estiver em src/services/firebase, use '../../services/firebase'
-// Se estiver em src/firebase, use '../../firebase'
-// Se estiver em src/lib/firebase, use '../../lib/firebase'
-import { firebaseDatabase, firebaseAuth } from '../../services/firebase'; // <- AJUSTE ESTE CAMINHO CONFORME A PASTA DO SEU firebase.ts
-import {
-  collection,
-  query,
-  getDocs,
-  limit,
-  doc,
-  setDoc,
-  deleteDoc
-} from 'firebase/firestore';
-
-interface CommentItem {
+export interface CommentItem {
   id: string;
   authorName: string;
   authorHandle: string;
@@ -43,7 +30,7 @@ interface CommentItem {
   timeAgo: string;
 }
 
-interface PostItem {
+export interface PostItem {
   id: string;
   authorName: string;
   authorHandle: string;
@@ -51,6 +38,14 @@ interface PostItem {
   timeAgo: string;
   tag: string;
   content: string;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video';
+  workoutData?: {
+    title?: string;
+    totalKgLifted?: number;
+    volumeOrDistance?: string;
+    duration?: string;
+  };
   likes: number;
   commentsCount: number;
   isLiked: boolean;
@@ -63,8 +58,8 @@ interface SuggestedAthlete {
   name: string;
   handle: string;
   avatar: string;
-  streakDays?: number;
-  badge?: string;
+  streakDays: number;
+  badge: string;
   isFollowing: boolean;
 }
 
@@ -72,204 +67,206 @@ interface CommunityFeedViewProps {
   userName: string;
   userHandle: string;
   onCreateChallengeClick: () => void;
+  externalNewPost?: PostItem | null;
 }
 
 export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
   userName,
   userHandle,
   onCreateChallengeClick,
+  externalNewPost,
 }) => {
-  const currentUserId = firebaseAuth?.currentUser?.uid || 'local-user';
-
   const [newPostText, setNewPostText] = useState('');
+  const [attachedMediaUrl, setAttachedMediaUrl] = useState<string | null>(null);
+  const [attachedMediaType, setAttachedMediaType] = useState<'image' | 'video' | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [copiedLink, setCopiedLink] = useState(false);
   const [shareModalPost, setShareModalPost] = useState<PostItem | null>(null);
 
-  // Modal de Comentários
+  // Modal de Comentários Interativo
   const [activeCommentsPost, setActiveCommentsPost] = useState<PostItem | null>(null);
   const [newCommentText, setNewCommentText] = useState('');
 
-  // Busca de Amigos no Firestore real
+  // Busca e amigos
   const [searchFriend, setSearchFriend] = useState('');
-  const [isSearchingFirebase, setIsSearchingFirebase] = useState(false);
-  const [firebaseAthletes, setFirebaseAthletes] = useState<SuggestedAthlete[]>([]);
-  const [followingMap, setFollowingMap] = useState<Record<string, boolean>>({});
 
-  // 1. Carregar lista de atletas (consulta Firestore com fallback gracioso)
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchInitialAthletes = async () => {
-      try {
-        if (!firebaseDatabase) return;
-        setIsSearchingFirebase(true);
-
-        // Busca na coleção 'users' ou 'accounts'
-        const usersRef = collection(firebaseDatabase, 'users');
-        const q = query(usersRef, limit(15));
-        const querySnapshot = await getDocs(q);
-
-        const list: SuggestedAthlete[] = [];
-        querySnapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          if (docSnap.id === currentUserId) return;
-
-          const rawName = data.name || data.displayName || 'Atleta FORZON';
-          list.push({
-            id: docSnap.id,
-            name: rawName,
-            handle: data.handle || data.username || `@${rawName.toLowerCase().replace(/\s+/g, '')}`,
-            avatar: data.avatarUrl || data.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-            streakDays: data.streakDays || data.streak || 0,
-            badge: data.badge || data.mainGoal || 'Atleta da Comunidade',
-            isFollowing: !!followingMap[docSnap.id],
-          });
-        });
-
-        if (isMounted) {
-          setFirebaseAthletes(list);
-        }
-      } catch (err) {
-        console.warn('Coleção users ainda não populada ou sem permissão pública de leitura:', err);
-      } finally {
-        if (isMounted) setIsSearchingFirebase(false);
-      }
-    };
-
-    fetchInitialAthletes();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentUserId]);
-
-  // 2. Busca dinâmica por nome ou @handle com debounce
-  useEffect(() => {
-    const cleanQuery = searchFriend.replace('@', '').trim().toLowerCase();
-    if (!cleanQuery) return;
-
-    let isMounted = true;
-    const timer = setTimeout(async () => {
-      try {
-        if (!firebaseDatabase) return;
-        setIsSearchingFirebase(true);
-
-        const usersRef = collection(firebaseDatabase, 'users');
-        const q = query(usersRef, limit(30));
-        const querySnapshot = await getDocs(q);
-
-        const found: SuggestedAthlete[] = [];
-        querySnapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          if (docSnap.id === currentUserId) return;
-
-          const athleteName = (data.name || data.displayName || '').toLowerCase();
-          const athleteHandle = (data.handle || data.username || '').toLowerCase();
-
-          if (athleteName.includes(cleanQuery) || athleteHandle.includes(cleanQuery)) {
-            const rawName = data.name || data.displayName || 'Atleta FORZON';
-            found.push({
-              id: docSnap.id,
-              name: rawName,
-              handle: data.handle || data.username || `@${rawName.toLowerCase().replace(/\s+/g, '')}`,
-              avatar: data.avatarUrl || data.photoURL || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
-              streakDays: data.streakDays || 0,
-              badge: data.badge || data.mainGoal || 'Atleta da Comunidade',
-              isFollowing: !!followingMap[docSnap.id],
-            });
-          }
-        });
-
-        if (isMounted) {
-          setFirebaseAthletes(found);
-        }
-      } catch (error) {
-        console.error('Erro na consulta do Firestore:', error);
-      } finally {
-        if (isMounted) setIsSearchingFirebase(false);
-      }
-    }, 350);
-
-    return () => {
-      clearTimeout(timer);
-      isMounted = false;
-    };
-  }, [searchFriend, currentUserId, followingMap]);
-
-  // 3. Seguir atleta
-  const toggleFollow = async (athleteId: string) => {
-    const isNowFollowing = !followingMap[athleteId];
-
-    setFollowingMap((prev) => ({ ...prev, [athleteId]: isNowFollowing }));
-    setFirebaseAthletes((prev) =>
-      prev.map((ath) => (ath.id === athleteId ? { ...ath, isFollowing: isNowFollowing } : ath))
-    );
-
-    try {
-      if (!firebaseDatabase || !currentUserId || currentUserId === 'local-user') return;
-      const followDocRef = doc(firebaseDatabase, 'users', currentUserId, 'following', athleteId);
-
-      if (isNowFollowing) {
-        await setDoc(followDocRef, {
-          athleteId,
-          followedAt: new Date().toISOString(),
-        });
-      } else {
-        await deleteDoc(followDocRef);
-      }
-    } catch (err) {
-      console.warn('Erro ao salvar relação de seguidor no Firestore:', err);
-    }
-  };
-
-  // 4. Feed de posts
-  const [posts, setPosts] = useState<PostItem[]>([
+  const [suggestedAthletes, setSuggestedAthletes] = useState<SuggestedAthlete[]>([
     {
-      id: 'post-1',
-      authorName: userName || 'Maikon Lacerda',
-      authorHandle: userHandle || '@maiklacerda',
-      authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-      timeAgo: 'Agora mesmo',
-      tag: 'Treino A • Peitorais, Deltóide & 3x Tríceps',
-      content: 'Finalizei a sessão de peito e ombros! O biofeedback em 88% deu sinal verde para sobrecarga progressiva no Supino Inclinado com Halteres. Cargas registradas com precisão!',
-      likes: 12,
-      commentsCount: 2,
-      isLiked: true,
-      isOwner: true,
-      commentsList: [
-        {
-          id: 'c-1',
-          authorName: 'Rodrigo Ferraz',
-          authorHandle: '@rodrigoferraz',
-          authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
-          content: 'Volume monstro! Qual carga você usou no inclinado?',
-          timeAgo: 'Há 10 min'
-        }
-      ]
-    }
+      id: 'ath-1',
+      name: 'Rodrigo Ferraz',
+      handle: '@rodrigoferraz',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+      streakDays: 28,
+      badge: 'Top 5% Volume',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-2',
+      name: 'Camila Santos',
+      handle: '@camilafit',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
+      streakDays: 45,
+      badge: 'Stairmaster Queen',
+      isFollowing: true,
+    },
+    {
+      id: 'ath-3',
+      name: 'Felipe Rocha',
+      handle: '@feliperocha',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
+      streakDays: 14,
+      badge: 'Jiu-Jitsu & Força',
+      isFollowing: false,
+    },
+    {
+      id: 'ath-4',
+      name: 'Larissa Lima',
+      handle: '@larissafit',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      streakDays: 32,
+      badge: 'Maratonista GPS',
+      isFollowing: false,
+    },
   ]);
 
-  const handleLike = (id: string) => {
-    setPosts((prev) =>
-      prev.map((p) =>
-        p.id === id
-          ? {
-              ...p,
-              isLiked: !p.isLiked,
-              likes: p.isLiked ? p.likes - 1 : p.likes + 1,
-            }
-          : p
-      )
+  const toggleFollow = (id: string) => {
+    setSuggestedAthletes((prev) =>
+      prev.map((ath) => (ath.id === id ? { ...ath, isFollowing: !ath.isFollowing } : ath))
     );
+  };
+
+  const filteredAthletes = suggestedAthletes.filter(
+    (a) =>
+      a.name.toLowerCase().includes(searchFriend.toLowerCase()) ||
+      a.handle.toLowerCase().includes(searchFriend.toLowerCase())
+  );
+
+  // Inicializa com posts salvos em cache ou padrão
+  const [posts, setPosts] = useState<PostItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('forzon_community_posts');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return [
+      {
+        id: 'post-1',
+        authorName: userName || 'Maikon Lacerda',
+        authorHandle: userHandle || '@maiklacerda',
+        authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        timeAgo: 'Agora mesmo',
+        tag: 'Treino A • Peitorais, Deltóide & 3x Tríceps',
+        content: 'Finalizei a sessão de peito e ombros! O biofeedback em 88% deu sinal verde para sobrecarga progressiva no Supino Inclinado com Halteres. Cargas registradas com precisão!',
+        likes: 12,
+        commentsCount: 2,
+        isLiked: true,
+        isOwner: true,
+        commentsList: [
+          {
+            id: 'c-1',
+            authorName: 'Rodrigo Ferraz',
+            authorHandle: '@rodrigoferraz',
+            authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+            content: 'Volume monstro! Qual carga você usou no inclinado?',
+            timeAgo: 'Há 10 min'
+          },
+          {
+            id: 'c-2',
+            authorName: 'Camila Santos',
+            authorHandle: '@camilafit',
+            authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
+            content: 'A consistência tá absurda! Parabéns!',
+            timeAgo: 'Há 5 min'
+          }
+        ]
+      },
+      {
+        id: 'post-2',
+        authorName: 'Rodrigo Ferraz',
+        authorHandle: '@rodrigoferraz',
+        authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+        timeAgo: 'Há 45 min',
+        tag: 'Rotina Hipertrofia A • Peito & Tríceps',
+        content: 'Bati PR no Supino Inclinado com 36kg hoje! O descanso ATP-CP de 90 segundos com +30s na última série fez toda a diferença na recuperação neural.',
+        likes: 24,
+        commentsCount: 1,
+        isLiked: false,
+        commentsList: []
+      },
+      {
+        id: 'post-3',
+        authorName: 'Camila Santos',
+        authorHandle: '@camilafit',
+        authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
+        timeAgo: 'Há 2 horas',
+        tag: 'Stairmaster Pós-Treino • Zona 2',
+        content: '20 min de Simulador de Escadas após o treino de pernas. 210 kcal pagas e sincronizadas direto com o Strava!',
+        likes: 42,
+        commentsCount: 0,
+        isLiked: true,
+        commentsList: []
+      },
+    ];
+  });
+
+  // Salva no localStorage sempre que alterar posts
+  const persistPosts = (updated: PostItem[]) => {
+    setPosts(updated);
+    try {
+      localStorage.setItem('forzon_community_posts', JSON.stringify(updated));
+    } catch {}
+  };
+
+  // Se receber post externo recém-publicado do pós-treino
+  useEffect(() => {
+    if (externalNewPost && externalNewPost.id) {
+      setPosts((prev) => {
+        if (prev.some((p) => p.id === externalNewPost.id)) return prev;
+        const next = [externalNewPost, ...prev];
+        try {
+          localStorage.setItem('forzon_community_posts', JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+    }
+  }, [externalNewPost]);
+
+  const handleLike = (id: string) => {
+    const updated = posts.map((p) =>
+      p.id === id
+        ? {
+            ...p,
+            isLiked: !p.isLiked,
+            likes: p.isLiked ? p.likes - 1 : p.likes + 1,
+          }
+        : p
+    );
+    persistPosts(updated);
   };
 
   const handleDeletePost = (id: string) => {
-    setPosts((prev) => prev.filter((p) => p.id !== id));
+    const updated = posts.filter((p) => p.id !== id);
+    persistPosts(updated);
+  };
+
+  // Upload rápido de imagem no post manual
+  const handleMediaSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setAttachedMediaUrl(event.target.result as string);
+        setAttachedMediaType('image');
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
   };
 
   const handleCreatePost = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPostText.trim()) return;
+    if (!newPostText.trim() && !attachedMediaUrl) return;
 
     const newPost: PostItem = {
       id: `user-p-${Date.now()}`,
@@ -278,7 +275,9 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       timeAgo: 'Agora mesmo',
       tag: 'Atualização do Atleta',
-      content: newPostText,
+      content: newPostText.trim(),
+      mediaUrl: attachedMediaUrl || undefined,
+      mediaType: attachedMediaType || undefined,
       likes: 1,
       commentsCount: 0,
       isLiked: true,
@@ -286,10 +285,13 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       commentsList: []
     };
 
-    setPosts([newPost, ...posts]);
+    persistPosts([newPost, ...posts]);
     setNewPostText('');
+    setAttachedMediaUrl(null);
+    setAttachedMediaType(null);
   };
 
+  // Comentários
   const handleAddComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeCommentsPost || !newCommentText.trim()) return;
@@ -303,27 +305,36 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
       timeAgo: 'Agora mesmo'
     };
 
-    setPosts((prev) =>
-      prev.map((p) => {
-        if (p.id === activeCommentsPost.id) {
-          const updatedComments = [...(p.commentsList || []), newComment];
-          const updatedPost = {
-            ...p,
-            commentsList: updatedComments,
-            commentsCount: updatedComments.length
-          };
-          setActiveCommentsPost(updatedPost);
-          return updatedPost;
-        }
-        return p;
-      })
-    );
+    const updated = posts.map((p) => {
+      if (p.id === activeCommentsPost.id) {
+        const updatedComments = [...(p.commentsList || []), newComment];
+        const updatedPost = {
+          ...p,
+          commentsList: updatedComments,
+          commentsCount: updatedComments.length
+        };
+        setActiveCommentsPost(updatedPost);
+        return updatedPost;
+      }
+      return p;
+    });
 
+    persistPosts(updated);
     setNewCommentText('');
   };
 
   return (
     <div className="space-y-4 animate-in fade-in select-none">
+      {/* Input oculto para anexar foto */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleMediaSelected}
+      />
+
+      {/* Cabeçalho */}
       <div className="flex items-center justify-between pb-1">
         <div>
           <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">
@@ -331,18 +342,17 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
           </span>
           <h2 className="text-xl font-black text-white">Feed dos Atletas</h2>
         </div>
-        <div className="flex gap-1.5">
-          <button
-            type="button"
-            onClick={onCreateChallengeClick}
-            className="px-3 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-[#00d2ff] text-xs font-bold flex items-center gap-1.5 hover:bg-cyan-900 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,210,255,0.2)]"
-          >
-            <Trophy className="w-3.5 h-3.5" />
-            <span>Criar Desafio</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onCreateChallengeClick}
+          className="px-3 py-1.5 rounded-xl bg-cyan-950 border border-cyan-500/40 text-[#00d2ff] text-xs font-bold flex items-center gap-1.5 hover:bg-cyan-900 transition-all cursor-pointer shadow-[0_0_12px_rgba(0,210,255,0.2)]"
+        >
+          <Trophy className="w-3.5 h-3.5" />
+          <span>Criar Desafio</span>
+        </button>
       </div>
 
+      {/* Caixa de Publicação de Novo Post */}
       <form onSubmit={handleCreatePost} className="p-3.5 rounded-3xl bg-[#0f131c] border border-slate-800 space-y-2.5">
         <div className="flex gap-2.5 items-center">
           <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs text-[#00d2ff]">
@@ -355,18 +365,42 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
             placeholder="Compartilhe seu treino, carga ou conquista..."
             className="flex-1 bg-[#07090e] border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
           />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-[#00d2ff] hover:border-cyan-500/40 cursor-pointer transition-colors"
+            title="Anexar foto"
+          >
+            <Camera className="w-4 h-4" />
+          </button>
         </div>
+
+        {/* Pré-visualização da foto anexada antes de postar */}
+        {attachedMediaUrl && (
+          <div className="relative rounded-2xl overflow-hidden bg-black border border-cyan-500/40 p-2">
+            <img src={attachedMediaUrl} alt="Preview" className="w-full max-h-48 object-cover rounded-xl" />
+            <button
+              type="button"
+              onClick={() => { setAttachedMediaUrl(null); setAttachedMediaType(null); }}
+              className="absolute top-3 right-3 p-1.5 rounded-full bg-black/80 text-rose-400 hover:text-white cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
         <div className="flex justify-end pt-1">
           <button
             type="submit"
-            disabled={!newPostText.trim()}
-            className="px-4 py-1.5 rounded-xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-xs uppercase tracking-wider disabled:opacity-40 transition-all flex items-center gap-1.5 cursor-pointer"
+            disabled={!newPostText.trim() && !attachedMediaUrl}
+            className="px-4 py-1.5 rounded-xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-xs uppercase tracking-wider disabled:opacity-40 transition-all flex items-center gap-1.5 cursor-pointer shadow-[0_0_10px_#00d2ff]"
           >
             <Send className="w-3.5 h-3.5" /> Publicar
           </button>
         </div>
       </form>
 
+      {/* SEÇÃO INTEGRADA: ENCONTRAR AMIGOS */}
       <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.08)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -376,126 +410,78 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
             </h3>
           </div>
           <span className="text-[10px] font-bold text-[#00d2ff] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30">
-            {firebaseAthletes.filter((a) => a.isFollowing).length} Seguidos
+            {suggestedAthletes.filter((a) => a.isFollowing).length} Seguidos
           </span>
         </div>
 
         <div className="relative">
-          {isSearchingFirebase ? (
-            <Loader2 className="w-4 h-4 text-[#00d2ff] animate-spin absolute left-3 top-1/2 -translate-y-1/2" />
-          ) : (
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-          )}
-
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchFriend}
             onChange={(e) => setSearchFriend(e.target.value)}
-            placeholder="Buscar por nome ou @handle no Firebase..."
-            className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-9 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
+            placeholder="Buscar por @username ou nome do atleta..."
+            className="w-full bg-[#07090e] border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff]"
           />
-
-          {searchFriend && (
-            <button
-              type="button"
-              onClick={() => setSearchFriend('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 cursor-pointer"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          )}
         </div>
 
         <div className="space-y-2 pt-1">
-          <div className="flex justify-between items-center px-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-              {searchFriend.trim()
-                ? `Usuários no Firebase para "${searchFriend}" (${firebaseAthletes.length})`
-                : 'Atletas Cadastrados no FORZON:'}
-            </span>
-            {searchFriend.trim() && (
-              <button
-                type="button"
-                onClick={() => setSearchFriend('')}
-                className="text-[10px] text-[#00d2ff] hover:underline cursor-pointer"
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-1">
+            Recomendados pela Comunidade FORZON:
+          </span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {filteredAthletes.map((ath) => (
+              <div
+                key={ath.id}
+                className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
               >
-                Limpar busca
-              </button>
-            )}
-          </div>
-
-          {firebaseAthletes.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {firebaseAthletes.map((ath) => (
-                <div
-                  key={ath.id}
-                  className="p-2.5 rounded-2xl bg-[#07090e] border border-slate-800/80 hover:border-cyan-500/40 transition-all flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="relative shrink-0">
-                      <img
-                        src={ath.avatar}
-                        alt={ath.name}
-                        className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src =
-                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
-                        }}
-                      />
-                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#07090e]" />
-                    </div>
-                    <div className="min-w-0 pr-2">
-                      <h4 className="text-xs font-bold text-white leading-tight truncate">{ath.name}</h4>
-                      <span className="text-[10px] font-mono text-[#00d2ff] block truncate">{ath.handle}</span>
-                      <span className="text-[9px] text-slate-400 truncate block">{ath.badge}</span>
-                    </div>
+                <div className="flex items-center gap-2.5">
+                  <img
+                    src={ath.avatar}
+                    alt={ath.name}
+                    className="w-9 h-9 rounded-full object-cover border border-cyan-500/30"
+                  />
+                  <div>
+                    <h4 className="text-xs font-bold text-white leading-tight">{ath.name}</h4>
+                    <span className="text-[10px] font-mono text-[#00d2ff] block">{ath.handle}</span>
+                    <span className="text-[9px] text-slate-400">{ath.badge}</span>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => toggleFollow(ath.id)}
-                    className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer shrink-0 ${
-                      ath.isFollowing
-                        ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/40'
-                        : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
-                    }`}
-                  >
-                    {ath.isFollowing ? (
-                      <>
-                        <UserCheck className="w-3.5 h-3.5" /> Seguido
-                      </>
-                    ) : (
-                      <>
-                        <UserPlus className="w-3.5 h-3.5" /> Seguir
-                      </>
-                    )}
-                  </button>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="p-4 rounded-2xl bg-[#07090e] border border-slate-800/80 text-center space-y-1">
-              <Users className="w-6 h-6 text-slate-600 mx-auto mb-1" />
-              <p className="text-xs font-bold text-slate-300">
-                {isSearchingFirebase
-                  ? 'Consultando Firestore...'
-                  : `Nenhum atleta cadastrado com "${searchFriend}"`}
-              </p>
-              <p className="text-[10px] text-slate-500">
-                Verifique se o usuário já salvou o perfil na coleção "users" do seu Firebase.
-              </p>
-            </div>
-          )}
+
+                <button
+                  type="button"
+                  onClick={() => toggleFollow(ath.id)}
+                  className={`px-3 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    ath.isFollowing
+                      ? 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-rose-400'
+                      : 'bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black shadow-[0_0_10px_#00d2ff]'
+                  }`}
+                >
+                  {ath.isFollowing ? (
+                    <>
+                      <UserCheck className="w-3.5 h-3.5" /> Seguido
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus className="w-3.5 h-3.5" /> Seguir
+                    </>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Lista de Posts */}
+      {/* Lista de Postagens da Comunidade COM EXIBIÇÃO DE FOTOS E VÍDEOS */}
       <div className="space-y-3">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 transition-all space-y-2.5"
+            className="p-4 rounded-3xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/30 transition-all space-y-3"
           >
+            {/* Topo do Post */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
                 <img
@@ -530,8 +516,46 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">{post.content}</p>
+            {/* Conteúdo de Texto */}
+            <p className="text-xs text-slate-200 leading-relaxed whitespace-pre-line">
+              {post.content}
+            </p>
 
+            {/* 📸 EXIBIÇÃO VISÍVEL DA FOTO DO TREINO */}
+            {post.mediaUrl && post.mediaType !== 'video' && (
+              <div className="relative rounded-2xl overflow-hidden bg-black border border-cyan-500/30 shadow-2xl">
+                <img
+                  src={post.mediaUrl}
+                  alt="Registro fotográfico do treino"
+                  className="w-full max-h-96 object-cover rounded-2xl"
+                  loading="lazy"
+                />
+                {/* Badge de Marca d'água FORZON */}
+                <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-xl bg-black/80 backdrop-blur-md border border-cyan-500/40 flex items-center gap-2 text-white font-mono text-[11px] shadow-lg">
+                  <Flame className="w-3.5 h-3.5 text-[#00d2ff] fill-[#00d2ff]" />
+                  <span className="font-black">FORZON</span>
+                  {post.workoutData?.totalKgLifted && (
+                    <span className="text-[#00d2ff] font-bold">
+                      {post.workoutData.totalKgLifted.toLocaleString('pt-BR')} KG
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* 🎥 EXIBIÇÃO DO VÍDEO DO TREINO */}
+            {post.mediaUrl && post.mediaType === 'video' && (
+              <div className="relative rounded-2xl overflow-hidden bg-black border border-cyan-500/30">
+                <video
+                  src={post.mediaUrl}
+                  controls
+                  playsInline
+                  className="w-full max-h-96 rounded-2xl"
+                />
+              </div>
+            )}
+
+            {/* Ações: Curtir, Comentar, Compartilhar */}
             <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs text-slate-400">
               <button
                 type="button"
@@ -596,15 +620,6 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
               </button>
             </div>
 
-            <div className="p-3 rounded-2xl bg-[#0f131c] border border-slate-800/80 shrink-0 space-y-1">
-              <span className="text-[9px] font-mono text-[#00d2ff] font-bold block truncate">
-                {activeCommentsPost.tag}
-              </span>
-              <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed">
-                &quot;{activeCommentsPost.content}&quot;
-              </p>
-            </div>
-
             <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
               {activeCommentsPost.commentsList && activeCommentsPost.commentsList.length > 0 ? (
                 activeCommentsPost.commentsList.map((c) => (
@@ -664,7 +679,7 @@ export const CommunityFeedView: React.FC<CommunityFeedViewProps> = ({
         </div>
       )}
 
-      {/* Modal de Compartilhamento */}
+      {/* Modal de Compartilhamento Social */}
       {shareModalPost && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
           <div className="bg-[#0a0e17] border border-cyan-500/40 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)]">
