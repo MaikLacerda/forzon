@@ -14,7 +14,14 @@ import {
   Sliders,
   ChevronRight,
   Droplets,
-  Plus
+  Plus,
+  Flame,
+  X,
+  Camera,
+  Send,
+  Trash2,
+  Zap,
+  Clock
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -30,8 +37,6 @@ import { NutritionScannerModal, ScannedFoodResult } from './components/nutrition
 import { FoodSwapModal, FoodItemData } from './components/nutrition/FoodSwapModal';
 import { GroceryListModal } from './components/nutrition/GroceryListModal';
 import { BiofeedbackReadinessCard } from './components/biofeedback/BiofeedbackReadinessCard';
-import { PostWorkoutShareModal } from './components/workout/PostWorkoutShareModal';
-import { CompletedWorkoutRecord, SocialPost, UserProfile } from './types';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'workout' | 'nutrition' | 'bio' | 'community' | 'profile'>('workout');
@@ -63,8 +68,13 @@ export default function App() {
 
   // Modal Pós-Treino com Foto e Post no Feed
   const [showPostWorkoutModal, setShowPostWorkoutModal] = useState(false);
-  const [completedWorkoutRecord, setCompletedWorkoutRecord] = useState<CompletedWorkoutRecord | null>(null);
+  const [completedTotalVolumeKg, setCompletedTotalVolumeKg] = useState(0);
+  const [completedExercisesCount, setCompletedExercisesCount] = useState(0);
+  const [completedSetsCount, setCompletedSetsCount] = useState(0);
+  const [postWorkoutPhoto, setPostWorkoutPhoto] = useState<string | null>(null);
+  const [postWorkoutCaption, setPostWorkoutCaption] = useState('');
   const [newlyCreatedPost, setNewlyCreatedPost] = useState<PostItem | null>(null);
+  const photoInputRef = React.useRef<HTMLInputElement>(null);
 
   const [activeSplitName, setActiveSplitName] = useState('ABCD CLÁSSICO PESADO');
   const [activeWorkoutTitle, setActiveWorkoutTitle] = useState('Treino A — Peitorais, Deltóide & 3x Tríceps');
@@ -216,81 +226,73 @@ export default function App() {
   const handleFinishWorkout = (finalExercises?: WorkoutExerciseItem[]) => {
     const exercisesToCompute = finalExercises || activeWorkoutExercises;
     let totalKg = 0;
-    let completedSetsCount = 0;
-    let totalRepsCount = 0;
+    let completedSets = 0;
 
     exercisesToCompute.forEach((ex) => {
       ex.sets.forEach((s) => {
         if (s.completed) {
           totalKg += (Number(s.weightKg) || 0) * (Number(s.reps) || 0);
-          completedSetsCount += 1;
-          totalRepsCount += Number(s.reps) || 0;
+          completedSets += 1;
         }
       });
     });
 
-    // Se nenhuma série foi marcada, calcula com base nas séries configuradas
     if (totalKg === 0) {
       exercisesToCompute.forEach((ex) => {
         ex.sets.forEach((s) => {
           totalKg += (Number(s.weightKg) || 0) * (Number(s.reps) || 0);
-          completedSetsCount += 1;
-          totalRepsCount += Number(s.reps) || 0;
+          completedSets += 1;
         });
       });
     }
 
-    const record: CompletedWorkoutRecord = {
-      id: `rec-${Date.now()}`,
-      workoutId: 'workout-custom',
-      splitId: activeSplitName,
-      title: activeWorkoutTitle,
-      completedAt: new Date().toISOString(),
-      durationSeconds: Math.max(workoutElapsedSeconds, 60),
-      totalVolumeKg: Math.round(totalKg),
-      totalSets: completedSetsCount,
-      totalReps: totalRepsCount,
-      prsAchieved: totalKg > 10000 ? ['Volume Épico > 10 Toneladas'] : ['Treino Concluído'],
-      exercisesLogged: exercisesToCompute.map((ex) => ({
-        exerciseId: String(ex.id || ''),
-        name: ex.name,
-        targetMuscle: ex.targetMuscle,
-        sets: ex.sets.map((s) => ({
-          setNumber: s.setNumber,
-          weightKg: Number(s.weightKg) || 0,
-          reps: Number(s.reps) || 0,
-          completed: s.completed,
-        })),
-      })),
-      perceivedEffortRpe: 8,
-      notes: '',
-    };
+    setCompletedTotalVolumeKg(Math.round(totalKg));
+    setCompletedExercisesCount(exercisesToCompute.length);
+    setCompletedSetsCount(completedSets);
+    setPostWorkoutCaption(
+      `🔥 Treino finalizado com sucesso! Levantei ${Math.round(totalKg).toLocaleString('pt-BR')} kg no total em ${Math.round(
+        Math.max(workoutElapsedSeconds, 60) / 60
+      )} min. Superando limites no FORZON! ⚡`
+    );
 
-    setCompletedWorkoutRecord(record);
     setShowLiveWorkout(false);
     setIsWorkoutMinimized(false);
     setShowPostWorkoutModal(true);
   };
 
+  // Upload de Foto no Modal Pós-Treino
+  const handleSelectWorkoutPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setPostWorkoutPhoto(event.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
   // Publicar post com a foto e os dados do treino no feed social
-  const handlePublishPost = (post: SocialPost, _record: CompletedWorkoutRecord) => {
+  const handlePublishPost = () => {
     const formattedPostItem: PostItem = {
-      id: post.id,
-      authorName: post.authorName,
-      authorHandle: post.authorHandle,
-      authorAvatar: post.authorAvatar || avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      id: `post-${Date.now()}`,
+      authorName: userName,
+      authorHandle: userHandle,
+      authorAvatar: avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       timeAgo: 'Agora mesmo',
-      tag: post.workoutData?.title || activeWorkoutTitle,
-      content: post.content,
-      mediaUrl: post.mediaUrl,
-      mediaType: post.mediaType,
+      tag: activeWorkoutTitle,
+      content: postWorkoutCaption,
+      mediaUrl: postWorkoutPhoto || undefined,
+      mediaType: postWorkoutPhoto ? 'image' : undefined,
       workoutData: {
-        title: post.workoutData?.title,
-        totalKgLifted: post.workoutData?.totalKgLifted,
-        volumeOrDistance: post.workoutData?.volumeOrDistance,
-        duration: post.workoutData?.duration,
+        title: activeWorkoutTitle,
+        totalKgLifted: completedTotalVolumeKg,
+        volumeOrDistance: `${completedTotalVolumeKg.toLocaleString('pt-BR')} kg total`,
+        duration: `${Math.round(Math.max(workoutElapsedSeconds, 60) / 60)} min`,
       },
-      likes: post.likesCount || 1,
+      likes: 1,
       commentsCount: 0,
       isLiked: true,
       isOwner: true,
@@ -300,6 +302,7 @@ export default function App() {
     setNewlyCreatedPost(formattedPostItem);
     setShowPostWorkoutModal(false);
     setWorkoutElapsedSeconds(0);
+    setPostWorkoutPhoto(null);
     try {
       localStorage.removeItem('forzon_active_workout_exercises');
     } catch {}
@@ -307,9 +310,10 @@ export default function App() {
   };
 
   // Apenas salvar privado
-  const handleSavePrivateOnly = (_record: CompletedWorkoutRecord) => {
+  const handleSavePrivateOnly = () => {
     setShowPostWorkoutModal(false);
     setWorkoutElapsedSeconds(0);
+    setPostWorkoutPhoto(null);
     try {
       localStorage.removeItem('forzon_active_workout_exercises');
     } catch {}
@@ -413,15 +417,6 @@ export default function App() {
         foods: [{ id: 'scanned-' + Date.now(), name: scanned.name + ' (' + (scanned.brand || 'Item') + ')', quantity: scanned.serving, calories: scanned.calories, proteinG: scanned.proteinG, carbsG: scanned.carbsG, fatG: scanned.fatG, category: 'proteina' as const }]
       }
     ]);
-  };
-
-  const userProfile: UserProfile = {
-    name: userName,
-    handle: userHandle,
-    avatarUrl: avatarUrl || undefined,
-    weightKg: 82,
-    heightCm: 180,
-    mainGoal: 'Hipertrofia Muscular & Sobrecarga',
   };
 
   return (
@@ -763,16 +758,127 @@ export default function App() {
         />
       )}
 
-      {/* Modal Pós-Treino com Foto e Compartilhamento */}
-      {showPostWorkoutModal && completedWorkoutRecord && (
-        <PostWorkoutShareModal
-          isOpen={showPostWorkoutModal}
-          onClose={() => setShowPostWorkoutModal(false)}
-          record={completedWorkoutRecord}
-          profile={userProfile}
-          onPublishPost={handlePublishPost}
-          onSavePrivateOnly={handleSavePrivateOnly}
-        />
+      {/* MODAL PÓS-TREINO COM REGISTRO FOTOGRÁFICO & PUBLICAÇÃO SOCIAL */}
+      {showPostWorkoutModal && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in select-none">
+          <input
+            ref={photoInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleSelectWorkoutPhoto}
+          />
+
+          <div className="bg-[#0a0e17] border border-cyan-500/40 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)] max-h-[92vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
+                  <Flame className="w-4 h-4 fill-[#00d2ff]" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-wider block">TREINO CONCLUÍDO</span>
+                  <h3 className="text-sm font-black text-white">Publicar no Feed Social</h3>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleSavePrivateOnly}
+                className="p-1 text-slate-400 hover:text-white cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Banner de Carga Total Levantada */}
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/70 via-[#0f131c] to-[#07090e] border border-cyan-500/40 text-center space-y-1 shadow-[0_0_20px_rgba(0,210,255,0.12)]">
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold">
+                <Zap className="w-3 h-3 fill-current" /> CARGA TOTAL COMPUTADA
+              </div>
+              <div className="text-3xl font-black font-mono text-white tracking-tight pt-1">
+                {completedTotalVolumeKg.toLocaleString('pt-BR')}{' '}
+                <span className="text-[#00d2ff] text-xl">KG</span>
+              </div>
+              <p className="text-[10px] text-slate-400">
+                {completedExercisesCount} exercícios • {completedSetsCount} séries concluídas
+              </p>
+            </div>
+
+            {/* Seção da Foto */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-[#00d2ff]" /> Foto da Sessão
+                </span>
+                {postWorkoutPhoto && (
+                  <button
+                    type="button"
+                    onClick={() => setPostWorkoutPhoto(null)}
+                    className="text-[10px] text-rose-400 hover:underline flex items-center gap-0.5 cursor-pointer"
+                  >
+                    <Trash2 className="w-3 h-3" /> Remover
+                  </button>
+                )}
+              </div>
+
+              {!postWorkoutPhoto ? (
+                <button
+                  type="button"
+                  onClick={() => photoInputRef.current?.click()}
+                  className="w-full py-6 rounded-2xl bg-[#0f131c] border-2 border-dashed border-cyan-500/40 hover:border-[#00d2ff] flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-white transition-all cursor-pointer"
+                >
+                  <Camera className="w-6 h-6 text-[#00d2ff]" />
+                  <span className="text-xs font-bold text-white">Tirar Foto ou Escolher da Galeria</span>
+                  <span className="text-[10px] text-slate-500">Adicione foto do shape ou do treino</span>
+                </button>
+              ) : (
+                <div className="relative rounded-2xl overflow-hidden bg-black border border-cyan-500/40">
+                  <img
+                    src={postWorkoutPhoto}
+                    alt="Foto do treino"
+                    className="w-full max-h-48 object-cover rounded-2xl"
+                  />
+                  <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded-xl bg-black/80 backdrop-blur-md border border-cyan-500/40 text-[10px] font-mono font-bold text-[#00d2ff]">
+                    {completedTotalVolumeKg.toLocaleString('pt-BR')} KG
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Legenda do Post */}
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                Legenda do Post
+              </label>
+              <textarea
+                rows={3}
+                value={postWorkoutCaption}
+                onChange={(e) => setPostWorkoutCaption(e.target.value)}
+                placeholder="Como foi a sensação do treino de hoje..."
+                className="w-full bg-[#07090e] border border-slate-800 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00d2ff] resize-none"
+              />
+            </div>
+
+            {/* Botões de Ação */}
+            <div className="space-y-2 pt-1 border-t border-slate-800">
+              <button
+                type="button"
+                onClick={handlePublishPost}
+                className="w-full py-3.5 rounded-xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all cursor-pointer"
+              >
+                <Send className="w-3.5 h-3.5" /> Publicar no Feed Social
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSavePrivateOnly}
+                className="w-full py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-400 hover:text-white cursor-pointer"
+              >
+                Apenas Salvar Privado
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Modais Complementares */}
