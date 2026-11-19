@@ -20,8 +20,7 @@ import {
   Camera,
   Send,
   Trash2,
-  Zap,
-  Clock
+  Zap
 } from 'lucide-react';
 
 import { Header } from './components/layout/Header';
@@ -55,7 +54,7 @@ export default function App() {
   const [isWorkoutMinimized, setIsWorkoutMinimized] = useState(false);
   const [workoutElapsedSeconds, setWorkoutElapsedSeconds] = useState(0);
 
-  // Modais de Treino e Social
+  // Modais
   const [showExerciseLibrary, setShowExerciseLibrary] = useState(false);
   const [swapTargetExercise, setSwapTargetExercise] = useState<WorkoutExerciseItem | null>(null);
   const [showCreateChallenge, setShowCreateChallenge] = useState(false);
@@ -76,11 +75,127 @@ export default function App() {
   const [newlyCreatedPost, setNewlyCreatedPost] = useState<PostItem | null>(null);
   const photoInputRef = React.useRef<HTMLInputElement>(null);
 
-  const [activeSplitName, setActiveSplitName] = useState('ABCD CLÁSSICO PESADO');
-  const [activeWorkoutTitle, setActiveWorkoutTitle] = useState('Treino A — Peitorais, Deltóide & 3x Tríceps');
-  const [seriesPerExercise, setSeriesPerExercise] = useState(4);
+  // Seletor de Divisão e Treinos A, B, C, D
+  const [activeSplitLetter, setActiveSplitLetter] = useState<'A' | 'B' | 'C' | 'D'>(() => {
+    try {
+      const saved = localStorage.getItem('forzon_active_split_letter');
+      if (saved === 'A' || saved === 'B' || saved === 'C' || saved === 'D') return saved;
+    } catch {}
+    return 'A';
+  });
 
-  // 💧 HIDRATAÇÃO DIÁRIA (PERSISTENTE EM LOCALSTORAGE)
+  const [seriesPerExercise, setSeriesPerExercise] = useState<number>(4);
+
+  // Catálogo completo dos 4 Treinos da Periodização ABCD
+  const splitWorkoutsConfig = useMemo(() => {
+    return {
+      A: {
+        title: 'Treino A — Peitorais, Deltóide & 3x Tríceps',
+        tag: 'ABCD CLÁSSICO PESADO',
+        exercises: (seriesCount: number): WorkoutExerciseItem[] => [
+          { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: false })) },
+          { id: 2, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
+          { id: 3, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
+          { id: 4, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
+          { id: 5, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
+          { id: 6, name: 'Tríceps Testa com Barra W no Banco Reto', targetMuscle: 'Tríceps (Medial/Lateral)', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
+          { id: 7, name: 'Tríceps Francês Unilateral com Halter', targetMuscle: 'Tríceps (Cabeça Longa)', cue: 'Alongamento profundo com tronco reto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 10, completed: false })) },
+          { id: 8, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão)', cue: 'Abra as pontas da corda com pico isométrico.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 15, completed: false })) },
+          { id: 9, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
+        ],
+      },
+      B: {
+        title: 'Treino B — Dorsais, Deltóide Posterior & Bíceps',
+        tag: 'ABCD CLÁSSICO PESADO',
+        exercises: (seriesCount: number): WorkoutExerciseItem[] => [
+          { id: 101, name: 'Puxada Frontal na Polia Alta', targetMuscle: 'Latíssimo do Dorso', cue: 'Depressão escapular inicial, puxar cotovelos na linha da cintura.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: false })) },
+          { id: 102, name: 'Remada Curvada com Barra', targetMuscle: 'Dorsais & Rombóides', cue: 'Tronco a 45° estável, barra rente à coxa até o umbigo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 70.0, reps: 8, completed: false })) },
+          { id: 103, name: 'Remada Unilateral com Halter (Serrote)', targetMuscle: 'Latíssimo Unilateral', cue: 'Alongamento profundo na descida sem girar a lombar.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.0, reps: 10, completed: false })) },
+          { id: 104, name: 'Pulldown na Polia Alta com Corda', targetMuscle: 'Latíssimo do Dorso (Isolamento)', cue: 'Braços semi-estendidos com compressão dorsal máxima.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 30.0, reps: 12, completed: false })) },
+          { id: 105, name: 'Crucifixo Invertido no Peck Deck', targetMuscle: 'Deltóide Posterior', cue: 'Mantenha cotovelos levemente flexionados na altura dos ombros.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 40.0, reps: 12, completed: false })) },
+          { id: 106, name: 'Rosca Direta com Barra W', targetMuscle: 'Bíceps Braquial', cue: 'Cotovelos colados ao tronco, pico de contração de 1s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 28.0, reps: 10, completed: false })) },
+          { id: 107, name: 'Rosca Martelo com Halteres', targetMuscle: 'Braquial & Braquiorradial', cue: 'Pegada neutra controlando a fase excêntrica em 3 segundos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 16.0, reps: 10, completed: false })) },
+          { id: 108, name: 'Abdominal Infra na Paralela', targetMuscle: 'Abdômen Inferior', cue: 'Eleve os joelhos enrolando a pelve sem impulso.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 0, reps: 15, completed: false })) },
+        ],
+      },
+      C: {
+        title: 'Treino C — Quadríceps, Posterior & Panturrilhas',
+        tag: 'ABCD CLÁSSICO PESADO',
+        exercises: (seriesCount: number): WorkoutExerciseItem[] => [
+          { id: 201, name: 'Agachamento Livre com Barra', targetMuscle: 'Quadríceps & Glúteos', cue: 'Descida profunda abaixo de 90° mantendo peito aberto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 100.0, reps: 8, completed: false })) },
+          { id: 202, name: 'Leg Press 45°', targetMuscle: 'Membros Inferiores', cue: 'Pés na largura dos ombros, não hiperestender joelhos no topo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 240.0, reps: 10, completed: false })) },
+          { id: 203, name: 'Cadeira Extensora', targetMuscle: 'Quadríceps (Reto Femoral)', cue: 'Extensão completa com pausa isométrica de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 12, completed: false })) },
+          { id: 204, name: 'Mesa Flexora Deitada', targetMuscle: 'Isquiotibiais', cue: 'Quadril colado ao banco, flexão controlada sem elevar a pelve.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 50.0, reps: 10, completed: false })) },
+          { id: 205, name: 'Stiff com Barra', targetMuscle: 'Posterior & Glúteos', cue: 'Quadril para trás mantendo coluna neutra e peito estufado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 70.0, reps: 10, completed: false })) },
+          { id: 206, name: 'Panturrilha em Pé na Máquina', targetMuscle: 'Gastrocnêmio', cue: 'Alongamento máximo na descida e contração total na ponta dos pés.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 15, completed: false })) },
+        ],
+      },
+      D: {
+        title: 'Treino D — Deltóides Completos, Trapézio & Braços',
+        tag: 'ABCD CLÁSSICO PESADO',
+        exercises: (seriesCount: number): WorkoutExerciseItem[] => [
+          { id: 301, name: 'Desenvolvimento Militar com Barra', targetMuscle: 'Deltóide Anterior & Médio', cue: 'Glúteo travado, barra descendo até a clavícula.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 50.0, reps: 8, completed: false })) },
+          { id: 302, name: 'Elevação Lateral na Polia', targetMuscle: 'Deltóide Lateral', cue: 'Tensão contínua, cabo passando por trás do corpo.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 12, completed: false })) },
+          { id: 303, name: 'Encolhimento com Barra', targetMuscle: 'Trapézio Superior', cue: 'Elevação pura dos ombros em direção às orelhas sem girar.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 90.0, reps: 12, completed: false })) },
+          { id: 304, name: 'Rosca Scott com Barra W', targetMuscle: 'Bíceps (Cabeça Curta)', cue: 'Braços bem apoiados, não descolar axilas do banco.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 30.0, reps: 10, completed: false })) },
+          { id: 305, name: 'Tríceps Pulley com Barra V', targetMuscle: 'Tríceps Geral', cue: 'Cotovelos estabilizados, extensão até o travamento final.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 12, completed: false })) },
+          { id: 306, name: 'Roda Abdominal (Ab Wheel)', targetMuscle: 'Core & Estabilidade', cue: 'Projeção controlada mantendo ativação do abdômen e glúteos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 0, reps: 12, completed: false })) },
+        ],
+      },
+    };
+  }, []);
+
+  const activeWorkoutTitle = splitWorkoutsConfig[activeSplitLetter].title;
+  const activeSplitName = splitWorkoutsConfig[activeSplitLetter].tag;
+
+  // Exercícios do Treino Ativo com Persistência
+  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() => {
+    try {
+      const saved = localStorage.getItem(`forzon_workout_exercises_${activeSplitLetter}`);
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return splitWorkoutsConfig[activeSplitLetter].exercises(4);
+  });
+
+  // Trocar de Treino (A, B, C, D)
+  const handleSelectWorkoutSplit = (letter: 'A' | 'B' | 'C' | 'D') => {
+    setActiveSplitLetter(letter);
+    try {
+      localStorage.setItem('forzon_active_split_letter', letter);
+      const savedEx = localStorage.getItem(`forzon_workout_exercises_${letter}`);
+      if (savedEx) {
+        setActiveWorkoutExercises(JSON.parse(savedEx));
+        return;
+      }
+    } catch {}
+    const fresh = splitWorkoutsConfig[letter].exercises(seriesPerExercise);
+    setActiveWorkoutExercises(fresh);
+  };
+
+  // Salvar alterações nos exercícios
+  const handleUpdateExercises = (updated: WorkoutExerciseItem[]) => {
+    setActiveWorkoutExercises(updated);
+    try {
+      localStorage.setItem(`forzon_workout_exercises_${activeSplitLetter}`, JSON.stringify(updated));
+    } catch {}
+  };
+
+  const handleToggleSeriesCount = (count: number) => {
+    setSeriesPerExercise(count);
+    const updated = activeWorkoutExercises.map((ex) => {
+      let newSets = [...ex.sets];
+      if (count === 3 && newSets.length > 3) {
+        newSets = newSets.slice(0, 3);
+      } else if (count === 4 && newSets.length < 4) {
+        const last = newSets[newSets.length - 1] || { weightKg: 20, reps: 10 };
+        newSets.push({ setNumber: 4, weightKg: last.weightKg, reps: Math.max(6, last.reps - 2), completed: false });
+      }
+      return { ...ex, sets: newSets };
+    });
+    handleUpdateExercises(updated);
+  };
+
+  // 💧 HIDRATAÇÃO DIÁRIA
   const [waterGoalMl, setWaterGoalMl] = useState<number>(3200);
   const [waterIntakeMl, setWaterIntakeMl] = useState<number>(() => {
     try {
@@ -127,78 +242,13 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const generateExercisesForSplit = (split: string, seriesCount: number): WorkoutExerciseItem[] => {
-    if (split.includes('Upper') || split.includes('Lower')) {
-      return [
-        { id: 1, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior', cue: 'Descida controlada até a linha dos mamilos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 8, completed: false })) },
-        { id: 2, name: 'Puxada Frontal na Polia Alta', targetMuscle: 'Latíssimo do Dorso', cue: 'Puxe direcionando cotovelos para os bolsos.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 65.0, reps: 10, completed: false })) },
-        { id: 3, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
-        { id: 4, name: 'Remada Curvada com Barra', targetMuscle: 'Costas', cue: 'Tronco a 45° com curvatura anatômica.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 60.0, reps: 10, completed: false })) },
-        { id: 5, name: 'Tríceps Testa com Barra W', targetMuscle: 'Tríceps', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
-        { id: 6, name: 'Rosca Direta com Barra W', targetMuscle: 'Bíceps', cue: 'Flexão estrita sem balanço de tronco.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 10, completed: false })) },
-        { id: 7, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
-      ];
-    }
-    return [
-      { id: 1, name: 'Supino Inclinado com Halteres', targetMuscle: 'Peitoral Superior', cue: 'Pegada neutra a 30° com retração escapular ativa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 32.5, reps: 10, completed: false })) },
-      { id: 2, name: 'Supino Reto com Barra Olímpica', targetMuscle: 'Peitoral Maior (Esternal)', cue: 'Descida controlada até os mamilos mantendo arco firme.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 80.0, reps: 10, completed: false })) },
-      { id: 3, name: 'Crucifixo no Crossover (Polia Média)', targetMuscle: 'Peitoral Médio', cue: 'Tensão constante em todo o arco. Pico de 2s.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 17.5, reps: 12, completed: false })) },
-      { id: 4, name: 'Elevação Lateral com Halteres', targetMuscle: 'Deltóide Lateral', cue: 'Plano escapular com cotovelos liderando o vetor.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 14.0, reps: 15, completed: false })) },
-      { id: 5, name: 'Desenvolvimento com Halteres Sentado', targetMuscle: 'Deltóides', cue: 'Banco a 80°, empurrar vertical.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 24.0, reps: 10, completed: false })) },
-      { id: 6, name: 'Tríceps Testa com Barra W no Banco Reto', targetMuscle: 'Tríceps (Medial/Lateral)', cue: 'Cotovelos fechados, descida até a testa.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 12, completed: false })) },
-      { id: 7, name: 'Tríceps Francês Unilateral com Halter', targetMuscle: 'Tríceps (Cabeça Longa)', cue: 'Alongamento profundo com tronco reto.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 12.5, reps: 10, completed: false })) },
-      { id: 8, name: 'Tríceps Corda na Polia Alta', targetMuscle: 'Tríceps (Extensão)', cue: 'Abra as pontas da corda com pico isométrico.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 25.0, reps: 15, completed: false })) },
-      { id: 9, name: 'Abdominal na Polia Alta (Cable Crunch)', targetMuscle: 'Abdômen Dinâmico', cue: 'Aproxime as costelas da pelve com quadril travado.', sets: Array.from({ length: seriesCount }, (_, i) => ({ setNumber: i + 1, weightKg: 35.0, reps: 15, completed: false })) },
-    ];
-  };
-
-  const [activeWorkoutExercises, setActiveWorkoutExercises] = useState<WorkoutExerciseItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('forzon_active_workout_exercises');
-      if (saved) return JSON.parse(saved);
-    } catch {}
-    return generateExercisesForSplit('ABCD Clássico', 4);
-  });
-
-  // Salvar exercícios em andamento
-  const handleUpdateExercises = (updated: WorkoutExerciseItem[]) => {
-    setActiveWorkoutExercises(updated);
-    try {
-      localStorage.setItem('forzon_active_workout_exercises', JSON.stringify(updated));
-    } catch {}
-  };
-
-  const handleToggleSeriesCount = (count: number) => {
-    setSeriesPerExercise(count);
-    const updated = activeWorkoutExercises.map((ex) => {
-      let newSets = [...ex.sets];
-      if (count === 3 && newSets.length > 3) {
-        newSets = newSets.slice(0, 3);
-      } else if (count === 4 && newSets.length < 4) {
-        const last = newSets[newSets.length - 1] || { weightKg: 20, reps: 10 };
-        newSets.push({ setNumber: 4, weightKg: last.weightKg, reps: Math.max(6, last.reps - 2), completed: false });
-      }
-      return { ...ex, sets: newSets };
-    });
-    handleUpdateExercises(updated);
-  };
-
   const handleApplyMedicalIntake = (data: MedicalIntakeData) => {
-    const split = data.splitPreference || 'ABCD Clássico';
     const series = (data.exactSessionMinutes && data.exactSessionMinutes <= 50) ? 3 : 4;
     if (data.waterLiters) {
       setWaterGoalMl(Math.round(data.waterLiters * 1000));
     }
-    setActiveSplitName(split.toUpperCase());
     setSeriesPerExercise(series);
-    if (split.includes('Upper') || split.includes('Lower')) {
-      setActiveWorkoutTitle('Treino A — Superiores Completos (Upper 1)');
-    } else if (split.includes('Full')) {
-      setActiveWorkoutTitle('Treino A — Corpo Inteiro (Full Body 1)');
-    } else {
-      setActiveWorkoutTitle('Treino A — Peitorais, Deltóide & 3x Tríceps');
-    }
-    const fresh = generateExercisesForSplit(split, series);
+    const fresh = splitWorkoutsConfig[activeSplitLetter].exercises(series);
     handleUpdateExercises(fresh);
     setShowIntakeModal(false);
     setActiveTab('workout');
@@ -250,7 +300,7 @@ export default function App() {
     setCompletedExercisesCount(exercisesToCompute.length);
     setCompletedSetsCount(completedSets);
     setPostWorkoutCaption(
-      `🔥 Treino finalizado com sucesso! Levantei ${Math.round(totalKg).toLocaleString('pt-BR')} kg no total em ${Math.round(
+      `🔥 ${activeWorkoutTitle} finalizado com sucesso! Levantei ${Math.round(totalKg).toLocaleString('pt-BR')} kg no total em ${Math.round(
         Math.max(workoutElapsedSeconds, 60) / 60
       )} min. Superando limites no FORZON! ⚡`
     );
@@ -303,20 +353,13 @@ export default function App() {
     setShowPostWorkoutModal(false);
     setWorkoutElapsedSeconds(0);
     setPostWorkoutPhoto(null);
-    try {
-      localStorage.removeItem('forzon_active_workout_exercises');
-    } catch {}
     setActiveTab('community');
   };
 
-  // Apenas salvar privado
   const handleSavePrivateOnly = () => {
     setShowPostWorkoutModal(false);
     setWorkoutElapsedSeconds(0);
     setPostWorkoutPhoto(null);
-    try {
-      localStorage.removeItem('forzon_active_workout_exercises');
-    } catch {}
     setActiveTab('workout');
   };
 
@@ -424,9 +467,10 @@ export default function App() {
       <Header streakDays={14} userName={userName} userAvatar={avatarUrl} onOpenCoach={() => setShowIntakeModal(true)} />
 
       <main className="max-w-md mx-auto w-full px-4 pt-4 flex-1 space-y-4">
-        {/* ABA 1: TREINO */}
+        {/* ================= ABA 1: TREINO ================= */}
         {activeTab === 'workout' && (
           <div className="space-y-4 animate-in fade-in">
+            {/* Banner Coach IA */}
             <div className="p-4 rounded-3xl bg-gradient-to-r from-cyan-950/70 via-[#0f131c] to-[#0a0e17] border border-cyan-500/40 flex items-center justify-between shadow-[0_0_25px_rgba(0,210,255,0.15)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-[#00d2ff] shadow-[0_0_15px_rgba(0,210,255,0.3)]">
@@ -446,6 +490,31 @@ export default function App() {
               </button>
             </div>
 
+            {/* SELETOR OFICIAL DOS TREINOS A, B, C, D */}
+            <div className="p-2 rounded-2xl bg-[#0f131c] border border-slate-800 grid grid-cols-4 gap-1.5 shadow-[0_0_15px_rgba(0,210,255,0.05)]">
+              {(['A', 'B', 'C', 'D'] as const).map((letter) => {
+                const isSelected = activeSplitLetter === letter;
+                return (
+                  <button
+                    key={letter}
+                    type="button"
+                    onClick={() => handleSelectWorkoutSplit(letter)}
+                    className={`py-2 px-1 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-center ${
+                      isSelected
+                        ? 'bg-[#00d2ff] text-neutral-950 font-black shadow-[0_0_15px_#00d2ff]'
+                        : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800/80'
+                    }`}
+                  >
+                    <span className="text-xs uppercase tracking-wider">Treino {letter}</span>
+                    <span className={`text-[9px] truncate max-w-[65px] ${isSelected ? 'text-neutral-900 font-bold' : 'text-slate-500'}`}>
+                      {letter === 'A' ? 'Peito/Tríceps' : letter === 'B' ? 'Costas/Bíceps' : letter === 'C' ? 'Pernas/Glúteo' : 'Ombros/Braço'}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Card Detalhado do Treino Selecionado */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 space-y-3 shadow-[0_0_20px_rgba(0,210,255,0.1)]">
               <div className="flex items-center justify-between">
                 <div>
@@ -465,10 +534,12 @@ export default function App() {
               </div>
             </div>
 
+            {/* Botão de Iniciar Treino */}
             <button type="button" onClick={() => { setShowLiveWorkout(true); setIsWorkoutMinimized(false); }} className="w-full py-4 rounded-2xl bg-[#00d2ff] hover:bg-cyan-400 text-neutral-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(0,210,255,0.35)] transition-all cursor-pointer">
-              <Play className="w-5 h-5 fill-neutral-950" /> {isWorkoutMinimized ? 'Continuar Treino em Andamento' : 'Iniciar Treino ao Vivo Agora'}
+              <Play className="w-5 h-5 fill-neutral-950" /> {isWorkoutMinimized ? 'Continuar Treino em Andamento' : `Iniciar ${activeWorkoutTitle.split('—')[0]} Agora`}
             </button>
 
+            {/* Lista dos Exercícios do Treino Selecionado */}
             <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Sequência Principal ({activeWorkoutExercises.length} Movimentos)</span>
@@ -480,7 +551,9 @@ export default function App() {
               {activeWorkoutExercises.map((ex, idx) => (
                 <div key={ex.id} className="p-3.5 rounded-2xl bg-[#0f131c] border border-slate-800 hover:border-cyan-500/40 transition-all flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-[#00d2ff]">0{idx + 1}</span>
+                    <span className="w-7 h-7 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-[#00d2ff]">
+                      {idx < 9 ? `0${idx + 1}` : idx + 1}
+                    </span>
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="text-xs font-bold text-white">{ex.name}</h4>
@@ -499,6 +572,7 @@ export default function App() {
               ))}
             </div>
 
+            {/* Cardio Integrado */}
             <div className="p-4 rounded-3xl bg-[#0f131c] border border-cyan-500/30 flex items-center justify-between shadow-[0_0_15px_rgba(0,210,255,0.08)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]"><Activity className="w-5 h-5" /></div>
@@ -517,6 +591,7 @@ export default function App() {
               </div>
             </div>
 
+            {/* Atalhos Rápidos */}
             <div className="space-y-2 pt-1">
               <button type="button" onClick={() => setShowIntakeModal(true)} className="w-full p-3.5 rounded-2xl bg-[#0f131c] border border-cyan-500/30 hover:border-[#00d2ff] flex items-center justify-between transition-all cursor-pointer group">
                 <div className="flex items-center gap-2.5">
@@ -545,7 +620,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ABA 2: NUTRIÇÃO */}
+        {/* ================= ABA 2: NUTRIÇÃO ================= */}
         {activeTab === 'nutrition' && (
           <div className="space-y-4 animate-in fade-in">
             <div className="flex items-center justify-between pb-1">
@@ -692,14 +767,14 @@ export default function App() {
           </div>
         )}
 
-        {/* ABA 3: BIOFEEDBACK */}
+        {/* ================= ABA 3: BIOFEEDBACK ================= */}
         {activeTab === 'bio' && (
           <div className="space-y-4 animate-in fade-in">
             <BiofeedbackReadinessCard onOpenCoach={() => setShowIntakeModal(true)} />
           </div>
         )}
 
-        {/* ABA 4: COMUNIDADE */}
+        {/* ================= ABA 4: COMUNIDADE ================= */}
         {activeTab === 'community' && (
           <div className="space-y-4 animate-in fade-in">
             <CommunityFeedView
@@ -711,7 +786,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ABA 5: PERFIL */}
+        {/* ================= ABA 5: PERFIL ================= */}
         {activeTab === 'profile' && (
           <div className="space-y-4 animate-in fade-in">
             <ProfileView
@@ -770,7 +845,6 @@ export default function App() {
           />
 
           <div className="bg-[#0a0e17] border border-cyan-500/40 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-[0_0_40px_rgba(0,210,255,0.25)] max-h-[92vh] overflow-y-auto">
-            {/* Header */}
             <div className="flex items-center justify-between pb-2 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-[#00d2ff]">
@@ -790,7 +864,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* Banner de Carga Total Levantada */}
             <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/70 via-[#0f131c] to-[#07090e] border border-cyan-500/40 text-center space-y-1 shadow-[0_0_20px_rgba(0,210,255,0.12)]">
               <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-[9px] font-mono text-[#00d2ff] font-bold">
                 <Zap className="w-3 h-3 fill-current" /> CARGA TOTAL COMPUTADA
@@ -804,7 +877,6 @@ export default function App() {
               </p>
             </div>
 
-            {/* Seção da Foto */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-300 flex items-center gap-1.5">
@@ -845,7 +917,6 @@ export default function App() {
               )}
             </div>
 
-            {/* Legenda do Post */}
             <div className="space-y-1">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                 Legenda do Post
@@ -859,7 +930,6 @@ export default function App() {
               />
             </div>
 
-            {/* Botões de Ação */}
             <div className="space-y-2 pt-1 border-t border-slate-800">
               <button
                 type="button"
@@ -928,3 +998,6 @@ export default function App() {
     </div>
   );
 }
+
+
+
